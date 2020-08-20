@@ -2,15 +2,16 @@
  * axios-http
  * 基于Promise 的 HTTP 请求客户端
  * https://www.awesomes.cn/repo/mzabriskie/axios
- * 
+ *
  * @version 0.1.2
- * 
+ *
  * 使用:
  * http://www.jianshu.com/p/df464b26ae58
  */
 
 import axios from 'axios';
 import qs from 'qs'
+import { Toast } from 'vant'
 
 export default {
     install: function (Vue, config) {
@@ -31,12 +32,12 @@ export default {
             headers: {
                 'Content-Type':'application/x-www-form-urlencoded',//默认的请求头
             },
-            
+
         });
 
         // request 请求拦截器
         instance.interceptors.request.use(config => {
-            
+
             // 根据dataType获取headers
             const lib = {//dataType封装常用类型
                 json: 'application/json',
@@ -64,7 +65,7 @@ export default {
                     config.data = qs.stringify(config.data)//用qs处理data
                 }
             }
-            
+
             return config
         }, error => {
             // Do something with request error
@@ -78,7 +79,13 @@ export default {
             // if (!res) {//未登录
             //     window.location.href = window.location.origin + '#/login' //跳转到登录页面
             // }
-            return res
+            if (res.data.errorCode === '00003') {
+                Toast('您的身份信息已过期 需要重新进入哟')
+            } else if (res.data.errorCode === '00000') {
+                return res.data
+            } else {
+                Promise.reject(res.data)
+            }
         }, error => {
             // Do something with request error
             console.error(error) // for debug
@@ -104,7 +111,7 @@ export default {
                     });
             })
         }
-        
+
         const $http = function(config, data){
             if(typeof config === 'object'){
                 return instance({
