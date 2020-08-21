@@ -1,4 +1,6 @@
 // 全局方法
+import { isEmpty } from 'plain-kit'
+
 const STORAGE_KEY = 'user'
 export default {
     install: function (Vue) {
@@ -75,6 +77,10 @@ export default {
                 }
                 return ''
             }
+        })
+
+        Object.defineProperty(Vue.prototype, '$isEmpty', {
+            value: isEmpty
         })
 
     }

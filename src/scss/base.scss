@@ -2,7 +2,7 @@
 html,
 body {
     padding: 0;
-    margin: 0; 
+    margin: 0;
     font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
     color: $ui-color-black;
     background: $ui-bg-grey;
@@ -198,7 +198,7 @@ input,textarea{
     }
     &.flex-wrap-reverse {
         flex-wrap: wrap-reverse;
-    } 
+    }
     //横向对齐方式
     &.row-left {
         justify-content: flex-start;
@@ -214,7 +214,7 @@ input,textarea{
     }
     &.row-around {
         justify-content: space-around;
-    } 
+    }
     //纵向对齐方式
     &.col-top {
         align-items: flex-start;
@@ -429,7 +429,7 @@ input,textarea{
     opacity: 1;
 }
 
-// 文本格式 
+// 文本格式
 .pre{
     white-space: pre
 }
@@ -460,5 +460,31 @@ input,textarea{
 @for $i from 2 through 5 {
     .ellipsis-#{$i}{
         @include text-clamp($i);
+    }
+}
+
+@for $i from 1 through 9 {
+    .scale-0#{$i} {
+        transform: scale($i * .1);
+    }
+}
+
+@supports (bottom: constant(safe-area-inset-bottom)) or (bottom: env(safe-area-inset-bottom)) {
+    .safe-area {
+        padding-bottom: constant(safe-area-inset-bottom) !important;
+        padding-bottom: env(safe-area-inset-bottom) !important;
+    }
+}
+
+@supports (bottom: constant(safe-area-inset-bottom)) or (bottom: env(safe-area-inset-bottom)) {
+    .safe-area-plus {
+        padding-bottom: calc(constant(safe-area-inset-bottom) + 9px) !important;
+        padding-bottom: calc(env(safe-area-inset-bottom) + 9px) !important;
+    }
+}
+
+@supports (not(bottom: constant(safe-area-inset-bottom))) and (not (bottom: env(safe-area-inset-bottom))) {
+    .safe-area-plus {
+        padding-bottom: 9px !important;
     }
 }
