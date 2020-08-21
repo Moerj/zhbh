@@ -1,7 +1,7 @@
 export default [
     {
-        path:'/home',
+        path:'/guest-home',
+        name: '嘉宾首页',
         component: ()=>import('./home.vue'),
-        meta:{root:true}
     }
 ]

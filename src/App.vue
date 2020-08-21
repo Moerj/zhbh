@@ -3,17 +3,18 @@
         <div class="flex-1 relative">
             <router-view/>
         </div>
-        <!--<bottombar></bottombar>-->
+        
+        <guestTabbar />
     </div>
 </template>
 
 <script>
-    //import bottombar from '@/pages/rootMenu'
-
+    // 嘉宾一级页面底部栏
+    import guestTabbar from '@/pages/guest-group/rootMenu'
     export default {
         name: 'App',
-        /*components:{
-            bottombar
-        }*/
+        components:{
+            guestTabbar
+        }
     }
 </script>

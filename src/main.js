@@ -16,6 +16,13 @@ import routes from './assets/router';
 const router = new VueRouter({
   routes
 })
+// 路由改变,自动设置页面title
+router.beforeEach((to,from,next)=>{
+  if (to.name) {
+    document.title = to.name || '云悠途微商城'
+  }
+  next()
+});
 
 // http 模块
 import axios from './assets/axios';
