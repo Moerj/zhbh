@@ -1,4 +1,6 @@
 # 智慧办会h5
+h5请使用云景提供的框架进行开发.  
+云景派一人前端参与h5的开发(会务组模块),其余部分由外包团队开发.
 
 ## 组件库
 ### 主库
@@ -27,3 +29,16 @@ https://app.mockplus.cn/app/YYfJI_gFfIm/storyboard
 ## 前端代码仓库
 请前端的申请github账号，然后发账号名给我拉进项目
 https://github.com/Moerj/zhbh
+
+
+# 后台管理
+
+## 基础架构
+vue全家桶
+
+## 组件库
+请务必使用element-ui
+https://element.eleme.cn/#/zh-CN/component/installation
+
+## 其他
+后台管理系统请外包团队自行搭建框架和代码仓库,直至交付.
