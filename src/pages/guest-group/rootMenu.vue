@@ -1,5 +1,5 @@
 <template>
-    <van-tabbar v-model="active" v-if="show" :fixed="false">
+    <van-tabbar v-model="active" v-if="show" :fixed="false" active-color="#C7000B">
         <van-tabbar-item v-for="item in items" :icon="item.icon" :key="item.label" @click="clickItem(item)">{{item.label}}</van-tabbar-item>
     </van-tabbar>
 </template>
@@ -11,7 +11,7 @@
                 items:[
                     { icon:'wap-home-o',label:'首页', path:'/guest-home' },
                     { icon:'sign',label:'活动报名', path:'/activity' },
-                    { icon:'user-o',label:'个人中心', path:'/guest-me' },
+                    { icon:'user-o',label:'我的', path:'/guest-me' },
                 ],
                 show: false
             }
