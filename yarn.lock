@@ -3081,10 +3081,15 @@ date-fns@^1.30.1:
   resolved "https://registry.npmjs.org/date-fns/-/date-fns-1.30.1.tgz#2e71bf0b119153dbb4cc4e88d9ea5acfb50dc05c"
   integrity sha512-hBSVCvSmWC+QypYObzwGOd9wqdDpOt+0wl0KbU+R+uuZBS1jN8VsD1ss3irQDknRj5NvxiTF6oj/nDRnN/UQNw==
 
-dayjs@^1.8.26, dayjs@^1.8.33:
+dayjs@^1.8.26:
   version "1.8.33"
   resolved "https://registry.npmjs.org/dayjs/-/dayjs-1.8.33.tgz#18bc4a2b6c1c6f4d67b4c4f2536c0b97e5b766f7"
   integrity sha512-881TDLZCdpJFKbraWRHcUG8zfMLLX400ENf9rFZDuWc5zYMss6xifo2PhlDX0ftOmR2NRmaIY47bAa4gKQfXqw==
+
+dayjs@^1.8.34:
+  version "1.8.34"
+  resolved "https://registry.npmjs.org/dayjs/-/dayjs-1.8.34.tgz#d3ad33cc43d6b0f24cb8686b90aad2c653708069"
+  integrity sha512-Olb+E6EoMvdPmAMq2QoucuyZycKHjTlBXmRx8Ada+wGtq4SIXuDCdtoaX4KkK0yjf1fJLnwXQURr8gQKWKaybw==
 
 de-indent@^1.0.2:
   version "1.0.2"
@@ -6315,14 +6320,14 @@ pkg-dir@^4.1.0:
   dependencies:
     find-up "^4.0.0"
 
-plain-kit@^0.3.0-alpha.0:
-  version "0.3.0-alpha.0"
-  resolved "https://registry.npmjs.org/plain-kit/-/plain-kit-0.3.0-alpha.0.tgz#664653f46c3e73af1b7c955ea3a5261d3c2a2f1e"
-  integrity sha512-Fq2MCN0f6WZM4KcMYQbiaDcWn7gMGRgln9L0LhdX1SVu3tmOGMb4pW+JJSnVbARa+xtlGSv23+dn8KPLiUCflQ==
+plain-kit@0.3.0-alpha.1:
+  version "0.3.0-alpha.1"
+  resolved "https://registry.npmjs.org/plain-kit/-/plain-kit-0.3.0-alpha.1.tgz#d0817c410a832b13ebc4320c1b83b8c097be3ce8"
+  integrity sha512-nRWo44b2zavB05/5Uj+Nlul1dK4BtkY0btzKehQbXSmknF67qNdT9FvWrvz8L7Fygz7MemUXeAcWlf+WCI8L+A==
   dependencies:
     animate.css "^4.1.0"
     core-js "^3.6.0"
-    dayjs "^1.8.33"
+    dayjs "^1.8.34"
     lodash "^4.17.20"
     qrcode "^1.4.4"
     qs "^6.9.4"
