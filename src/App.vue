@@ -3,17 +3,17 @@
         <div class="flex-1 relative">
             <router-view/>
         </div>
-        <bottombar></bottombar>
+        <!--<bottombar></bottombar>-->
     </div>
 </template>
 
 <script>
-    import bottombar from '@/pages/rootMenu'
-    
+    //import bottombar from '@/pages/rootMenu'
+
     export default {
         name: 'App',
-        components:{
+        /*components:{
             bottombar
-        }
+        }*/
     }
 </script>
