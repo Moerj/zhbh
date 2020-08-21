@@ -6,10 +6,6 @@ const routerArry = [
         component: () => import(/* webpackChunkName: "demo" */ './index')
     },
     {
-        path:'/demo-markdown',
-        component: () => import(/* webpackChunkName: "demo" */ './markdown')
-    },
-    {
         path:'/demo-style',
         component: () => import(/* webpackChunkName: "demo" */ './style')
     },

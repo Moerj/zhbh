@@ -1,5 +1,5 @@
 // 全局方法
-import { isEmpty } from 'plann-kit'
+import { isEmpty } from 'plain-kit'
 
 const STORAGE_KEY = 'user'
 export default {
