@@ -1,10 +1,13 @@
 # 智慧办会h5
 
 ## 组件库
-主库,已全局引用,直接使用
+### 主库
+已全局引用,直接使用
 https://youzan.github.io/vant/#/zh-CN/
 
-扩展库,已全局引用,部分直接使用
+### 扩展库
+请详细阅读扩展库的页面类组件,会非常常用,比如 ui-main  
+已全局引用,直接使用
 https://moerj.com/vant-ui/#/demo-markdown?nav=readme
 
 
