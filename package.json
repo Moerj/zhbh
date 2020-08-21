@@ -1,5 +1,5 @@
 {
-  "name": "智慧办会",
+  "name": "zhbh",
   "scripts": {
     "dev": "vue-cli-service serve",
     "build": "vue-cli-service build",
