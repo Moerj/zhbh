@@ -1,5 +1,5 @@
 <template>
-    <van-tabbar v-model="active" v-if="show">
+    <van-tabbar v-model="active" v-if="show" :fixed="false">
         <van-tabbar-item v-for="item in items" :icon="item.icon" :key="item.label" @click="clickItem(item)">{{item.label}}</van-tabbar-item>
     </van-tabbar>
 </template>
