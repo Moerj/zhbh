@@ -1,5 +1,5 @@
 <template>
-    <van-tabbar v-model="active" v-if="$route.meta.root">
+    <van-tabbar v-model="active" v-if="show" :fixed="false" active-color="#C7000B">
         <van-tabbar-item v-for="item in items" :icon="item.icon" :key="item.label" @click="clickItem(item)">{{item.label}}</van-tabbar-item>
     </van-tabbar>
 </template>
@@ -9,9 +9,11 @@
             return {
                 active:0,
                 items:[
-                    { icon:'shop',label:'首页', path:'/home' },
-                    { icon:'gold-coin',label:'个人中心', path:'/me' },
+                    { icon:'wap-home-o',label:'首页', path:'/guest-home' },
+                    { icon:'sign',label:'活动报名', path:'/activity' },
+                    { icon:'user-o',label:'我的', path:'/guest-me' },
                 ],
+                show: false
             }
         },
         mounted(){
@@ -30,8 +32,14 @@
         },
         watch:{
             $route(){
-                if (this.$route.meta.root) {
+                const rootPathArry = this.items.map((item) => {
+                    return item.path
+                })
+                if (rootPathArry.includes(this.$route.path)) {
                     this.updateTabState()
+                    this.show = true
+                }else{
+                    this.show = false
                 }
             }
         },

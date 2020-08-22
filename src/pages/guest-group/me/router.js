@@ -1,8 +1,7 @@
 export default [
     {
-        path:'/me',
-        name:'我的',
-        meta:{root:true},
+        path:'/guest-me',
+        name:'嘉宾我的',
         component:()=>import('./index.vue')
     }
 ]

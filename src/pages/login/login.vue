@@ -102,11 +102,8 @@
         },
         methods:{
             login(){
-                if (window.innerWidth > 800) {
-                    this.$router.replace('/demo-markdown') //pc查看 markdown + demo
-                }else{
-                    this.$router.replace('/demo') //手机只看 demo
-                }
+                // 请根据账号判断是登录那个首页, 比如嘉宾或者是会务组
+                this.$router.replace('/guest-home')
             }
         },
     }

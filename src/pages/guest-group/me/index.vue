@@ -38,13 +38,13 @@
 <template>
     <ui-main>
         <div class="flex-column h-100">
-            <img src="../login/login-bg.jpg" class="bg flex-1" style="filter:blur(2px)">
+            <img src="@/pages/login/login-bg.jpg" class="bg flex-1" style="filter:blur(2px)">
             <div class="con flex-1">
                 <div class="card">
                     <div class="avatar">
                         <van-icon name="contact" size="40px"></van-icon>
                     </div>
-                    <p class="f18 f-bold text-center">博益科技</p>
+                    <p class="f18 f-bold text-center">云景文旅</p>
                     <div class="f16 opacity-05 text-center">1808888888</div>
                 </div>
 
