@@ -1,6 +1,6 @@
 export default [
   {
-    path: 'my-journey',
+    path: '/conference-group/my-journey',
     name: '我的行程',
     component: () => import('./index.vue'),
     children: [
@@ -9,6 +9,7 @@ export default [
         name: '行程详情',
         component: () => import('./detail/index.vue'),
       },
-    ]
+    ],
+    meta: { root: true }
   },
 ]

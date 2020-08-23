@@ -3081,15 +3081,15 @@ date-fns@^1.30.1:
   resolved "https://registry.npmjs.org/date-fns/-/date-fns-1.30.1.tgz#2e71bf0b119153dbb4cc4e88d9ea5acfb50dc05c"
   integrity sha512-hBSVCvSmWC+QypYObzwGOd9wqdDpOt+0wl0KbU+R+uuZBS1jN8VsD1ss3irQDknRj5NvxiTF6oj/nDRnN/UQNw==
 
+dayjs@1.8.34, dayjs@^1.8.34:
+  version "1.8.34"
+  resolved "https://registry.npmjs.org/dayjs/-/dayjs-1.8.34.tgz#d3ad33cc43d6b0f24cb8686b90aad2c653708069"
+  integrity sha512-Olb+E6EoMvdPmAMq2QoucuyZycKHjTlBXmRx8Ada+wGtq4SIXuDCdtoaX4KkK0yjf1fJLnwXQURr8gQKWKaybw==
+
 dayjs@^1.8.26:
   version "1.8.33"
   resolved "https://registry.npmjs.org/dayjs/-/dayjs-1.8.33.tgz#18bc4a2b6c1c6f4d67b4c4f2536c0b97e5b766f7"
   integrity sha512-881TDLZCdpJFKbraWRHcUG8zfMLLX400ENf9rFZDuWc5zYMss6xifo2PhlDX0ftOmR2NRmaIY47bAa4gKQfXqw==
-
-dayjs@^1.8.34:
-  version "1.8.34"
-  resolved "https://registry.npmjs.org/dayjs/-/dayjs-1.8.34.tgz#d3ad33cc43d6b0f24cb8686b90aad2c653708069"
-  integrity sha512-Olb+E6EoMvdPmAMq2QoucuyZycKHjTlBXmRx8Ada+wGtq4SIXuDCdtoaX4KkK0yjf1fJLnwXQURr8gQKWKaybw==
 
 de-indent@^1.0.2:
   version "1.0.2"
@@ -4952,6 +4952,11 @@ jest-worker@^25.4.0:
   dependencies:
     merge-stream "^2.0.0"
     supports-color "^7.0.0"
+
+jqlite@^0.2.42:
+  version "0.2.42"
+  resolved "https://registry.npmjs.org/jqlite/-/jqlite-0.2.42.tgz#b0755f829e29586ddc0eb8e938a9a3768d5c6074"
+  integrity sha1-sHVfgp4pWG3cDrjpOKmjdo1cYHQ=
 
 js-base64@^2.1.8, js-base64@^2.1.9:
   version "2.6.4"
@@ -6866,7 +6871,7 @@ qs@6.7.0:
   resolved "https://registry.npmjs.org/qs/-/qs-6.7.0.tgz#41dc1a015e3d581f1621776be31afb2876a9b1bc"
   integrity sha512-VCdBRNFTX1fyE7Nb6FYoURo/SPe62QCaAyzJvUjwRaIsc+NePBEniHlvxFmmX56+HZphIGtV0XeCirBtpDrTyQ==
 
-qs@^6.9.4:
+qs@6.9.4, qs@^6.9.4:
   version "6.9.4"
   resolved "https://registry.npmjs.org/qs/-/qs-6.9.4.tgz#9090b290d1f91728d3c22e54843ca44aea5ab687"
   integrity sha512-A1kFqHekCTM7cz0udomYUoYNWjBebHm/5wzU/XqrBRBNWectVH0QIiN+NEcZ0Dte5hvzHwbr8+XQmguPhJ6WdQ==
@@ -8482,15 +8487,16 @@ validate-npm-package-license@^3.0.1:
     spdx-correct "^3.0.0"
     spdx-expression-parse "^3.0.0"
 
-vant-ui@2.0.8:
-  version "2.0.8"
-  resolved "https://registry.npmjs.org/vant-ui/-/vant-ui-2.0.8.tgz#365dab4230d79eee856a6b901d610ed47525562c"
-  integrity sha512-Jp3sds6A+VYtBLob2ab5Kn0LWbCdnp+F6NQnkyOSxLxjkKfHFedM/F0el8sOI1r0l79O/yc5bge3fmMDebP4zw==
+vant-ui@2.1.2:
+  version "2.1.2"
+  resolved "https://registry.npmjs.org/vant-ui/-/vant-ui-2.1.2.tgz#f1e74efa8d3e698a94ba796646f0355fe58e4a94"
+  integrity sha512-axrTzqR74PGsjLYXsAyzaD2tf2hdPqs8bskmsphOgQlhfG5ipmxPfWfC7MclScQHKUDxRsTI3D/ZLj0Kl8Sv1Q==
   dependencies:
+    jqlite "^0.2.42"
     photoswipe "^4.1.3"
-    vant "^2.9.4"
+    vant "^2.10.2"
 
-vant@^2.9.4:
+vant@^2.10.2:
   version "2.10.2"
   resolved "https://registry.npmjs.org/vant/-/vant-2.10.2.tgz#f792d8583315c932f4a70051c122904b9c6e5002"
   integrity sha512-lIM50V4uzGFHfG7FlQG0KAHpIJFApnUk2jE2GhFsFfWE1ff3L9D9ZcK37sgwZMpnRFf6bhwJf3AZxs9PPdHGVg==

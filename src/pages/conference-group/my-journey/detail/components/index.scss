@@ -1,0 +1,26 @@
+.wrapper {
+  padding: 15px;
+  background-color: #fff;
+
+  &:not(:last-child) {
+    margin-bottom: 15px;
+  }
+}
+
+.title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #292a2c;
+  position: relative;
+
+  &:before {
+    content: '';
+    position: absolute;
+    left: -15px;
+    top: 5px;
+    width: 4px;
+    height: 15px;
+    background: #c7000b;
+    border-radius: 2px;
+  }
+}
