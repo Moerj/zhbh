@@ -1,110 +1,245 @@
 <style lang="scss" scoped>
-    @import '~@/scss/variables.scss';
-    $color:#26a2ff;
+@import "~@/scss/variables.scss";
+$color: #26a2ff;
 
-    .form-item {
+// WangQ
+// 2020-08-22 11:00
+.login-wrapper {
+  background-color: #fff;
+  position: relative;
+  font-family: PingFangSC, PingFangSC-Regular;
+  font-weight: 400;
+}
 
-        display: flex;
-        align-items: center;
-        font-size: 1rem;
-        margin-bottom: .7rem;
-        position: relative;
-        border-bottom: 1px solid rgba(black, .05);
-        label {
-            white-space: nowrap;
-            color: rgba(black, .5);
-            &::after {
-                content: ':';
-            }
-        }
-        input {
-            outline: none;
-            font-size: inherit;
-            flex: 1;
-            padding: 0.5rem;
-            background-color: transparent;
-            border: none;
-            &:focus {
-                & + .line {
-                    transform: scale3d(1, 1, 1);
-                }
-            }
-        }
-        .line {
-            height: 1px;
-            width: 100%;
-            background-color: rgba($color,.6);
-            position: absolute;
-            bottom: -1px;
-            left:0;
-            transition: 1s;
-            transform: scale3d(0, 1, 1);
-        }
+.login-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.login-logo {
+  padding-top: 2vh;
+  width: 100%;
+  height: 50vh;
+  background: linear-gradient(180deg, #e7ffff, #ffffff);
+  .logo-icon {
+    text-align: center;
+    img {
+      width: 30vw;
+      vertical-align: middle;
     }
-
-    .bg {
-        width: 100%;
-        height: 100%;
-        position: absolute;
-        top: 0;
-        left: 0;
-        background: url('./login-bg.jpg') no-repeat center;
-        background-size: cover;
-        filter: blur(5px);
+  }
+  .logo-title {
+    text-align: center;
+    img {
+      display: block;
+      margin: auto;
     }
-
-    .form {
-        width: 80%;
-        z-index: 1;
-        margin-top: -3rem;
+    .title-img {
+      width: 74vw;
     }
-
-    .login-btn{
-        background-color: rgba($color,.6);
-        color:#fff;
-        border:none;
+    .subtitle-img {
+      width: 22vw;
+      margin-top: 0.5rem;
     }
+  }
+}
 
+.bottom-img {
+  flex: 0 1 auto;
+  img {
+    width: 100%;
+    vertical-align: middle;
+  }
+}
+
+.login-form {
+  position: absolute;
+  top: 36vh;
+  z-index: 20;
+  width: 100%;
+  padding: 0 10vw;
+  .van-cell {
+    background-color: transparent;
+    &::after {
+      border-bottom-color: #d8d8d8;
+    }
+    .left-icon {
+      margin-right: 10px;
+      img {
+        vertical-align: middle;
+      }
+    }
+  }
+  .submit-btn {
+    margin-top: 8vh;
+    .van-button--danger {
+      background-color: #c7000b;
+      border-color: #c7000b;
+      border-radius: 10px;
+    }
+  }
+}
 </style>
 <template>
-    <ui-main>
-        <div class="flex col-center row-center h-100">
-            <div class="bg" ref="bg"></div>
-            <div class="form">
-                <div class="form-item">
-                    <label>账号</label>
-                    <input v-model="form.username" type="text" placeholder="输入用户名">
-                    <i class="line"></i>
-                </div>
-                <div class="form-item">
-                    <label>密码</label>
-                    <input v-model="form.password" type="password" placeholder="输入登录密码">
-                    <i class="line"></i>
-                </div>
-                <div class="form-item">
-                    <van-button @click="login" size="large" type="" class="login-btn">登录</van-button>
-                </div>
-
-            </div>
+  <ui-main>
+    <div class=" h-100 login-wrapper">
+      <div class="login-bg flex flex-column row-between flex-wrap">
+        <div class="login-logo">
+          <div class="logo-icon">
+            <img src="./image/icons_logo.svg" alt="LOGO" />
+          </div>
+          <div class="logo-title">
+            <img
+              class="title-img"
+              src="./image/title.png"
+              alt="2020六盘水旅游“两会”"
+            />
+            <img
+              class="subtitle-img"
+              src="./image/subtitle.png"
+              alt="参会入口"
+            />
+          </div>
         </div>
-    </ui-main>
+        <div class="bottom-img">
+          <img src="./image/bottom-img.png" />
+        </div>
+      </div>
+      <van-form @submit="login" class="login-form">
+        <van-field
+          v-model="loginForm.joinCode"
+          name="joinCode"
+          maxlength="6"
+          placeholder="请输入参会邀请码"
+        >
+          <div slot="left-icon" class="left-icon">
+            <img src="./image/icon_gzzh.svg" alt="" />
+          </div>
+        </van-field>
+        <van-field
+          v-model="loginForm.phoneNo"
+          type="tel"
+          maxlength="11"
+          name="phoneNo"
+          placeholder="请输入您的电话号码"
+        >
+          <div slot="left-icon" class="left-icon">
+            <img src="./image/icon_mm.svg" alt="" />
+          </div>
+        </van-field>
+        <div class="submit-btn">
+          <van-button block type="danger" native-type="submit">
+            提交
+          </van-button>
+        </div>
+      </van-form>
+    </div>
+  </ui-main>
 </template>
 <script>
-    export default {
-        data() {
-            return {
-                isDevelopment: process.env.NODE_ENV === 'development',//开发模式
-                form: {
-                    username: '',
-                    password: ''
-                }
+import axios from "axios";
+import authApi from "@/api/auth.js";
+export default {
+  data() {
+    return {
+      isDevelopment: process.env.NODE_ENV === "development", //开发模式
+      loginForm: {
+        joinCode: "",
+        phoneNo: "",
+      },
+    };
+  },
+  mounted() {},
+  methods: {
+    async login(data) {
+      const appletsOpenId = this.$route.query.openId || "";
+      const validatePhone = await this.checkPhone(data.phoneNo);
+      const validateCode = await this.checkCode(data.joinCode);
+      if (validatePhone && validateCode) {
+        let param = {
+          joinCode: data.joinCode,
+          openId: appletsOpenId,
+          phoneNo: data.phoneNo,
+        };
+        this.$store
+          .dispatch("login", param)
+          .then((res) => {
+            try {
+              let openId = "ces"
+              // userRole
+              // 1.参会嘉宾  2 服务志愿者 3 媒体工作者
+              if (res.user.userRole == "1") {
+                //	a. 嘉宾首页
+                this.$router.push({
+                  path: "/guest-home",
+                  query: {
+                    openId: openId,
+                  },
+                });
+              } else if (res.user.userRole == "2") {
+                // b. 工作人员或志愿者首页
+                this.$toast();
+              } else if (res.user.userRole == "3") {
+                // 	c. 新闻工作者首页（暂定与嘉宾首页一致）
+                this.$router.push({
+                  path: "/guest-home",
+                  query: {
+                    openId: openId,
+                  },
+                });
+              } else {
+                this.$toast("非本会议受邀人员，请联系工作人处理");
+              }
+            } catch (err) {
+              this.$router.push({ path: "/" });
             }
-        },
-        methods:{
-            login(){
-                // 请根据账号判断是登录那个首页, 比如嘉宾或者是会务组
-                this.$router.replace('/guest-home')
-            }
-        },
-    }
+          })
+          .catch((err) => {
+            this.$toast(err.msg);
+          });
+      }
+    },
+    checkPhone(phoneNum) {
+      let phone = phoneNum;
+      if (!phone) {
+        this.$toast("手机号码不能为空");
+        return false;
+      }
+      if (!/^1[3456789]\d{9}$/.test(phone)) {
+        this.$toast("手机号码格式错误");
+        return false;
+      }
+      return true;
+    },
+    checkCode(codeVal) {
+      let code = codeVal;
+      if (!code) {
+        this.$toast("邀请码不能为空");
+        return false;
+      }
+      if (!/^[A-Za-z0-9]+$/.test(code)) {
+        this.$toast("邀请码错误");
+        return false;
+      }
+      return true;
+    },
+
+    checkOpenId() {
+      const appletsOpenId = this.$route.query.openId || "";
+      authApi
+        .checkOpenId({ openId: appletsOpenId })
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((error) => {
+          console.log(error);
+        })
+        .finally((e) => {});
+    },
+  },
+};
 </script>

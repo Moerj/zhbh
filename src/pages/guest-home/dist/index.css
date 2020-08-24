@@ -1,0 +1,325 @@
+::v-deep.van-nav-bar .van-icon {
+  color: #000000;
+}
+
+.hotel-container {
+  background: url("./image/bg@2x.png");
+  background-size: cover;
+}
+
+.title {
+  background-image: url(./image/title-bg.png);
+  background-position: center;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  height: 82px;
+  padding: 0 15px;
+  font-size: 20px;
+  font-weight: 600;
+  color: #292a2c;
+}
+
+.subtitle .self {
+  width: 110px;
+  height: 44px;
+  line-height: 44px;
+  padding: 0 15px;
+  font-size: 20px;
+  font-weight: 600;
+  color: #292a2c;
+}
+.subtitle .peers-group {
+  width: calc(100% - 130px);
+  overflow-y: auto;
+  position: relative;
+  white-space: nowrap;
+}
+.subtitle .peers-group span {
+  display: inline-block;
+  border: 1px solid #676768;
+  color: #676768;
+  border-radius: 2px;
+  margin: 4px 6px;
+  padding: 1px 4px;
+  font-size: 14px;
+}
+
+::v-deep.tabs-cont {
+  padding-top: 46px;
+}
+::v-deep.tabs-cont .van-tab {
+  position: relative;
+}
+::v-deep.tabs-cont .van-tab::after {
+  content: "";
+  position: absolute;
+  top: 25%;
+  bottom: auto;
+  right: 0;
+  width: 1px;
+  height: calc(100% - 50%);
+  background-color: #ebebf1;
+}
+::v-deep.tabs-cont .van-tab--active {
+  margin: 6px 0;
+  color: #fff;
+  z-index: 30;
+  transition: 0.3s;
+}
+::v-deep.tabs-cont .van-tab--active .van-tab__text {
+  position: relative;
+  z-index: 30;
+}
+::v-deep.tabs-cont .van-tab--active::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url("./image/tab-bg.png");
+  background-position: top center;
+  background-size: cover;
+  border-radius: 0.36rem;
+  z-index: 25;
+}
+::v-deep.tabs-cont .van-tab--active::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #c7000b;
+  border-radius: 0.36rem;
+  z-index: 20;
+}
+
+.hotel-card {
+  padding: 0 1rem;
+  transform: translateY(-1.25rem);
+}
+.hotel-card .hotel-name,
+.hotel-card .hotel-info {
+  background-color: #000;
+}
+.hotel-card .hotel-name {
+  border-top-left-radius: 0.3125rem;
+  border-top-right-radius: 0.3125rem;
+  background-color: #c7000b;
+  color: #ffffff;
+  height: 2.5rem;
+  line-height: 2.5rem;
+  font-size: 1.15rem;
+  padding: 0 1rem;
+}
+.hotel-card .hotel-info {
+  border-bottom-left-radius: 0.3125rem;
+  border-bottom-right-radius: 0.3125rem;
+  background-color: #ffffff;
+  padding: 0 1rem;
+}
+
+.hotel-info .info-item {
+  height: 1.25rem;
+  line-height: 1.25rem;
+  padding: 0.625rem 0;
+  box-sizing: content-box;
+  position: relative;
+}
+.hotel-info .info-item .tel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+}
+
+.item-title {
+  color: #595b64;
+  font-size: 1rem;
+}
+
+.item-text {
+  color: #292a2c;
+  font-size: 1rem;
+}
+.item-text.text-phone {
+  color: #c7000b;
+}
+
+.journey-card {
+  padding: 0 1rem;
+}
+.journey-card .card-title {
+  font-size: 1.125rem;
+  color: #9094a8;
+  padding-left: 0.8rem;
+  position: relative;
+}
+.journey-card .card-inner {
+  background-color: #fff;
+  padding: 0.9rem;
+  margin-top: 0.625rem;
+  border-right: 0.25rem solid #e02020;
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+  box-shadow: 2px 0 6px 2px rgba(0, 0, 0, 0.24);
+  position: relative;
+}
+.journey-card .card-content {
+  position: relative;
+  padding-bottom: 1.5625rem;
+}
+
+.journey-card .card-title::before {
+  content: "";
+  position: absolute;
+  left: -0.265rem;
+  top: calc(100% / 2 - 0.28125rem);
+  width: 0.5625rem;
+  height: 0.5625rem;
+  border-radius: 50%;
+  background-color: #b7bacc;
+  z-index: 5;
+}
+
+.card-content::before {
+  content: "";
+  position: absolute;
+  top: 0.5625rem;
+  bottom: auto;
+  left: 0;
+  width: 1px;
+  height: 100%;
+  background-color: #b7bacc;
+  z-index: 2;
+}
+
+.journey-container .journey-card:last-child .card-content::before {
+  height: calc(100% - 0.5625rem);
+}
+.journey-container .journey-card:last-child .card-content {
+  padding-bottom: 0rem;
+}
+
+.card-inner .inner-title {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  text-align: left;
+  color: #292a2c;
+  padding-bottom: 0.3125rem;
+}
+
+.card-inner .inner-item {
+  font-size: 0.9375rem;
+  padding: 0.3125rem 0;
+}
+
+.signin-cont {
+  position: absolute;
+  top: 0;
+  right: 17%;
+  width: 88px;
+  height: 99px;
+}
+.signin-cont img {
+  width: 100%;
+  vertical-align: middle;
+}
+
+.journey-card.notstarted .inner-title {
+  color: #a2a4a9;
+}
+.journey-card.notstarted .card-inner {
+  background-color: #f3f5fc;
+}
+.journey-card.notstarted .card-inner .item-text {
+  color: #a2a4a9;
+}
+.journey-card.notstarted .card-inner .item-title {
+  color: #b9bcc3;
+}
+
+.journey-card.ongoing .card-title {
+  color: #2b69e2;
+}
+.journey-card.ongoing .card-title::after {
+  content: "";
+  position: absolute;
+  left: -0.44rem;
+  top: calc(100% / 2 - 0.46rem);
+  width: 0.8125rem;
+  height: 0.8125rem;
+  border-radius: 50%;
+  border: 1px solid #2b69e2;
+  z-index: 30;
+}
+.journey-card.ongoing .card-title::before,
+.journey-card.ongoing .card-content::before {
+  background-color: #2b69e2;
+}
+
+.journey-card.finished .card-title::before,
+.journey-card.finished .card-content::before {
+  background-color: #2b69e2;
+}
+
+.my-code.mini {
+  right: 2%;
+  bottom: 10%;
+  width: 62px;
+  height: 62px;
+  border-radius: 50%;
+  background-color: #fff;
+  box-shadow: 0px 2px 9px 0px rgba(199, 0, 11, 0.16);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.my-code.mini .code-content .code {
+  width: 36px;
+  height: 36px;
+}
+.my-code.mini .code-content .code img {
+  width: 100%;
+  vertical-align: middle;
+}
+
+.my-code.big {
+  position: relative !important;
+}
+.my-code.big .code-content {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  margin: auto;
+  background-color: rgba(0, 0, 0, 0.16);
+  text-align: center;
+}
+.my-code.big .code-content .code {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -30%);
+  background-color: #fff;
+  width: 78%;
+  padding: 32px;
+  border-radius: 24px;
+}
+.my-code.big .code-content .code img {
+  width: 100%;
+}
+.my-code.big .code-content .code .close-icon {
+  position: absolute;
+  top: -50px;
+  right: 20px;
+  width: 30px;
+  z-index: 10000 !important;
+}

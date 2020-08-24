@@ -2,20 +2,19 @@
   "name": "zhbh",
   "scripts": {
     "dev": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "demo": "vue-cli-service build --mode demo",
-    "start": "concurrently \"node tools/md2html\"  \"npm run serve \" ",
-    "build-demo": "concurrently \"node tools/md2html --production\" \"npm run demo\"",
-    "publish": "node tools/publish.js"
+    "build": "vue-cli-service build"
   },
   "dependencies": {
-    "axios": "0.19.2",
+    "@nutui/nutui": "^2.2.10",
+    "axios": "^0.20.0",
+    "dayjs": "^1.8.34",
     "photoswipe": "4.1.3",
-    "plain-kit": "^0.3.0-alpha.1",
-    "vant-ui": "^2.1.2",
+    "plain-kit": "0.3.0-alpha.1",
+    "vant-ui": "2.0.8",
     "vue": "2.6.11",
     "vue-router": "3.4.3",
-    "vue-touch": "2.0.0-beta.4"
+    "vue-touch": "2.0.0-beta.4",
+    "vuex": "^3.5.1"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^4.5.0",

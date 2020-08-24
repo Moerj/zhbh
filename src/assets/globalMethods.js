@@ -1,5 +1,6 @@
 // 全局方法
 import { isEmpty } from 'plain-kit'
+import dayjs from 'dayjs'
 
 const STORAGE_KEY = 'user'
 export default {
@@ -77,6 +78,10 @@ export default {
                 }
                 return ''
             }
+        })
+
+        Object.defineProperty(Vue.prototype, '$dayjs', {
+            value: dayjs
         })
 
         Object.defineProperty(Vue.prototype, '$isEmpty', {
