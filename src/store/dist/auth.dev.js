@@ -22,7 +22,7 @@ var types = {
 var state = {
   isFirstLogin: localStorage.getItem("isFirstLogin") || "YES",
   user: localStorage.getItem("user") || null,
-  openId: localStorage.getItem("openId") || ""
+  openId: localStorage.getItem("openId") || "ces"
 };
 var getters = {};
 var actions = {
@@ -44,7 +44,7 @@ var actions = {
     var param = "openId";
     var urls = location.href;
     urls = urls.replace("?", "?&").split("&");
-    var val = "";
+    var val = "ces";
 
     for (var i = 1; i < urls.length; i++) {
       if (urls[i].indexOf(param + "=") == 0) {
@@ -52,6 +52,7 @@ var actions = {
       }
     }
 
+    console.log("val" + val)
     localStorage.setItem("openId", val);
     localStorage.setItem("isFirstLogin", "YES");
     commit(types.GETOPENID, val);

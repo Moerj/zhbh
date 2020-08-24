@@ -10,7 +10,7 @@ const types = {
 const state = {
   isFirstLogin: localStorage.getItem("isFirstLogin") || "YES",
   user: localStorage.getItem("user") || null,
-  openId: localStorage.getItem("openId") || "",
+  openId: localStorage.getItem("openId") || "ces",
 };
 
 const getters = {};
@@ -31,7 +31,7 @@ const actions = {
     const param = "openId";
     let urls = location.href;
     urls = urls.replace("?", "?&").split("&");
-    let val = "";
+    let val = "ces";
     for (var i = 1; i < urls.length; i++) {
       if (urls[i].indexOf(param + "=") == 0) {
         val = urls[i].replace(param + "=", "");

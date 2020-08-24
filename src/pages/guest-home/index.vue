@@ -287,8 +287,9 @@ export default {
         });
     },
     getMyJourney() {
+      const user = JSON.parse(localStorage.getItem("user"))
       const param = {
-        userId: "218943wraefa",
+        userId: user.id,
         date: this.tabCurrent,
       };
       journeyAPI
