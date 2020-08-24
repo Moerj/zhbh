@@ -156,7 +156,7 @@ export default {
   mounted() {},
   methods: {
     async login(data) {
-      const appletsOpenId = this.$route.query.openId || "";
+      const appletsOpenId = this.$route.query.openId || "ces";
       const validatePhone = await this.checkPhone(data.phoneNo);
       const validateCode = await this.checkCode(data.joinCode);
       if (validatePhone && validateCode) {
@@ -169,15 +169,24 @@ export default {
           .dispatch("login", param)
           .then((res) => {
             try {
-              let openId = "ces"
               // userRole
               // 1.参会嘉宾  2 服务志愿者 3 媒体工作者
+
+              if (res.code == 500){
+                this.$toast("手机号或邀请码错误")
+                return
+              } else if (res.code == 0 && !res.user) {
+                this.$toast(res.msg)
+                return
+              } else if (res.user.userRole > 3 ||  res.user.userRole < 1){
+                this.$toast("非本会议受邀人员，请联系工作人处理")
+              }
               if (res.user.userRole == "1") {
                 //	a. 嘉宾首页
                 this.$router.push({
                   path: "/guest-home",
                   query: {
-                    openId: openId,
+                    openId: appletsOpenId,
                   },
                 });
               } else if (res.user.userRole == "2") {
@@ -188,13 +197,15 @@ export default {
                 this.$router.push({
                   path: "/guest-home",
                   query: {
-                    openId: openId,
+                    openId: appletsOpenId,
                   },
                 });
-              } else {
-                this.$toast("非本会议受邀人员，请联系工作人处理");
               }
+              // else {
+              //   this.$toast("非本会议受邀人员，请联系工作人处理");
+              // }
             } catch (err) {
+              console.log(err);
               this.$router.push({ path: "/" });
             }
           })
@@ -229,7 +240,7 @@ export default {
     },
 
     checkOpenId() {
-      const appletsOpenId = this.$route.query.openId || "";
+      const appletsOpenId = this.$route.query.openId || "ces";
       authApi
         .checkOpenId({ openId: appletsOpenId })
         .then((res) => {
