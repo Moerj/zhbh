@@ -1,0 +1,11 @@
+.mescroll {
+  -webkit-overflow-scrolling: touch;
+}
+
+.g-core-image-upload-form {
+  height: 100% !important;
+}
+
+.van-nav-bar .fa-icon {
+  vertical-align: middle;
+}
