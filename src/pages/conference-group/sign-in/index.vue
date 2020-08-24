@@ -40,7 +40,7 @@
 
     <template #footer>
       <div class="bottom-button safe-area-plus">
-        <van-button round @click="signIn">签到</van-button>
+        <van-button round @click="signIn">酒店签到</van-button>
       </div>
     </template>
   </ui-main>

@@ -16,7 +16,7 @@
     >
       <van-steps direction="vertical" :active="activeStep" active-color="#2B69E2">
         <van-step v-for="(v,i) of list">
-          <div>{{`${v.date} ${v.startTime}${v.endTime && ('到' + v.endTime)}`}}</div>
+          <div>{{v.date && `${v.date} ${v.startTime}${v.endTime && ('到' + v.endTime)}`}}</div>
           <div @click="()=>{toDetail(v)}">
             <div class="ellipsis-1">{{v.name}}</div>
             <div>
@@ -24,9 +24,9 @@
               <van-icon name="arrow" size="12"/>
             </div>
           </div>
-          <div v-if="v.qrcode">
+          <!--<div v-if="v.qrcode">
             <QR :value="v.qrcode" size="36"/>
-          </div>
+          </div>-->
         </van-step>
       </van-steps>
     </ui-pull>
@@ -122,7 +122,7 @@ export default {
             type: 'conference'
           },
           {
-            date: this.$dayjs(),
+            date: this.$dayjs().format('YYYY-MM-DD'),
             startTime: '12:00',
             endTime: '14:00',
             name: '车辆接送',

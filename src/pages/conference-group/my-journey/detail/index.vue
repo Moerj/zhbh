@@ -7,7 +7,7 @@
 
       <template #indicator>
         <div class="custom-indicator">
-          {{ current + 1 }}/{{data.imgs && data.imgs.length}}
+          {{ current + 1 }}/{{ data.imgs && data.imgs.length }}
         </div>
       </template>
     </van-swipe>
@@ -17,62 +17,63 @@
         <div>
           <van-icon :name="require('./assets/time.svg')"/>
         </div>
-        <div>{{`${data.date} ${data.startTime}${data.endTime && ('到' + data.endTime)}`}}</div>
+        <div>{{ data.date && `${data.date} ${data.startTime}${data.endTime && ('到' + data.endTime)}` }}</div>
       </div>
-      <div>{{data.name}}</div>
+      <div>{{ data.name }}</div>
       <div>
         <van-icon :name="data.weatherIcon"/>
-        <span>{{data.weather}}</span>
+        <span>{{ data.weather }}</span>
       </div>
       <div>
         <div @click="locate">
           <span>
             <span class="title">地点：</span>
-            {{data.location}}
+            <span class="ellipsis-1">{{ data.location }}</span>
           </span>
           <van-icon name="arrow" size="12"/>
         </div>
         <div v-if="type==='dining'">
-          <div>
+          <span>
             <span class="title">桌号/包间号：</span>
-            {{data.roomNum}}
-          </div>
+            <span class="ellipsis-1">{{ data.roomNum }}</span>
+          </span>
         </div>
         <div v-if="type==='conference'">
-          <div>
+          <span>
             <span class="title">座位：</span>
-            {{data.seat}}
-          </div>
+            <span class="ellipsis-1">{{ data.seat }}</span>
+          </span>
         </div>
         <template v-if="type==='transportation'">
           <div>
-            <div>
+            <span>
               <span class="title">车牌号：</span>
-              {{data.licensePlateNumber}}
-            </div>
+              <span class="ellipsis-1">{{ data.licensePlateNumber }}</span>
+            </span>
           </div>
           <div>
             <div>
               <span class="title">司机姓名：</span>
-              {{data.driverName}}
+              <span class="ellipsis-1">{{ data.driverName }}</span>
             </div>
           </div>
           <div @click="call(data.driverTel)">
-            <div>
+            <span>
               <span class="title">司机电话：</span>
-              {{data.driverTel}}
-            </div>
+              <span class="ellipsis-1 phone">{{ data.driverTel }}</span>
+            </span>
+            <van-icon :name="require('@/imgs/tel.svg')" size="12"/>
           </div>
         </template>
-        <div v-else class="phone" @click="call(data.tel)">
+        <div v-else @click="call(data.tel)">
           <span>
             <span class="title">联系电话：</span>
-            {{data.tel}}
+            <span class="ellipsis-1 phone">{{ data.tel }}</span>
           </span>
           <van-icon :name="require('@/imgs/tel.svg')" size="12"/>
         </div>
       </div>
-      <QRCode :data="data" v-if="type==='transportation'"/>
+      <!--<QRCode :data="data" v-if="type==='transportation'"/>-->
     </header>
 
     <WarmPrompt :data="data"/>
@@ -181,6 +182,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '@/scss/variables.scss';
+
 header {
   width: calc(100% - 30px);
   position: relative;
@@ -248,16 +251,24 @@ header {
       color: #595b64;
     }
 
+    .ellipsis-1 {
+      display: inline;
+    }
+
     & > div {
       display: flex;
       justify-content: space-between;
       align-items: center;
       height: 30px;
       line-height: 30px;
+
+      & > i:nth-child(2) {
+        flex-shrink: 0;
+      }
     }
 
-    .phone a {
-      color: #C7000B;
+    .phone {
+      color: $ui-color-primary;
     }
   }
 }
