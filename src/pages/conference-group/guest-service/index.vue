@@ -83,7 +83,19 @@ export default {
           }, {
             phone: '15797426874',
             identity: '联通旅游行业总监',
-            name: '张涛',
+            name: '王敏',
+          }, {
+            phone: '15797426874',
+            identity: '联通旅游行业总监',
+            name: '刘华',
+          }, {
+            phone: '15797426874',
+            identity: '联通旅游行业总监',
+            name: '王海勇',
+          }, {
+            phone: '15797426874',
+            identity: '联通旅游行业总监',
+            name: '陈文',
           },
         ]
         this.$refs.pull.endSuccess()

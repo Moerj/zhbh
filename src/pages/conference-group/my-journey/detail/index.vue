@@ -106,11 +106,18 @@ export default {
       type: this.$route.query.type
     }
   },
-  mounted () {
+  created () {
     this.getDetail()
   },
   methods: {
     getDetail () {
+
+      this.$http.post('areaInfo/queryForPageWithWeather', {
+        areaCode: '520200000000',
+      }).then(({ data }) => {
+
+      })
+
       /*this.$loading.open()
       this.$http.post('', this.$route.query).then(({ data }) => {
         this.data = data || {}
