@@ -73,7 +73,7 @@ Vue.router.beforeEach((to, from, next) => {
   if (isFirstLogin == "YES") {
     store.dispatch("checkOpenId", { openId: openId }).then((res) => {
       try {
-        if (res.code == "0") {
+        if (res.code == "00000") {
           localStorage.setItem("isFirstLogin", "NO");
           if (to.path == "/login") {
             next(`/guest-home?openId=${openId}`);

@@ -6,7 +6,7 @@ export default [
     children: [
       {
         path: 'detail',
-        name: '行程详情',
+        name: "行程详情",
         component: () => import('./detail/index.vue'),
       },
     ]

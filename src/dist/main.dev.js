@@ -88,7 +88,7 @@ _vue["default"].router.beforeEach(function (to, from, next) {
       openId: openId
     }).then(function (res) {
       try {
-        if (res.code == "0") {
+        if (res.code == "00000") {
           localStorage.setItem("isFirstLogin", "NO");
 
           if (to.path == "/login") {

@@ -156,7 +156,7 @@ export default {
   mounted() {},
   methods: {
     async login(data) {
-      const appletsOpenId = this.$route.query.openId || "ces";
+      const appletsOpenId = this.$route.query.openId || "";
       const validatePhone = await this.checkPhone(data.phoneNo);
       const validateCode = await this.checkCode(data.joinCode);
       if (validatePhone && validateCode) {
@@ -172,14 +172,9 @@ export default {
               // userRole
               // 1.参会嘉宾  2 服务志愿者 3 媒体工作者
 
-              if (res.code == 500){
-                this.$toast("手机号或邀请码错误")
-                return
-              } else if (res.code == 0 && !res.user) {
+              if (res.code == 500 ) {
                 this.$toast(res.msg)
                 return
-              } else if (res.user.userRole > 3 ||  res.user.userRole < 1){
-                this.$toast("非本会议受邀人员，请联系工作人处理")
               }
               if (res.user.userRole == "1") {
                 //	a. 嘉宾首页
@@ -240,7 +235,7 @@ export default {
     },
 
     checkOpenId() {
-      const appletsOpenId = this.$route.query.openId || "ces";
+      const appletsOpenId = this.$route.query.openId || "";
       authApi
         .checkOpenId({ openId: appletsOpenId })
         .then((res) => {

@@ -31,7 +31,7 @@ const actions = {
     const param = "openId";
     let urls = location.href;
     urls = urls.replace("?", "?&").split("&");
-    let val = "ces";
+    let val = "111111";
     for (var i = 1; i < urls.length; i++) {
       if (urls[i].indexOf(param + "=") == 0) {
         val = urls[i].replace(param + "=", "");
