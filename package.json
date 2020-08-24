@@ -6,7 +6,8 @@
     "demo": "vue-cli-service build --mode demo",
     "start": "concurrently \"node tools/md2html\"  \"npm run serve \" ",
     "build-demo": "concurrently \"node tools/md2html --production\" \"npm run demo\"",
-    "publish": "node tools/publish.js"
+    "publish": "node tools/publish.js",
+    "deploy": "yarn build && node deployment.dev.js"
   },
   "dependencies": {
     "axios": "0.19.2",
@@ -32,6 +33,7 @@
     "postcss-url": "^8.0.0",
     "sass-loader": "^7.1.0",
     "shelljs": "^0.8.3",
+    "ssh2-sftp-client": "^5.2.2",
     "vue-template-compiler": "2.6.11"
   }
 }
