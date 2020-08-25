@@ -116,7 +116,7 @@ export default {
     // },
     getDetailData() {
       const param = {
-        id: "123www",
+        id: this.$route.query.id,
       };
       journeyAPI.detailJourney(param).then((res) => {
         console.log(res);

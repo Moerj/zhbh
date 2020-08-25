@@ -345,7 +345,6 @@ export default {
     },
     toDetail(data) {
       let currentData = data; // 当前点击的行程
-
       let urls = {
         "1":"huiyi",
         "2":"canting",
@@ -354,7 +353,7 @@ export default {
       this.$router.push({
         path: '/guest-home/'+urls[data.schType],
         query: {
-          currentData: currentData, // 添加详情所需要的数据
+          id: data.usId, // 添加详情所需要的数据
         },
       });
     },
