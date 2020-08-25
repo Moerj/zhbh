@@ -4,6 +4,8 @@
       v-for="(item, index) of tabbarGroup"
       :key="item.label"
       @click="clickItem(index)"
+      replace
+      :to="item.path"
     >
       {{ item.label }}
       <template #icon>
@@ -29,7 +31,7 @@ export default {
           iconCheck: require("./assets/active_check.svg"),
           iconChecked: require("./assets/active_checked.svg"),
           label: "活动报名",
-          path: "/",
+          path: "/active",
         },
         {
           iconCheck: require("./assets/user_check.svg"),
@@ -40,15 +42,18 @@ export default {
       ],
     };
   },
-  mounted() {},
+  mounted() {
+    this.updateTabState()
+  },
   methods: {
     clickItem(item) {
       if (item.path && this.$route.path !== item.path) {
         this.$router.push(item.path);
       }
+      this.active = item
     },
     updateTabState() {
-      this.items.forEach((item, index) => {
+      this.tabbarGroup.forEach((item, index) => {
         if (location.hash.indexOf(item.path) >= 1) {
           this.active = index;
         }
