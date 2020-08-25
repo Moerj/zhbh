@@ -184,6 +184,17 @@
     line-height: 24px;
 
   }
+  .card-title-no {
+    font-size: 17px;
+    padding-left: 0.8rem;
+    position: relative;
+    font-family: PingFangSC, PingFangSC-Regular;
+    font-weight: 400;
+    text-align: left;
+    color: #c7cccc;
+    line-height: 24px;
+
+  }
   .card-inner {
     background-color: #fff;
     padding: 0.9rem;
@@ -203,6 +214,17 @@
 
 .journey-card {
   .card-title::before {
+    content: "";
+    position: absolute;
+    left: -0.265rem;
+    top: calc(100% / 2 - 0.28125rem);
+    width: 0.5625rem;
+    height: 0.5625rem;
+    border-radius: 50%;
+    background-color: #b7bacc;
+    z-index: 5;
+  }
+  .card-title-no::before {
     content: "";
     position: absolute;
     left: -0.265rem;
@@ -296,6 +318,17 @@
     height: 0.8125rem;
     border-radius: 50%;
     border: 1px solid #2b69e2;
+    z-index: 30;
+  }
+  .card-title-no::after {
+    content: "";
+    position: absolute;
+    left: -0.44rem;
+    top: calc(100% / 2 - 0.46rem);
+    width: 0.8125rem;
+    height: 0.8125rem;
+    border-radius: 50%;
+    border: 1px solid #c7cccc;
     z-index: 30;
   }
   .card-title::before,
