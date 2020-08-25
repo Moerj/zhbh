@@ -30,7 +30,7 @@ export default {
         const instance = axios.create({
 
             headers: {
-                'Content-Type':'application/x-www-form-urlencoded',//默认的请求头
+                'Content-Type':'application/json',//默认的请求头
             },
 
         });
