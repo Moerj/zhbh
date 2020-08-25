@@ -171,11 +171,6 @@ export default {
             try {
               // userRole
               // 1.参会嘉宾  2 服务志愿者 3 媒体工作者
-
-              if (res.code == 500 ) {
-                this.$toast(res.msg)
-                return
-              }
               if (res.user.userRole == "1") {
                 //	a. 嘉宾首页
                 this.$router.push({
@@ -202,8 +197,7 @@ export default {
             } catch (err) {
               this.$router.push({ path: "/" });
             }
-          })
-          .catch((err) => {
+          }).catch((err) => {
             this.$toast(err.msg);
           });
       }

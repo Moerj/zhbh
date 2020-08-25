@@ -319,13 +319,9 @@ export default {
       journeyAPI
         .DateList()
         .then((res) => {
-          if (res.code == "00000") {
-            this.dates = res.list;
-            this.tabCurrent = res.list[this.active];
-            this.getMyJourney();
-          } else {
-            this.$toast(res.msg);
-          }
+          this.dates = res.list;
+          this.tabCurrent = res.list[this.active];
+          this.getMyJourney();
         })
         .catch((err) => {
           this.$toast(err);
@@ -340,12 +336,7 @@ export default {
       journeyAPI
         .myJourney(param)
         .then((res) => {
-          console.log(res);
-          if (res.code == "00000") {
-            this.journeyList = res.list;
-          } else {
-            this.$toast(res.msg);
-          }
+          this.journeyList = res.list;
           this.$refs.pull.endSuccess();
         })
         .catch((err) => {
