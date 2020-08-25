@@ -8,11 +8,11 @@ const pluginName = 'SftpPlugin'
 // ftp配置
 const config = {
   dir: path.join(__dirname, 'dist/'),
-  host: '148.70.143.9',
-  url: '/upload/twoSessions/',
-  port: '31280',
-  username: 'img',
-  password: 'yjwl123img'
+  host: '118.24.103.201',
+  url: '/upload/',
+  port: '31108',
+  username: 'zhlh',
+  password: 'Zhlh2020'
 }
 
 class SftpPlugin {
