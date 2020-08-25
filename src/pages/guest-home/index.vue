@@ -2,8 +2,7 @@
   <ui-main>
     <template v-slot:header>
       <van-nav-bar title="嘉宾首页" fixed>
-        <!--slot="left" @click="$root.back()"-->
-        <div>
+        <div slot="left" @click="$root.back()">
           <van-icon name="cross" size="1rem"></van-icon>
         </div>
       </van-nav-bar>
@@ -104,10 +103,9 @@
             <div class="card-content">
               <div class="card-title">
                 <span>
-                  {{ item.scheduleDate }}
                   {{ item.startTime }}到{{ item.endTime }}
                 </span>
-                <span style="float: right;">
+                <span>
                   {{
                     item.activeState == 0
                       ? "未开始"
@@ -141,7 +139,7 @@
                 <div class="inner-item" v-if="item.tabNo">
                   <span>
                     <span class="item-title">座位：</span>
-                    <span class="item-text">{{ item.tabNo }}</span>
+                    <span class="item-text">{{ item.tabNo + item.seatNo }} 座位</span>
                   </span>
                 </div>
               </div>
@@ -348,8 +346,13 @@ export default {
     toDetail(data) {
       let currentData = data; // 当前点击的行程
 
+      let urls = {
+        "1":"huiyi",
+        "2":"canting",
+        "3":"bashi",
+        "4":"bolanhui"}
       this.$router.push({
-        path: "/guest-home/detail",
+        path: '/guest-home/'+urls[data.schType],
         query: {
           currentData: currentData, // 添加详情所需要的数据
         },

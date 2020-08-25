@@ -5,16 +5,17 @@
     </template>
 
     <div class="detail-container">
-      <van-swipe :autoplay="3000" :height="280" @change="swipeChange">
-        <van-swipe-item v-for="(image, index) in images" :key="index">
-          <img v-lazy="image" />
-        </van-swipe-item>
-        <template #indicator>
-          <div class="custom-indicator">
-            {{ current + 1 }}/{{ images.length }}
-          </div>
-        </template>
-      </van-swipe>
+      <img style="width: 100%;" src="./huiyi.png">
+<!--      <van-swipe :autoplay="3000" :height="280" @change="swipeChange">-->
+<!--        <van-swipe-item v-for="(image, index) in images" :key="index">-->
+<!--          <img v-lazy="image" />-->
+<!--        </van-swipe-item>-->
+<!--        <template #indicator>-->
+<!--          <div class="custom-indicator">-->
+<!--            {{ current + 1 }}/{{ images.length }}-->
+<!--          </div>-->
+<!--        </template>-->
+<!--      </van-swipe>-->
 
       <div class="main-card">
         <div class="card-content">
@@ -76,15 +77,6 @@
             </div>
           </div>
         </div>
-
-        <div class="fullwidth-content">
-          <div class="fullwidth-title">座位安排</div>
-          <div class="fullwidth-main">
-            <div class="main-text">
-              <img src="./zuowei.png" style="width:100%;" />
-            </div>
-          </div>
-        </div>
         <div class="fullwidth-content">
           <div class="fullwidth-title">温馨提示</div>
           <div class="fullwidth-main">
@@ -105,6 +97,15 @@
             </div>
           </div>
         </div>
+
+        <div class="fullwidth-content">
+          <div class="fullwidth-title">座位安排</div>
+          <div class="fullwidth-main">
+            <div class="main-text">
+              <img src="./zuowei.png" style="width:100%;" />
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </ui-main>
@@ -116,11 +117,11 @@ export default {
   name: "Detail",
   data() {
     return {
-      images: [
-        require("./huiyi.png"),
-        "https://img.yzcdn.cn/vant/apple-1.jpg",
-        "https://img.yzcdn.cn/vant/apple-2.jpg",
-      ],
+      // images: [
+      //   require("./huiyi.png"),
+      //   "https://img.yzcdn.cn/vant/apple-1.jpg",
+      //   "https://img.yzcdn.cn/vant/apple-2.jpg",
+      // ],
       current: 0,
       currentData: "",
 
@@ -133,9 +134,9 @@ export default {
     this.getDetailData();
   },
   methods: {
-    swipeChange(index) {
-      this.current = index;
-    },
+    // swipeChange(index) {
+    //   this.current = index;
+    // },
     getDetailData() {
       const param = {
         id: "123www",
