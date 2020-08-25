@@ -92,26 +92,17 @@
             class="journey-card"
             v-for="item in journeyList"
             :key="item.id"
-            :class="
-              item.activeState == 0
-                ? 'notstarted'
-                : item.activeState == 1
-                ? 'ongoing'
-                : 'finished'
-            "
+            :class="item.activeState == 0? 'notstarted': item.activeState == 1? 'ongoing': 'notstarted'"
           >
+            <!--finished-->
             <div class="card-content">
-              <div class="card-title">
+              <div :class="item.activeState == 0? 'card-title-no': item.activeState == 1? 'card-title': 'card-title-no'">
                 <span>
                   {{ item.startTime }}到{{ item.endTime }}
                 </span>
                 <span>
                   {{
-                    item.activeState == 0
-                      ? "未开始"
-                      : item.activeState == 1
-                      ? "已开始"
-                      : "已结束"
+                    item.activeState == 0? "未开始": item.activeState == 1? "已开始": "已结束"
                   }}
                 </span>
               </div>
