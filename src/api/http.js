@@ -6,7 +6,7 @@ import { Toast } from "vant";
 
 var instance = axios.create({
   // baseURL: process.env.VUE_APP_API_URL,
-  baseURL: "http://wujia.oicp.net",
+  baseURL:  process.env.VUE_APP_API_URL,
   timeout: 1000 * 20,
 });
 

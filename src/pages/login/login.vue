@@ -200,7 +200,6 @@ export default {
               //   this.$toast("非本会议受邀人员，请联系工作人处理");
               // }
             } catch (err) {
-              console.log(err);
               this.$router.push({ path: "/" });
             }
           })
