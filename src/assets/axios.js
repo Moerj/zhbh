@@ -14,20 +14,104 @@ import qs from "qs";
 import { Toast } from "vant";
 
 export default {
-  install: function(Vue, config) {
-    config = Object.assign(
-      {
-        // default config
-        timeout: 10000,
-      },
-      config
-    );
+    install: function (Vue, config) {
 
-    if (config) {
-      for (let key in config) {
-        axios.defaults[key] = config[key];
-      }
-    }
+        config = Object.assign({
+            // default config
+            timeout: 10000,
+        },config)
+
+        if (config) {
+            for (let key in config) {
+                axios.defaults[key] = config[key]
+            }
+        }
+
+        const instance = axios.create({
+
+            headers: {
+                'Content-Type':'application/json',//默认的请求头
+            },
+
+        });
+
+        // request 请求拦截器
+        instance.interceptors.request.use(config => {
+
+            // 根据dataType获取headers
+            const lib = {//dataType封装常用类型
+                json: 'application/json',
+                formData: 'multipart/form-data',
+            }
+            if (config.dataType) {
+                for (const key in lib) {
+                    if (config.dataType===key && lib.hasOwnProperty(key)) {
+                        config.headers['Content-Type'] = lib[key]
+                    }
+                }
+            }
+
+            //处理post请求
+            if (config.data) {
+                const contentType = config.headers['Content-Type']
+
+                // 发送json类型
+                if (contentType.indexOf('application/json')>=0 && typeof config.data==='object') {
+                    config.data = JSON.stringify(config.data)//转JSON字符串
+                }
+
+                // 发送form类型
+                if(contentType.indexOf('application/x-www-form-urlencoded')>=0){
+                    config.data = qs.stringify(config.data)//用qs处理data
+                }
+            }
+
+            return config
+        }, error => {
+            // Do something with request error
+            console.error(error) // for debug
+            Promise.reject(error)
+        })
+
+        // response 响应拦截器
+        instance.interceptors.response.use(res => {
+            // 根据res的某项值来实现: 登录过期,请求权限等操作
+            // if (!res) {//未登录
+            //     window.location.href = window.location.origin + '#/login' //跳转到登录页面
+            // }
+            if (res.data.errorCode === '00003') {
+                Toast('您的身份信息已过期 需要重新进入哟')
+            } else if (res.data.errorCode === '00000') {
+                return res.data
+            } else {
+                Toast(res.message)
+                Promise.reject(res.data)
+            }
+        }, error => {
+            // Do something with request error
+            console.error(error) // for debug
+            Promise.reject(error)
+        })
+
+
+        // 默认的调用 $axios 无基础配置
+        Object.defineProperty(Vue.prototype, '$axios', {
+            value: axios
+        });
+
+
+        // 封装$http方法, 包含配置, indicator:true开启加载指示器
+        const ajax = (url, data, type) => {
+            return new Promise(function (resolve, reject) {
+                instance[type](url, data)
+                    .then( res => {
+                        resolve(res)
+                    })
+                    .catch( err => {
+                        reject(err)
+                    });
+            })
+        }
 
     const instance = axios.create({
       headers: {
