@@ -21,8 +21,8 @@
       </div>
       <div>{{ data.name }}</div>
       <div>
-        <van-icon :name="data.weatherIcon"/>
-        <span>{{ data.weather }}</span>
+        <van-icon :name="weatherIcon"/>
+        <span>{{ temperature }}</span>
       </div>
       <div>
         <div @click="locate">
@@ -103,21 +103,33 @@ export default {
     return {
       current: 0,
       data: {},
-      type: this.$route.query.type
+      type: this.$route.query.type,
+      weather: {}
+    }
+  },
+  computed: {
+    weatherIcon () {
+      if (this.weather.condCode) {
+        return process.env.VUE_APP_WEATHER_API + 'weather/' + this.weather.cond_code_n + '.png'
+      }
+    },
+    temperature () {
+      if (!this.$isEmpty(this.weather.tmp_min) && !this.$isEmpty(this.weather.tmp_max)) {
+        return `${this.weather.tmp_min}℃~${this.weather.tmp_max}℃`
+      }
     }
   },
   created () {
     this.getDetail()
+    this.getWeather()
   },
   methods: {
-    getDetail () {
-
-      this.$http.post('areaInfo/queryForPageWithWeather', {
-        areaCode: '520200000000',
-      }).then(({ data }) => {
-
+    getWeather () {
+      this.$http.get(`${process.env.VUE_APP_WEATHER_API}guizhou/one-travel-app/weather/queryWeatherByAreaCode/520200000000`).then(({ data }) => {
+        this.weather = data?.dailyForecast[0]
       })
-
+    },
+    getDetail () {
       /*this.$loading.open()
       this.$http.post('', this.$route.query).then(({ data }) => {
         this.data = data || {}
@@ -131,8 +143,6 @@ export default {
           endTime: '14:00',
           name: '天怡豪生大酒店餐厅',
           location: '六盘水旅游文化会议中心',
-          weatherIcon: require('./assets/weather.svg'),
-          weather: '5℃~12℃',
           roomNum: '5包间13号',
           seat: '3排27号',
           tel: '0851-8221657',

@@ -16,7 +16,7 @@
     >
       <van-steps direction="vertical" :active="activeStep" active-color="#2B69E2">
         <van-step v-for="(v,i) of list">
-          <div>{{v.date && `${v.date} ${v.startTime}${v.endTime && ('到' + v.endTime)}`}}</div>
+          <div>{{v.startTime && `${v.startTime}${v.endTime && ('到' + v.endTime)}`}}</div>
           <div @click="()=>{toDetail(v)}">
             <div class="ellipsis-1">{{v.name}}</div>
             <div>
