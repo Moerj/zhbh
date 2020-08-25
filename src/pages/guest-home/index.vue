@@ -106,7 +106,7 @@
                   {{ item.scheduleDate }}
                   {{ item.startTime }}到{{ item.endTime }}
                 </span>
-                <span>
+                <span style="float: right;">
                   {{
                     item.activeState == 0
                       ? "未开始"
