@@ -1,5 +1,5 @@
 <template>
-  <ui-main>
+<ui-main>
     <template v-slot:header>
       <van-nav-bar title="活动报名" fixed>
         <div>
@@ -166,7 +166,7 @@
       </div>
     </div>
     <Tabbar />
-  </ui-main>
+</ui-main>
 </template>
 <style lang="scss" scoped>
   .user-container {
