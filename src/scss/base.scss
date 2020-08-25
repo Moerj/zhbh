@@ -478,13 +478,13 @@ input,textarea{
 
 @supports (bottom: constant(safe-area-inset-bottom)) or (bottom: env(safe-area-inset-bottom)) {
     .safe-area-plus {
-        padding-bottom: calc(constant(safe-area-inset-bottom) + 9px) !important;
-        padding-bottom: calc(env(safe-area-inset-bottom) + 9px) !important;
+        padding-bottom: calc(constant(safe-area-inset-bottom) + 10px) !important;
+        padding-bottom: calc(env(safe-area-inset-bottom) + 10px) !important;
     }
 }
 
 @supports (not(bottom: constant(safe-area-inset-bottom))) and (not (bottom: env(safe-area-inset-bottom))) {
     .safe-area-plus {
-        padding-bottom: 9px !important;
+        padding-bottom: 10px !important;
     }
 }

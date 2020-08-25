@@ -80,7 +80,7 @@
     <SeatingArrangements :data="data" v-if="type==='conference'"/>
 
     <template #footer>
-      <div class="bottom-button safe-area-plus">
+      <div class="safe-area-plus">
         <van-button icon="scan" round @click="scan">扫一扫</van-button>
       </div>
     </template>
@@ -111,6 +111,8 @@ export default {
     weatherIcon () {
       if (this.weather.condCode) {
         return process.env.VUE_APP_BASE_API + 'weather/' + this.weather.cond_code_n + '.png'
+      } else {
+        return require('./assets/weather_duoyun.svg')
       }
     },
     temperature () {
@@ -125,9 +127,15 @@ export default {
   },
   methods: {
     getWeather () {
-      this.$http.get(`${process.env.VUE_APP_BASE_API}guizhou/one-travel-app/weather/queryWeatherByAreaCode/520200000000`).then(({ data }) => {
+      /*this.$http.get(`${process.env.VUE_APP_BASE_API}guizhou/one-travel-app/weather/queryWeatherByAreaCode/520200000000`).then(({ data }) => {
         this.weather = data?.dailyForecast[0]
-      })
+      })*/
+      setTimeout(() => {
+        this.weather = {
+          tmp_min: 2,
+          tmp_max: 6,
+        }
+      }, 500)
     },
     getDetail () {
       /*this.$loading.open()
@@ -188,13 +196,13 @@ export default {
           }
         })
       } else {*/
-        this.$router.push({
-          path: '/conference-group/sign-in',
-          query: {
-            type: 'dining',
-            id: 'id'
-          }
-        })
+      this.$router.push({
+        path: '/conference-group/sign-in',
+        query: {
+          type: 'dining',
+          id: 'id'
+        }
+      })
       //}
     }
   }
@@ -293,9 +301,9 @@ header {
   }
 }
 
-.bottom-button {
+.safe-area-plus {
   width: 100%;
-  padding: 9px 15px;
+  padding: 10px 15px;
   background-color: #fff;
 
   button {

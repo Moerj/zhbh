@@ -41,7 +41,7 @@
     </div>
 
     <template #footer>
-      <div class="bottom-button safe-area-plus">
+      <div class="safe-area-plus">
         <van-button round @click="signIn" :disabled="data.status!=='正常'" :color="themeColor">酒店签到</van-button>
       </div>
     </template>
@@ -170,7 +170,6 @@ export default {
     margin: -30px 15px 0 15px;
     position: relative;
     width: calc(100% - 30px);
-    height: 246px;
     background: #ffffff;
     border-radius: 0 0 8px 8px;
     box-shadow: 0 0 9px 0 rgba(0, 0, 0, 0.1);
@@ -218,9 +217,9 @@ export default {
   }
 }
 
-.bottom-button {
+.safe-area-plus {
   width: 100%;
-  padding: 9px 15px;
+  padding: 10px 15px;
   background-color: #fff;
 
   button {
