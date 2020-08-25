@@ -27,7 +27,7 @@ import store from "./store";
 Vue.router = router;
 Vue.store = store;
 
-//http 模块
+// http 模块
 import axios from "./assets/axios";
 Vue.use(axios, {
   timeout: 20000,
@@ -54,11 +54,12 @@ import vantUI from "vant-ui"; //npm库 - 正式项目请用这个
 Vue.use(vantUI);
 import { Lazyload } from "vant";
 Vue.use(Lazyload);
-
 import Drag from "@nutui/nutui/dist/packages/drag/drag.js";
 import "@nutui/nutui/dist/packages/drag/drag.css";
-
 Drag.install(Vue);
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
+Vue.use(ElementUI);
 
 // 框架样式
 import "@/scss/index.scss";
@@ -70,38 +71,40 @@ store.dispatch("getOpenId").then(() => {});
 
 Vue.router.beforeEach((to, from, next) => {
   const { isFirstLogin, openId, user } = store.getters;
-  if (isFirstLogin == "YES") {
-    store.dispatch("checkOpenId", { openId: openId }).then((res) => {
-      try {
-        if (res.code == "0") {
-          localStorage.setItem("isFirstLogin", "NO");
-          if (to.path == "/login") {
-            next(`/guest-home?openId=${openId}`);
-          } else {
-            next();
-          }
-        } else {
-          if (res.msg == "未找到用户" && to.path == "/login") {
-            localStorage.setItem("isFirstLogin", "NO");
-            next();
-          } else {
-            next();
-          }
-        }
-      } catch (error) {
-        next(`/login?openId=${openId}`);
-      }
-    });
-  } else {
+  // if (isFirstLogin == "YES") {
+    // store.dispatch("checkOpenId", { openId: openId }).then((res) => {
+    //   try {
+    //     if (res.code == "00000") {
+    //       localStorage.setItem("isFirstLogin", "NO");
+    //       if (to.path == "/login") {
+    //         next(`/guest-home?openId=${openId}`);
+    //       } else {
+    //         next();
+    //       }
+    //     } else {
+    //       if (res.msg == "未找到用户" && to.path == "/login") {
+    //         localStorage.setItem("isFirstLogin", "NO");
+    //         next();
+    //       } else {
+    //         next();
+    //       }
+    //     }
+    //   } catch (error) {
+    //     next(`/login?openId=${openId}`);
+    //   }
+    // });
+  // } else {
     next();
-    console.log(user);
-  }
+    // console.log(user);
+  // }
 });
 Vue.config.productionTip = false;
 
-new Vue({
+
+const vue = new Vue({
   router,
   store,
   mixins: [mixin],
   render: (h) => h(App),
 }).$mount("#app");
+export default vue;

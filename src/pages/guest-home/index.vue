@@ -23,11 +23,11 @@
       ref="pull"
     >
       <div class="hotel-container">
-        <div class="title">您的酒店</div>
+        <div class="title">我的酒店</div>
         <div class="hotel-card">
           <div class="hotel-name">天怡豪生大酒店</div>
           <div class="hotel-info">
-            <div class="info-item flex row-between">
+            <div class="info-item flex row-between" @click.stop="showMapHandle">
               <span>
                 <span class="item-title">地址：</span>
                 <span class="item-text">六盘水</span>
@@ -52,15 +52,38 @@
         </div>
 
         <div class="subtitle flex row-left col-center">
-          <div class="self">您的行程</div>
           <div class="peers-group">
             <div>
-              <span>同行人员</span>
-              <span>同行人员</span>
-              <span>同行人员</span>
-              <span>同行人员</span>
-              <span>同行人员</span>
-              <span>同行人员</span>
+              <span
+                :class="journeyActive == 0 ? 'active' : ''"
+                @click="journeyHandle(0)"
+                >我的行程</span
+              >
+              <span
+                :class="journeyActive == 1 ? 'active' : ''"
+                @click="journeyHandle(1)"
+                >同行人员</span
+              >
+              <span
+                :class="journeyActive == 2 ? 'active' : ''"
+                @click="journeyHandle(2)"
+                >同行人员</span
+              >
+              <span
+                :class="journeyActive == 3 ? 'active' : ''"
+                @click="journeyHandle(3)"
+                >同行人员</span
+              >
+              <span
+                :class="journeyActive == 4 ? 'active' : ''"
+                @click="journeyHandle(4)"
+                >同行人员</span
+              >
+              <span
+                :class="journeyActive == 5 ? 'active' : ''"
+                @click="journeyHandle(5)"
+                >同行人员</span
+              >
             </div>
           </div>
         </div>
@@ -214,8 +237,22 @@
         </div>
       </div>
     </nut-drag>
+    <!-- 106.681549,26.558844 -->
+    <!-- <CoordPicker
+      :show.sync="showMap"
+      apiKey=""
+      lng.sync="106.681549"
+      lat.sync="26.558844"
+      address.sync="花果园M区"
+    /> -->
 
     <Tabbar />
+
+    <van-overlay :show="showLoading">
+      <div>
+        <van-loading type="spinner" />
+      </div>
+    </van-overlay>
   </ui-main>
 </template>
 
@@ -223,6 +260,9 @@
 import Tabbar from "@/components/Tabbar";
 
 import journeyAPI from "@/api/journey.js";
+
+// import "coord-picker/dist/coord-picker.css";
+// import { CoordPicker } from "coord-picker";
 
 function getQuery() {
   return {
@@ -235,6 +275,7 @@ export default {
   name: "GuesetHome",
   components: {
     Tabbar,
+    // CoordPicker,
   },
   data() {
     return {
@@ -247,6 +288,11 @@ export default {
       isShowCode: false,
 
       journeyList: "",
+
+      showMap: false,
+      showLoading: false,
+
+      journeyActive: 0,
     };
   },
   watch: {
@@ -259,7 +305,6 @@ export default {
   computed: {
     dateList() {
       const dates = this.dates.map((item) => {
-        console.log(item.split("-"));
         let items = item.split("-");
         return `${items[1]}月${items[2]}日`;
       });
@@ -274,7 +319,7 @@ export default {
       journeyAPI
         .DateList()
         .then((res) => {
-          if (res.code == "0") {
+          if (res.code == "00000") {
             this.dates = res.list;
             this.tabCurrent = res.list[this.active];
             this.getMyJourney();
@@ -287,7 +332,7 @@ export default {
         });
     },
     getMyJourney() {
-      const user = JSON.parse(localStorage.getItem("user"))
+      const user = JSON.parse(localStorage.getItem("user"));
       const param = {
         userId: user.id,
         date: this.tabCurrent,
@@ -295,7 +340,8 @@ export default {
       journeyAPI
         .myJourney(param)
         .then((res) => {
-          if (res.code == "0") {
+          console.log(res);
+          if (res.code == "00000") {
             this.journeyList = res.list;
           } else {
             this.$toast(res.msg);
@@ -323,10 +369,27 @@ export default {
     closeCode(ev) {
       this.isShowCode = false;
     },
+    showMapHandle() {
+      this.showLoading = true;
+      setTimeout(() => {
+        this.showLoading = false;
+      }, 500);
+    },
+    journeyHandle(index) {
+      this.journeyActive = index;
+      // TODO 调用行程接口获取数据
+      this.$refs.pull.reload();
+    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
 @import "./index.scss";
+.van-overlay {
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 </style>

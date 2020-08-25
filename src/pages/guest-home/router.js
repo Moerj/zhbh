@@ -5,9 +5,34 @@ export default [
     component: () => import("./index.vue"),
     children: [
       {
-        path: 'detail',
-        name: '行程详情',
-        component: () => import('./detail/index.vue'),
+        path: 'huiyi',
+        name: "huiyi",
+        component: () => import('./detail/huiyi.vue'),
+      },
+      {
+        path: 'jiudian',
+        name: "jiudian",
+        component: () => import('./detail/jiudian.vue'),
+      },
+      {
+        path: 'zhuanche',
+        name: "zhuanche",
+        component: () => import('./detail/zhuanche.vue'),
+      },
+      {
+        path: 'bashi',
+        name: "bashi",
+        component: () => import('./detail/bashi.vue'),
+      },
+      {
+        path: 'canting',
+        name: "canting",
+        component: () => import('./detail/canting.vue'),
+      },
+      {
+        path: 'bolanhui',
+        name: "bolanhui",
+        component: () => import('./detail/bolanhui.vue'),
       },
     ]
   },

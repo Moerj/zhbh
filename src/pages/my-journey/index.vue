@@ -202,7 +202,7 @@ export default {
       journeyAPI
         .DateList()
         .then((res) => {
-          if (res.code == "0") {
+          if (res.code == "00000") {
             this.dates = res.list;
             this.tabCurrent = res.list[this.active];
             this.getMyJourney();
@@ -222,7 +222,7 @@ export default {
       journeyAPI
         .myJourney(param)
         .then((res) => {
-          if (res.code == "0") {
+          if (res.code == "00000") {
             this.journeyList = res.list;
           } else {
             this.$toast(res.msg);
