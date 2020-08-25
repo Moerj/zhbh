@@ -2,7 +2,8 @@
   <ui-main>
     <template v-slot:header>
       <van-nav-bar title="嘉宾首页" fixed>
-        <div slot="left" @click="$root.back()">
+        <!--slot="left" @click="$root.back()"-->
+        <div>
           <van-icon name="cross" size="1rem"></van-icon>
         </div>
       </van-nav-bar>
