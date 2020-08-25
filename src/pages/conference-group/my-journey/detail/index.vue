@@ -110,7 +110,7 @@ export default {
   computed: {
     weatherIcon () {
       if (this.weather.condCode) {
-        return process.env.VUE_APP_WEATHER_API + 'weather/' + this.weather.cond_code_n + '.png'
+        return process.env.VUE_APP_BASE_API + 'weather/' + this.weather.cond_code_n + '.png'
       }
     },
     temperature () {
@@ -125,7 +125,7 @@ export default {
   },
   methods: {
     getWeather () {
-      this.$http.get(`${process.env.VUE_APP_WEATHER_API}guizhou/one-travel-app/weather/queryWeatherByAreaCode/520200000000`).then(({ data }) => {
+      this.$http.get(`${process.env.VUE_APP_BASE_API}guizhou/one-travel-app/weather/queryWeatherByAreaCode/520200000000`).then(({ data }) => {
         this.weather = data?.dailyForecast[0]
       })
     },
@@ -174,25 +174,28 @@ export default {
         })}`
       })
     },
-    scan () {
-      /*wx.scanCode({
-        onlyFromCamera: true,
-        success: res => {
-          this.$router.push({
-            path: 'guest-service',
-            query: {
-              type: res.result,
-            }
-          })
-        }
-      })*/
-      this.$router.push({
-        path: '/conference-group/sign-in',
-        query: {
-          type: 'dining',
-          id: 'id'
-        }
-      })
+    async scan () {
+      if (['wechat', 'mp'].includes(await getEnv())) {
+        wx.scanCode({
+          onlyFromCamera: true,
+          success: res => {
+            this.$router.push({
+              path: 'guest-service',
+              query: {
+                type: res.result,
+              }
+            })
+          }
+        })
+      } else {
+        this.$router.push({
+          path: '/conference-group/sign-in',
+          query: {
+            type: 'dining',
+            id: 'id'
+          }
+        })
+      }
     }
   }
 }

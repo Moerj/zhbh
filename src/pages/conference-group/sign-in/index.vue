@@ -1,12 +1,14 @@
 <template>
   <ui-main>
-    <div>
-      <div>{{data.status}}</div>
-      <div>{{data.name}}</div>
-      <div>{{data.statusPostscript}}</div>
+    <div :style="{backgroundImage}">
+      <div>健康状态：{{ data.status }}</div>
+      <div>{{ data.name }}</div>
+      <div>{{ data.statusPostscript }}</div>
       <hr/>
-      <div>{{data.time}}</div>
-      <hr/>
+      <div>{{ data.time }}</div>
+      <hr :style="{
+        background: themeColor
+      }"/>
     </div>
 
     <div>
@@ -14,33 +16,33 @@
         <div class="title">嘉宾信息</div>
         <div class="tr">
           <div class="th">嘉宾姓名：</div>
-          <div class="td ellipsis-1">{{data.guestInfo.name}}</div>
+          <div class="td ellipsis-1">{{ data.guestInfo.name }}</div>
         </div>
         <div class="tr">
           <div class="th">嘉宾身份：</div>
-          <div class="td ellipsis-1">{{data.guestInfo.identity}}</div>
+          <div class="td ellipsis-1">{{ data.guestInfo.identity }}</div>
         </div>
       </div>
       <div>
         <div class="title">酒店信息</div>
         <div class="tr">
           <div class="th">酒店名称：</div>
-          <div class="td ellipsis-1">{{data.hotelInfo.name}}</div>
+          <div class="td ellipsis-1">{{ data.hotelInfo.name }}</div>
         </div>
         <div class="tr">
           <div class="th">地址：</div>
-          <div class="td ellipsis-1">{{data.hotelInfo.address}}</div>
+          <div class="td ellipsis-1">{{ data.hotelInfo.address }}</div>
         </div>
         <div class="tr">
           <div class="th">房间：</div>
-          <div class="td ellipsis-1">{{data.hotelInfo.room}}</div>
+          <div class="td ellipsis-1">{{ data.hotelInfo.room }}</div>
         </div>
       </div>
     </div>
 
     <template #footer>
       <div class="bottom-button safe-area-plus">
-        <van-button round @click="signIn">酒店签到</van-button>
+        <van-button round @click="signIn" :disabled="data.status!=='正常'" :color="themeColor">酒店签到</van-button>
       </div>
     </template>
   </ui-main>
@@ -56,6 +58,22 @@ export default {
         guestInfo: {},
         hotelInfo: {},
       }
+    }
+  },
+  computed: {
+    themeColor () {
+      return {
+        '正常': '#00cf20',
+        '居家隔离': 'rgba(202,100,28,1)',
+        '集中隔离': '#ad0404',
+      }[this.data.status]
+    },
+    backgroundImage () {
+      return `url('${{
+        '正常': require('./assets/bg.png'),
+        '居家隔离': require('./assets/bg-orange.png'),
+        '集中隔离': require('./assets/bg-red.png'),
+      }[this.data.status]}')`
     }
   },
   created () {
@@ -104,7 +122,6 @@ export default {
 .ui-main-scroll {
   & > div:first-child {
     height: 252px;
-    background-image: url("./assets/bg.png");
     background-position: center;
     background-size: cover;
     text-align: center;
@@ -145,7 +162,6 @@ export default {
       margin-top: 11px;
       width: 359px;
       height: 10px;
-      background: #00cf20;
       border-radius: 19px;
     }
   }

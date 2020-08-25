@@ -186,7 +186,12 @@ export default {
                 });
               } else if (res.user.userRole == "2") {
                 // b. 工作人员或志愿者首页
-                this.$toast();
+                this.$router.push({
+                  path: "/conference-group/my-journey",
+                  query: {
+                    openId: appletsOpenId,
+                  },
+                });
               } else if (res.user.userRole == "3") {
                 // 	c. 新闻工作者首页（暂定与嘉宾首页一致）
                 this.$router.push({
