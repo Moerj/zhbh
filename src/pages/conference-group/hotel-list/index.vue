@@ -86,7 +86,7 @@ export default {
       })
     },
     async scan () {
-      if (['wechat', 'mp'].includes(await getEnv())) {
+      /*if (['wechat', 'mp'].includes(await getEnv())) {
         wx.scanCode({
           onlyFromCamera: true,
           success: res => {
@@ -98,7 +98,7 @@ export default {
             })
           }
         })
-      } else {
+      } else {*/
         this.$router.push({
           path: '/conference-group/sign-in',
           query: {
@@ -106,7 +106,7 @@ export default {
             id: 'id'
           }
         })
-      }
+      //}
     },
     getList () {
       this.list.length = 0
