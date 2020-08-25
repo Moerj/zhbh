@@ -149,8 +149,6 @@
 </template>
 
 <script>
-import ConferenceGroupTabbar from "@/components/ConferenceGroupTabbar";
-
 import journeyAPI from "@/api/journey.js";
 
 function getQuery() {
@@ -162,9 +160,6 @@ function getQuery() {
 }
 export default {
   name: "GuesetHome",
-  components: {
-    ConferenceGroupTabbar,
-  },
   data() {
     return {
       active: 0,

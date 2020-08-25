@@ -57,9 +57,6 @@ Vue.use(Lazyload);
 import Drag from "@nutui/nutui/dist/packages/drag/drag.js";
 import "@nutui/nutui/dist/packages/drag/drag.css";
 Drag.install(Vue);
-// import ElementUI from 'element-ui';
-// import 'element-ui/lib/theme-chalk/index.css';
-// Vue.use(ElementUI);
 
 // 框架样式
 import "@/scss/index.scss";
