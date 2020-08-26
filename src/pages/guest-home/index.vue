@@ -55,34 +55,14 @@
           <div class="peers-group">
             <div>
               <span
-                :class="journeyActive == 0 ? 'active' : ''"
-                @click="journeyHandle(0)"
+                :class="journeyActive == user.id ? 'active' : ''"
+                @click="journeyHandle(user.id)"
                 >我的行程</span
               >
-              <span
-                :class="journeyActive == 1 ? 'active' : ''"
-                @click="journeyHandle(1)"
-                >同行人员</span
-              >
-              <span
-                :class="journeyActive == 2 ? 'active' : ''"
-                @click="journeyHandle(2)"
-                >同行人员</span
-              >
-              <span
-                :class="journeyActive == 3 ? 'active' : ''"
-                @click="journeyHandle(3)"
-                >同行人员</span
-              >
-              <span
-                :class="journeyActive == 4 ? 'active' : ''"
-                @click="journeyHandle(4)"
-                >同行人员</span
-              >
-              <span
-                :class="journeyActive == 5 ? 'active' : ''"
-                @click="journeyHandle(5)"
-                >同行人员</span
+              <span v-for="people in togPeople"
+                :class="journeyActive == people.id ? 'active' : ''"
+                @click="journeyHandle(people.id)"
+                >{{people.realName}}</span
               >
             </div>
           </div>
@@ -136,77 +116,6 @@
               </div>
             </div>
           </div>
-          <!-- <div class="journey-card notstarted">
-            <div class="card-content">
-              <div class="card-title">
-                <span>2020-12-12 12:00到14:00</span>
-              </div>
-              <div class="card-inner">
-                <div class="signin-cont">
-                  <img src="./image/nosignin.png" alt="未签到" />
-                </div>
-                <div class="inner-title">会议名称</div>
-                <div class="inner-item flex row-between">
-                  <span>
-                    <span class="item-title">地址：</span>
-                    <span class="item-text">六盘水旅游文化会议中心</span>
-                  </span>
-                  <span><img src="./image/right.svg"/></span>
-                </div>
-                <div class="inner-item">
-                  <span>
-                    <span class="item-title">座位：</span>
-                    <span class="item-text">3排27号</span>
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="journey-card ongoing">
-            <div class="card-content">
-              <div class="card-title flex row-between">
-                <span>2020-12-12 12:00到14:00</span>
-                <span>进行中</span>
-              </div>
-              <div class="card-inner">
-                <div class="inner-title">会议名称</div>
-                <div class="inner-item flex row-between">
-                  <span>
-                    <span class="item-title">地址：</span>
-                    <span class="item-text">六盘水旅游文化会议中心</span>
-                  </span>
-                  <span><img src="./image/right.svg"/></span>
-                </div>
-                <div class="inner-item">
-                  <span>
-                    <span class="item-title">座位：</span>
-                    <span class="item-text">3排27号</span>
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="journey-card finished">
-            <div class="card-content">
-              <div class="card-title">2020-12-12 12:00到14:00</div>
-              <div class="card-inner">
-                <div class="inner-title">会议名称</div>
-                <div class="inner-item flex row-between">
-                  <span>
-                    <span class="item-title">地址：</span>
-                    <span class="item-text">六盘水旅游文化会议中心</span>
-                  </span>
-                  <span><img src="./image/right.svg"/></span>
-                </div>
-                <div class="inner-item">
-                  <span>
-                    <span class="item-title">座位：</span>
-                    <span class="item-text">3排27号</span>
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div> -->
         </div>
       </div>
     </ui-pull>
@@ -269,6 +178,7 @@ export default {
   },
   data() {
     return {
+      user: JSON.parse(localStorage.getItem("user")),
       active: 0,
       tabCurrent: "",
       dates: [],
@@ -276,12 +186,10 @@ export default {
       list: [],
       total: null,
       isShowCode: false,
-
       journeyList: "",
-
+      togPeople: [],
       showMap: false,
       showLoading: false,
-
       journeyActive: 0,
     };
   },
@@ -301,6 +209,9 @@ export default {
       return dates;
     },
   },
+  mounted() {
+    this.getTogPeople ()
+  },
   methods: {
     onTabsClick() {
       this.$refs.pull.reload();
@@ -317,10 +228,17 @@ export default {
           this.$toast(err);
         });
     },
+    getTogPeople () {
+      console.log("ces")
+      journeyAPI.togPeople({id : this.user.id}).then(res => {
+        console.log(res)
+        this.togPeople = res.refUsers
+      })
+    },
     getMyJourney() {
-      const user = JSON.parse(localStorage.getItem("user"));
+      // const user = JSON.parse(localStorage.getItem("user"));
       const param = {
-        userId: user.id,
+        userId: this.user.id,
         date: this.tabCurrent,
       };
       journeyAPI
@@ -360,10 +278,20 @@ export default {
         this.showLoading = false;
       }, 500);
     },
-    journeyHandle(index) {
-      this.journeyActive = index;
-      // TODO 调用行程接口获取数据
-      this.$refs.pull.reload();
+    journeyHandle(id) {
+      this.journeyActive = id;
+      const param = {
+        userId: id,
+        date: this.tabCurrent,
+      };
+      journeyAPI
+        .myJourney(param)
+        .then((res) => {
+          this.journeyList = res.list;
+        })
+        .catch((err) => {
+          this.$toast(err);
+        });
     },
   },
 };
