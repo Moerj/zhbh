@@ -106,7 +106,7 @@
                   }}
                 </span>
               </div>
-              <div class="card-inner" @click="toDetail(item)">
+              <div :class="item.activeState == 0? 'card-inner-no': item.activeState == 1? 'card-inner': 'card-inner-no'" @click="toDetail(item)">
                 <div class="signin-cont">
                   <img
                     src="./image/signedin.png"
