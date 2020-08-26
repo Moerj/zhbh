@@ -25,7 +25,7 @@
       <div class="hotel-container">
         <div class="title">我的酒店</div>
         <div class="hotel-card">
-          <div class="hotel-name">天怡豪生大酒店</div>
+          <div class="hotel-name" @click="toDetailRoom">天怡豪生大酒店</div>
           <div class="hotel-info">
             <div class="info-item flex row-between" @click.stop="showMapHandle">
               <span>
@@ -302,6 +302,9 @@ export default {
     },
   },
   methods: {
+    toDetailRoom(){
+        this.$router.push({name: 'jiudian'});
+    },
     onTabsClick() {
       this.$refs.pull.reload();
     },
