@@ -111,16 +111,6 @@ $color: #26a2ff;
       </div>
       <van-form @submit="login" class="login-form">
         <van-field
-          v-model="loginForm.joinCode"
-          name="joinCode"
-          maxlength="6"
-          placeholder="请输入参会邀请码"
-        >
-          <div slot="left-icon" class="left-icon">
-            <img src="./image/icon_gzzh.svg" alt="" />
-          </div>
-        </van-field>
-        <van-field
           v-model="loginForm.phoneNo"
           type="tel"
           maxlength="11"
@@ -129,6 +119,16 @@ $color: #26a2ff;
         >
           <div slot="left-icon" class="left-icon">
             <img src="./image/icon_mm.svg" alt="" />
+          </div>
+        </van-field>
+        <van-field
+                v-model="loginForm.joinCode"
+                name="joinCode"
+                maxlength="6"
+                placeholder="请输入参会邀请码"
+        >
+          <div slot="left-icon" class="left-icon">
+            <img src="./image/icon_gzzh.svg" alt="" />
           </div>
         </van-field>
         <div class="submit-btn">
