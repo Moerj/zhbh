@@ -84,7 +84,7 @@ export default {
       } else if (res.data.errorCode === '00000') {
         return res.data
       } else {
-        res.message && Toast(res.message)
+        res.data.message && Toast(res.data.message)
         Promise.reject(res.data)
       }
     }, error => {
