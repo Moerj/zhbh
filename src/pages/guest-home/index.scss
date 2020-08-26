@@ -205,6 +205,22 @@
     box-shadow: 2px 0 6px 2px rgba(0, 0, 0, 0.24);
     position: relative;
   }
+  .card-inner-no {
+    background-color: #fff;
+    padding: 0.9rem;
+    margin-top: 10px;
+    border-right: 0.25rem solid #c7cccc;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+    box-shadow: 2px 0 6px 2px rgba(0, 0, 0, 0.24);
+    position: relative;
+    .item-text{
+      color: #b7bacc;
+    }
+    .item-title{
+      color: #b7bacc;
+    }
+  }
 
   .card-content {
     position: relative;
@@ -235,6 +251,9 @@
     background-color: #b7bacc;
     z-index: 5;
   }
+}
+.card-title-no .inner-item .item-text {
+  color: #b7bacc;
 }
 
 .card-content::before {
@@ -343,6 +362,7 @@
   .card-content::before {
     background-color: #2b69e2;
   }
+
 }
 
 // 二维码部分
