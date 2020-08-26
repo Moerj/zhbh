@@ -51,6 +51,7 @@
         background: linear-gradient(90deg, #f2551a, #ec222d);
         color: #ffffff;
         border: 1px solid #f2551a;
+        font-weight: 600;
       }
     }
   }
@@ -128,14 +129,14 @@
     border-bottom-left-radius: 0.3125rem;
     border-bottom-right-radius: 0.3125rem;
     background-color: #ffffff;
-    padding: 0 1rem;
+    padding: 5px 1rem 10px 1rem;
   }
 }
 
 .hotel-info .info-item {
   height: 1.25rem;
   line-height: 1.25rem;
-  padding: 0.625rem 0;
+  padding: 5px 0;
   box-sizing: content-box;
   position: relative;
   .tel {
@@ -150,12 +151,21 @@
 }
 
 .item-title {
+  width: 45px;
+  height: 21px;
+  font-size: 15px;
+  font-family: PingFangSC, PingFangSC-Light;
+  font-weight: 300;
+  text-align: left;
   color: #595b64;
-  font-size: 1rem;
+  line-height: 21px;
 }
 .item-text {
   color: #292a2c;
-  font-size: 1rem;
+  font-size: 15px;
+  font-weight: 400;
+  text-align: left;
+  line-height: 21px;
   &.text-phone {
     color: #c7000b;
   }
@@ -164,15 +174,31 @@
 .journey-card {
   padding: 0 1rem;
   .card-title {
-    font-size: 1.125rem;
-    color: #9094a8;
+    font-size: 17px;
     padding-left: 0.8rem;
     position: relative;
+    font-family: PingFangSC, PingFangSC-Regular;
+    font-weight: 400;
+    text-align: left;
+    color: #2b69e2;
+    line-height: 24px;
+
+  }
+  .card-title-no {
+    font-size: 17px;
+    padding-left: 0.8rem;
+    position: relative;
+    font-family: PingFangSC, PingFangSC-Regular;
+    font-weight: 400;
+    text-align: left;
+    color: #c7cccc;
+    line-height: 24px;
+
   }
   .card-inner {
     background-color: #fff;
     padding: 0.9rem;
-    margin-top: 0.625rem;
+    margin-top: 10px;
     border-right: 0.25rem solid #e02020;
     border-top-right-radius: 4px;
     border-bottom-right-radius: 4px;
@@ -198,6 +224,17 @@
     background-color: #b7bacc;
     z-index: 5;
   }
+  .card-title-no::before {
+    content: "";
+    position: absolute;
+    left: -0.265rem;
+    top: calc(100% / 2 - 0.28125rem);
+    width: 0.5625rem;
+    height: 0.5625rem;
+    border-radius: 50%;
+    background-color: #b7bacc;
+    z-index: 5;
+  }
 }
 
 .card-content::before {
@@ -213,6 +250,7 @@
 }
 
 .journey-container {
+  padding-top: 15px;
   .journey-card:last-child {
     .card-content::before {
       height: calc(100% - 0.5625rem);
@@ -280,6 +318,17 @@
     height: 0.8125rem;
     border-radius: 50%;
     border: 1px solid #2b69e2;
+    z-index: 30;
+  }
+  .card-title-no::after {
+    content: "";
+    position: absolute;
+    left: -0.44rem;
+    top: calc(100% / 2 - 0.46rem);
+    width: 0.8125rem;
+    height: 0.8125rem;
+    border-radius: 50%;
+    border: 1px solid #c7cccc;
     z-index: 30;
   }
   .card-title::before,

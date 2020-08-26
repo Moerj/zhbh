@@ -1,11 +1,11 @@
-import http from "@/api/http";
+import vue from "../main";
 
 const myJourney = (param) =>
-  http.get(`/mt/userschedule/get/by/user`, { params: param });
+    vue.$http.get(`/mt/userschedule/get/by/user`, { params: param });
 const DateList = (param) =>
-  http.get(`/mt/schedule/date/list`, { params: param });
+    vue.$http.get(`/mt/schedule/date/list`, { params: param });
 const detailJourney = (param) =>
-  http.get(`/mt/userschedule/get/info`, { params: param });
+    vue.$http.get(`/mt/userschedule/get/info`, { params: param });
 
 export default {
   myJourney,

@@ -97,6 +97,7 @@ Vue.router.beforeEach((to, from, next) => {
 });
 Vue.config.productionTip = false;
 
+
 const vue = new Vue({
   router,
   store,

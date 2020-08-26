@@ -111,16 +111,6 @@ $color: #26a2ff;
       </div>
       <van-form @submit="login" class="login-form">
         <van-field
-          v-model="loginForm.joinCode"
-          name="joinCode"
-          maxlength="6"
-          placeholder="请输入参会邀请码"
-        >
-          <div slot="left-icon" class="left-icon">
-            <img src="./image/icon_gzzh.svg" alt="" />
-          </div>
-        </van-field>
-        <van-field
           v-model="loginForm.phoneNo"
           type="tel"
           maxlength="11"
@@ -129,6 +119,16 @@ $color: #26a2ff;
         >
           <div slot="left-icon" class="left-icon">
             <img src="./image/icon_mm.svg" alt="" />
+          </div>
+        </van-field>
+        <van-field
+                v-model="loginForm.joinCode"
+                name="joinCode"
+                maxlength="6"
+                placeholder="请输入参会邀请码"
+        >
+          <div slot="left-icon" class="left-icon">
+            <img src="./image/icon_gzzh.svg" alt="" />
           </div>
         </van-field>
         <div class="submit-btn">
@@ -171,11 +171,6 @@ export default {
             try {
               // userRole
               // 1.参会嘉宾  2 服务志愿者 3 媒体工作者
-
-              if (res.code == 500 ) {
-                this.$toast(res.msg)
-                return
-              }
               if (res.user.userRole == "1") {
                 //	a. 嘉宾首页
                 this.$router.push({
@@ -207,8 +202,7 @@ export default {
             } catch (err) {
               this.$router.push({ path: "/" });
             }
-          })
-          .catch((err) => {
+          }).catch((err) => {
             this.$toast(err.msg);
           });
       }

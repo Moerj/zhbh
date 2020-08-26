@@ -92,27 +92,17 @@
             class="journey-card"
             v-for="item in journeyList"
             :key="item.id"
-            :class="
-              item.activeState == 0
-                ? 'notstarted'
-                : item.activeState == 1
-                ? 'ongoing'
-                : 'finished'
-            "
+            :class="item.activeState == 0? 'notstarted': item.activeState == 1? 'ongoing': 'notstarted'"
           >
+            <!--finished-->
             <div class="card-content">
-              <div class="card-title">
+              <div :class="item.activeState == 0? 'card-title-no': item.activeState == 1? 'card-title': 'card-title-no'">
                 <span>
-                  {{ item.scheduleDate }}
                   {{ item.startTime }}到{{ item.endTime }}
                 </span>
                 <span>
                   {{
-                    item.activeState == 0
-                      ? "未开始"
-                      : item.activeState == 1
-                      ? "已开始"
-                      : "已结束"
+                    item.activeState == 0? "未开始": item.activeState == 1? "已开始": "已结束"
                   }}
                 </span>
               </div>
@@ -140,7 +130,7 @@
                 <div class="inner-item" v-if="item.tabNo">
                   <span>
                     <span class="item-title">座位：</span>
-                    <span class="item-text">{{ item.tabNo }}</span>
+                    <span class="item-text">{{ item.tabNo + item.seatNo }} 座位</span>
                   </span>
                 </div>
               </div>
@@ -319,13 +309,9 @@ export default {
       journeyAPI
         .DateList()
         .then((res) => {
-          if (res.code == "00000") {
-            this.dates = res.list;
-            this.tabCurrent = res.list[this.active];
-            this.getMyJourney();
-          } else {
-            this.$toast(res.msg);
-          }
+          this.dates = res.list;
+          this.tabCurrent = res.list[this.active];
+          this.getMyJourney();
         })
         .catch((err) => {
           this.$toast(err);
@@ -340,12 +326,7 @@ export default {
       journeyAPI
         .myJourney(param)
         .then((res) => {
-          console.log(res);
-          if (res.code == "00000") {
-            this.journeyList = res.list;
-          } else {
-            this.$toast(res.msg);
-          }
+          this.journeyList = res.list;
           this.$refs.pull.endSuccess();
         })
         .catch((err) => {
@@ -355,11 +336,15 @@ export default {
     },
     toDetail(data) {
       let currentData = data; // 当前点击的行程
-
+      let urls = {
+        "1":"huiyi",
+        "2":"canting",
+        "3":"bashi",
+        "4":"bolanhui"}
       this.$router.push({
-        path: "/guest-home/detail",
+        path: '/guest-home/'+urls[data.schType],
         query: {
-          currentData: currentData, // 添加详情所需要的数据
+          id: data.usId, // 添加详情所需要的数据
         },
       });
     },

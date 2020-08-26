@@ -5,16 +5,17 @@
     </template>
 
     <div class="detail-container">
-      <van-swipe :autoplay="3000" :height="280" @change="swipeChange">
-        <van-swipe-item v-for="(image, index) in images" :key="index">
-          <img v-lazy="image" />
-        </van-swipe-item>
-        <template #indicator>
-          <div class="custom-indicator">
-            {{ current + 1 }}/{{ images.length }}
-          </div>
-        </template>
-      </van-swipe>
+      <img style="width: 100%;" src="./jiudian.png">
+<!--      <van-swipe :autoplay="3000" :height="280" @change="swipeChange">-->
+<!--        <van-swipe-item v-for="(image, index) in images" :key="index">-->
+<!--          <img v-lazy="image" />-->
+<!--        </van-swipe-item>-->
+<!--        <template #indicator>-->
+<!--          <div class="custom-indicator">-->
+<!--            {{ current + 1 }}/{{ images.length }}-->
+<!--          </div>-->
+<!--        </template>-->
+<!--      </van-swipe>-->
 
       <div class="main-card">
         <div class="card-content">
@@ -93,11 +94,11 @@ export default {
   name: "Detail",
   data() {
     return {
-      images: [
-        require("./jiudian.png"),
-        "https://img.yzcdn.cn/vant/apple-1.jpg",
-        "https://img.yzcdn.cn/vant/apple-2.jpg",
-      ],
+      // images: [
+      //   require("./jiudian.png"),
+      //   "https://img.yzcdn.cn/vant/apple-1.jpg",
+      //   "https://img.yzcdn.cn/vant/apple-2.jpg",
+      // ],
       current: 0,
       currentData: "",
 
@@ -110,12 +111,12 @@ export default {
     this.getDetailData();
   },
   methods: {
-    swipeChange(index) {
-      this.current = index;
-    },
+    // swipeChange(index) {
+    //   this.current = index;
+    // },
     getDetailData() {
       const param = {
-        id: "123www",
+        id: this.$route.query.id,
       };
       journeyAPI.detailJourney(param).then((res) => {
         console.log(res);
