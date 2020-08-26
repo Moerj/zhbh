@@ -313,9 +313,6 @@ export default {
           this.tabCurrent = res.list[this.active];
           this.getMyJourney();
         })
-        .catch((err) => {
-          this.$toast(err);
-        });
     },
     getMyJourney() {
       const user = JSON.parse(localStorage.getItem("user"));
@@ -330,7 +327,6 @@ export default {
           this.$refs.pull.endSuccess();
         })
         .catch((err) => {
-          this.$toast(err);
           this.$refs.pull.endSuccess();
         });
     },

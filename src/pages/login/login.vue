@@ -202,9 +202,7 @@ export default {
             } catch (err) {
               this.$router.push({ path: "/" });
             }
-          }).catch((err) => {
-            this.$toast(err.msg);
-          });
+          })
       }
     },
     checkPhone(phoneNum) {
