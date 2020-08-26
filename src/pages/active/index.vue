@@ -10,7 +10,7 @@
     <div class="user-container">
       <van-tabs v-model="active">
         <van-tab title="全部">
-          <div style="background: #ffffff;border-radius: 5px;margin: 10px 10px;padding: 10px">
+          <div  @click="toActiveDetail" style="background: #ffffff;border-radius: 5px;margin: 10px 10px;padding: 10px">
             <van-row>
               <van-col span="17">
                 <div>
@@ -40,7 +40,7 @@
               </van-col>
             </van-row>
           </div>
-          <div style="background: #ffffff;border-radius: 5px;margin: 10px 10px;padding: 10px">
+          <div  @click="toActiveDetail" style="background: #ffffff;border-radius: 5px;margin: 10px 10px;padding: 10px">
             <van-row>
               <van-col span="17">
                 <div>
@@ -70,7 +70,7 @@
               </van-col>
             </van-row>
           </div>
-          <div style="background: #ffffff;border-radius: 5px;margin: 10px 10px;padding: 10px">
+          <div @click="toActiveDetail" style="background: #ffffff;border-radius: 5px;margin: 10px 10px;padding: 10px">
             <van-row>
               <van-col span="17">
                 <div>
@@ -102,7 +102,7 @@
           </div>
         </van-tab>
         <van-tab title="已报名">
-          <div style="background: #ffffff;border-radius: 5px;margin: 10px 10px;padding: 10px">
+          <div @click="toActiveDetail" style="background: #ffffff;border-radius: 5px;margin: 10px 10px;padding: 10px">
             <van-row>
               <van-col span="17">
                 <div>
@@ -132,7 +132,7 @@
               </van-col>
             </van-row>
           </div>
-          <div style="background: #ffffff;border-radius: 5px;margin: 10px 10px;padding: 10px">
+          <div @click="toActiveDetail" style="background: #ffffff;border-radius: 5px;margin: 10px 10px;padding: 10px">
             <van-row>
               <van-col span="17">
                 <div>
@@ -162,7 +162,7 @@
               </van-col>
             </van-row>
           </div>
-          <div style="background: #ffffff;border-radius: 5px;margin: 10px 10px;padding: 10px">
+          <div @click="toActiveDetail" style="background: #ffffff;border-radius: 5px;margin: 10px 10px;padding: 10px">
             <van-row>
               <van-col span="17">
                 <div>
@@ -241,6 +241,9 @@ export default {
     Tabbar,
   },
   methods: {
+      toActiveDetail(){
+          this.$router.push({name: 'active-detail'});
+      },
       getDateList(){
           this.$refs.pull.endSuccess();
       }
