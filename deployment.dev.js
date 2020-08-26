@@ -9,7 +9,7 @@ const pluginName = 'SftpPlugin'
 const config = {
   dir: path.join(__dirname, 'dist/'),
   host: '118.24.103.201',
-  url: '/upload/',
+  url: '/upload/twoSessions/',
   port: '31108',
   username: 'zhlh',
   password: 'Zhlh2020'

@@ -1,5 +1,5 @@
 <template>
-  <van-tabbar v-model="active" v-if="show" :fixed="false" active-color="#C7000B">
+  <van-tabbar v-model="active" v-if="show" :fixed="false" active-color="#C7000B" safe-area-inset-bottom>
     <van-tabbar-item v-for="(v,i) in items" :key="v.label" @click="clickItem(v)">
       {{v.label}}
       <template #icon="props">
