@@ -93,11 +93,9 @@ $color: #26a2ff;
             <img src="./image/icons_logo.svg" alt="LOGO" />
           </div>
           <div class="logo-title">
-            <img
-              class="title-img"
-              src="./image/title.png"
-              alt="2020六盘水旅游“两会”"
-            />
+            <div style="font-weight: 800;font-size: 20px;margin-top: 15px">
+              第十五届贵州旅游产业发展大会
+            </div>
             <img
               class="subtitle-img"
               src="./image/subtitle.png"
