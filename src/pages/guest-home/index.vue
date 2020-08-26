@@ -62,57 +62,51 @@
               <span v-for="people in togPeople"
                 :class="journeyActive == people.id ? 'active' : ''"
                 @click="journeyHandle(people.id)"
-                >{{people.realName}}</span
+                >{{people['realName']}}</span
               >
             </div>
           </div>
         </div>
         <div class="journey-container">
-          <div
-            class="journey-card"
-            v-for="item in journeyList"
-            :key="item.id"
-            :class="item.activeState == 0? 'notstarted': item.activeState == 1? 'ongoing': 'notstarted'"
-          >
-            <!--finished-->
+          <div class="journey-card" v-for="item in journeyList" :key="item.id"
+            :class="item['activeState'] == 0? 'notstarted': item['activeState'] == 1? 'ongoing': 'finished'">
             <div class="card-content">
-              <div :class="item.activeState == 0? 'card-title-no': item.activeState == 1? 'card-title': 'card-title-no'">
+              <div class="card-title">
                 <span>
                   {{ item.startTime }}到{{ item.endTime }}
                 </span>
-                <span>
-                  {{
-                    item.activeState == 0? "未开始": item.activeState == 1? "已开始": "已结束"
-                  }}
+                <span style="float: right">
+                  {{item['activeState'] == 0? "未开始": item['activeState'] == 1? "已开始": "已结束"}}
                 </span>
               </div>
-              <div :class="item.activeState == 0? 'card-inner-no': item.activeState == 1? 'card-inner': 'card-inner-no'" @click="toDetail(item)">
-                <div class="signin-cont">
-                  <img
-                    src="./image/signedin.png"
-                    alt="已签到"
-                    v-if="item.schState == 0"
-                  />
-                  <img
-                    src="./image/nosignin.png"
-                    alt="未签到"
-                    v-if="item.schState == 1"
-                  />
+              <div class="card-inner">
+                <div @click="toDetail(item)" class="signin-cont">
+                  <img src="./image/signedin.png" alt="已签到" v-if="item.schState == 0"/>
+                  <img src="./image/nosignin.png" alt="未签到" v-else/>
                 </div>
-                <div class="inner-title">{{ item.title }}</div>
-                <div class="inner-item flex row-between">
+                <div @click="toDetail(item)" class="inner-title">{{ item.title }}</div>
+                <div @click="toDetail(item)" class="inner-item flex row-between">
                   <span>
                     <span class="item-title">地址：</span>
-                    <span class="item-text">{{ item.place }}</span>
+                    <span class="item-text">{{ item['place'] }}</span>
                   </span>
                   <span><img src="./image/right.svg"/></span>
                 </div>
-                <div class="inner-item" v-if="item.tabNo">
+                <div @click="toDetail(item)" class="inner-item" v-if="item['tabNo']">
                   <span>
                     <span class="item-title">座位：</span>
-                    <span class="item-text">{{ item.tabNo + item.seatNo }} 座位</span>
+                    <span class="item-text">{{ item['tabNo'] + item['seatNo'] }} 座位</span>
                   </span>
                 </div>
+                <a class="tel" href="tel:13678391637">
+                  <div class="inner-item" style="width: 100%">
+                    <div style="width: 100%">
+                      <span class="item-title">志愿者电话：</span>
+                      <span class="item-text-phone">0856-8221657</span>
+                      <span style="position: relative;right: 0;float: right"><img src="./image/phone.svg"/></span>
+                    </div>
+                  </div>
+                </a>
               </div>
             </div>
           </div>

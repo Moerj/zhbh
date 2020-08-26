@@ -170,6 +170,9 @@
     color: #c7000b;
   }
 }
+.item-text-phone{
+  color: #c7000b;
+}
 
 .journey-card {
   padding: 0 1rem;
@@ -290,15 +293,6 @@
   padding-bottom: 0.3125rem;
 }
 
-.card-inner .inner-item {
-  font-size: 0.9375rem;
-  padding: 0.3125rem 0;
-  margin-top: 10px;
-}
-.inner-item {
-  margin-top: 10px;
-}
-
 .signin-cont {
   position: absolute;
   top: 0;
@@ -314,15 +308,33 @@
 // 未开始
 .journey-card.notstarted {
   .inner-title {
-    color: #a2a4a9;
+    color: #333333;
+  }
+  .card-title{
+    font-size: 17px;
+    padding-left: 0.8rem;
+    position: relative;
+    font-family: PingFangSC, PingFangSC-Regular;
+    font-weight: 400;
+    text-align: left;
+    color: #666666;
+    line-height: 24px;
+  }
+  .card-title::before,
+  .card-content::before {
+    background-color: #2b69e2;
   }
   .card-inner {
-    background-color: #f3f5fc;
-    .item-text {
-      color: #a2a4a9;
-    }
-    .item-title {
-      color: #b9bcc3;
+    background-color: #ffffff;
+    .inner-item{
+      margin-top: 10px;
+      font-size: 0.9375rem;
+      .item-text {
+        color: #333333;
+      }
+      .item-title {
+        color: #333333;
+      }
     }
   }
 }
@@ -358,15 +370,46 @@
   .card-content::before {
     background-color: #2b69e2;
   }
+  .card-inner {
+    background-color: #ffffff;
+    .inner-item{
+      margin-top: 10px;
+      font-size: 0.9375rem;
+      .item-text {
+        color: #333333;
+      }
+      .item-title {
+        color: #333333;
+      }
+    }
+  }
 }
 
 // 已结束
 .journey-card.finished {
+  .card-title {
+    color: #c7cccc;
+  }
   .card-title::before,
   .card-content::before {
-    background-color: #2b69e2;
+    background-color: #c7cccc;
   }
-
+  .card-inner {
+    background-color: #f3f5fc;
+    .inner-title{
+      color: #c7cccc;
+    }
+    .inner-item{
+      margin-top: 10px;
+      font-size: 0.9375rem;
+      .item-text {
+        color: #c7cccc;
+      }
+      .item-title {
+        color: #c7cccc;
+      }
+    }
+  }
 }
 
 // 二维码部分
