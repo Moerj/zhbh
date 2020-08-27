@@ -9,7 +9,7 @@
       <div class="list-item" v-for="v of list">
         <header>
           <div class="tr">
-            <div class="th ellipsis-1">{{ v.name }}</div>
+            <div class="th ellipsis-1">{{ v.title }}</div>
             <div class="td" @click="scan">
               <van-icon :name="require('./assets/scan.svg')" size="16"/>
               <span>扫码</span>
@@ -24,10 +24,10 @@
             </div>
             <van-icon class="td" name="arrow" size="12"/>
           </div>
-          <div class="tr" @click="call(v.phone)">
+          <div class="tr" @click="call(v.chargerPhone)">
             <div class="th ellipsis-1">
               <span>联系电话：</span>
-              <span>{{ v.phone }}</span>
+              <span>{{ v.chargerPhone }}</span>
             </div>
             <van-icon class="td" :name="require('@/imgs/tel.svg')" size="12"/>
           </div>
@@ -35,12 +35,15 @@
       </div>
     </ui-pull>
     <empty :list="list"/>
+
+    <ConferenceGroupTabbar/>
   </ui-main>
 </template>
 
 <script>
 import empty from '@/components/empty'
 import { getEnv } from 'plain-kit'
+import ConferenceGroupTabbar from '../ConferenceGroupTabbar/index'
 
 function getQuery () {
   return {
@@ -51,7 +54,7 @@ function getQuery () {
 
 export default {
   components: {
-    empty
+    empty, ConferenceGroupTabbar
   },
   data () {
     return {
@@ -86,7 +89,7 @@ export default {
       })
     },
     async scan () {
-      /*if (['wechat', 'mp'].includes(await getEnv())) {
+      if (['wechat', 'mp'].includes(await getEnv())) {
         wx.scanCode({
           onlyFromCamera: true,
           success: res => {
@@ -98,7 +101,7 @@ export default {
             })
           }
         })
-      } else {*/
+      } else {
         this.$router.push({
           path: '/conference-group/sign-in',
           query: {
@@ -106,46 +109,15 @@ export default {
             id: 'id'
           }
         })
-      //}
+      }
     },
     getList () {
       this.list.length = 0
-      /*this.$http.post('', this.query).then(({ data }) => {
-        if (data) {
-          this.list = data.records || []
-          this.total = data.total
-        } else {
-          this.total = 0
-        }
+      this.$http.get('h5api/meet/hotellist', this.query).then(({ list }) => {
+        this.list = list || []
       }).finally(e => {
         this.$refs.pull.endSuccess()
-      })*/
-      setTimeout(() => {
-        this.list = [
-          {
-            phone: '0856-8221657',
-            address: '六盘水旅游文化会议中心',
-            name: '贵州天悦大酒店',
-          }, {
-            phone: '0856-8221657',
-            address: '六盘水旅游文化会议中心',
-            name: '贵州天悦大酒店',
-          }, {
-            phone: '0856-8221657',
-            address: '六盘水旅游文化会议中心',
-            name: '贵州天悦大酒店',
-          }, {
-            phone: '0856-8221657',
-            address: '六盘水旅游文化会议中心',
-            name: '贵州天悦大酒店',
-          }, {
-            phone: '0856-8221657',
-            address: '六盘水旅游文化会议中心',
-            name: '贵州天悦大酒店',
-          },
-        ]
-        this.$refs.pull.endSuccess()
-      }, 500)
+      })
     },
   }
 }
@@ -226,6 +198,12 @@ export default {
       justify-content: space-between;
       align-items: center;
       height: 35px;
+
+      &:nth-child(2) {
+        & > .th > span:nth-child(2) {
+          color: #c7000b;
+        }
+      }
 
       & > .th {
         font-size: 15px;

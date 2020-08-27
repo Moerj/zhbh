@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper">
-    <div>您的专属二维码</div>
+    <div>我的专属二维码</div>
     <QR :value="data.qrcode" size="150"/>
   </div>
 </template>

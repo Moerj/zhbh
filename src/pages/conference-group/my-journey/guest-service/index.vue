@@ -10,30 +10,35 @@
         <header>
           <div class="tr">
             <div class="th">嘉宾姓名</div>
-            <div class="td ellipsis-1">{{v.name}}</div>
+            <div class="td ellipsis-1">{{ v.name }}</div>
           </div>
         </header>
         <main>
           <div class="tr">
             <div class="th">嘉宾身份</div>
-            <div class="td ellipsis-1">{{v.identity}}</div>
+            <div class="td ellipsis-1">{{ v.identity }}</div>
           </div>
           <div class="tr">
             <div class="th">嘉宾电话</div>
             <a class="td ellipsis-1" :href="`tel:${v.phone}`">
               <van-icon :name="require('@/imgs/tel.svg')" size="12"/>
-              &nbsp;{{v.phone}}
+              &nbsp;{{ v.phone }}
             </a>
           </div>
         </main>
       </div>
     </ui-pull>
     <empty :list="list"/>
+
+    <template #footer>
+      <Tabbar/>
+    </template>
   </ui-main>
 </template>
 
 <script>
 import empty from '@/components/empty'
+import Tabbar from '../Tabbar'
 
 function getQuery () {
   return {
@@ -44,7 +49,7 @@ function getQuery () {
 
 export default {
   components: {
-    empty
+    empty, Tabbar
   },
   data () {
     return {

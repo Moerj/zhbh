@@ -1,7 +1,7 @@
 export default [
   {
-    path: '/conference-group/guest-service',
-    name: '嘉宾服务',
+    path: '/conference-group/my-journey/guest-service',
+    name: '嘉宾列表',
     component: () => import('./index.vue'),
     meta: { root: true },
   },

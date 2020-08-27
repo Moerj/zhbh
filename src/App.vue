@@ -1,13 +1,13 @@
 <template>
   <div id="app" class="h-100 flex-column">
-    <Topbar/>
+    <!--<Topbar/>-->
 
     <div class="flex-1 relative">
       <router-view/>
     </div>
 
     <!--<guestTabbar />-->
-    <ConferenceGroupTabbar/>
+    <!--<ConferenceGroupTabbar/>-->
 
   </div>
 </template>

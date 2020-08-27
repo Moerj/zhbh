@@ -5,7 +5,7 @@
         <van-tab v-for="(v,i) of dates" :title="$dayjs(v).format('M月YY号')" :key="i"/>
       </van-tabs>
       <div class="title">
-        您的行程
+        我的行程
       </div>
     </template>
     <ui-pull @load="getList"
@@ -15,14 +15,15 @@
              ref="pull"
     >
       <van-steps direction="vertical" :active="activeStep" active-color="#2B69E2">
-        <van-step v-for="(v,i) of list">
-          <div>{{v.startTime && `${v.startTime}${v.endTime && ('到' + v.endTime)}`}}</div>
+        <van-step v-for="(v,i) of list" :class="v.__isPast&&'van-step--finish'">
+          <div>{{ v.startTime && `${v.startTime}${v.endTime && ('到' + v.endTime)}` }}</div>
           <div @click="()=>{toDetail(v)}">
-            <div class="ellipsis-1">{{v.name}}</div>
+            <div class="ellipsis-1">{{ v.title }}</div>
             <div>
-              <span class="ellipsis-1">{{v.location}}</span>
-              <van-icon name="arrow" size="12"/>
+              <span class="ellipsis-1">{{ v.place }}</span>
+              <van-icon name="arrow" size="12" color="rgba(0,0,0,.4)"/>
             </div>
+            <img v-if="v.__isPast" src="./assets/done.png" alt="">
           </div>
           <!--<div v-if="v.qrcode">
             <QR :value="v.qrcode" size="36"/>
@@ -31,24 +32,26 @@
       </van-steps>
     </ui-pull>
     <empty :list="list"/>
+
+
   </ui-main>
 </template>
 
 <script>
 import empty from '@/components/empty'
-import { QR } from 'plain-kit'
+import { QR, timejs } from 'plain-kit'
+import ConferenceGroupTabbar from '../ConferenceGroupTabbar/index'
 
 function getQuery () {
   return {
     date: null,
-    pageNo: 1,
-    pageSize: 0,
+    userId: localStorage.user ? JSON.parse(localStorage.user).id : null
   }
 }
 
 export default {
   components: {
-    empty, QR
+    empty, QR, ConferenceGroupTabbar
   },
   data () {
     return {
@@ -70,18 +73,10 @@ export default {
   },
   methods: {
     getDates () {
-      setTimeout(() => {
-        this.dates = [
-          '2020-08-20',
-          '2020-08-21',
-          '2020-08-22',
-          '2020-08-23',
-          '2020-12-24',
-          '2020-12-24',
-          '2020-12-24',
-        ]
-        this.getList()
-      }, 500)
+      this.$http.get('h5api/meet/date/list').then(({ list }) => {
+        this.dates = list || []
+        this.query.date = list[0]
+      })
     },
     onTabsClick (active) {
       this.query.date = this.dates[active]
@@ -93,60 +88,25 @@ export default {
         return
       }
       this.list.length = 0
-      /*this.$http.post('', this.query).then(({ data }) => {
-        if (data) {
-          this.list = data.records || []
-          this.total = data.total
-        } else {
-          this.total = 0
+      this.$http.get('h5api/meet/get/by/user', {
+        params: this.query
+      }).then(({ list }) => {
+        this.list = list || []
+        for (let [i, v] of this.list.entries()) {
+          if (v.startTime && v.endTime) {
+            const now = timejs()
+            if (now.isAfter(v.endTime)) {
+              v.__isPast = true
+            }
+            if (now.isBetween(v.startTime, v.endTime)) {
+              this.activeStep = i
+              break
+            }
+          }
         }
       }).finally(e => {
         this.$refs.pull.endSuccess()
-      })*/
-      setTimeout(() => {
-        this.list = [
-          {
-            date: '2020-12-12',
-            startTime: '12:00',
-            endTime: '14:00',
-            name: '会议名称',
-            location: '六盘水旅游文化会议中心',
-            type: 'conference'
-          },
-          {
-            date: '2020-12-12',
-            startTime: '12:00',
-            endTime: '14:00',
-            name: '会议名称',
-            location: '六盘水旅游文化会议中心',
-            type: 'conference'
-          },
-          {
-            date: this.$dayjs().format('YYYY-MM-DD'),
-            startTime: '12:00',
-            endTime: '14:00',
-            name: '车辆接送',
-            location: '六盘水旅游文化会议中心',
-            type: 'transportation'
-          },
-          {
-            date: '2020-12-12',
-            startTime: '12:00',
-            endTime: '14:00',
-            name: '餐厅名称',
-            location: '喜来登酒店餐厅',
-            qrcode: 'qrcode',
-            type: 'dining'
-          }
-        ]
-        for (let [i, v] of this.list.entries()) {
-          if (this.$dayjs(v.date).isToday()) {
-            this.activeStep = i
-            break
-          }
-        }
-        this.$refs.pull.endSuccess()
-      }, 500)
+      })
     },
     toDetail (v) {
       this.$router.push({
@@ -201,19 +161,18 @@ export default {
     }
 
     & > div:nth-child(2) {
-      background: #f3f5fc;
       border-right: 4px #B7BACC solid;
 
       & > div:first-child {
-        color: #a2a4a9;
+        color: rgba(41, 42, 44, .4);
       }
 
       & > div:nth-child(2) {
-        color: #a2a4a9;
+        color: rgba(41, 42, 44, .4);
 
         & > span:first-child {
           &:before {
-            color: #bfc2c9;
+            color: rgba(89, 91, 100, .4);
           }
         }
       }
@@ -251,6 +210,14 @@ export default {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    position: relative;
+
+    & > img {
+      position: absolute;
+      right: 59px;
+      top: 0;
+      height: 100%;
+    }
 
     & > div:first-child {
       font-size: 15px;
@@ -341,7 +308,7 @@ export default {
   line-height: 20px;
   letter-spacing: 0px;
   background-color: $ui-color-primary;
-  margin: 7px 0;
+  margin: 7px;
   border-radius: 5px;
   position: relative;
 

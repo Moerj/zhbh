@@ -81,12 +81,14 @@ export default {
   },
   methods: {
     getDetail () {
-      /*this.$loading.open()
-      this.$http.post('').then(({ data }) => {
+      this.$loading.open()
+      this.$http.get('h5api/meet/infoByOpenId',{
+        openId: this.$route.openId
+      }).then(({ data }) => {
         this.data = data || {}
       }).finally(e => {
         this.$loading.close()
-      })*/
+      })
       setTimeout(() => {
         this.data = {
           time: '2020-12-12 13:50:24',
@@ -106,12 +108,11 @@ export default {
       }, 500)
     },
     signIn () {
-      Dialog.alert({
-        title: '提示',
-        message: '未到行程时间，不能进行签到！',
-        theme: 'round-button',
-      }).then(() => {
-        // on close
+      this.$http.get('h5api/meet/signSchedule', {
+        openId: this.$route.openId,
+        schId: this.$route.schId
+      }).then(({ data }) => {
+
       })
     }
   }

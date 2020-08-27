@@ -80,14 +80,14 @@
     <SeatingArrangements :data="data" v-if="type==='conference'"/>
 
     <template #footer>
-      <div class="safe-area-plus">
-        <van-button icon="scan" round @click="scan">扫一扫</van-button>
-      </div>
+      <Tabbar/>
     </template>
   </ui-main>
 </template>
 
 <script>
+import Tabbar from '../Tabbar'
+
 function requireAll (requireContext) {
   return requireContext.keys().map(requireContext)
 }
@@ -97,6 +97,8 @@ requireAll(require.context('./components', true, /^\.\/.*\.vue$/)).map(v => {
   components[v.default.name] = v.default
 })
 
+components.Tabbar = Tabbar
+
 export default {
   components,
   data () {
@@ -104,15 +106,14 @@ export default {
       current: 0,
       data: {},
       type: this.$route.query.type,
-      weather: {}
+      weather: {},
+
     }
   },
   computed: {
     weatherIcon () {
-      if (this.weather.condCode) {
-        return process.env.VUE_APP_BASE_API + 'weather/' + this.weather.cond_code_n + '.png'
-      } else {
-        return require('./assets/weather_duoyun.svg')
+      if (this.weather.cond_code_n) {
+        return 'https://yjtp.yjctrip.com/weather/' + this.weather.cond_code_n + '.png'
       }
     },
     temperature () {
@@ -127,15 +128,9 @@ export default {
   },
   methods: {
     getWeather () {
-      /*this.$http.get(`${process.env.VUE_APP_BASE_API}guizhou/one-travel-app/weather/queryWeatherByAreaCode/520200000000`).then(({ data }) => {
+      this.$http.get(`${process.env.VUE_APP_BASE_API}guizhou/one-travel-app/weather/queryWeatherByAreaCode/520200000000`).then(({ data }) => {
         this.weather = data?.dailyForecast[0]
-      })*/
-      setTimeout(() => {
-        this.weather = {
-          tmp_min: 2,
-          tmp_max: 6,
-        }
-      }, 500)
+      })
     },
     getDetail () {
       /*this.$loading.open()
@@ -182,29 +177,6 @@ export default {
         })}`
       })
     },
-    async scan () {
-      /*if (['wechat', 'mp'].includes(await getEnv())) {
-        wx.scanCode({
-          onlyFromCamera: true,
-          success: res => {
-            this.$router.push({
-              path: 'guest-service',
-              query: {
-                type: res.result,
-              }
-            })
-          }
-        })
-      } else {*/
-      this.$router.push({
-        path: '/conference-group/sign-in',
-        query: {
-          type: 'dining',
-          id: 'id'
-        }
-      })
-      //}
-    }
   }
 }
 </script>
@@ -298,19 +270,6 @@ header {
     .phone {
       color: $ui-color-primary;
     }
-  }
-}
-
-.safe-area-plus {
-  width: 100%;
-  padding: 10px 15px;
-  background-color: #fff;
-
-  button {
-    width: 100%;
-    height: 45px;
-    background: #c7000b;
-    color: #fff !important;
   }
 }
 

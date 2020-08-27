@@ -26,14 +26,8 @@ export default {
           label: '酒店列表',
           path: '/conference-group/hotel-list'
         },
-        {
-          icon: require('./assets/guest-service.svg'),
-          iconActive: require('./assets/guest-service-active.svg'),
-          label: '嘉宾服务',
-          path: '/conference-group/guest-service'
-        },
       ],
-      show: false
+      show: true
     }
   },
   mounted () {
@@ -50,7 +44,7 @@ export default {
       })
     }
   },
-  watch: {
+  /*watch: {
     $route () {
       const rootPathArry = this.items.map((item) => {
         return item.path
@@ -62,6 +56,6 @@ export default {
         this.show = false
       }
     }
-  },
+  },*/
 }
 </script>
