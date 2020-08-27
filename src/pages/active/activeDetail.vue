@@ -18,7 +18,7 @@
 <!--      </van-swipe>-->
 
       <div class="main-card">
-        <div class="card-content" style="    border-radius: 40px 40px 0px 0px;">
+        <div class="card-content">
           <div  @click="toActiveDetail" style="background: #ffffff;border-radius: 5px;margin: 10px 10px;padding: 10px">
             <van-row>
               <van-col span="17">
