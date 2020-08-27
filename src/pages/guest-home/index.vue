@@ -260,7 +260,6 @@ export default {
       })
     },
     getMyJourney() {
-      // const user = JSON.parse(localStorage.getItem("user"));
       const param = {
         userId: this.user.id,
         date: this.tabCurrent,
@@ -269,6 +268,7 @@ export default {
         .myJourney(param)
         .then((res) => {
           this.journeyList = res.list;
+          console.log(this.journeyList)
           this.$refs.pull.endSuccess();
         })
         .catch((err) => {
