@@ -78,7 +78,7 @@
                 </span>
               </div>
               <div class="card-inner">
-                <div @click="toDetail(item)" class="signin-cont" v-if="item['activeState']!= 1">
+                <div @click="toDetail(item)" class="signin-cont" v-if="item['activeState'] == 2">
                   <img src="./image/signedin.png" alt="已签到" v-if="item.schState == 0"/>
                   <img src="./image/nosignin.png" alt="未签到" v-else/>
                 </div>

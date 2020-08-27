@@ -23,8 +23,8 @@
       </div>
       <div class="card-cont">
         <div class="card-inner card-inner2">
-          <div class="inner-title">会务指南<img src="./right.png" /></div>
-          <div class="inner-subtitle">参会者详细指南</div>
+          <div class="inner-title">游记分享<img src="./right.png" /></div>
+          <div class="inner-subtitle">游记分享</div>
           <div class="inner-img">
             <img src="./card2.png" />
           </div>
