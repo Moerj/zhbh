@@ -39,8 +39,8 @@
             </div>
             <div class="info-item flex row-between">
               <span>
-                <span class="item-title">桌号/包间号：</span>
-                <span class="black-text">{{detailInfo.number || '2包间3号'}}</span>
+                <span class="item-title">桌号：</span>
+                <span class="black-text">{{detailInfo.number || '13号'}}</span>
               </span>
             </div>
             <div class="info-item flex row-between">

@@ -32,7 +32,7 @@
             <div class="info-item flex row-between">
               <span>
                 <span class="item-title">地点：</span>
-                <span class="black-text">{{detailInfo.address || '贵州省六盘水市水城县S212玉舍镇海平村。(导航搜索“野玉海景区”即可)'}}</span>
+                <span class="black-text">{{detailInfo.address || '水城县S212玉舍镇海平村'}}</span>
               </span>
               <span><img src="../image/right.svg"/></span>
             </div>
@@ -233,6 +233,8 @@ export default {
       color: #595b64;
     }
     .black-text {
+      overflow: hidden;
+      white-space:nowrap;
       color: #292a2c;
     }
     .red-text {

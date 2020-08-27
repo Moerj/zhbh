@@ -78,7 +78,7 @@
                 </span>
               </div>
               <div class="card-inner">
-                <div @click="toDetail(item)" class="signin-cont">
+                <div @click="toDetail(item)" class="signin-cont" v-if="item['activeState']!= 1">
                   <img src="./image/signedin.png" alt="已签到" v-if="item.schState == 0"/>
                   <img src="./image/nosignin.png" alt="未签到" v-else/>
                 </div>
@@ -119,9 +119,6 @@
             </div>
             <!--观摩测试数据-->
             <div class="card-inner">
-              <div @click="toDetail({schType: 4})" class="signin-cont">
-                <img src="./image/nosignin.png" alt="未签到"/>
-              </div>
               <div @click="toDetail({schType: 4})" class="inner-title">野玉海景区观摩</div>
               <div @click="toDetail({schType: 4})" class="inner-item flex row-between">
                   <span>
