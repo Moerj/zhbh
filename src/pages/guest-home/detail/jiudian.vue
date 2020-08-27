@@ -1,8 +1,6 @@
 <template>
   <ui-main>
-    <template v-slot:header>
-      <van-nav-bar fixed left-arrow @click-left="$root.back()"></van-nav-bar>
-    </template>
+
 
     <div class="detail-container">
       <img style="width: 100%;" src="./jiudian.png">
@@ -23,11 +21,11 @@
             <div class="time-icon">
               <img src="../image/time.png" />
             </div>
-            <div class="time-text">{{detailInfo.startTime || '2020-12-12 12:00'}}到{{detailInfo.endTime || '14:00'}}</div>
+            <div class="time-text">{{detailInfo.startTime || '2020-08-27 00:00'}}到{{detailInfo.endTime || '23.59'}}</div>
           </div>
 
           <div class="title-wrapper">
-            <p class="title">{{detailInfo.title || '森源五星级酒店'}}</p>
+            <p class="title">{{detailInfo.title || '天怡豪生大酒店'}}</p>
             <p class="weather"><img src="../image/weather.png" />5℃～12℃</p>
           </div>
 

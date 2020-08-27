@@ -4,7 +4,6 @@
       <van-nav-bar
         title="公告"
         left-arrow
-        @click-left="$root.back()"
       ></van-nav-bar>
     </template>
 

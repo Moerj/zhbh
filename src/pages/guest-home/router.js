@@ -30,9 +30,9 @@ export default [
         component: () => import('./detail/canting.vue'),
       },
       {
-        path: 'bolanhui',
-        name: "bolanhui",
-        component: () => import('./detail/bolanhui.vue'),
+        path: 'huodong',
+        name: "huodong",
+        component: () => import('./detail/huodong.vue'),
       },
     ]
   },

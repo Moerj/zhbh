@@ -2,9 +2,6 @@
   <ui-main>
     <template v-slot:header>
       <van-nav-bar title="我的行程" fixed>
-        <div slot="left" @click="$root.back()">
-          <van-icon name="cross" size="1rem"></van-icon>
-        </div>
       </van-nav-bar>
       <van-tabs
         class="tabs-cont"

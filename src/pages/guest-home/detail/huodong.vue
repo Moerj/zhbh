@@ -1,11 +1,8 @@
 <template>
   <ui-main>
-    <template v-slot:header>
-      <van-nav-bar fixed left-arrow @click-left="$root.back()"></van-nav-bar>
-    </template>
 
     <div class="detail-container">
-      <img style="width: 100%;" src="./bolanhui.png">
+      <img style="width: 100%;" src="./huodong.png">
 <!--      <van-swipe :autoplay="3000" :height="280" @change="swipeChange">-->
 <!--        <van-swipe-item v-for="(image, index) in images" :key="index">-->
 <!--          <img v-lazy="image" />-->
@@ -23,11 +20,11 @@
             <div class="time-icon">
               <img src="../image/time.png" />
             </div>
-            <div class="time-text">{{detailInfo.startTime || '2020-12-12 12:00'}}到{{detailInfo.endTime || '14:00'}}</div>
+            <div class="time-text">{{detailInfo.startTime || '2020-08-27 15：00'}}到{{detailInfo.endTime || '16：00'}}</div>
           </div>
 
           <div class="title-wrapper">
-            <p class="title">{{detailInfo.title || '大数据旅游产业博览会'}}</p>
+            <p class="title">{{detailInfo.title || '野玉海景区观摩'}}</p>
             <p class="weather"><img src="../image/weather.png" />5℃～12℃</p>
           </div>
 
@@ -35,7 +32,7 @@
             <div class="info-item flex row-between">
               <span>
                 <span class="item-title">地点：</span>
-                <span class="black-text">{{detailInfo.address || '六盘水旅游文化会议中心'}}</span>
+                <span class="black-text">{{detailInfo.address || '贵州省六盘水市水城县S212玉舍镇海平村。(导航搜索“野玉海景区”即可)'}}</span>
               </span>
               <span><img src="../image/right.svg"/></span>
             </div>
@@ -82,9 +79,7 @@
           <div class="fullwidth-title">简介</div>
           <div class="fullwidth-main">
             <div class="main-text">
-              六盘水地处滇、黔两省结合部，长江、珠江上游分水岭，南盘江、北盘江流域两岸，矿产资源十分丰富。交通四通八达，是西南重要的铁路枢纽城市和物流集散中心之一。截止2020年5月，全市国土面积9914平方千米，辖六枝特区、盘州市、水城区、钟山区4个县级行政区和5个省级经济开发区，87个乡镇（街道）。 2019年全市年末常住人口295.05万人，比上年末增加1.32万人。 
-              <br />
-              六盘水是国家西电东送的主要城市，西南乃至华南地区重要的能源原材料工业基地，煤炭、电力、冶金、建材、核桃乳、洋芋片、富硒茶、山城啤酒、矿泉水、生物制药构成了市内的重要经济发展。特产有风猪、猕猴桃、杜仲、天麻、核桃。
+              观摩路线：参观野鸡坪花海-海坪彝族文化小镇-鞭陀文化博物馆-玉舍国家级森林公园-野鸡坪高原户外运动基地-野鸡坪高原户外运动基地（野玉海汽车体验中心）
             </div>
           </div>
         </div>

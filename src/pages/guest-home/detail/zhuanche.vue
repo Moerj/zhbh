@@ -1,8 +1,5 @@
 <template>
   <ui-main>
-    <template v-slot:header>
-      <van-nav-bar fixed left-arrow @click-left="$root.back()"></van-nav-bar>
-    </template>
 
     <div class="detail-container">
       <img style="width: 100%;" src="./zhuanche.png">

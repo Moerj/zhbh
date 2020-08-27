@@ -1,8 +1,6 @@
 <template>
   <ui-main>
-    <template v-slot:header>
-      <van-nav-bar fixed left-arrow @click-left="$root.back()"></van-nav-bar>
-    </template>
+
 
     <div class="detail-container">
       <img style="width: 100%;" src="./huiyi.png">
@@ -24,15 +22,15 @@
               <img src="../image/time.png" />
             </div>
             <div class="time-text">
-              {{ detailInfo.startTime || "2020-12-12 12:00" }}到{{
-                detailInfo.endTime || "14:00"
+              {{ detailInfo.startTime || "2020-08-27 09:00" }}到{{
+                detailInfo.endTime || "12:00"
               }}
             </div>
           </div>
 
           <div class="title-wrapper">
             <p class="title">
-              {{ detailInfo.title || "六盘水旅游两会开会仪式" }}
+              {{ detailInfo.title || "文旅行业信息化讨论会" }}
             </p>
             <p class="weather"><img src="../image/weather.png" />5℃～12℃</p>
           </div>
@@ -42,7 +40,7 @@
               <span>
                 <span class="item-title">地点：</span>
                 <span class="black-text">{{
-                  detailInfo.address || "六盘水旅游文化会议中心"
+                  detailInfo.address || "盘江月亮岩广场2楼会议大厅"
                 }}</span>
               </span>
               <span><img src="../image/right.svg"/></span>
@@ -66,11 +64,11 @@
               <span><img src="../image/phone.svg"/></span>
             </div>
             <div class="info-item flex row-between">
-              <a class="tel" href="tel:13678391637"></a>
+              <a class="tel" href="tel:18707801072"></a>
               <span>
                 <span class="item-title">志愿者电话：</span>
                 <span class="red-text">{{
-                  detailInfo.phone || "13678391637"
+                  detailInfo.phone || "18707801072"
                 }}</span>
               </span>
               <span><img src="../image/phone.svg"/></span>

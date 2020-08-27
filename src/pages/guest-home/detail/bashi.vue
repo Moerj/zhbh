@@ -1,8 +1,5 @@
 <template>
   <ui-main>
-    <template v-slot:header>
-      <van-nav-bar fixed left-arrow @click-left="$root.back()"></van-nav-bar>
-    </template>
 
     <div class="detail-container">
       <img style="width: 100%;" src="./bashi.png">
@@ -35,7 +32,7 @@
             <div class="info-item flex row-between">
               <span>
                 <span class="item-title">地点：</span>
-                <span class="black-text">{{detailInfo.address || '六盘水旅游文化会议中心'}}</span>
+                <span class="black-text">{{detailInfo.address || '盘江雅阁大酒店大门'}}</span>
               </span>
               <span><img src="../image/right.svg"/></span>
             </div>

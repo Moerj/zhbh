@@ -2,9 +2,6 @@
   <ui-main>
     <template v-slot:header>
       <van-nav-bar title="嘉宾首页" fixed>
-        <div slot="left" @click="$root.back()">
-          <van-icon name="cross" size="1rem"></van-icon>
-        </div>
       </van-nav-bar>
       <van-tabs
         class="tabs-cont"
@@ -64,6 +61,7 @@
                 @click="journeyHandle(people.id)"
                 >{{people['realName']}}</span
               >
+
             </div>
           </div>
         </div>
@@ -75,8 +73,8 @@
                 <span>
                   {{ item.startTime }}到{{ item.endTime }}
                 </span>
-                <span style="float: right">
-                  {{item['activeState'] == 0? "未开始": item['activeState'] == 1? "已开始": "已结束"}}
+                <span style="float: right" v-if="item['activeState'] == 1">
+                  进行中
                 </span>
               </div>
               <div class="card-inner">
@@ -102,13 +100,47 @@
                   <div class="inner-item" style="width: 100%">
                     <div style="width: 100%">
                       <span class="item-title">志愿者电话：</span>
-                      <span class="item-text-phone">0856-8221657</span>
+                      <span class="item-text-phone">18707801072</span>
                       <span style="position: relative;right: 0;float: right"><img src="./image/phone.svg"/></span>
                     </div>
                   </div>
                 </a>
               </div>
+          </div>
+        </div>
+
+          <!--观摩测试数据-->
+        <div class="journey-card notstarted" v-if="tabCurrent === '2020-08-27'">
+          <div class="card-content">
+            <div class="card-title">
+                <span>
+                  15.00到16.00
+                </span>
             </div>
+            <!--观摩测试数据-->
+            <div class="card-inner">
+              <div @click="toDetail({schType: 4})" class="signin-cont">
+                <img src="./image/nosignin.png" alt="未签到"/>
+              </div>
+              <div @click="toDetail({schType: 4})" class="inner-title">野玉海景区观摩</div>
+              <div @click="toDetail({schType: 4})" class="inner-item flex row-between">
+                  <span>
+                    <span class="item-title">地址：</span>
+                    <span class="item-text">水城县S212玉舍镇海平村</span>
+                  </span>
+                <span><img src="./image/right.svg"/></span>
+              </div>
+              <a class="tel" href="tel:18707801072">
+                <div class="inner-item" style="width: 100%">
+                  <div style="width: 100%">
+                    <span class="item-title">志愿者电话：</span>
+                    <span class="item-text-phone">18707801072</span>
+                    <span style="position: relative;right: 0;float: right"><img src="./image/phone.svg"/></span>
+                  </div>
+                </div>
+              </a>
+            </div>
+          </div>
           </div>
         </div>
       </div>
@@ -223,9 +255,7 @@ export default {
         })
     },
     getTogPeople () {
-      console.log("ces")
       journeyAPI.togPeople({id : this.user.id}).then(res => {
-        console.log(res)
         this.togPeople = res.refUsers
       })
     },
@@ -247,13 +277,10 @@ export default {
     },
     toDetail(data) {
       let currentData = data; // 当前点击的行程
-      let urls = {
-        "1":"huiyi",
-        "2":"canting",
-        "3":"bashi",
-        "4":"bolanhui"}
+      let urls = { "1":"huiyi", "2":"canting", "3":"bashi", "4":"huodong"}
+      let subFix = urls[data.schType]
       this.$router.push({
-        path: '/guest-home/'+urls[data.schType],
+        path: '/guest-home/'+subFix,
         query: {
           id: data.usId, // 添加详情所需要的数据
         },
