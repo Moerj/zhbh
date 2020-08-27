@@ -19,35 +19,76 @@
 
       <div class="main-card">
         <div class="card-content">
-          <div  @click="toActiveDetail" style="background: #ffffff;border-radius: 5px;margin: 10px 10px;padding: 10px">
-            <van-row>
-              <van-col span="17">
-                <div>
-                  <div class="item-title">园区健身跑步竞赛</div>
-                  <div style="margin-top: 10px">
-                    <span class="ggg" style="position: relative;padding-right:10px;font-size: 12px;font-family: PingFangSC, PingFangSC-Regular;font-weight: 400;text-align: left;color: #292a2c;line-height: 17px;letter-spacing: 1px;">已报名：8</span>
-                    <!--<span style="width: 1px;height: 9px;background: red;margin: 0 10px">1</span>-->
-                    <span  style="margin-left:10px;font-size: 12px;font-family: PingFangSC, PingFangSC-Regular;font-weight: 400;text-align: left;color: #292a2c;line-height: 17px;letter-spacing: 1px;">截止人数：189</span>
-                  </div>
-                  <div style="margin-top: 10px;width: 80%">
-                    <van-progress color="#FD5542" :percentage="25" />
-                  </div>
-                  <div style="margin-top: 8px">
-                    <img src="./image/downtime@2x.png" style="width: 12px;position: relative;top: 2px;" alt="">
-                    <span style="font-size: 12px;font-family: PingFangSC, PingFangSC-Regular;font-weight: 400;text-align: left;color: #9094a8;line-height: 17px;letter-spacing: 1px;">报名截止时间 12月18号 12:00</span>
-                  </div>
-                  <div style="margin-top: 5px">
-                    <img src="./image/time@2x.png" style="width: 12px;position: relative;top: 3px;" alt="">
-                    <span style="font-size: 12px;font-family: PingFangSC, PingFangSC-Regular;font-weight: 400;text-align: left;color: #9094a8;line-height: 17px;letter-spacing: 1px;">报名截止时间 12月18号 12:00</span>
-                  </div>
+          <div class="list-group">
+            <div class="list-item">
+              <div class="item-left">
+                <div class="mingci">第一名</div>
+                <div class="baoming">报名</div>
+              </div>
+              <div class="item-right">
+                <div class="renshu">
+                  <span>已报名：8</span> |
+                  <span>截止人数：198</span>
                 </div>
-              </van-col>
-              <van-col span="7">
-                <div>
-                  <img src="./image/11111.png" alt="">
+                <div class="jindu">
+                  <span style="width: 20%"></span>
                 </div>
-              </van-col>
-            </van-row>
+                <div class="time">
+                  <img src="./image/time.png" height="12" />
+                  报名截止时间 12月18号 12:00
+                </div>
+                <div class="time">
+                  <img src="./image/downtime.png" height="12" />
+                  报名截止时间 12月18号 12:00
+                </div>
+              </div>
+            </div>
+            <div class="list-item">
+              <div class="item-left">
+                <div class="mingci">第二名</div>
+                <div class="baoming graybaoming">报名</div>
+              </div>
+              <div class="item-right">
+                <div class="renshu">
+                  <span>已报名：8</span> |
+                  <span>截止人数：198</span>
+                </div>
+                <div class="jindu">
+                  <span style="width: 20%"></span>
+                </div>
+                <div class="time">
+                  <img src="./image/time.png" height="12" />
+                  报名截止时间 12月18号 12:00
+                </div>
+                <div class="time">
+                  <img src="./image/downtime.png" height="12" />
+                  报名截止时间 12月18号 12:00
+                </div>
+              </div>
+            </div>
+            <div class="list-item">
+              <div class="item-left">
+                <div class="mingci">第三名</div>
+                <div class="baoming greenbaoming">已报名</div>
+              </div>
+              <div class="item-right">
+                <div class="renshu">
+                  <span>已报名：8</span> |
+                  <span>截止人数：198</span>
+                </div>
+                <div class="jindu">
+                  <span style="width: 20%"></span>
+                </div>
+                <div class="time">
+                  <img src="./image/time.png" height="12" />
+                  报名截止时间 12月18号 12:00
+                </div>
+                <div class="time">
+                  <img src="./image/downtime.png" height="12" />
+                  报名截止时间 12月18号 12:00
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -107,8 +148,7 @@ export default {
         id: this.$route.query.id,
       };
       journeyAPI.detailJourney(param).then((res) => {
-        console.log(res);
-        this.detailInfo = res.list;
+        // this.detailInfo = res.list;
       });
     },
   },
@@ -153,9 +193,10 @@ export default {
   background-color: #f6f6f9;
   padding: 0 1rem;
   .card-content {
-    transform: translateY(-24px);
+    margin: 0 -1rem;
+    transform: translateY(-15px);
     // height: 300px;
-    border-radius: 8px;
+    border-radius: 15px 15px 0px 0px;
     background-color: #fff;
     box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.08);
     padding: 1rem;
@@ -298,5 +339,105 @@ export default {
       }
     }
   }
+}
+.list-item {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  height: 103px;
+  background: #ffffff;
+  border-radius: 5px;
+  box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.08);
+}
+
+.list-item + .list-item {
+  margin-top: 16px;
+}
+
+.item-left {
+  width: 25%;
+  padding: 12px 0;
+  text-align: center;
+  border-right: 1px solid #e5e6ea;
+}
+
+.mingci {
+  height: 22px;
+  font-size: 18px;
+  font-family: PingFangSC, PingFangSC-Medium;
+  font-weight: 600;
+  text-align: center;
+  color: #2e3032;
+  line-height: 22px;
+}
+
+.baoming {
+  width: 50px;
+  height: 25px;
+  margin: 4px auto;
+  background: #c7000b;
+  border-radius: 4px;
+  line-height: 25px;
+  font-size: 15px;
+  font-family: PingFangSC, PingFangSC-Regular;
+  font-weight: 400;
+  text-align: center;
+  color: #ffffff;
+  letter-spacing: 0px;
+}
+
+.graybaoming {
+  background: #f3f4f8;
+  color: #c4c6cf;
+}
+.greenbaoming {
+  background: #22b938;
+}
+
+.item-right {
+  padding-left: 20px;
+  box-sizing: border-box;
+}
+
+.renshu {
+  display: inline-block;
+  height: 17px;
+  font-size: 12px;
+  font-family: PingFangSC, PingFangSC-Regular;
+  font-weight: 400;
+  text-align: left;
+  color: #292a2c;
+  line-height: 17px;
+  letter-spacing: 1px;
+}
+
+.time {
+  height: 17px;
+  font-size: 12px;
+  font-family: PingFangSC, PingFangSC-Regular;
+  font-weight: 400;
+  text-align: left;
+  color: #9094a8;
+  line-height: 17px;
+  letter-spacing: 1px;
+}
+.time img {
+  vertical-align: -1px;
+}
+
+.jindu {
+  height: 4px;
+  background: #f3f4f8;
+  border-radius: 2px;
+  margin: 4px 0 8px;
+  position: relative;
+}
+.jindu span {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 4px;
+  background: #fd5542;
+  border-radius: 2px;
 }
 </style>
