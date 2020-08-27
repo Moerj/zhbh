@@ -22,7 +22,7 @@
           <div class="list-group">
             <div class="list-item">
               <div class="item-left">
-                <div class="mingci">第一名</div>
+                <div class="mingci">第一组</div>
                 <div class="baoming">报名</div>
               </div>
               <div class="item-right">
@@ -45,7 +45,7 @@
             </div>
             <div class="list-item">
               <div class="item-left">
-                <div class="mingci">第二名</div>
+                <div class="mingci">第二组</div>
                 <div class="baoming graybaoming">报名</div>
               </div>
               <div class="item-right">
@@ -68,7 +68,7 @@
             </div>
             <div class="list-item">
               <div class="item-left">
-                <div class="mingci">第三名</div>
+                <div class="mingci">第三组</div>
                 <div class="baoming greenbaoming">已报名</div>
               </div>
               <div class="item-right">
