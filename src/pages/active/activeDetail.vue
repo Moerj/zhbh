@@ -18,49 +18,37 @@
 <!--      </van-swipe>-->
 
       <div class="main-card">
-        <div class="card-content">
-          <div class="time-wrapper flex">
-            <div class="time-icon">
-              <img src="./image/time-white.png" />
-            </div>
-            <div class="time-text">{{detailInfo.startTime || '2020-12-12 12:00'}}到{{detailInfo.endTime || '14:00'}}</div>
+        <div class="card-content" style="    border-radius: 40px 40px 0px 0px;">
+          <div  @click="toActiveDetail" style="background: #ffffff;border-radius: 5px;margin: 10px 10px;padding: 10px">
+            <van-row>
+              <van-col span="17">
+                <div>
+                  <div class="item-title">园区健身跑步竞赛</div>
+                  <div style="margin-top: 10px">
+                    <span class="ggg" style="position: relative;padding-right:10px;font-size: 12px;font-family: PingFangSC, PingFangSC-Regular;font-weight: 400;text-align: left;color: #292a2c;line-height: 17px;letter-spacing: 1px;">已报名：8</span>
+                    <!--<span style="width: 1px;height: 9px;background: red;margin: 0 10px">1</span>-->
+                    <span  style="margin-left:10px;font-size: 12px;font-family: PingFangSC, PingFangSC-Regular;font-weight: 400;text-align: left;color: #292a2c;line-height: 17px;letter-spacing: 1px;">截止人数：189</span>
+                  </div>
+                  <div style="margin-top: 10px;width: 80%">
+                    <van-progress color="#FD5542" :percentage="25" />
+                  </div>
+                  <div style="margin-top: 8px">
+                    <img src="./image/downtime@2x.png" style="width: 12px;position: relative;top: 2px;" alt="">
+                    <span style="font-size: 12px;font-family: PingFangSC, PingFangSC-Regular;font-weight: 400;text-align: left;color: #9094a8;line-height: 17px;letter-spacing: 1px;">报名截止时间 12月18号 12:00</span>
+                  </div>
+                  <div style="margin-top: 5px">
+                    <img src="./image/time@2x.png" style="width: 12px;position: relative;top: 3px;" alt="">
+                    <span style="font-size: 12px;font-family: PingFangSC, PingFangSC-Regular;font-weight: 400;text-align: left;color: #9094a8;line-height: 17px;letter-spacing: 1px;">报名截止时间 12月18号 12:00</span>
+                  </div>
+                </div>
+              </van-col>
+              <van-col span="7">
+                <div>
+                  <img src="./image/11111.png" alt="">
+                </div>
+              </van-col>
+            </van-row>
           </div>
-
-          <div class="title-wrapper">
-            <p class="title">{{detailInfo.title || '大数据旅游产业博览会'}}</p>
-            <p class="weather"><img src="./image/weather.png" />5℃～12℃</p>
-          </div>
-
-          <div class="info-wrapper">
-            <div class="info-item flex row-between">
-              <span>
-                <span class="item-title">地点：</span>
-                <span class="black-text">{{detailInfo.address || '六盘水旅游文化会议中心'}}</span>
-              </span>
-              <span><img src="./image/right.svg"/></span>
-            </div>
-            <div class="info-item flex row-between">
-              <a class="tel" href="tel:0856-8221657"></a>
-              <span>
-                <span class="item-title">联系电话：</span>
-                <span class="red-text">{{detailInfo.sitePhone || '0856-8221657'}}</span>
-              </span>
-              <span><img src="./image/phone.svg"/></span>
-            </div>
-            <div class="info-item flex row-between">
-              <a class="tel" href="tel:13678391637"></a>
-              <span>
-                <span class="item-title">志愿者电话：</span>
-                <span class="red-text">{{detailInfo.phone || '13678391637'}}</span>
-              </span>
-              <span><img src="./image/phone.svg"/></span>
-            </div>
-          </div>
-
-          <!-- <div class="code-wrapper">
-            <p>您的专属二维码</p>
-            <div><img src="../image/big-code.png" /></div>
-          </div> -->
         </div>
 
         <div class="fullwidth-content">
