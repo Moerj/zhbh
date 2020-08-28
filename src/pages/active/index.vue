@@ -59,7 +59,7 @@
                   </div>
                   <div style="margin-top: 5px">
                     <img src="./image/time@2x.png" style="width: 12px;position: relative;top: 3px;" alt="">
-                    <span style="font-size: 12px;font-family: PingFangSC, PingFangSC-Regular;font-weight: 400;text-align: left;color: #9094a8;line-height: 17px;letter-spacing: 1px;">报名截止时间 12月18号 12:00</span>
+                    <span style="font-size: 12px;font-family: PingFangSC, PingFangSC-Regular;font-weight: 400;text-align: left;color: #9094a8;line-height: 17px;letter-spacing: 1px;">报名开始时间 12月18号 12:00</span>
                   </div>
                 </div>
               </van-col>
@@ -89,7 +89,7 @@
                   </div>
                   <div style="margin-top: 5px">
                     <img src="./image/time@2x.png" style="width: 12px;position: relative;top: 3px;" alt="">
-                    <span style="font-size: 12px;font-family: PingFangSC, PingFangSC-Regular;font-weight: 400;text-align: left;color: #9094a8;line-height: 17px;letter-spacing: 1px;">报名截止时间 12月18号 12:00</span>
+                    <span style="font-size: 12px;font-family: PingFangSC, PingFangSC-Regular;font-weight: 400;text-align: left;color: #9094a8;line-height: 17px;letter-spacing: 1px;">报名开始时间 12月18号 12:00</span>
                   </div>
                 </div>
               </van-col>
@@ -121,7 +121,7 @@
                   </div>
                   <div style="margin-top: 5px">
                     <img src="./image/time@2x.png" style="width: 12px;position: relative;top: 3px;" alt="">
-                    <span style="font-size: 12px;font-family: PingFangSC, PingFangSC-Regular;font-weight: 400;text-align: left;color: #9094a8;line-height: 17px;letter-spacing: 1px;">报名截止时间 12月18号 12:00</span>
+                    <span style="font-size: 12px;font-family: PingFangSC, PingFangSC-Regular;font-weight: 400;text-align: left;color: #9094a8;line-height: 17px;letter-spacing: 1px;">报名开始时间 12月18号 12:00</span>
                   </div>
                 </div>
               </van-col>

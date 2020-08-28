@@ -96,11 +96,11 @@
                     <span class="item-text">{{ item['tabNo'] + item['seatNo'] }} 座位</span>
                   </span>
                 </div>
-                <a class="tel" href="tel:13678391637">
+                <a class="tel"  :href="'tel:'+ item.chargerPhone">
                   <div class="inner-item" style="width: 100%">
                     <div style="width: 100%">
                       <span class="item-title">志愿者电话：</span>
-                      <span class="item-text-phone">18707801072</span>
+                      <span class="item-text-phone">{{item.chargerPhone}}</span>
                       <span style="position: relative;right: 0;float: right"><img src="./image/phone.svg"/></span>
                     </div>
                   </div>
@@ -110,35 +110,35 @@
         </div>
 
           <!--观摩测试数据-->
-        <div class="journey-card notstarted" v-if="tabCurrent === '2020-08-27'">
-          <div class="card-content">
-            <div class="card-title">
-                <span>
-                  15.00到16.00
-                </span>
-            </div>
-            <!--观摩测试数据-->
-            <div class="card-inner">
-              <div @click="toDetail({schType: 4})" class="inner-title">野玉海景区观摩</div>
-              <div @click="toDetail({schType: 4})" class="inner-item flex row-between">
-                  <span>
-                    <span class="item-title">地址：</span>
-                    <span class="item-text">水城县S212玉舍镇海平村</span>
-                  </span>
-                <span><img src="./image/right.svg"/></span>
-              </div>
-              <a class="tel" href="tel:18707801072">
-                <div class="inner-item" style="width: 100%">
-                  <div style="width: 100%">
-                    <span class="item-title">志愿者电话：</span>
-                    <span class="item-text-phone">18707801072</span>
-                    <span style="position: relative;right: 0;float: right"><img src="./image/phone.svg"/></span>
-                  </div>
-                </div>
-              </a>
-            </div>
-          </div>
-          </div>
+<!--        <div class="journey-card notstarted" v-if="tabCurrent === '2020-08-27'">-->
+<!--          <div class="card-content">-->
+<!--            <div class="card-title">-->
+<!--                <span>-->
+<!--                  15.00到16.00-->
+<!--                </span>-->
+<!--            </div>-->
+<!--            &lt;!&ndash;观摩测试数据&ndash;&gt;-->
+<!--            <div class="card-inner">-->
+<!--              <div @click="toDetail({schType: 4})" class="inner-title">野玉海景区观摩</div>-->
+<!--              <div @click="toDetail({schType: 4})" class="inner-item flex row-between">-->
+<!--                  <span>-->
+<!--                    <span class="item-title">地址：</span>-->
+<!--                    <span class="item-text">水城县S212玉舍镇海平村</span>-->
+<!--                  </span>-->
+<!--                <span><img src="./image/right.svg"/></span>-->
+<!--              </div>-->
+<!--              <a class="tel" :href="'tel:'+ item.chargerPhone">-->
+<!--                <div class="inner-item" style="width: 100%">-->
+<!--                  <div style="width: 100%">-->
+<!--                    <span class="item-title">志愿者电话：</span>-->
+<!--                    <span class="item-text-phone">{{item.chargerPhone}}</span>-->
+<!--                    <span style="position: relative;right: 0;float: right"><img src="./image/phone.svg"/></span>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </a>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          </div>-->
         </div>
       </div>
     </ui-pull>
@@ -265,7 +265,6 @@ export default {
         .myJourney(param)
         .then((res) => {
           this.journeyList = res.list;
-          console.log(this.journeyList)
           this.$refs.pull.endSuccess();
         })
         .catch((err) => {
@@ -275,6 +274,10 @@ export default {
     toDetail(data) {
       let currentData = data; // 当前点击的行程
       let urls = { "1":"huiyi", "2":"canting", "3":"bashi", "4":"huodong"}
+      console.log(data)
+      if (data.schType == 3) {
+        journeyAPI.schduleInfo({usId: data.userId})
+      }
       let subFix = urls[data.schType]
       this.$router.push({
         path: '/guest-home/'+subFix,
@@ -306,9 +309,6 @@ export default {
         .then((res) => {
           this.journeyList = res.list;
         })
-        .catch((err) => {
-          this.$toast(err);
-        });
     },
   },
 };
