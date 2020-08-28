@@ -1,18 +1,19 @@
 <template>
   <van-tabbar v-model="active" v-if="show" :fixed="false" active-color="#C7000B" safe-area-inset-bottom>
     <van-tabbar-item v-for="(v,i) in items" :key="v.label" @click="clickItem(v)">
-      {{v.label}}
+      {{ v.label }}
       <template #icon="props">
         <van-icon :name="active===i?v.iconActive:v.icon"/>
       </template>
     </van-tabbar-item>
   </van-tabbar>
 </template>
+
 <script>
 export default {
   data () {
     return {
-      active: 0,
+      active: null,
       items: [
         {
           icon: require('./assets/my-journey.svg'),
@@ -31,6 +32,7 @@ export default {
     }
   },
   mounted () {
+    this.active = Array.from(this.items, ({ path }) => path).indexOf(this.$route.path)
   },
   methods: {
     clickItem (item) {

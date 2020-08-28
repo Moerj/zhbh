@@ -68,6 +68,10 @@ store.dispatch('getOpenId').then(() => {})
 
 const { description } = require('../package.json')
 Vue.router.beforeEach((to, from, next) => {
+  if (to.path !== '/login' && !localStorage.user) {
+    next('/login')
+  }
+
   document.title = to.name || description
 
   const { isFirstLogin, openId, user } = store.getters

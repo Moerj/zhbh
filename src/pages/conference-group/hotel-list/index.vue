@@ -36,7 +36,9 @@
     </ui-pull>
     <empty :list="list"/>
 
-    <ConferenceGroupTabbar/>
+    <template #footer>
+      <ConferenceGroupTabbar/>
+    </template>
   </ui-main>
 </template>
 
@@ -76,30 +78,34 @@ export default {
       window.location.href = `tel:${phone}`
     },
     locate () {
-      wx.miniProgram.navigateTo({
-        url: `/pages/indexPKG/travelMapGo/main?${this.$qs.stringify({
-          latitude: parseFloat(this.data.latitude),
-          longitude: parseFloat(this.data.longitude),
-          name: this.data.name,
-          address: this.data.address,
-          scale: 18
-        }, {
-          encode: false
-        })}`
+      wx.ready(() => {
+        wx.openLocation({
+          longitude: Number(this.data.longitude),
+          latitude: Number(this.data.latitude),
+          name: this.data.title, // 位置名
+          address: this.data.place, // 地址详情说明
+          fail (e) {
+            console.log(e)
+          }
+        })
       })
     },
     async scan () {
       if (['wechat', 'mp'].includes(await getEnv())) {
-        wx.scanCode({
-          onlyFromCamera: true,
-          success: res => {
-            this.$router.push({
-              path: 'guest-service',
-              query: {
-                type: res.result,
-              }
-            })
-          }
+        wx.ready(() => {
+          console.log(wx.scanCode)
+          wx.scanQRCode({
+            needResult: 1, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
+            scanType: ['qrCode', 'barCode'], // 可以指定扫二维码还是一维码，默认二者都有
+            success (res) {
+              this.$router.push({
+                path: 'guest-service',
+                query: {
+                  type: res.resultStr, // 当needResult 为 1 时，扫码返回的结果
+                }
+              })
+            }
+          })
         })
       } else {
         this.$router.push({
@@ -113,8 +119,8 @@ export default {
     },
     getList () {
       this.list.length = 0
-      this.$http.get('h5api/meet/hotellist', this.query).then(({ list }) => {
-        this.list = list || []
+      this.$http.get('h5api/meet/hotellist', this.query).then(({ data }) => {
+        this.list = data || []
       }).finally(e => {
         this.$refs.pull.endSuccess()
       })

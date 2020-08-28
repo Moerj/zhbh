@@ -2,7 +2,7 @@
   <ui-main>
     <template v-slot:header>
       <van-tabs v-model="activeTab" @click="onTabsClick">
-        <van-tab v-for="(v,i) of dates" :title="$dayjs(v).format('M月YY号')" :key="i"/>
+        <van-tab v-for="(v,i) of dates" :title="$dayjs(v).format('M月DD号')" :key="i"/>
       </van-tabs>
       <div class="title">
         我的行程
@@ -33,7 +33,9 @@
     </ui-pull>
     <empty :list="list"/>
 
-
+    <template #footer>
+      <ConferenceGroupTabbar/>
+    </template>
   </ui-main>
 </template>
 
@@ -45,7 +47,7 @@ import ConferenceGroupTabbar from '../ConferenceGroupTabbar/index'
 function getQuery () {
   return {
     date: null,
-    userId: localStorage.user ? JSON.parse(localStorage.user).id : null
+    userId: JSON.parse(localStorage.user).id
   }
 }
 
@@ -73,9 +75,12 @@ export default {
   },
   methods: {
     getDates () {
+      this.$loading.open()
       this.$http.get('h5api/meet/date/list').then(({ list }) => {
         this.dates = list || []
         this.query.date = list[0]
+      }).finally(e => {
+        this.$loading.close()
       })
     },
     onTabsClick (active) {
@@ -112,8 +117,8 @@ export default {
       this.$router.push({
         path: 'my-journey/detail',
         query: {
-          type: v.type,
-          id: v.id
+          schTypeName: v.schTypeName,
+          schId: v.schId
         }
       })
     }
@@ -302,13 +307,17 @@ export default {
   }
 }
 
+::v-deep .van-tabs__nav {
+  padding: 0 7px;
+}
+
 ::v-deep .van-tab--active {
   font-size: 14px;
   color: #ffffff;
   line-height: 20px;
-  letter-spacing: 0px;
+  letter-spacing: 0;
   background-color: $ui-color-primary;
-  margin: 7px;
+  margin: 7px 0;
   border-radius: 5px;
   position: relative;
 

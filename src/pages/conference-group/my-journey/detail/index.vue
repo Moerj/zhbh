@@ -19,7 +19,7 @@
         </div>
         <div>{{ data.date && `${data.date} ${data.startTime}${data.endTime && ('到' + data.endTime)}` }}</div>
       </div>
-      <div>{{ data.name }}</div>
+      <div>{{ data.title }}</div>
       <div>
         <van-icon :name="weatherIcon"/>
         <span>{{ temperature }}</span>
@@ -28,23 +28,20 @@
         <div @click="locate">
           <span>
             <span class="title">地点：</span>
-            <span class="ellipsis-1">{{ data.location }}</span>
+            <span class="ellipsis-1">{{ data.place }}</span>
           </span>
           <van-icon name="arrow" size="12"/>
         </div>
-        <div v-if="type==='dining'">
+        <div v-if="type!=='车辆接送'" @click="call(data.chargerPhone)">
           <span>
-            <span class="title">桌号/包间号：</span>
-            <span class="ellipsis-1">{{ data.roomNum }}</span>
+            <span class="title">联系电话：</span>
+            <span class="ellipsis-1 phone">{{ data.chargerPhone }}</span>
           </span>
+          <van-icon :name="require('@/imgs/tel.svg')" size="12"/>
         </div>
-        <div v-if="type==='conference'">
-          <span>
-            <span class="title">座位：</span>
-            <span class="ellipsis-1">{{ data.seat }}</span>
-          </span>
-        </div>
-        <template v-if="type==='transportation'">
+      </div>
+      <template v-if="data.schTypeName==='车辆接送事件'">
+        <div v-for="v of cars">
           <div>
             <span>
               <span class="title">车牌号：</span>
@@ -64,20 +61,12 @@
             </span>
             <van-icon :name="require('@/imgs/tel.svg')" size="12"/>
           </div>
-        </template>
-        <div v-else @click="call(data.tel)">
-          <span>
-            <span class="title">联系电话：</span>
-            <span class="ellipsis-1 phone">{{ data.tel }}</span>
-          </span>
-          <van-icon :name="require('@/imgs/tel.svg')" size="12"/>
         </div>
-      </div>
-      <!--<QRCode :data="data" v-if="type==='transportation'"/>-->
+      </template>
     </header>
 
     <WarmPrompt :data="data"/>
-    <SeatingArrangements :data="data" v-if="type==='conference'"/>
+    <SeatingArrangements :data="data" v-if="data.schTypeName==='会议'"/>
 
     <template #footer>
       <Tabbar/>
@@ -107,7 +96,6 @@ export default {
       data: {},
       type: this.$route.query.type,
       weather: {},
-
     }
   },
   computed: {
@@ -128,53 +116,39 @@ export default {
   },
   methods: {
     getWeather () {
+      this.$loading.open()
       this.$http.get(`${process.env.VUE_APP_BASE_API}guizhou/one-travel-app/weather/queryWeatherByAreaCode/520200000000`).then(({ data }) => {
         this.weather = data?.dailyForecast[0]
+      }).finally(e => {
+        this.$loading.close()
       })
     },
     getDetail () {
-      /*this.$loading.open()
-      this.$http.post('', this.$route.query).then(({ data }) => {
+      this.$loading.open()
+      this.$http.get('h5api/meet/get/info', {
+        params: {
+          schId: this.$route.query.schId
+        }
+      }).then(({ data }) => {
         this.data = data || {}
       }).finally(e => {
         this.$loading.close()
-      })*/
-      setTimeout(() => {
-        this.data = {
-          date: '2020-12-12',
-          startTime: '12:00',
-          endTime: '14:00',
-          name: '天怡豪生大酒店餐厅',
-          location: '六盘水旅游文化会议中心',
-          roomNum: '5包间13号',
-          seat: '3排27号',
-          tel: '0851-8221657',
-          warmPrompt: '六盘水市，是贵州省地级市。六盘水市地处贵州西部乌蒙山区，年平均气温15℃，夏季平均气温19.7℃，冬季平均气温3℃。',
-          licensePlateNumber: '京A·88888',
-          driverName: '王洋',
-          driverTel: '0856-8221657',
-          qrcode: 'qrcode',
-          imgs: [
-            require('./assets/swipe-1.png'),
-            require('./assets/swipe-2.png'),
-          ],
-        }
-      }, 500)
+      })
     },
     call (phone) {
       window.location.href = `tel:${phone}`
     },
     locate () {
-      wx.miniProgram.navigateTo({
-        url: `/pages/indexPKG/travelMapGo/main?${this.$qs.stringify({
-          latitude: parseFloat(this.data.latitude),
-          longitude: parseFloat(this.data.longitude),
-          name: this.data.name,
-          address: this.data.address,
-          scale: 18
-        }, {
-          encode: false
-        })}`
+      wx.ready(() => {
+        wx.openLocation({
+          longitude: Number(this.data.longitude),
+          latitude: Number(this.data.latitude),
+          name: this.data.title, // 位置名
+          address: this.data.place, // 地址详情说明
+          fail (e) {
+            console.log(e)
+          }
+        })
       })
     },
   }

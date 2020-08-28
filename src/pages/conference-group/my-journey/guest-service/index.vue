@@ -10,21 +10,51 @@
         <header>
           <div class="tr">
             <div class="th">嘉宾姓名</div>
-            <div class="td ellipsis-1">{{ v.name }}</div>
+            <div class="td ellipsis-1">{{ v.realName }}</div>
           </div>
         </header>
         <main>
           <div class="tr">
             <div class="th">嘉宾身份</div>
-            <div class="td ellipsis-1">{{ v.identity }}</div>
+            <div class="td ellipsis-1">{{ v.duty }}</div>
           </div>
           <div class="tr">
             <div class="th">嘉宾电话</div>
-            <a class="td ellipsis-1" :href="`tel:${v.phone}`">
+            <a class="td ellipsis-1" :href="`tel:${v.phoneNo}`">
               <van-icon :name="require('@/imgs/tel.svg')" size="12"/>
-              &nbsp;{{ v.phone }}
+              &nbsp;{{ v.phoneNo }}
             </a>
           </div>
+          <template v-if="schTypeName==='车辆接送'">
+            <div class="tr">
+              <div class="th">车辆类型</div>
+              <div class="td ellipsis-1">{{ v.carType }}</div>
+            </div>
+            <div class="tr">
+              <div class="th">车牌号</div>
+              <div class="td ellipsis-1">{{ v.carNo }}</div>
+            </div>
+            <div class="tr">
+              <div class="th">司机姓名</div>
+              <div class="td ellipsis-1">{{ v.driver }}</div>
+            </div>
+            <div class="tr">
+              <div class="th">司机电话</div>
+              <div class="td ellipsis-1">{{ v.driverPhone }}</div>
+            </div>
+          </template>
+          <template v-else-if="schTypeName==='餐厅'">
+            <div class="tr">
+              <div class="th">桌号</div>
+              <div class="td ellipsis-1">{{ v.tabNo + '号' }}</div>
+            </div>
+          </template>
+          <template v-else-if="schTypeName==='会议'">
+            <div class="tr">
+              <div class="th">座位</div>
+              <div class="td ellipsis-1">{{ `${v.tabNo}排${v.seatNo}号` }}</div>
+            </div>
+          </template>
         </main>
       </div>
     </ui-pull>
@@ -42,8 +72,8 @@ import Tabbar from '../Tabbar'
 
 function getQuery () {
   return {
-    pageNo: 1,
-    pageSize: 0,
+    userId: localStorage.user ? JSON.parse(localStorage.user).id : null,
+    schId: 0,
   }
 }
 
@@ -55,7 +85,8 @@ export default {
     return {
       list: [],
       query: getQuery(),
-      total: null
+      total: null,
+      schTypeName: this.$route.query.schTypeName
     }
   },
   watch: {
@@ -69,42 +100,16 @@ export default {
   methods: {
     getList () {
       this.list.length = 0
-      /*this.$http.post('', this.query).then(({ data }) => {
-        if (data) {
-          this.list = data.records || []
-          this.total = data.total
-        } else {
-          this.total = 0
+      this.$http.get('h5api/meet/get/serveuser', {
+        params: {
+          userId: JSON.parse(localStorage.user).id,
+          schId: this.$route.query.schId
         }
+      }).then(({ data }) => {
+        this.list = data || []
       }).finally(e => {
         this.$refs.pull.endSuccess()
-      })*/
-      setTimeout(() => {
-        this.list = [
-          {
-            phone: '15797426874',
-            identity: '联通旅游行业总监',
-            name: '张涛',
-          }, {
-            phone: '15797426874',
-            identity: '联通旅游行业总监',
-            name: '王敏',
-          }, {
-            phone: '15797426874',
-            identity: '联通旅游行业总监',
-            name: '刘华',
-          }, {
-            phone: '15797426874',
-            identity: '联通旅游行业总监',
-            name: '王海勇',
-          }, {
-            phone: '15797426874',
-            identity: '联通旅游行业总监',
-            name: '陈文',
-          },
-        ]
-        this.$refs.pull.endSuccess()
-      }, 500)
+      })
     },
   }
 }
@@ -124,7 +129,6 @@ export default {
     margin-bottom: 0;
   }
 
-  height: 122px;
   background: #ffffff;
   border-radius: 10px;
   box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.08);

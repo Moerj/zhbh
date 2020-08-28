@@ -5,7 +5,7 @@
       <van-tabbar-item v-for="(v,i) in items" :key="v.label">
         {{ v.label }}
         <template #icon="props">
-          <van-icon :name="active===i?v.iconActive:v.icon" @click="clickItem(v)"/>
+          <van-icon :name="active===i?v.iconActive:v.icon" @click="clickItem(v,$event)"/>
         </template>
       </van-tabbar-item>
     </van-tabbar>
@@ -13,21 +13,28 @@
 </template>
 
 <script>
+import { SvgIcon } from 'plain-kit'
+
 export default {
   name: 'HumpTabbar',
   props: ['items'],
+  components: { SvgIcon },
   data () {
     return {
-      active: 0,
+      active: Array.from(this.items, ({ path }) => path).indexOf(this.$route.path),
       show: true
     }
   },
   methods: {
-    clickItem (item) {
+    clickItem (item, $event) {
       if (item.onClick) {
+        $event.stopPropagation()
         item.onClick()
       } else if (item.path) {
-        this.$router.push(item.path)
+        this.$router.push({
+          path: item.path,
+          query: this.$route.query
+        })
       }
     },
     updateTabState () {
@@ -36,7 +43,7 @@ export default {
           this.active = index
         }
       })
-    }
+    },
   },
   /*watch: {
     $route () {

@@ -32,17 +32,17 @@ export default {
     wxAuthorization () {
       this.$http.post(process.env.VUE_APP_BASE_API + 'yyt/wechat/wechat/queryJsConfigInfo', {
         mchId: '-1',
-        url: location.href.split('#')[0]
+        url: window.location.href
       }).then(res => {
         if (res.errorCode === '00000') {
           const data = res.data
           wx.config({
-            debug: false,
+            debug: true,
             appId: data.appId,//appId通过微信服务号后台查看
             timestamp: data.timestamp,//生成签名的时间戳
             nonceStr: data.noncestr,//生成签名的随机字符串
             signature: data.signature,//签名
-            jsApiList: ['scanCode']
+            jsApiList: ['scanQRCode', 'openLocation']
           })
           wx.error((res) => {
           })

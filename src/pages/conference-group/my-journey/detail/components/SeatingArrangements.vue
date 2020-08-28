@@ -1,7 +1,7 @@
 <template>
   <div class="wrapper">
     <div class="title">座位安排</div>
-    <img src="../assets/seats.png" alt="">
+    <img :src="data.meetRoom.seatPath" alt="">
   </div>
 </template>
 

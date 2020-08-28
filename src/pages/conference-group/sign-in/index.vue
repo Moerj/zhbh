@@ -108,11 +108,14 @@ export default {
       }, 500)
     },
     signIn () {
+      this.$loading.open()
       this.$http.get('h5api/meet/signSchedule', {
         openId: this.$route.openId,
         schId: this.$route.schId
       }).then(({ data }) => {
 
+      }).finally(e => {
+        this.$loading.close()
       })
     }
   }
