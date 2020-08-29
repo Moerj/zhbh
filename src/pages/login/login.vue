@@ -226,8 +226,7 @@
 
       checkOpenId() {
         const appletsOpenId = this.$route.query.openId || "";
-        authApi
-                .checkOpenId({ openId: appletsOpenId })
+        authApi.checkOpenId({ openId: appletsOpenId })
                 .then((res) => {
                   console.log(res);
                 })

@@ -106,12 +106,15 @@
         </div>
       </div>
     </div>
+    <Qrcode/>
   </ui-main>
 </template>
 
 <script>
+    import Qrcode from "@/components/Qrcode";
 import journeyAPI from "@/api/journey.js";
 export default {
+    components:{Qrcode},
   name: "Detail",
   data() {
     return {
@@ -326,7 +329,7 @@ export default {
         text-align: center;
         line-height: 3.875rem;
       }
-      
+
     }
   }
 }

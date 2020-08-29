@@ -143,22 +143,7 @@
       </div>
     </ui-pull>
 
-    <nut-drag
-      @click.native="click"
-      :attract="true"
-      class="my-code"
-      :class="isShowCode ? 'big' : 'mini'"
-    >
-      <div class="code-content">
-        <div class="code">
-          <div class="close-icon" v-if="isShowCode" @click.stop="closeCode">
-            <img src="./image/icons_Popup_close@2x.png" alt="关闭" />
-          </div>
-          <img v-if="isShowCode" src="./image/big-code.png" />
-          <img v-else src="./image/mini-code.png" />
-        </div>
-      </div>
-    </nut-drag>
+    <Qrcode/>
     <!-- 106.681549,26.558844 -->
     <!-- <CoordPicker
       :show.sync="showMap"
@@ -167,9 +152,7 @@
       lat.sync="26.558844"
       address.sync="花果园M区"
     /> -->
-
     <Tabbar />
-
     <van-overlay :show="showLoading">
       <div>
         <van-loading type="spinner" />
@@ -180,6 +163,7 @@
 
 <script>
 import Tabbar from "@/components/Tabbar";
+import Qrcode from "@/components/Qrcode";
 
 import journeyAPI from "@/api/journey.js";
 
@@ -197,7 +181,7 @@ export default {
   name: "GuesetHome",
   components: {
     Tabbar,
-    // CoordPicker,
+     Qrcode,
   },
   data() {
     return {
@@ -233,6 +217,9 @@ export default {
     },
   },
   mounted() {
+    //获取传过来的openid
+    //this.$route.query.openId
+    localStorage.setItem("openId", "1234567890");
     this.getTogPeople ()
   },
   methods: {

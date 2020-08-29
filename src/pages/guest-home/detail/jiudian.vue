@@ -72,7 +72,7 @@
           <div class="fullwidth-title">简介</div>
           <div class="fullwidth-main">
             <div class="main-text">
-              六盘水地处滇、黔两省结合部，长江、珠江上游分水岭，南盘江、北盘江流域两岸，矿产资源十分丰富。交通四通八达，是西南重要的铁路枢纽城市和物流集散中心之一。截止2020年5月，全市国土面积9914平方千米，辖六枝特区、盘州市、水城区、钟山区4个县级行政区和5个省级经济开发区，87个乡镇（街道）。 2019年全市年末常住人口295.05万人，比上年末增加1.32万人。 
+              六盘水地处滇、黔两省结合部，长江、珠江上游分水岭，南盘江、北盘江流域两岸，矿产资源十分丰富。交通四通八达，是西南重要的铁路枢纽城市和物流集散中心之一。截止2020年5月，全市国土面积9914平方千米，辖六枝特区、盘州市、水城区、钟山区4个县级行政区和5个省级经济开发区，87个乡镇（街道）。 2019年全市年末常住人口295.05万人，比上年末增加1.32万人。
               <br />
               <img src="./meishi.png" style="width: 100%">
               <br />
@@ -83,12 +83,15 @@
 
       </div>
     </div>
+    <Qrcode/>
   </ui-main>
 </template>
 
 <script>
+    import Qrcode from "@/components/Qrcode";
 import journeyAPI from "@/api/journey.js";
 export default {
+    components:{Qrcode},
   name: "Detail",
   data() {
     return {

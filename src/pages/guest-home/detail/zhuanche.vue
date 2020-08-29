@@ -65,15 +65,18 @@
         </div>
 
 
-  
+
       </div>
     </div>
+    <Qrcode/>
   </ui-main>
 </template>
 
 <script>
+    import Qrcode from "@/components/Qrcode";
 import journeyAPI from "@/api/journey.js";
 export default {
+    components:{Qrcode},
   name: "Detail",
   data() {
     return {
