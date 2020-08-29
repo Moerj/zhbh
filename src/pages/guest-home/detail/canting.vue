@@ -3,7 +3,7 @@
 
 
     <div class="detail-container">
-      <img style="width: 100%;" src="./canting.png">
+      <img style="width: 100%;"  :src=" detailInfo.coverPath || image">
 <!--      <van-swipe :autoplay="3000" :height="280" @change="swipeChange">-->
 <!--        <van-swipe-item v-for="(image, index) in images" :key="index">-->
 <!--          <img v-lazy="image" />-->
@@ -21,7 +21,10 @@
             <div class="time-icon">
               <img src="../image/time.png" />
             </div>
-            <div class="time-text">{{detailInfo.startTime || '2020-08-27 12:00'}}到{{detailInfo.endTime || '13:00'}}</div>
+            <div class="time-text">
+              {{detailInfo.scheduleDate&&detailInfo.startTime ? detailInfo.scheduleDate +" "+ detailInfo.startTime : undefined || "2020-08-27 0 12:00" }}到{{
+              detailInfo.endTime || "13:00"
+              }}</div>
           </div>
 
           <div class="title-wrapper">
@@ -33,29 +36,35 @@
             <div class="info-item flex row-between">
               <span>
                 <span class="item-title">地点：</span>
-                <span class="black-text">{{detailInfo.address || '钟山区钟山大道与凤池路交口 '}}</span>
+                <span class="black-text">{{detailInfo.place || '钟山区钟山大道与凤池路交口 '}}</span>
               </span>
               <span><img src="../image/right.svg"/></span>
             </div>
             <div class="info-item flex row-between">
               <span>
                 <span class="item-title">桌号：</span>
-                <span class="black-text">{{detailInfo.number || '13号'}}</span>
+                <span class="black-text">{{
+                  detailInfo.tabNo ? detailInfo.tabNo+detailInfo.seatNo : detailInfo.seatNo || '13号'
+                  }}</span>
               </span>
             </div>
             <div class="info-item flex row-between">
-              <a class="tel" href="tel:0856-8221657"></a>
+              <a class="tel" :href="'tel'+ (detailInfo.phone || '0856-8221657')"></a>
               <span>
                 <span class="item-title">联系电话：</span>
-                <span class="red-text">{{detailInfo.sitePhone || '18787669090'}}</span>
+                <span class="red-text">{{
+                  detailInfo.phone || "0856-8221657"
+                }}</span>
               </span>
               <span><img src="../image/phone.svg"/></span>
             </div>
             <div class="info-item flex row-between">
-              <a class="tel" href="tel:13678391637"></a>
+              <a class="tel" :href="'tel:' + (detailInfo.chargePhone || '18707801072')"></a>
               <span>
                 <span class="item-title">志愿者电话：</span>
-                <span class="red-text">{{detailInfo.phone || '18685199875'}}</span>
+                <span class="red-text">{{
+                  detailInfo.chargePhone || "18707801072"
+                }}</span>
               </span>
               <span><img src="../image/phone.svg"/></span>
             </div>
@@ -80,11 +89,14 @@
           <div class="fullwidth-title">简介</div>
           <div class="fullwidth-main">
             <div class="main-text">
-              酒店交通便利，设施齐全，环境优雅，是您旅游休闲、洽谈商务、尊贵宴请的首选之地。
-              <br/>
-              酒店主楼26层，建筑面积40000平方米，集住宿、餐饮、娱乐和商务服务于一体，拥有各类房型249间（套），包括总统套房、大使套房、行政套房、行政商务房、绿色生态商务房、豪华套房、豪华房、高级房。酒店拥有各具特色的中、西餐厅、酒吧、宴会厅、多功能国际会议中心和餐饮包厢，有丰盛的中华传统美食、地方特色名菜及异国经典风味佳肴，让您驻足品尝，一饱口福。酒店设有24小时送餐、自动取款、外币兑换、网络预订、礼宾车队等综合服务功能，让您感受到家一般的便捷与温馨。酒店拥有一流的美容、美发以及露天游泳池等康乐设施，将为您的商务接待、休闲娱乐提供优质高效的超值服务，让您留连忘返。
-              <br/>
-              酒店装饰，精典高雅、宽敞舒适，既蕴含着浓郁的远古神农文化气息，又充分展现了现代酒店的豪华与别致，让您充分领略和感受到双重的酒店文化氛围。酒店一贯秉承“要做就做最优秀”、“满足客户需求，超越客户期待”的理念，把为您提供最完善、最完美的服务，始终作为酒店追求的一项重要目标，您的开心与快乐，就是酒店的满足与追求。
+              {{
+              detailInfo.intro ||
+              "酒店交通便利，设施齐全，环境优雅，是您旅游休闲、洽谈商务、尊贵宴请的首选之地。\n" +
+              "&ltbr/&gt \n" +
+              "酒店主楼26层，建筑面积40000平方米，集住宿、餐饮、娱乐和商务服务于一体，拥有各类房型249间（套），包括总统套房、大使套房、行政套房、行政商务房、绿色生态商务房、豪华套房、豪华房、高级房。酒店拥有各具特色的中、西餐厅、酒吧、宴会厅、多功能国际会议中心和餐饮包厢，有丰盛的中华传统美食、地方特色名菜及异国经典风味佳肴，让您驻足品尝，一饱口福。酒店设有24小时送餐、自动取款、外币兑换、网络预订、礼宾车队等综合服务功能，让您感受到家一般的便捷与温馨。酒店拥有一流的美容、美发以及露天游泳池等康乐设施，将为您的商务接待、休闲娱乐提供优质高效的超值服务，让您留连忘返。\n" +
+              "&lbr/&gt \n" +
+              "酒店装饰，精典高雅、宽敞舒适，既蕴含着浓郁的远古神农文化气息，又充分展现了现代酒店的豪华与别致，让您充分领略和感受到双重的酒店文化氛围。酒店一贯秉承“要做就做最优秀”、“满足客户需求，超越客户期待”的理念，把为您提供最完善、最完美的服务，始终作为酒店追求的一项重要目标，您的开心与快乐，就是酒店的满足与追求。"
+              }}
             </div>
           </div>
         </div>
@@ -103,6 +115,7 @@ export default {
   name: "Detail",
   data() {
     return {
+      image: require("./canting.png"),
       // images: [
       //   require("./canting.png"),
       //   "https://img.yzcdn.cn/vant/apple-1.jpg",
@@ -115,8 +128,6 @@ export default {
     };
   },
   mounted() {
-    this.currentData = this.$route.query.currentData;
-    console.log(this.currentData);
     this.getDetailData();
   },
   methods: {
@@ -125,11 +136,10 @@ export default {
     // },
     getDetailData() {
       const param = {
-        id: this.$route.query.id,
+        usId: this.$route.query.usId,
       };
       journeyAPI.detailJourney(param).then((res) => {
-        console.log(res);
-        this.detailInfo = res.list;
+        this.detailInfo = res.data;
       });
     },
   },

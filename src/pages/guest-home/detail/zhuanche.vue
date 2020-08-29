@@ -20,7 +20,10 @@
             <div class="time-icon">
               <img src="../image/time.png" />
             </div>
-            <div class="time-text">{{detailInfo.startTime}}到{{detailInfo.endTime}}</div>
+            <div class="time-text">{{
+              detailInfo.scheduleDate&&detailInfo.startTime ? detailInfo.scheduleDate +" "+ detailInfo.startTime : undefined || "2020-08-27 13:00" }}到{{
+              detailInfo.endTime || "14:00"
+              }}</div>
           </div>
 
           <div class="title-wrapper">
@@ -32,40 +35,27 @@
             <div class="info-item flex row-between">
               <span>
                 <span class="item-title">地点：</span>
-                <span class="black-text">{{detailInfo.address || '六盘水旅游文化会议中心'}}</span>
+                <span class="black-text">{{detailInfo.place || '六盘水旅游文化会议中心'}}</span>
               </span>
               <span><img src="../image/right.svg"/></span>
             </div>
             <div class="info-item flex row-between">
               <span>
-                <span class="item-title">车牌号：</span>
-                <span class="black-text">{{detailInfo.number || '京A·88888'}}</span>
+                <span class="item-title">车号：</span>
+                <span class="black-text">{{detailInfo.carNo || '3号车'}}</span>
               </span>
             </div>
             <div class="info-item flex row-between">
-              <span>
-                <span class="item-title">司机姓名：</span>
-                <span class="black-text">{{detailInfo.number || '王洋'}}</span>
-              </span>
-            </div>
-            <div class="info-item flex row-between">
-              <a class="tel" href="tel:13678391637"></a>
+              <a class="tel" :href="'tel:' + (detailInfo.chargePhone || '18707801072')"></a>
               <span>
                 <span class="item-title">志愿者电话：</span>
-                <span class="red-text">{{detailInfo.phone || '13678391637'}}</span>
+                <span class="red-text">{{
+                  detailInfo.chargePhone || "18707801072"
+                }}</span>
               </span>
-              <span><img src="../image/phone.svg"/></span>
             </div>
           </div>
-
-          <div class="code-wrapper">
-            <p>您的专属二维码</p>
-            <div><img src="../image/big-code.png" /></div>
-          </div>
         </div>
-
-
-
       </div>
     </div>
     <Qrcode/>
@@ -80,6 +70,7 @@ export default {
   name: "Detail",
   data() {
     return {
+      image: require("./zhuanche.png"),
       // images: [
       //   require("./zhuanche.png"),
       //   "https://img.yzcdn.cn/vant/apple-1.jpg",
@@ -92,8 +83,6 @@ export default {
     };
   },
   mounted() {
-    this.currentData = this.$route.query.currentData;
-    console.log(this.currentData);
     this.getDetailData();
   },
   methods: {
@@ -102,11 +91,10 @@ export default {
     // },
     getDetailData() {
       const param = {
-        id: this.$route.query.id,
+        usId: this.$route.query.usId,
       };
-      journeyAPI.detailJourney(param).then((res) => {
-        console.log(res);
-        this.detailInfo = res.list;
+      journeyAPI.carDetail(param).then((res) => {
+        this.detailInfo = res.data;
       });
     },
   },

@@ -3,7 +3,7 @@
 
 
     <div class="detail-container">
-      <img style="width: 100%;" src="./huiyi.png">
+      <img style="width: 100%;" :src=" detailInfo.coverPath || image">
 <!--      <van-swipe :autoplay="3000" :height="280" @change="swipeChange">-->
 <!--        <van-swipe-item v-for="(image, index) in images" :key="index">-->
 <!--          <img v-lazy="image" />-->
@@ -22,7 +22,7 @@
               <img src="../image/time.png" />
             </div>
             <div class="time-text">
-              {{ detailInfo.startTime || "2020-08-27 09:00" }}到{{
+              {{detailInfo.scheduleDate&&detailInfo.startTime ? detailInfo.scheduleDate +" "+ detailInfo.startTime : undefined || "2020-08-27 09:00" }}到{{
                 detailInfo.endTime || "12:00"
               }}
             </div>
@@ -40,7 +40,7 @@
               <span>
                 <span class="item-title">地点：</span>
                 <span class="black-text">{{
-                  detailInfo.address || "盘江月亮岩广场2楼会议大厅"
+                  detailInfo.place || "盘江月亮岩广场2楼会议大厅"
                 }}</span>
               </span>
               <span><img src="../image/right.svg"/></span>
@@ -49,26 +49,26 @@
               <span>
                 <span class="item-title">座位：</span>
                 <span class="black-text">{{
-                  detailInfo.number || "3排27号"
+                  detailInfo.tabNo ? detailInfo.tabNo+detailInfo.seatNo : detailInfo.seatNo || "3排27号"
                 }}</span>
               </span>
             </div>
             <div class="info-item flex row-between">
-              <a class="tel" href="tel:0856-8221657"></a>
+              <a class="tel" :href="'tel'+ (detailInfo.phone || '0856-8221657')"></a>
               <span>
                 <span class="item-title">联系电话：</span>
                 <span class="red-text">{{
-                  detailInfo.sitePhone || "0856-8221657"
+                  detailInfo.phone || "0856-8221657"
                 }}</span>
               </span>
               <span><img src="../image/phone.svg"/></span>
             </div>
             <div class="info-item flex row-between">
-              <a class="tel" href="tel:18707801072"></a>
+              <a class="tel" :href="'tel:' + (detailInfo.chargePhone || '18707801072')"></a>
               <span>
                 <span class="item-title">志愿者电话：</span>
                 <span class="red-text">{{
-                  detailInfo.phone || "18707801072"
+                  detailInfo.chargePhone || "18707801072"
                 }}</span>
               </span>
               <span><img src="../image/phone.svg"/></span>
@@ -88,10 +88,14 @@
           <div class="fullwidth-title">简介</div>
           <div class="fullwidth-main">
             <div class="main-text">
-              六盘水地处滇、黔两省结合部，长江、珠江上游分水岭，南盘江、北盘江流域两岸，矿产资源十分丰富。交通四通八达，是西南重要的铁路枢纽城市和物流集散中心之一。截止2020年5月，全市国土面积9914平方千米，辖六枝特区、盘州市、水城区、钟山区4个县级行政区和5个省级经济开发区，87个乡镇（街道）。
-              2019年全市年末常住人口295.05万人，比上年末增加1.32万人。
-              <br />
-              六盘水是国家西电东送的主要城市，西南乃至华南地区重要的能源原材料工业基地，煤炭、电力、冶金、建材、核桃乳、洋芋片、富硒茶、山城啤酒、矿泉水、生物制药构成了市内的重要经济发展。特产有风猪、猕猴桃、杜仲、天麻、核桃。
+              {{
+              detailInfo.intro ||
+              "六盘水地处滇、黔两省结合部，长江、珠江上游分水岭，南盘江、北盘江流域两岸，矿产资源十分丰富。交通四通八达，是西南重要的铁路枢纽城市和物流集散中心之一。截止2020年5月，全市国土面积9914平方千米，辖六枝特区、盘州市、水城区、钟山区4个县级行政区和5个省级经济开发区，87个乡镇（街道）。\n"+
+              "2019年全市年末常住人口295.05万人，比上年末增加1.32万人。\n" +
+             " &ltbr \/&gt \n" +
+              "六盘水是国家西电东送的主要城市，西南乃至华南地区重要的能源原材料工业基地，煤炭、电力、冶金、建材、核桃乳、洋芋片、富硒茶、山城啤酒、矿泉水、生物制药构成了市内的重要经济发展。特产有风猪、猕猴桃、杜仲、天麻、核桃。"
+              }}
+
             </div>
           </div>
         </div>
@@ -118,11 +122,7 @@ export default {
   name: "Detail",
   data() {
     return {
-      // images: [
-      //   require("./huiyi.png"),
-      //   "https://img.yzcdn.cn/vant/apple-1.jpg",
-      //   "https://img.yzcdn.cn/vant/apple-2.jpg",
-      // ],
+      image: require ("./huiyi.png"),
       current: 0,
       currentData: "",
 
@@ -130,21 +130,15 @@ export default {
     };
   },
   mounted() {
-    this.currentData = this.$route.query.currentData;
-    console.log(this.currentData);
     this.getDetailData();
   },
   methods: {
-    // swipeChange(index) {
-    //   this.current = index;
-    // },
     getDetailData() {
       const param = {
-        id: this.$route.query.id,
+        usId: this.$route.query.usId,
       };
       journeyAPI.detailJourney(param).then((res) => {
-        console.log(res);
-        this.detailInfo = res.list;
+        this.detailInfo = res.data;
       });
     },
   },

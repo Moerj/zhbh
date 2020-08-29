@@ -269,7 +269,7 @@ export default {
       this.$router.push({
         path: '/guest-home/'+subFix,
         query: {
-          id: data.usId, // 添加详情所需要的数据
+          usId: data.usId, // 添加详情所需要的数据
         },
       });
     },

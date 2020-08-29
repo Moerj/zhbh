@@ -2,7 +2,7 @@
   <ui-main>
 
     <div class="detail-container">
-      <img style="width: 100%;" src="./bashi.png">
+      <img style="width: 100%;" :src=" detailInfo.coverPath || image">
 <!--      <van-swipe :autoplay="3000" :height="280" @change="swipeChange">-->
 <!--        <van-swipe-item v-for="(image, index) in images" :key="index">-->
 <!--          <img v-lazy="image" />-->
@@ -20,7 +20,11 @@
             <div class="time-icon">
               <img src="../image/time.png" />
             </div>
-            <div class="time-text">{{detailInfo.startTime || '2020-12-12 12:00'}}到{{detailInfo.endTime || '14:00'}}</div>
+            <div class="time-text">
+              {{
+              detailInfo.scheduleDate&&detailInfo.startTime ? detailInfo.scheduleDate +" "+ detailInfo.startTime : undefined || "2020-08-27 13:00" }}到{{
+              detailInfo.endTime || "14:00"
+              }}</div>
           </div>
 
           <div class="title-wrapper">
@@ -32,43 +36,24 @@
             <div class="info-item flex row-between">
               <span>
                 <span class="item-title">地点：</span>
-                <span class="black-text">{{detailInfo.address || '盘江雅阁大酒店大门'}}</span>
+                <span class="black-text">{{detailInfo.place || '盘江雅阁大酒店大门'}}</span>
               </span>
               <span><img src="../image/right.svg"/></span>
             </div>
             <div class="info-item flex row-between">
               <span>
-                <span class="item-title">车牌号：</span>
-                <span class="black-text">{{detailInfo.number || '京A·88888'}}</span>
+                <span class="item-title">车号：</span>
+                <span class="black-text">{{detailInfo.carNo || '1号车'}}</span>
               </span>
             </div>
             <div class="info-item flex row-between">
-              <span>
-                <span class="item-title">司机姓名：</span>
-                <span class="black-text">{{detailInfo.number || '王洋'}}</span>
-              </span>
-            </div>
-            <div class="info-item flex row-between">
-              <a class="tel" href="tel:0856-8221657"></a>
-              <span>
-                <span class="item-title">联系电话：</span>
-                <span class="red-text">{{detailInfo.sitePhone || '0856-8221657'}}</span>
-              </span>
-              <span><img src="../image/phone.svg"/></span>
-            </div>
-            <div class="info-item flex row-between">
-              <a class="tel" href="tel:13678391637"></a>
+              <a class="tel" :href="'tel:' + (detailInfo.chargePhone || '18707801072')"></a>
               <span>
                 <span class="item-title">志愿者电话：</span>
-                <span class="red-text">{{detailInfo.phone || '13678391637'}}</span>
+                <span class="red-text">{{
+                  detailInfo.chargePhone || "18707801072"
+                }}</span>
               </span>
-              <span><img src="../image/phone.svg"/></span>
-            </div>
-          </div>
-
-          <div class="code-wrapper">
-            <p>您的专属二维码</p>
-            <div><img src="../image/big-code.png" /></div>
           </div>
         </div>
 
@@ -80,10 +65,11 @@
               <div>
                 <div class="title">您的座位</div>
                 <div class="subtitle">请有序对号入座</div>
-                <div class="text">{{detailInfo.number2 || '3号'}}</div>
+                <div class="text">{{detailInfo.seatNo || '3号'}}</div>
               </div>
             </div>
           </div>
+        </div>
         </div>
       </div>
     </div>
@@ -99,18 +85,13 @@ export default {
   name: "Detail",
   data() {
     return {
-      // images: [
-      //   require("./bashi.png")
-      // ],
+      image: require("./bashi.png"),
       current: 0,
       currentData: "",
-
       detailInfo: "",
     };
   },
   mounted() {
-    this.currentData = this.$route.query.currentData;
-    console.log(this.currentData);
     this.getDetailData();
   },
   methods: {
@@ -119,11 +100,10 @@ export default {
     // },
     getDetailData() {
       const param = {
-        id: this.$route.query.id,
+        usId: this.$route.query.usId,
       };
-      journeyAPI.detailJourney(param).then((res) => {
-        console.log(res);
-        this.detailInfo = res.list;
+      journeyAPI.carDetail(param).then((res) => {
+        this.detailInfo = res.data;
       });
     },
   },
