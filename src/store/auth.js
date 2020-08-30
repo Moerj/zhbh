@@ -1,4 +1,4 @@
-import authAPI from "@/api/auth.js";
+import authAPI from "@/api/auth";
 
 // users
 const types = {
@@ -16,8 +16,8 @@ const state = {
 const getters = {};
 
 const actions = {
-  login({ commit }, params) {
-    return authAPI.login(params).then(
+  login({ commit }, params,vue) {
+    return authAPI.login(params,vue).then(
       (value) => {
         commit(types.LOGIN, { value });
         const user = value.user;
@@ -31,7 +31,7 @@ const actions = {
     const param = "openId";
     let urls = location.href;
     urls = urls.replace("?", "?&").split("&");
-    let val = "111111";
+    let val = "opid121312312312313132";
     for (var i = 1; i < urls.length; i++) {
       if (urls[i].indexOf(param + "=") == 0) {
         val = urls[i].replace(param + "=", "");
@@ -44,7 +44,7 @@ const actions = {
     return val;
   },
   checkOpenId({ commit }, params) {
-    return authAPI.checkOpenId(params).then(
+    return authAPI.checkOpenId1(params).then(
       (value) => {
         const user = value.user;
         localStorage.setItem("user", JSON.stringify(user));

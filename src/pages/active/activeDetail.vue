@@ -119,57 +119,41 @@
     <Qrcode/>
   </ui-main>
 </template>
-
 <script>
 import Qrcode from "@/components/Qrcode";
-import journeyAPI from "@/api/journey.js";
+import journeyAPI from "@/api/journey";
 export default {
     components:{Qrcode},
   name: "Detail",
   data() {
     return {
-      // images: [
-      //   require("./canting.png"),
-      //   "https://img.yzcdn.cn/vant/apple-1.jpg",
-      //   "https://img.yzcdn.cn/vant/apple-2.jpg",
-      // ],
       current: 0,
       currentData: "",
-
-      detailInfo: "",
+      detailInfo: {},
     };
   },
   mounted() {
-    this.currentData = this.$route.query.currentData;
-    console.log(this.currentData);
-    this.getDetailData();
+      this.getDetailData();
   },
   methods: {
-    // swipeChange(index) {
-    //   this.current = index;
-    // },
+    //获取详情
     getDetailData() {
-      const param = {
-        id: this.$route.query.id,
-      };
-      journeyAPI.detailJourney(param).then((res) => {
-        // this.detailInfo = res.list;
+      journeyAPI.activeDetail({actId: this.$route.query['activeId']}).then((res) => {
+        if (res.errorCode==="00000"){
+            this.detailInfo = res.data
+        }else{
+            this.$toast(res.msg);
+        }
       });
     },
   },
 };
 </script>
 <style lang="scss" scoped>
-::v-deep .van-nav-bar {
-  background-color: transparent;
-}
-::v-deep.van-hairline--bottom::after {
-  display: none;
-}
+::v-deep .van-nav-bar {background-color: transparent;}
+::v-deep.van-hairline--bottom::after {display: none;}
 
-::v-deep .van-nav-bar .van-icon {
-  color: #ffffff;
-}
+::v-deep .van-nav-bar .van-icon {color: #ffffff;}
 
 .van-swipe-item {
   img {

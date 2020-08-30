@@ -12,11 +12,11 @@
         <van-tab title="全部">
           <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
             <van-list @load="getDateList" v-model="loading" :offset="500" finished-text="没有更多数据了~~~" :finished="finished">
-              <div v-for="item in list" @click="toActiveDetail" style="background: #ffffff;border-radius: 5px;margin: 10px 10px;padding: 10px">
+              <div v-for="item in list" @click="toActiveDetail(item.id)" style="background: #ffffff;border-radius: 5px;margin: 10px 10px;padding: 10px">
                 <van-row>
                   <van-col span="17">
                     <div>
-                      <div class="item-title">园区健身跑步竞赛{{item.id}}</div>
+                      <div class="item-title">{{item.title}}</div>
                       <div style="margin-top: 10px">
                         <span class="ggg" style="position: relative;padding-right:10px;font-size: 12px;font-family: PingFangSC, PingFangSC-Regular;font-weight: 400;text-align: left;color: #292a2c;line-height: 17px;letter-spacing: 1px;">已报名：8</span>
                         <span  style="margin-left:10px;font-size: 12px;font-family: PingFangSC, PingFangSC-Regular;font-weight: 400;text-align: left;color: #292a2c;line-height: 17px;letter-spacing: 1px;">截止人数：189</span>
@@ -47,11 +47,11 @@
         <van-tab title="已报名">
           <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
             <van-list @load="getDateList" v-model="loading" :offset="500" finished-text="没有更多数据了~~~" :finished="finished">
-              <div v-for="item in list" @click="toActiveDetail" style="background: #ffffff;border-radius: 5px;margin: 10px 10px;padding: 10px">
+              <div v-for="item in list" @click="toActiveDetail(item.id)" style="background: #ffffff;border-radius: 5px;margin: 10px 10px;padding: 10px">
                 <van-row>
                   <van-col span="17">
                     <div>
-                      <div class="item-title">园区健身跑步竞赛{{item.id}}</div>
+                      <div class="item-title">{{item.title}}</div>
                       <div style="margin-top: 10px">
                         <span class="ggg" style="position: relative;padding-right:10px;font-size: 12px;font-family: PingFangSC, PingFangSC-Regular;font-weight: 400;text-align: left;color: #292a2c;line-height: 17px;letter-spacing: 1px;">已报名：8</span>
                         <span  style="margin-left:10px;font-size: 12px;font-family: PingFangSC, PingFangSC-Regular;font-weight: 400;text-align: left;color: #292a2c;line-height: 17px;letter-spacing: 1px;">截止人数：189</span>
@@ -112,6 +112,7 @@
 <script>
 import Qrcode from "@/components/Qrcode";
 import Tabbar from "@/components/Tabbar";
+import journeyAPI from "@/api/journey";
 export default {
   data() {
     return {
@@ -128,28 +129,33 @@ export default {
     Tabbar,Qrcode
   },
     methods: {
-      toActiveDetail(){
-          this.$router.push({name: 'active-detail'});
+      toActiveDetail(id){
+          console.log(id)
+          this.$router.push({name: 'active-detail', query: {activeId: id,}});
       },
       onRefresh(){
           this.isLoading = true;
-          setTimeout(() => {
-              this.list = [{id:'1'},{id:'2'},{id:'3'},{id:'4'},{id:'5'}];
-              this.isLoading = false;
-          }, 1000);
+          this.getDateList();
       },
       getDateList(){
           this.loading = true;
-          setTimeout(() => {
+          journeyAPI.activeList().then((res)=>{
+              console.log(res);
               this.list = [];
-              if ( this.typeActive){
-                  this.list.push({id:'22222'});
-              } else{
-                  this.list.push({id:'111111'});
+              if (res.errorCode==="00000"){
+                  this.list = res.data;
+                  this.loading = false;
+                  this.finished = true;
+                  this.isLoading = false;
               }
-              this.loading = false;
-              this.finished = true;
-          }, 2000);
+          });
+         //  setTimeout(() => {
+         //      if ( this.typeActive){
+         //          this.list.push({id:'22222'});
+         //      } else{
+         //          this.list.push({id:'111111'});
+         //      }
+         //  }, 2000);
       },
       tabClick(index){
           this.typeActive = index;
