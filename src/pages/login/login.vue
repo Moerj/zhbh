@@ -137,8 +137,7 @@
   </ui-main>
 </template>
 <script>
-  import axios from "axios";
-  import authApi from "@/api/auth.js";
+  import authApi from "@/api/auth";
   export default {
     data() {
       return {
@@ -149,10 +148,12 @@
         },
       };
     },
-    mounted() {},
+    mounted() {
+        this.checkOpenId()
+    },
     methods: {
       async login(data) {
-        const appletsOpenId = this.$route.query.openId || "";
+        const appletsOpenId = this.$route.query.openId || "opid121312312312313132";
         const validatePhone = await this.checkPhone(data.phoneNo);
         const validateCode = await this.checkCode(data.joinCode);
         if (validatePhone && validateCode) {
@@ -223,17 +224,24 @@
         }
         return true;
       },
-
       checkOpenId() {
-        const appletsOpenId = this.$route.query.openId || "";
-        authApi.checkOpenId({ openId: appletsOpenId })
-                .then((res) => {
-                  console.log(res);
-                })
-                .catch((error) => {
-                  console.log(error);
-                })
-                .finally((e) => {});
+        const appletsOpenId = this.$route.query.openId || "opid121312312312313132";
+          this.$store.dispatch("checkOpenId", { openId: appletsOpenId }).then((res) => {
+              try {
+                  if (res.user['userRole'] === "1") {
+                      //	a. 嘉宾首页
+                      this.$router.push({path: "/guest-home", query: {openId: appletsOpenId,}});
+                  } else if (res.user['userRole'] === "2") {
+                      // b. 工作人员或志愿者首页
+                      this.$router.push({path: "/conference-group/my-journey", query: {openId: appletsOpenId,},});
+                  } else if (res.user['userRole'] === "3") {
+                      // 	c. 新闻工作者首页（暂定与嘉宾首页一致）
+                      this.$router.push({path: "/guest-home", query: {openId: appletsOpenId,},});
+                  }
+              } catch (error) {
+                  this.$router.push({ path: "/" });
+              }
+          });
       },
     },
   };

@@ -5,7 +5,7 @@
     </template>
 
     <div class="detail-container">
-      <img style="width: 100%;" src="./image/active@2x.png">
+      <img style="width: 100%;min-height: 200px;" :src="detailInfo['coverPath']">
 <!--      <van-swipe :autoplay="3000" :height="280" @change="swipeChange">-->
 <!--        <van-swipe-item v-for="(image, index) in images" :key="index">-->
 <!--          <img v-lazy="image" />-->
@@ -16,79 +16,78 @@
 <!--          </div>-->
 <!--        </template>-->
 <!--      </van-swipe>-->
-
       <div class="main-card">
         <div class="card-content">
           <div class="list-group">
-            <div class="list-item">
+            <div v-for="item in detailInfo['actGroups']" class="list-item">
               <div class="item-left">
                 <div class="mingci">第一组</div>
                 <div class="baoming">报名</div>
               </div>
               <div class="item-right">
                 <div class="renshu">
-                  <span>已报名：8</span> |
-                  <span>截止人数：198</span>
+                  <span>已报名：{{item['jionedNum']}}</span> |
+                  <span>截止人数：{{item['jionNum']}}</span>
                 </div>
                 <div class="jindu">
-                  <span style="width: 20%"></span>
+                  <van-progress color="#FD5542" :show-pivot="false" :percentage="(item['jionedNum']*(item['jionNum']/100))*100" />
                 </div>
                 <div class="time">
                   <img src="./image/time.png" height="12" />
-                  报名截止时间 12月18号 12:00
+                  报名截止时间 {{item['jionEndtimeCN']}}
                 </div>
                 <div class="time">
                   <img src="./image/downtime.png" height="12" />
-                  报名截止时间 12月18号 12:00
+                  活动开始时间 {{item['groupStarttimeCN']}}
                 </div>
               </div>
             </div>
-            <div class="list-item">
-              <div class="item-left">
-                <div class="mingci">第二组</div>
-                <div class="baoming graybaoming">报名</div>
-              </div>
-              <div class="item-right">
-                <div class="renshu">
-                  <span>已报名：8</span> |
-                  <span>截止人数：198</span>
-                </div>
-                <div class="jindu">
-                  <span style="width: 20%"></span>
-                </div>
-                <div class="time">
-                  <img src="./image/time.png" height="12" />
-                  报名截止时间 12月18号 12:00
-                </div>
-                <div class="time">
-                  <img src="./image/downtime.png" height="12" />
-                  报名截止时间 12月18号 12:00
-                </div>
-              </div>
-            </div>
-            <div class="list-item">
-              <div class="item-left">
-                <div class="mingci">第三组</div>
-                <div class="baoming greenbaoming">已报名</div>
-              </div>
-              <div class="item-right">
-                <div class="renshu">
-                  <span>已报名：8</span> |
-                  <span>截止人数：198</span>
-                </div>
-                <div class="jindu">
-                  <span style="width: 20%"></span>
-                </div>
-                <div class="time">
-                  <img src="./image/time.png" height="12" />
-                  报名截止时间 12月18号 12:00
-                </div>
-                <div class="time">
-                  <img src="./image/downtime.png" height="12" />
-                  报名截止时间 12月18号 12:00
-                </div>
-              </div>
-            </div>
+            <!--<div class="list-item">-->
+              <!--<div class="item-left">-->
+                <!--<div class="mingci">第二组</div>-->
+                <!--<div class="baoming graybaoming">报名</div>-->
+              <!--</div>-->
+              <!--<div class="item-right">-->
+                <!--<div class="renshu">-->
+                  <!--<span>已报名：8</span> |-->
+                  <!--<span>截止人数：198</span>-->
+                <!--</div>-->
+                <!--<div class="jindu">-->
+                  <!--<span style="width: 20%"></span>-->
+                <!--</div>-->
+                <!--<div class="time">-->
+                  <!--<img src="./image/time.png" height="12" />-->
+                  <!--报名截止时间 12月18号 12:00-->
+                <!--</div>-->
+                <!--<div class="time">-->
+                  <!--<img src="./image/downtime.png" height="12" />-->
+                  <!--报名截止时间 12月18号 12:00-->
+                <!--</div>-->
+              <!--</div>-->
+            <!--</div>-->
+            <!--<div class="list-item">-->
+              <!--<div class="item-left">-->
+                <!--<div class="mingci">第三组</div>-->
+                <!--<div class="baoming greenbaoming">已报名</div>-->
+              <!--</div>-->
+              <!--<div class="item-right">-->
+                <!--<div class="renshu">-->
+                  <!--<span>已报名：8</span> |-->
+                  <!--<span>截止人数：198</span>-->
+                <!--</div>-->
+                <!--<div class="jindu">-->
+                  <!--<span style="width: 20%"></span>-->
+                <!--</div>-->
+                <!--<div class="time">-->
+                  <!--<img src="./image/time.png" height="12" />-->
+                  <!--报名截止时间 12月18号 12:00-->
+                <!--</div>-->
+                <!--<div class="time">-->
+                  <!--<img src="./image/downtime.png" height="12" />-->
+                  <!--报名截止时间 12月18号 12:00-->
+                <!--</div>-->
+              <!--</div>-->
+            <!--</div>-->
           </div>
         </div>
 
@@ -96,21 +95,15 @@
           <div class="fullwidth-title">活动详情</div>
           <div class="fullwidth-main">
             <div class="main-text">
-              摄影是一门让广大学生既陌生又好奇的艺术。它能形象地记录发生在我们身边的点点滴滴。各项展示学院风采的活动不计其数，但这次的摄影比赛却能展示学生们最真实的、最丰富多彩的生活。再加上如今樱花盛开，科大美丽非凡。一张小小的图片内涵丰富、包罗万象。同学们所看到的、想到的、关心的、关注的关于生活、校园、社会等话题，一张图片就可以很自然优雅的展现我们当代大学生的青春风采和无限的活力。
+              {{detailInfo.content}}
             </div>
           </div>
         </div>
-
         <div class="fullwidth-content">
           <div class="fullwidth-title">活动须知</div>
           <div class="fullwidth-main">
             <div class="main-text">
-              在五四青年节到来之际，开展摄影比赛，本次活动的主题，旨在发现校园生活之美，发现生命之美，发现青春之美，展现当代大学生的青春活力，以“聚焦飞扬的青春，感受别样的生命”为重点，着重展示我们身边的美和“五四精神”。
-              <br/>
-              活动形式为征集不同的数码摄影作品，作品样式分为单幅作品、组图、图配文等。数码摄影作品需原创，突出青年时代精神，视觉效果强烈，反映我们当代青年活力朝气的一面，积极向上，大胆创新，知行合一。
-              <br/>
-              大学生进行各种社会志愿和社会实践活动的照片，还有举行成人仪式的照片，科大的生活照，同学们上课自习的照片，进行科研竞赛的照片等等都是记录的我们活力的最真实最有效的记忆。所以请同学们踊跃报名参加比赛，活出自己，活出精彩，活出活力。
-              <br/>
+              {{detailInfo['actNotice']}}
             </div>
           </div>
         </div>
@@ -119,57 +112,41 @@
     <Qrcode/>
   </ui-main>
 </template>
-
 <script>
 import Qrcode from "@/components/Qrcode";
-import journeyAPI from "@/api/journey.js";
+import journeyAPI from "@/api/journey";
 export default {
     components:{Qrcode},
   name: "Detail",
   data() {
     return {
-      // images: [
-      //   require("./canting.png"),
-      //   "https://img.yzcdn.cn/vant/apple-1.jpg",
-      //   "https://img.yzcdn.cn/vant/apple-2.jpg",
-      // ],
       current: 0,
       currentData: "",
-
-      detailInfo: "",
+      detailInfo: {},
     };
   },
   mounted() {
-    this.currentData = this.$route.query.currentData;
-    console.log(this.currentData);
-    this.getDetailData();
+      this.getDetailData();
   },
   methods: {
-    // swipeChange(index) {
-    //   this.current = index;
-    // },
+    //获取详情
     getDetailData() {
-      const param = {
-        id: this.$route.query.id,
-      };
-      journeyAPI.detailJourney(param).then((res) => {
-        // this.detailInfo = res.list;
+      journeyAPI.activeDetail({actId: this.$route.query['activeId']}).then((res) => {
+        if (res.errorCode==="00000"){
+            this.detailInfo = res.data
+        }else{
+            this.$toast(res.msg);
+        }
       });
     },
   },
 };
 </script>
 <style lang="scss" scoped>
-::v-deep .van-nav-bar {
-  background-color: transparent;
-}
-::v-deep.van-hairline--bottom::after {
-  display: none;
-}
+::v-deep .van-nav-bar {background-color: transparent;}
+::v-deep.van-hairline--bottom::after {display: none;}
 
-::v-deep .van-nav-bar .van-icon {
-  color: #ffffff;
-}
+::v-deep .van-nav-bar .van-icon {color: #ffffff;}
 
 .van-swipe-item {
   img {

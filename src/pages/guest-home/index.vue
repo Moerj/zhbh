@@ -219,7 +219,7 @@ export default {
   mounted() {
     //获取传过来的openid
     //this.$route.query.openId
-    localStorage.setItem("openId", "1234567890");
+    localStorage.setItem("openId", "opid121312312312313132");
     this.getTogPeople ()
   },
   methods: {

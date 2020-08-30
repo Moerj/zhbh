@@ -12,31 +12,34 @@
         <van-tab title="全部">
           <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
             <van-list @load="getDateList" v-model="loading" :offset="500" finished-text="没有更多数据了~~~" :finished="finished">
-              <div v-for="item in list" @click="toActiveDetail" style="background: #ffffff;border-radius: 5px;margin: 10px 10px;padding: 10px">
+              <div v-for="item in list" @click="toActiveDetail(item.id)" style="background: #ffffff;border-radius: 5px;margin: 10px 10px;padding: 10px">
                 <van-row>
+                  <van-col span="7">
+                    <div>
+                      <div style="position: relative;width: 36px;height: 16px;background: #c7000b;border-radius: 5px 0px 5px 0px;font-size: 12px;font-family: PingFangSC, PingFangSC-Regular;font-weight: 400;text-align: center;color: #ffffff;line-height: 16px;">置顶</div>
+                      <img :src="item['coverPath']" alt="">
+                    </div>
+                  </van-col>
                   <van-col span="17">
                     <div>
-                      <div class="item-title">园区健身跑步竞赛{{item.id}}</div>
+                      <div class="item-title">{{item.title}}</div>
                       <div style="margin-top: 10px">
-                        <span class="ggg" style="position: relative;padding-right:10px;font-size: 12px;font-family: PingFangSC, PingFangSC-Regular;font-weight: 400;text-align: left;color: #292a2c;line-height: 17px;letter-spacing: 1px;">已报名：8</span>
-                        <span  style="margin-left:10px;font-size: 12px;font-family: PingFangSC, PingFangSC-Regular;font-weight: 400;text-align: left;color: #292a2c;line-height: 17px;letter-spacing: 1px;">截止人数：189</span>
+                        <span class="ggg" style="position: relative;padding-right:10px;font-size: 12px;font-family: PingFangSC, PingFangSC-Regular;font-weight: 400;text-align: left;color: #292a2c;line-height: 17px;letter-spacing: 1px;">已报名：{{item['currentGroup']['jionedNum']}}</span>
+                        <span  style="margin-left:10px;font-size: 12px;font-family: PingFangSC, PingFangSC-Regular;font-weight: 400;text-align: left;color: #292a2c;line-height: 17px;letter-spacing: 1px;">截止人数：{{item['currentGroup']['jionNum']}}</span>
                       </div>
-                      <div style="margin-top: 10px;width: 80%">
-                        <van-progress color="#FD5542" :percentage="25" />
+                      <div style="margin-top: 6px;width: 80%">
+                        <van-progress color="#FD5542" :show-pivot="false" :percentage="(item['currentGroup']['jionedNum']*(item['currentGroup']['jionNum']/100))*100" />
                       </div>
-                      <div style="margin-top: 8px">
+                      <div style="margin-top: 6px">
                         <img src="./image/downtime@2x.png" style="width: 12px;position: relative;top: 2px;" alt="">
-                        <span style="font-size: 12px;font-family: PingFangSC, PingFangSC-Regular;font-weight: 400;text-align: left;color: #9094a8;line-height: 17px;letter-spacing: 1px;">报名截止时间 12月18号 12:00</span>
+                        <span style="font-size: 12px;font-family: PingFangSC, PingFangSC-Regular;font-weight: 500;text-align: left;color: #595b64;line-height: 17px;letter-spacing: 1px;">报名截止时间:</span>
+                        <span style="font-size: 12px;font-family: PingFangSC, PingFangSC-Regular;font-weight: 400;text-align: left;color: #9094a8;line-height: 17px;letter-spacing: 1px;">{{item['currentGroup']['jionEndtimeCN']}}</span>
                       </div>
                       <div style="margin-top: 5px">
                         <img src="./image/time@2x.png" style="width: 12px;position: relative;top: 3px;" alt="">
-                        <span style="font-size: 12px;font-family: PingFangSC, PingFangSC-Regular;font-weight: 400;text-align: left;color: #9094a8;line-height: 17px;letter-spacing: 1px;">报名截止时间 12月18号 12:00</span>
+                        <span style="font-size: 12px;font-family: PingFangSC, PingFangSC-Regular;font-weight: 500;text-align: left;color: #595b64;line-height: 17px;letter-spacing: 1px;">活动时间:</span>
+                        <span style="font-size: 12px;font-family: PingFangSC, PingFangSC-Regular;font-weight: 400;text-align: left;color: #9094a8;line-height: 17px;letter-spacing: 1px;">{{item['currentGroup']['groupStarttimeCN']}}</span>
                       </div>
-                    </div>
-                  </van-col>
-                  <van-col span="7">
-                    <div>
-                      <img src="./image/11111.png" alt="">
                     </div>
                   </van-col>
                 </van-row>
@@ -47,11 +50,16 @@
         <van-tab title="已报名">
           <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
             <van-list @load="getDateList" v-model="loading" :offset="500" finished-text="没有更多数据了~~~" :finished="finished">
-              <div v-for="item in list" @click="toActiveDetail" style="background: #ffffff;border-radius: 5px;margin: 10px 10px;padding: 10px">
+              <div v-for="item in list" @click="toActiveDetail(item.id)" style="background: #ffffff;border-radius: 5px;margin: 10px 10px;padding: 10px">
                 <van-row>
+                  <van-col span="7">
+                    <div>
+                      <img src="./image/11111.png" alt="">
+                    </div>
+                  </van-col>
                   <van-col span="17">
                     <div>
-                      <div class="item-title">园区健身跑步竞赛{{item.id}}</div>
+                      <div class="item-title">{{item.title}}</div>
                       <div style="margin-top: 10px">
                         <span class="ggg" style="position: relative;padding-right:10px;font-size: 12px;font-family: PingFangSC, PingFangSC-Regular;font-weight: 400;text-align: left;color: #292a2c;line-height: 17px;letter-spacing: 1px;">已报名：8</span>
                         <span  style="margin-left:10px;font-size: 12px;font-family: PingFangSC, PingFangSC-Regular;font-weight: 400;text-align: left;color: #292a2c;line-height: 17px;letter-spacing: 1px;">截止人数：189</span>
@@ -69,11 +77,7 @@
                       </div>
                     </div>
                   </van-col>
-                  <van-col span="7">
-                    <div>
-                      <img src="./image/11111.png" alt="">
-                    </div>
-                  </van-col>
+
                 </van-row>
               </div>
             </van-list>
@@ -112,6 +116,7 @@
 <script>
 import Qrcode from "@/components/Qrcode";
 import Tabbar from "@/components/Tabbar";
+import journeyAPI from "@/api/journey";
 export default {
   data() {
     return {
@@ -128,28 +133,33 @@ export default {
     Tabbar,Qrcode
   },
     methods: {
-      toActiveDetail(){
-          this.$router.push({name: 'active-detail'});
+      toActiveDetail(id){
+          console.log(id)
+          this.$router.push({name: 'active-detail', query: {activeId: id,}});
       },
       onRefresh(){
           this.isLoading = true;
-          setTimeout(() => {
-              this.list = [{id:'1'},{id:'2'},{id:'3'},{id:'4'},{id:'5'}];
-              this.isLoading = false;
-          }, 1000);
+          this.getDateList();
       },
       getDateList(){
           this.loading = true;
-          setTimeout(() => {
+          journeyAPI.activeList().then((res)=>{
+              console.log(res);
               this.list = [];
-              if ( this.typeActive){
-                  this.list.push({id:'22222'});
-              } else{
-                  this.list.push({id:'111111'});
+              if (res.errorCode==="00000"){
+                  this.list = res.data;
+                  this.loading = false;
+                  this.finished = true;
+                  this.isLoading = false;
               }
-              this.loading = false;
-              this.finished = true;
-          }, 2000);
+          });
+         //  setTimeout(() => {
+         //      if ( this.typeActive){
+         //          this.list.push({id:'22222'});
+         //      } else{
+         //          this.list.push({id:'111111'});
+         //      }
+         //  }, 2000);
       },
       tabClick(index){
           this.typeActive = index;

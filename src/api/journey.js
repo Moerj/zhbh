@@ -12,6 +12,11 @@ const togPeople = (param) =>
     vue.$http.get(`/guest/meet/get/refUsers`, { params: param });
 const schduleInfo = (param) =>
     vue.$http.get(`/guest/meet/car/info`, { params: param });
+const activeList = () =>
+    vue.$http.get(`/guest/meet/actlist`);
+const activeDetail = (param) =>
+    vue.$http.get(`/guest/meet/actinfo`, { params: param });
+
 
 export default {
   myJourney,
@@ -20,4 +25,6 @@ export default {
   togPeople,
   schduleInfo,
   carDetail,
+    activeList,
+    activeDetail,
 };
