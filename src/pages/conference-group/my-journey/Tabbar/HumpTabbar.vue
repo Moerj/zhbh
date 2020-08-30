@@ -2,10 +2,10 @@
   <div>
     <img src="./assets/hump.png" alt="" class="hump safe-area-margin">
     <van-tabbar v-model="active" v-if="show" :fixed="false" active-color="#C7000B" safe-area-inset-bottom>
-      <van-tabbar-item v-for="(v,i) in items" :key="v.label">
+      <van-tabbar-item v-for="(v,i) in items" :key="v.label" @click="clickItem(v,$event)">
         {{ v.label }}
         <template #icon="props">
-          <van-icon :name="active===i?v.iconActive:v.icon" @click="clickItem(v,$event)"/>
+          <van-icon :name="active===i?v.iconActive:v.icon"/>
         </template>
       </van-tabbar-item>
     </van-tabbar>
