@@ -14,29 +14,32 @@
             <van-list @load="getDateList" v-model="loading" :offset="500" finished-text="没有更多数据了~~~" :finished="finished">
               <div v-for="item in list" @click="toActiveDetail(item.id)" style="background: #ffffff;border-radius: 5px;margin: 10px 10px;padding: 10px">
                 <van-row>
+                  <van-col span="7">
+                    <div>
+                      <div style="position: relative;width: 36px;height: 16px;background: #c7000b;border-radius: 5px 0px 5px 0px;font-size: 12px;font-family: PingFangSC, PingFangSC-Regular;font-weight: 400;text-align: center;color: #ffffff;line-height: 16px;">置顶</div>
+                      <img :src="item['coverPath']" alt="">
+                    </div>
+                  </van-col>
                   <van-col span="17">
                     <div>
                       <div class="item-title">{{item.title}}</div>
                       <div style="margin-top: 10px">
-                        <span class="ggg" style="position: relative;padding-right:10px;font-size: 12px;font-family: PingFangSC, PingFangSC-Regular;font-weight: 400;text-align: left;color: #292a2c;line-height: 17px;letter-spacing: 1px;">已报名：8</span>
-                        <span  style="margin-left:10px;font-size: 12px;font-family: PingFangSC, PingFangSC-Regular;font-weight: 400;text-align: left;color: #292a2c;line-height: 17px;letter-spacing: 1px;">截止人数：189</span>
+                        <span class="ggg" style="position: relative;padding-right:10px;font-size: 12px;font-family: PingFangSC, PingFangSC-Regular;font-weight: 400;text-align: left;color: #292a2c;line-height: 17px;letter-spacing: 1px;">已报名：{{item['currentGroup']['jionedNum']}}</span>
+                        <span  style="margin-left:10px;font-size: 12px;font-family: PingFangSC, PingFangSC-Regular;font-weight: 400;text-align: left;color: #292a2c;line-height: 17px;letter-spacing: 1px;">截止人数：{{item['currentGroup']['jionNum']}}</span>
                       </div>
-                      <div style="margin-top: 10px;width: 80%">
-                        <van-progress color="#FD5542" :percentage="25" />
+                      <div style="margin-top: 6px;width: 80%">
+                        <van-progress color="#FD5542" :show-pivot="false" :percentage="(item['currentGroup']['jionedNum']*(item['currentGroup']['jionNum']/100))*100" />
                       </div>
-                      <div style="margin-top: 8px">
+                      <div style="margin-top: 6px">
                         <img src="./image/downtime@2x.png" style="width: 12px;position: relative;top: 2px;" alt="">
-                        <span style="font-size: 12px;font-family: PingFangSC, PingFangSC-Regular;font-weight: 400;text-align: left;color: #9094a8;line-height: 17px;letter-spacing: 1px;">报名截止时间 12月18号 12:00</span>
+                        <span style="font-size: 12px;font-family: PingFangSC, PingFangSC-Regular;font-weight: 500;text-align: left;color: #595b64;line-height: 17px;letter-spacing: 1px;">报名截止时间:</span>
+                        <span style="font-size: 12px;font-family: PingFangSC, PingFangSC-Regular;font-weight: 400;text-align: left;color: #9094a8;line-height: 17px;letter-spacing: 1px;">{{item['currentGroup']['jionEndtimeCN']}}</span>
                       </div>
                       <div style="margin-top: 5px">
                         <img src="./image/time@2x.png" style="width: 12px;position: relative;top: 3px;" alt="">
-                        <span style="font-size: 12px;font-family: PingFangSC, PingFangSC-Regular;font-weight: 400;text-align: left;color: #9094a8;line-height: 17px;letter-spacing: 1px;">报名截止时间 12月18号 12:00</span>
+                        <span style="font-size: 12px;font-family: PingFangSC, PingFangSC-Regular;font-weight: 500;text-align: left;color: #595b64;line-height: 17px;letter-spacing: 1px;">活动时间:</span>
+                        <span style="font-size: 12px;font-family: PingFangSC, PingFangSC-Regular;font-weight: 400;text-align: left;color: #9094a8;line-height: 17px;letter-spacing: 1px;">{{item['currentGroup']['groupStarttimeCN']}}</span>
                       </div>
-                    </div>
-                  </van-col>
-                  <van-col span="7">
-                    <div>
-                      <img src="./image/11111.png" alt="">
                     </div>
                   </van-col>
                 </van-row>
@@ -49,6 +52,11 @@
             <van-list @load="getDateList" v-model="loading" :offset="500" finished-text="没有更多数据了~~~" :finished="finished">
               <div v-for="item in list" @click="toActiveDetail(item.id)" style="background: #ffffff;border-radius: 5px;margin: 10px 10px;padding: 10px">
                 <van-row>
+                  <van-col span="7">
+                    <div>
+                      <img src="./image/11111.png" alt="">
+                    </div>
+                  </van-col>
                   <van-col span="17">
                     <div>
                       <div class="item-title">{{item.title}}</div>
@@ -69,11 +77,7 @@
                       </div>
                     </div>
                   </van-col>
-                  <van-col span="7">
-                    <div>
-                      <img src="./image/11111.png" alt="">
-                    </div>
-                  </van-col>
+
                 </van-row>
               </div>
             </van-list>
