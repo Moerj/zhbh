@@ -97,9 +97,8 @@ if (['test', 'developer', 'localhost'].includes(window.location.hostname)
 }
 let isFirst = true;
 Vue.router.beforeEach((to, from, next) => {
-    document.title = to.name || description;
     if (to.name) {
-      document.title = to.name || '云悠途微商城'
+      document.title = to.name || description;
     }
       next();
 });
