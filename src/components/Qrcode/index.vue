@@ -32,7 +32,7 @@
             }
         },
         mounted(){
-            let opengId = localStorage.getItem("openId");
+            let opengId = localStorage.getItem("openId")?localStorage.getItem("openId"):'数据错误';
             QRCode.toDataURL(opengId)
                 .then(url => {
                     this.url = url
@@ -55,13 +55,12 @@
     // 二维码部分
     .my-code.mini {
         right: 2%;
-        bottom: 10%;
+        bottom: 21%;
+        border-radius: 5px;
+        background-color: #fff;
+        box-shadow: 0px 2px 9px 0px rgba(199, 0, 11, 0.16);
+        padding: 5px;
         .code-content {
-            width: 62px;
-            height: 62px;
-            border-radius: 50%;
-            background-color: #fff;
-            box-shadow: 0px 2px 9px 0px rgba(199, 0, 11, 0.16);
             display: flex;
             justify-content: center;
             align-items: center;

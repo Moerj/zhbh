@@ -17,6 +17,9 @@ const activeList = () =>
 const activeDetail = (param) =>
     vue.$http.get(`/guest/meet/actinfo`, { params: param });
 
+const getCallData = () =>
+    vue.$http.get(`guest/meet/emergencyphonelist`);
+
 
 export default {
   myJourney,
@@ -27,4 +30,5 @@ export default {
   carDetail,
     activeList,
     activeDetail,
+    getCallData
 };

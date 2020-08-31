@@ -144,6 +144,7 @@
     </ui-pull>
 
     <Qrcode/>
+    <Call/>
     <!-- 106.681549,26.558844 -->
     <!-- <CoordPicker
       :show.sync="showMap"
@@ -164,6 +165,7 @@
 <script>
 import Tabbar from "@/components/Tabbar";
 import Qrcode from "@/components/Qrcode";
+import Call from "@/components/call";
 
 import journeyAPI from "@/api/journey.js";
 
@@ -182,6 +184,7 @@ export default {
   components: {
     Tabbar,
      Qrcode,
+      Call
   },
   data() {
     return {
