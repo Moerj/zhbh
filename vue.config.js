@@ -37,6 +37,7 @@ module.exports = {
       process.env.VUE_APP_MODE === 'demo'
     ) {
       return {
+        devtool: 'source-map',
         plugins: [
           APP_VERSION,
           new CompressionPlugin({

@@ -1,10 +1,23 @@
 <template>
   <ui-main>
+    <template #header>
+      <van-search
+        v-model="query.search"
+        shape="round"
+        placeholder="输入嘉宾姓名或手机号搜索"
+      />
+      <van-tabs v-model="tab" @click="onClickTab">
+        <van-tab title="我的"/>
+        <van-tab title="全部"/>
+      </van-tabs>
+    </template>
+
     <ui-pull @load="getList"
              v-model="list"
              :num.sync="query.pageNo"
              :total="total"
              ref="pull"
+             v-if="list&&list.length>0"
     >
       <div class="list-item" v-for="v of list">
         <header>
@@ -25,7 +38,7 @@
               &nbsp;{{ v.phoneNo }}
             </a>
           </div>
-          <template v-if="schTypeName==='车辆接送'">
+          <template v-if="schType===3">
             <div class="tr">
               <div class="th">车辆类型</div>
               <div class="td ellipsis-1">{{ v.carType }}</div>
@@ -43,13 +56,13 @@
               <div class="td ellipsis-1">{{ v.driverPhone }}</div>
             </div>
           </template>
-          <template v-else-if="schTypeName==='餐厅'">
+          <template v-else-if="schType===2">
             <div class="tr">
               <div class="th">桌号</div>
               <div class="td ellipsis-1">{{ v.tabNo + '号' }}</div>
             </div>
           </template>
-          <template v-else-if="schTypeName==='会议'">
+          <template v-else-if="schType===1">
             <div class="tr">
               <div class="th">座位</div>
               <div class="td ellipsis-1">{{ `${v.tabNo}排${v.seatNo}号` }}</div>
@@ -58,7 +71,7 @@
         </main>
       </div>
     </ui-pull>
-    <empty :list="list"/>
+    <empty v-else :list="list"/>
 
     <template #footer>
       <Tabbar/>
@@ -73,7 +86,8 @@ import Tabbar from '../Tabbar'
 function getQuery () {
   return {
     userId: localStorage.user ? JSON.parse(localStorage.user).id : null,
-    schId: 0,
+    search: '',
+    scope: '我的'
   }
 }
 
@@ -83,14 +97,16 @@ export default {
   },
   data () {
     return {
+      tab: 0,
       list: [],
       query: getQuery(),
       total: null,
-      schTypeName: this.$route.query.schTypeName
+      schType: Number(this.$route.query.schType)
     }
   },
   watch: {
     query: {
+      immediate: true,
       deep: true,
       handler (newVal) {
         this.getList()
@@ -102,7 +118,7 @@ export default {
       this.list.length = 0
       this.$http.get('h5api/meet/get/serveuser', {
         params: {
-          userId: JSON.parse(localStorage.user).id,
+          ...this.query,
           schId: this.$route.query.schId
         }
       }).then(({ data }) => {
@@ -111,6 +127,9 @@ export default {
         this.$refs.pull.endSuccess()
       })
     },
+    onClickTab (name, title) {
+      this.query.scope = title
+    }
   }
 }
 </script>

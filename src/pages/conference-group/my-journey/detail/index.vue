@@ -1,13 +1,13 @@
 <template>
   <ui-main>
     <van-swipe @change="i=>current=i" autoplay="3000" height="233">
-      <van-swipe-item v-for="v of data.imgs">
+      <van-swipe-item v-for="v of data.coverPath">
         <van-image :src="v" fit="cover" height="100%"/>
       </van-swipe-item>
 
-      <template #indicator>
+      <template #indicator v-if="data.coverPath && data.coverPath.length">
         <div class="custom-indicator">
-          {{ current + 1 }}/{{ data.imgs && data.imgs.length }}
+          {{ current + 1 }}/{{ data.coverPath && data.coverPath.length }}
         </div>
       </template>
     </van-swipe>
@@ -17,7 +17,10 @@
         <div>
           <van-icon :name="require('./assets/time.svg')"/>
         </div>
-        <div>{{ data.date && `${data.date} ${data.startTime}${data.endTime && ('到' + data.endTime)}` }}</div>
+        <div>{{
+            data.scheduleDate && `${data.scheduleDate} ${data.startTime}${data.endTime && ('到' + data.endTime)}`
+          }}
+        </div>
       </div>
       <div>{{ data.title }}</div>
       <div>
@@ -27,46 +30,47 @@
       <div>
         <div @click="locate">
           <span>
-            <span class="title">地点：</span>
+            <span class="title">{{ data.schType === 3 ? '起点' : '地点' }}：</span>
             <span class="ellipsis-1">{{ data.place }}</span>
           </span>
           <van-icon name="arrow" size="12"/>
         </div>
-        <div v-if="type!=='车辆接送'" @click="call(data.chargerPhone)">
+        <div v-if="data.schType!==3" @click="call(data.chargerPhone)">
+          <span class="title">联系电话：</span>
           <span>
-            <span class="title">联系电话：</span>
+            <van-icon :name="require('@/imgs/tel.svg')" size="12"/>&nbsp;
             <span class="ellipsis-1 phone">{{ data.chargerPhone }}</span>
           </span>
-          <van-icon :name="require('@/imgs/tel.svg')" size="12"/>
         </div>
       </div>
-      <template v-if="data.schTypeName==='车辆接送事件'">
-        <div v-for="v of cars">
-          <div>
-            <span>
-              <span class="title">车牌号：</span>
-              <span class="ellipsis-1">{{ data.licensePlateNumber }}</span>
-            </span>
+      <template v-if="data.schType===3">
+        <div v-for="v of data.carUsers">
+          <div class="header">{{  }}</div>
+          <div v-if="v.carType===2">
+            <span class="title">乘车人员：</span>
+            <span class="ellipsis-1">{{ v.seatPerson }}</span>
           </div>
           <div>
-            <div>
-              <span class="title">司机姓名：</span>
-              <span class="ellipsis-1">{{ data.driverName }}</span>
-            </div>
+            <span class="title">车牌号：</span>
+            <span class="ellipsis-1">{{ v.carNo }}</span>
           </div>
-          <div @click="call(data.driverTel)">
+          <div>
+            <span class="title">司机姓名：</span>
+            <span class="ellipsis-1">{{ v.driver }}</span>
+          </div>
+          <div @click="call(v.driverPhone)">
+            <span class="title">司机电话：</span>
             <span>
-              <span class="title">司机电话：</span>
-              <span class="ellipsis-1 phone">{{ data.driverTel }}</span>
+              <van-icon :name="require('@/imgs/tel.svg')" size="12"/>&nbsp;
+              <span class="ellipsis-1 phone">{{ v.driverPhone }}</span>
             </span>
-            <van-icon :name="require('@/imgs/tel.svg')" size="12"/>
           </div>
         </div>
       </template>
     </header>
 
     <WarmPrompt :data="data"/>
-    <SeatingArrangements :data="data" v-if="data.schTypeName==='会议'"/>
+    <SeatingArrangements :data="data" v-if="data.schType===1"/>
 
     <template #footer>
       <Tabbar/>
@@ -94,7 +98,6 @@ export default {
     return {
       current: 0,
       data: {},
-      type: this.$route.query.type,
       weather: {},
     }
   },
@@ -209,40 +212,57 @@ header {
       margin-left: 5px;
       vertical-align: middle;
     }
-  }
 
-  & > div:nth-child(4) {
-    margin-top: 15px;
-    background: #f7f9fe;
-    font-size: 15px;
-    font-weight: 400;
-    color: #292a2c;
-    padding: 5px 15px;
-
-    span.title {
+    & ~ div {
+      margin-top: 15px;
+      background: #f7f9fe;
       font-size: 15px;
-      font-weight: 300;
-      color: #595b64;
-    }
+      font-weight: 400;
+      color: #292a2c;
+      padding: 5px 15px;
 
-    .ellipsis-1 {
-      display: inline;
-    }
+      .header {
+        font-size: 16px;
+        font-weight: 600;
+        color: #292a2c;
+        position: relative;
 
-    & > div {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      height: 30px;
-      line-height: 30px;
-
-      & > i:nth-child(2) {
-        flex-shrink: 0;
+        &:before {
+          content: '';
+          position: absolute;
+          left: -14px;
+          width: 4px;
+          height: 15px;
+          background: #c7000b;
+          border-radius: 2px;
+        }
       }
-    }
 
-    .phone {
-      color: $ui-color-primary;
+      span.title {
+        font-size: 15px;
+        font-weight: 300;
+        color: #595b64;
+      }
+
+      .ellipsis-1 {
+        display: inline;
+      }
+
+      & > div {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 30px;
+        line-height: 30px;
+
+        & > i:nth-child(2) {
+          flex-shrink: 0;
+        }
+      }
+
+      .phone {
+        color: $ui-color-primary;
+      }
     }
   }
 }

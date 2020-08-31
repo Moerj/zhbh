@@ -5,6 +5,7 @@
              :num.sync="query.pageNo"
              :total="total"
              ref="pull"
+             v-if="list&&list.length>0"
     >
       <div class="list-item" v-for="v of list">
         <header>
@@ -34,7 +35,7 @@
         </main>
       </div>
     </ui-pull>
-    <empty :list="list"/>
+    <empty v-else :list="list"/>
 
     <template #footer>
       <ConferenceGroupTabbar/>
@@ -67,6 +68,7 @@ export default {
   },
   watch: {
     query: {
+      immediate: true,
       deep: true,
       handler (newVal) {
         this.getList()

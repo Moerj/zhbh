@@ -13,6 +13,7 @@
              :num.sync="query.pageNo"
              :total="total"
              ref="pull"
+             v-if="list&&list.length>0"
     >
       <van-steps direction="vertical" :active="activeStep" active-color="#2B69E2">
         <van-step v-for="(v,i) of list" :class="v.__isPast&&'van-step--finish'">
@@ -20,7 +21,18 @@
           <div @click="()=>{toDetail(v)}">
             <div class="ellipsis-1">{{ v.title }}</div>
             <div>
-              <span class="ellipsis-1">{{ v.place }}</span>
+              <span class="ellipsis-1">
+                <span v-if='v.schType===3'>起点：</span>
+                <span v-else>地点：</span>
+                <span class="ellipsis-1" style="display: inline">{{ v.place }}</span>
+              </span>
+              <van-icon name="arrow" size="12" color="rgba(0,0,0,.4)"/>
+            </div>
+            <div v-if="v.schType===3">
+              <span>
+                <span>目的地：</span>
+                <span class="ellipsis-1" style="display: inline">{{ v.destination }}</span>
+              </span>
               <van-icon name="arrow" size="12" color="rgba(0,0,0,.4)"/>
             </div>
             <img v-if="v.__isPast" src="./assets/done.png" alt="">
@@ -31,7 +43,7 @@
         </van-step>
       </van-steps>
     </ui-pull>
-    <empty :list="list"/>
+    <empty v-else :list="list"/>
 
     <template #footer>
       <ConferenceGroupTabbar/>
@@ -47,7 +59,7 @@ import ConferenceGroupTabbar from '../ConferenceGroupTabbar/index'
 function getQuery () {
   return {
     date: null,
-    userId: JSON.parse(localStorage.user).id
+    userId: localStorage.user ? JSON.parse(localStorage.user).id : null,
   }
 }
 
@@ -67,6 +79,7 @@ export default {
   },
   watch: {
     query: {
+      immediate: true,
       deep: true,
       handler (newVal) {
         this.getList()
@@ -117,7 +130,7 @@ export default {
       this.$router.push({
         path: 'my-journey/detail',
         query: {
-          schTypeName: v.schTypeName,
+          schType: v.schType,
           schId: v.schId
         }
       })
@@ -205,7 +218,6 @@ export default {
   }
 
   & > div:nth-child(2) {
-    height: 85px;
     background: #ffffff;
     border-radius: 0 6px 6px 0;
     box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.08);
@@ -228,31 +240,28 @@ export default {
       font-size: 15px;
       font-weight: 500;
       color: #292a2c;
-    }
 
-    & > div:nth-child(2) {
-      font-size: 15px;
-      font-weight: 400;
-      color: #292a2c;
-      line-height: 21px;
-      display: flex;
-      justify-content: space-between;
-      align-content: center;
+      & ~ div {
+        margin-top: 10px;
+        font-size: 15px;
+        font-weight: 400;
+        color: #292a2c;
+        line-height: 21px;
+        display: flex;
+        justify-content: space-between;
+        align-content: center;
 
-      & > span:first-child {
-        &:before {
-          content: '地点：';
-          width: 45px;
-          height: 21px;
-          font-size: 15px;
-          font-weight: 300;
-          color: #595b64;
-          line-height: 21px;
+        & > span:first-child {
+          & > span:first-child {
+            font-size: 15px;
+            font-weight: 300;
+            color: #595b64;
+          }
         }
-      }
 
-      & > .van-icon {
-        line-height: unset;
+        & > .van-icon {
+          line-height: unset;
+        }
       }
     }
   }
