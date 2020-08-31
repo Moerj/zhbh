@@ -153,7 +153,7 @@
     },
     methods: {
       async login(data) {
-        const appletsOpenId = this.$route.query.openId || "opid121312312312313132";
+        const appletsOpenId = this.$route.query.openId || "";
         const validatePhone = await this.checkPhone(data.phoneNo);
         const validateCode = await this.checkCode(data.joinCode);
         if (validatePhone && validateCode) {
@@ -225,7 +225,7 @@
         return true;
       },
       checkOpenId() {
-        const appletsOpenId = this.$route.query.openId || "opid121312312312313132";
+        const appletsOpenId = this.$route.query.openId || "";
           this.$store.dispatch("checkOpenId", { openId: appletsOpenId }).then((res) => {
               try {
                   if (res.user['userRole'] === "1") {
