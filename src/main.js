@@ -95,39 +95,5 @@ if (['test', 'developer', 'localhost'].includes(window.location.hostname)
 } else {
   vue.$mount('#app')
 }
-Vue.router.beforeEach((to, from, next) => {
-    if (to.path !== '/login' && !localStorage.user) {
-        next('/login')
-    }
-    document.title = to.name || description;
-    const { isFirstLogin, openId, user } = store.getters;
-    console.log("==isFirstLogin==",isFirstLogin);
-    if (isFirstLogin == "YES") {
-        store.dispatch("checkOpenId", { openId: openId }).then((res) => {
-            try {
-                console.log(res);
-                if (res.errorCode == "00000") {
-                    localStorage.setItem("isFirstLogin", "NO");
-                    if (to.path == "/login") {
-                        next(`/guest-home?openId=${openId}`);
-                    } else {
-                        next();
-                    }
-                } else {
-                    if (res.message == "未找到用户" && to.path == "/login") {
-                        localStorage.setItem("isFirstLogin", "NO");
-                        next();
-                    } else {
-                        next();
-                    }
-                }
-            } catch (error) {
-                next(`/login?openId=${openId}`);
-            }
-        });
-    } else {
-        next();
-        console.log(user);
-    }
-});
+let isFirst = true;
 export default vue
