@@ -20,6 +20,25 @@
       ref="pull"
     >
       <div class="hotel-container">
+        <div>
+          <van-row type="flex" justify="space-between">
+            <van-col span="18">尊敬的XXX欢迎您！</van-col>
+            <van-col span="6">全部</van-col>
+          </van-row>
+
+          <van-notice-bar left-icon="volume-o" :scrollable="false">
+            <van-swipe
+                vertical
+                class="notice-swipe"
+                :autoplay="3000"
+                :show-indicators="false"
+            >
+              <van-swipe-item>内容 1</van-swipe-item>
+              <van-swipe-item>内容 2</van-swipe-item>
+              <van-swipe-item>内容 3</van-swipe-item>
+            </van-swipe>
+          </van-notice-bar>
+        </div>
         <div class="title" @click="toDetailRoom(hotel.id)">我的酒店</div>
         <div class="hotel-card" @click="toDetailRoom(hotel.id)">
           <div class="hotel-name" v-if="hotel">{{ hotel.title }}</div>
