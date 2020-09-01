@@ -19,10 +19,10 @@
       :total="total"
       ref="pull"
     >
-      <div class="hotel-container" @click="toDetailRoom(hotel.id)">
-        <div class="title">我的酒店</div>
-        <div class="hotel-card">
-          <div class="hotel-name">{{ hotel.title }}</div>
+      <div class="hotel-container">
+        <div class="title" @click="toDetailRoom(hotel.id)">我的酒店</div>
+        <div class="hotel-card" @click="toDetailRoom(hotel.id)">
+          <div class="hotel-name" v-if="hotel">{{ hotel.title }}</div>
           <div class="hotel-info">
             <div class="info-item flex row-between" @click.stop="showMapHandle">
               <span>
@@ -215,7 +215,7 @@ export default {
         this.$router.push({
           name: 'jiudian',
           query: {
-            hotelId : id
+            userHotelId : id
           }
         });
     },

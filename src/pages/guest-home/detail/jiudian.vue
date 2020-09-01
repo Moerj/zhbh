@@ -21,7 +21,7 @@
             <div class="time-icon">
               <img src="../image/time.png" />
             </div>
-            <div class="time-text">{{detailInfo.startTime }}到{{detailInfo.endTime}}</div>
+            <div class="time-text">{{detailInfo.startTimeStr }}到{{detailInfo.endTimeStr}}</div>
           </div>
 
           <div class="title-wrapper">
@@ -66,8 +66,7 @@
         <div class="fullwidth-content">
           <div class="fullwidth-title">简介</div>
           <div class="fullwidth-main">
-            <div class="main-text">
-              {{detailInfo.intro || '暂无信息'}}
+            <div class="main-text" v-html="detailInfo.intro">
             </div>
           </div>
         </div>
@@ -98,7 +97,7 @@ export default {
     };
   },
   mounted() {
-      this.startNavigation()
+      // this.startNavigation()
     this.currentData = this.$route.query.currentData;
     console.log(this.currentData);
     this.getDetailData();
@@ -107,25 +106,25 @@ export default {
     // swipeChange(index) {
     //   this.current = index;
     // },
-    startNavigation() {
-      const location = {
-        latitude: parseFloat('26.587968'),
-        longitude: parseFloat('104.841134'),
-        name: '妇联',
-        address:'贵州省六盘水市钟山区开投大厦20楼',
-      }
-
-      if (window.$app) {
-        window.$app.openLocation(JSON.stringify(location))
-      } else {
-        wx.isMiniProgram.nvigateTo({
-          url:`/pages/indexPKG/traveMapGo/main?${qs.stringify(location, {encode:false})}`
-        })
-      }
-    },
+    // startNavigation() {
+    //   const location = {
+    //     latitude: parseFloat('26.587968'),
+    //     longitude: parseFloat('104.841134'),
+    //     name: '妇联',
+    //     address:'贵州省六盘水市钟山区开投大厦20楼',
+    //   }
+    //
+    //   if (window.$app) {
+    //     window.$app.openLocation(JSON.stringify(location))
+    //   } else {
+    //     wx.isMiniProgram.nvigateTo({
+    //       url:`/pages/indexPKG/traveMapGo/main?${qs.stringify(location, {encode:false})}`
+    //     })
+    //   }
+    // },
     getDetailData() {
       const param = {
-        hotelId: this.$route.query.hotelId,
+        userHotelId: this.$route.query.userHotelId,
       };
       journeyAPI.hotelInfo(param).then((res) => {
         this.detailInfo = res.data;

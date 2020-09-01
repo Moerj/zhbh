@@ -20,11 +20,11 @@
             <div class="time-icon">
               <img src="../image/time.png" />
             </div>
-            <div class="time-text">{{detailInfo.startTime || '2020-08-27 15：00'}}到{{detailInfo.endTime || '16：00'}}</div>
+            <div class="time-text">{{detailInfo.startTime }}到{{detailInfo.endTime }}</div>
           </div>
 
           <div class="title-wrapper">
-            <p class="title">{{detailInfo.title || '野玉海景区观摩'}}</p>
+            <p class="title">{{detailInfo.title }}</p>
             <p class="weather"><img src="../image/weather.png" />5℃～12℃</p>
           </div>
 
@@ -32,7 +32,7 @@
             <div class="info-item flex row-between">
               <span>
                 <span class="item-title">地点：</span>
-                <span class="black-text">{{detailInfo.address || '水城县S212玉舍镇海平村'}}</span>
+                <span class="black-text">{{detailInfo.address}}</span>
               </span>
               <span><img src="../image/right.svg"/></span>
             </div>
@@ -46,7 +46,7 @@
               <a class="tel" href="tel:0856-8221657"></a>
               <span>
                 <span class="item-title">联系电话：</span>
-                <span class="red-text">{{detailInfo.sitePhone || '0856-8221657'}}</span>
+                <span class="red-text">{{detailInfo.sitePhone}}</span>
               </span>
               <span><img src="../image/phone.svg"/></span>
             </div>
@@ -54,7 +54,7 @@
               <a class="tel" href="tel:13678391637"></a>
               <span>
                 <span class="item-title">志愿者电话：</span>
-                <span class="red-text">{{detailInfo.phone || '13678391637'}}</span>
+                <span class="red-text">{{detailInfo.phone }}</span>
               </span>
               <span><img src="../image/phone.svg"/></span>
             </div>

@@ -27,7 +27,7 @@
           </div>
 
           <div class="title-wrapper">
-            <p class="title">{{detailInfo.title || '您的专车信息'}}</p>
+            <p class="title">{{detailInfo.title}}</p>
             <p class="weather"><img src="../image/weather.png" />5℃～12℃</p>
           </div>
 
@@ -35,22 +35,22 @@
             <div class="info-item flex row-between">
               <span>
                 <span class="item-title">地点：</span>
-                <span class="black-text">{{detailInfo.place || '六盘水旅游文化会议中心'}}</span>
+                <span class="black-text">{{detailInfo.place}}</span>
               </span>
               <span><img src="../image/right.svg"/></span>
             </div>
             <div class="info-item flex row-between">
               <span>
                 <span class="item-title">车号：</span>
-                <span class="black-text">{{detailInfo.carNo || '3号车'}}</span>
+                <span class="black-text">{{detailInfo.carNo}}</span>
               </span>
             </div>
             <div class="info-item flex row-between">
-              <a class="tel" :href="'tel:' + (detailInfo.chargePhone || '18707801072')"></a>
+              <a class="tel" :href="'tel:' + (detailInfo.chargePhone )"></a>
               <span>
                 <span class="item-title">志愿者电话：</span>
                 <span class="red-text">{{
-                  detailInfo.chargePhone || "18707801072"
+                  detailInfo.chargePhone
                 }}</span>
               </span>
             </div>
