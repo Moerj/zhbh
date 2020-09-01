@@ -20,16 +20,15 @@
       ref="pull"
     >
       <div class="hotel-container">
-        <div style="background-color: #ffffff;border-top: 0.04rem solid #EBEBF1;">
-		  <div style="overflow: auto;zoom: 1;padding: 0.625rem 0.75rem 0 0.75rem;">
-			  <div style="float: left;font-size: 1.125rem;font-weight: 600;text-align: left;color: #292a2c;line-height: 1.5625rem;">尊敬的XXX欢迎您！</div>
-			  <div style="float: right;font-size: 0.75rem;font-weight: 500;text-align: left;color: #c7000b;line-height: 1.0625rem;background: #fff3f3;border-radius: 0.3125rem;padding: 0.125rem 0.25rem;">全部<img style="width: 0.5rem;height: 0.4375rem;" src="./image/notice.png" alt=""></div>
-		  </div>
+
+        <div style="background-color: #ffffff;border-top: 0.04rem solid #EBEBF1;" v-if="notices">
+          <div style="overflow: auto;zoom: 1;padding: 0.625rem 0.75rem 0 0.75rem;">
+            <div style="float: left;font-size: 1.125rem;font-weight: 600;text-align: left;color: #292a2c;line-height: 1.5625rem;">尊敬的{{user.realName}}欢迎您！</div>
+            <div style="float: right;font-size: 0.75rem;font-weight: 500;text-align: left;color: #c7000b;line-height: 1.0625rem;background: #fff3f3;border-radius: 0.3125rem;padding: 0.125rem 0.25rem;" @click="toNotic(tabCurrent)">全部<img style="width: 0.5rem;height: 0.4375rem;" src="./image/notice.png" alt=""></div>
+          </div>
           <van-notice-bar background="#FFFFFF" color="#666666" left-icon="volume-o" :scrollable="false">
             <van-swipe vertical  class="notice-swipe" :autoplay="3000" :show-indicators="false" >
-              <van-swipe-item>和房东卡回复拉的屎</van-swipe-item>
-              <van-swipe-item>内容 2</van-swipe-item>
-              <van-swipe-item>内容 3</van-swipe-item>
+              <van-swipe-item v-for="notic in notices">{{ notic.title }}</van-swipe-item>
             </van-swipe>
           </van-notice-bar>
         </div>
@@ -183,6 +182,7 @@ export default {
       showMap: false,
       showLoading: false,
       journeyActive: 0,
+      notices: "",
       hotel:"",
     };
   },
@@ -207,13 +207,26 @@ export default {
       return dates;
     },
   },
-  mounted() {
+  beforeCreate() {
     //获取传过来的openid
     //this.$route.query.openId
     localStorage.setItem("openId", "");
     this.getTogPeople ();
+    this.get_notices();
   },
   methods: {
+    get_notices() {
+      const date = new Date();
+      const day =  date.getFullYear()+"-" + (date.getMonth()+1) + "-" + date.getDate();
+      journeyAPI.notices({todayDate : day}).then((res)=> {
+        this.notices = res.data
+      })
+    },
+    toNotic () {
+      this.$router.push({
+        path: '/notice/',
+      });
+    },
     getHotal() {
       const param = {
           userId: this.user.id,

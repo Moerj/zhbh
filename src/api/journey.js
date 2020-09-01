@@ -20,6 +20,8 @@ const getHotal = (param) =>
     vue.$http.get('guest/meet/myhotalsch', { params: param });
 const hotelInfo = (param) =>
     vue.$http.get('guest/meet/hotelinfo', { params: param });
+const notices = (param) =>
+    vue.$http.get('guest/meet/noticelist', { params: param });
 
 const getCallData = () =>
     vue.$http.get(`/guest/meet/emergencyphonelist`);
@@ -40,5 +42,6 @@ export default {
     getCallData,
 	healthCode,
   getHotal,
-  hotelInfo
+  hotelInfo,
+  notices
 };
