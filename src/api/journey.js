@@ -16,11 +16,11 @@ const activeList = () =>
     vue.$http.get(`/guest/meet/actlist`);
 const activeDetail = (param) =>
     vue.$http.get(`/guest/meet/actinfo`, { params: param });
-
 const getCallData = () =>
-    vue.$http.get(`guest/meet/emergencyphonelist`);
+    vue.$http.get(`/guest/meet/emergencyphonelist`);
 const healthCode = (param) =>
-	vue.$http.get(`/h5api/meet/healthCode`,{ params: param })
+	vue.$http.get(`/h5api/meet/healthCode`,{ params: param });
+	
 
 
 export default {
