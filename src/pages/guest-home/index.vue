@@ -19,29 +19,29 @@
       :total="total"
       ref="pull"
     >
-      <div class="hotel-container">
+      <div class="hotel-container" @click="toDetailRoom(hotel.id)">
         <div class="title">我的酒店</div>
         <div class="hotel-card">
-          <div class="hotel-name" @click="toDetailRoom">天怡豪生大酒店</div>
+          <div class="hotel-name">{{ hotel.title }}</div>
           <div class="hotel-info">
             <div class="info-item flex row-between" @click.stop="showMapHandle">
               <span>
                 <span class="item-title">地址：</span>
-                <span class="item-text">六盘水</span>
+                <span class="item-text">{{ hotel.address }}</span>
               </span>
               <span><img src="./image/right.svg"/></span>
             </div>
             <div class="info-item flex row-between">
               <span>
                 <span class="item-title">房间：</span>
-                <span class="item-text">A座8楼8002</span>
+                <span class="item-text">{{ hotel.roomNo || '无房间号,请联系管理员' }}</span>
               </span>
             </div>
             <div class="info-item flex row-between">
-              <a class="tel" href="tel:13678391637"></a>
+              <a class="tel" :href="'tel:'+hotel.hotelPhone"></a>
               <span>
                 <span class="item-title">联系电话：</span>
-                <span class="item-text text-phone">13678391637</span>
+                <span class="item-text text-phone">{{ hotel.hotelPhone }}</span>
               </span>
               <span><img src="./image/phone.svg"/></span>
             </div>
@@ -106,39 +106,8 @@
                   </div>
                 </a>
               </div>
+            </div>
           </div>
-        </div>
-
-          <!--观摩测试数据-->
-<!--        <div class="journey-card notstarted" v-if="tabCurrent === '2020-08-27'">-->
-<!--          <div class="card-content">-->
-<!--            <div class="card-title">-->
-<!--                <span>-->
-<!--                  15.00到16.00-->
-<!--                </span>-->
-<!--            </div>-->
-<!--            &lt;!&ndash;观摩测试数据&ndash;&gt;-->
-<!--            <div class="card-inner">-->
-<!--              <div @click="toDetail({schType: 4})" class="inner-title">野玉海景区观摩</div>-->
-<!--              <div @click="toDetail({schType: 4})" class="inner-item flex row-between">-->
-<!--                  <span>-->
-<!--                    <span class="item-title">地址：</span>-->
-<!--                    <span class="item-text">水城县S212玉舍镇海平村</span>-->
-<!--                  </span>-->
-<!--                <span><img src="./image/right.svg"/></span>-->
-<!--              </div>-->
-<!--              <a class="tel" :href="'tel:'+ item.chargerPhone">-->
-<!--                <div class="inner-item" style="width: 100%">-->
-<!--                  <div style="width: 100%">-->
-<!--                    <span class="item-title">志愿者电话：</span>-->
-<!--                    <span class="item-text-phone">{{item.chargerPhone}}</span>-->
-<!--                    <span style="position: relative;right: 0;float: right"><img src="./image/phone.svg"/></span>-->
-<!--                  </div>-->
-<!--                </div>-->
-<!--              </a>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--          </div>-->
         </div>
       </div>
     </ui-pull>
@@ -201,6 +170,7 @@ export default {
       showMap: false,
       showLoading: false,
       journeyActive: 0,
+      hotel:"",
     };
   },
   watch: {
@@ -211,6 +181,11 @@ export default {
     },
   },
   computed: {
+    param() {
+      return {
+        userId: this.user.id,
+        date: this.tabCurrent}
+    },
     dateList() {
       const dates = this.dates.map((item) => {
         let items = item.split("-");
@@ -223,11 +198,26 @@ export default {
     //获取传过来的openid
     //this.$route.query.openId
     localStorage.setItem("openId", "");
-    this.getTogPeople ()
+    this.getTogPeople ();
   },
   methods: {
-    toDetailRoom(){
-        this.$router.push({name: 'jiudian'});
+    getHotal() {
+      const param = {
+          userId: this.user.id,
+          liveDate: this.tabCurrent}
+      journeyAPI
+          .getHotal(param)
+          .then((res) => {
+            this.hotel = res.data
+      })
+    },
+    toDetailRoom(id){
+        this.$router.push({
+          name: 'jiudian',
+          query: {
+            hotelId : id
+          }
+        });
     },
     onTabsClick() {
       this.$refs.pull.reload();
@@ -239,6 +229,7 @@ export default {
           this.dates = res.list;
           this.tabCurrent = res.list[this.active];
           this.getMyJourney();
+          this.getHotal();
         })
     },
     getTogPeople () {
@@ -247,12 +238,8 @@ export default {
       })
     },
     getMyJourney() {
-      const param = {
-        userId: this.user.id,
-        date: this.tabCurrent,
-      };
       journeyAPI
-        .myJourney(param)
+        .myJourney(this.param)
         .then((res) => {
           this.journeyList = res.list;
           this.$refs.pull.endSuccess();
@@ -264,7 +251,6 @@ export default {
     toDetail(data) {
       let currentData = data; // 当前点击的行程
       let urls = { "1":"huiyi", "2":"canting", "3":"bashi", "4":"huodong"}
-      console.log(data)
       if (data.schType == 3) {
         journeyAPI.schduleInfo({usId: data.userId})
       }
