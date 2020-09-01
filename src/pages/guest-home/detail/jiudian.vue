@@ -21,11 +21,11 @@
             <div class="time-icon">
               <img src="../image/time.png" />
             </div>
-            <div class="time-text">{{detailInfo.startTime || '2020-08-27 00:00'}}到{{detailInfo.endTime || '23.59'}}</div>
+            <div class="time-text">{{detailInfo.startTimeStr }}到{{detailInfo.endTimeStr}}</div>
           </div>
 
           <div class="title-wrapper">
-            <p class="title">{{detailInfo.title || '天怡豪生大酒店'}}</p>
+            <p class="title">{{detailInfo.title}}</p>
             <p class="weather"><img src="../image/weather.png" />5℃～12℃</p>
           </div>
 
@@ -33,50 +33,40 @@
             <div class="info-item flex row-between">
               <span>
                 <span class="item-title">地点：</span>
-                <span class="black-text">{{detailInfo.address || '六盘水旅游文化会议中心'}}</span>
+                <span class="black-text">{{detailInfo.address}}</span>
               </span>
               <span><img src="../image/right.svg"/></span>
             </div>
             <div class="info-item flex row-between">
               <span>
                 <span class="item-title">房间：</span>
-                <span class="black-text">{{detailInfo.number || 'B座8002'}}</span>
+                <span class="black-text">{{detailInfo.roomNo || '暂未分配房间'}}</span>
               </span>
             </div>
             <div class="info-item flex row-between">
-              <a class="tel" href="tel:0856-8221657"></a>
+              <a class="tel" :href="'tel:'+detailInfo.hotelPhone"></a>
               <span>
                 <span class="item-title">联系电话：</span>
-                <span class="red-text">{{detailInfo.sitePhone || '0856-8221657'}}</span>
+                <span class="red-text">{{detailInfo.hotelPhone}}</span>
               </span>
               <span><img src="../image/phone.svg"/></span>
             </div>
             <div class="info-item flex row-between">
-              <a class="tel" href="tel:13678391637"></a>
+              <a class="tel" :href="'tel'+detailInfo.chargerPhone"></a>
               <span>
                 <span class="item-title">志愿者电话：</span>
-                <span class="red-text">{{detailInfo.phone || '13678391637'}}</span>
+                <span class="red-text">{{detailInfo.chargerPhone}}</span>
               </span>
               <span><img src="../image/phone.svg"/></span>
             </div>
           </div>
-
-          <!-- <div class="code-wrapper">
-            <p>您的专属二维码</p>
-            <div><img src="../image/big-code.png" /></div>
-          </div> -->
         </div>
 
 
         <div class="fullwidth-content">
           <div class="fullwidth-title">简介</div>
           <div class="fullwidth-main">
-            <div class="main-text">
-              六盘水地处滇、黔两省结合部，长江、珠江上游分水岭，南盘江、北盘江流域两岸，矿产资源十分丰富。交通四通八达，是西南重要的铁路枢纽城市和物流集散中心之一。截止2020年5月，全市国土面积9914平方千米，辖六枝特区、盘州市、水城区、钟山区4个县级行政区和5个省级经济开发区，87个乡镇（街道）。 2019年全市年末常住人口295.05万人，比上年末增加1.32万人。
-              <br />
-              <img src="./meishi.png" style="width: 100%">
-              <br />
-              六盘水是国家西电东送的主要城市，西南乃至华南地区重要的能源原材料工业基地，煤炭、电力、冶金、建材、核桃乳、洋芋片、富硒茶、山城啤酒、矿泉水、生物制药构成了市内的重要经济发展。特产有风猪、猕猴桃、杜仲、天麻、核桃。
+            <div class="main-text" v-html="detailInfo.intro">
             </div>
           </div>
         </div>
@@ -107,6 +97,7 @@ export default {
     };
   },
   mounted() {
+      // this.startNavigation()
     this.currentData = this.$route.query.currentData;
     console.log(this.currentData);
     this.getDetailData();
@@ -115,13 +106,28 @@ export default {
     // swipeChange(index) {
     //   this.current = index;
     // },
+    // startNavigation() {
+    //   const location = {
+    //     latitude: parseFloat('26.587968'),
+    //     longitude: parseFloat('104.841134'),
+    //     name: '妇联',
+    //     address:'贵州省六盘水市钟山区开投大厦20楼',
+    //   }
+    //
+    //   if (window.$app) {
+    //     window.$app.openLocation(JSON.stringify(location))
+    //   } else {
+    //     wx.isMiniProgram.nvigateTo({
+    //       url:`/pages/indexPKG/traveMapGo/main?${qs.stringify(location, {encode:false})}`
+    //     })
+    //   }
+    // },
     getDetailData() {
       const param = {
-        id: this.$route.query.id,
+        userHotelId: this.$route.query.userHotelId,
       };
-      journeyAPI.detailJourney(param).then((res) => {
-        console.log(res);
-        this.detailInfo = res.list;
+      journeyAPI.hotelInfo(param).then((res) => {
+        this.detailInfo = res.data;
       });
     },
   },

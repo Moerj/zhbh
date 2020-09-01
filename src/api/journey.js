@@ -16,11 +16,18 @@ const activeList = () =>
     vue.$http.get(`/guest/meet/actlist`);
 const activeDetail = (param) =>
     vue.$http.get(`/guest/meet/actinfo`, { params: param });
+const getHotal = (param) =>
+    vue.$http.get('guest/meet/myhotalsch', { params: param });
+const hotelInfo = (param) =>
+    vue.$http.get('guest/meet/hotelinfo', { params: param });
+const notices = (param) =>
+    vue.$http.get('guest/meet/noticelist', { params: param });
+
 const getCallData = () =>
     vue.$http.get(`/guest/meet/emergencyphonelist`);
 const healthCode = (param) =>
 	vue.$http.get(`/h5api/meet/healthCode`,{ params: param });
-	
+
 
 
 export default {
@@ -33,5 +40,8 @@ export default {
     activeList,
     activeDetail,
     getCallData,
-	healthCode
+	healthCode,
+  getHotal,
+  hotelInfo,
+  notices
 };
