@@ -12,13 +12,13 @@
                 <div v-if="isShowCode" style="width: 100%;height: 100%">
                     <div style="height: 43px;background: #c7000b;line-height: 43px;color: #ffffff;border-radius: 10px 10px 0px 0px;text-align: center;">应急电话列表</div>
                     <div style="height: 320px;overflow: scroll;padding-bottom: 10px">
-                        <div v-for="item in list" style="margin: 0 20px;border-bottom: 1px solid #E5E6EA;padding: 15px 0">
-                            <div style="font-size: 16px;font-family: PingFangSC, PingFangSC-Medium;font-weight: 500;text-align: left;color: #2e3032;line-height: 22px;">{{item.title}}</div>
-                            <div style="margin-top: 5px">
+                        <div v-for="item in list" style="margin: 0 1.25rem;border-bottom: 1px solid #E5E6EA;padding: 15px 0">
+                            <div style="font-size: 1rem;font-family: PingFangSC, PingFangSC-Medium;font-weight: 500;text-align: left;color: #2e3032;line-height: 1.375rem;">{{item.title}}</div>
+                            <div style="margin-top: 0.3125rem">
                                 <a class="tel" :href="'tel:'+item.phone"></a>
                                 <span>
-                                    <span style="font-size: 15px;font-family: PingFangSC, PingFangSC-Light;font-weight: 300;text-align: left;color: #595b64;line-height: 21px;">联系电话：</span>
-                                    <span style="font-size: 15px;font-family: PingFangSC, PingFangSC-Light;font-weight: 400;text-align: left;color: #c7000b;line-height: 21px;">{{item.phone}}</span>
+                                    <span style="font-size: 0.9375rem;font-family: PingFangSC, PingFangSC-Light;font-weight: 300;text-align: left;color: #595b64;line-height: 1.3125rem;">联系电话：</span>
+                                    <span style="font-size: 0.9375rem;font-family: PingFangSC, PingFangSC-Light;font-weight: 400;text-align: left;color: #c7000b;line-height: 1.3125rem;">{{item.phone}}</span>
                                 </span>
                                 <span style="float: right"><img src="./image/phone.svg"/></span>
                             </div>
@@ -28,7 +28,7 @@
                 <img v-else src="./image/call.png" />
             </div>
         </div>
-        <div v-if="!isShowCode" style="font-size: 6px;text-align: center;margin-top: 4px">
+        <div v-if="!isShowCode" style="font-size: 0.5rem;text-align: center;margin-top: 0.25rem">
             应急电话
         </div>
     </nut-drag>
@@ -50,9 +50,7 @@
         },
         methods:{
             getCallList(){
-                console.log('-=-=-=')
                 journeyAPI.getCallData().then(res => {
-                    console.log(res)
                     this.list = res.data
                 })
             },

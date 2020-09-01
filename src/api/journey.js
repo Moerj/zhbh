@@ -19,6 +19,8 @@ const activeDetail = (param) =>
 
 const getCallData = () =>
     vue.$http.get(`guest/meet/emergencyphonelist`);
+const healthCode = (param) =>
+	vue.$http.get(`/h5api/meet/healthCode`,{ params: param })
 
 
 export default {
@@ -30,5 +32,6 @@ export default {
   carDetail,
     activeList,
     activeDetail,
-    getCallData
+    getCallData,
+	healthCode
 };
