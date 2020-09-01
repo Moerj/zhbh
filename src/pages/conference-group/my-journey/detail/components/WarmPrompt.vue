@@ -1,21 +1,16 @@
 <template>
-  <div class="wrapper">
+  <div class="wrapper" v-if="warmPrompt">
     <div class="title">温馨提示</div>
-    <div>{{data.warmPrompt}}</div>
+    <div>{{ warmPrompt }}</div>
   </div>
 </template>
 
 <script>
 export default {
   name: 'WarmPrompt',
-  data () {
-    return {
-      data: {}
-    }
-  },
-  watch: {
-    ['$attrs.data'] (newVal) {
-      this.data = newVal
+  computed: {
+    warmPrompt () {
+      return this.$attrs.data?.warmPrompt
     }
   },
   methods: {}

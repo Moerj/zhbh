@@ -86,8 +86,8 @@ import Tabbar from '../Tabbar'
 function getQuery () {
   return {
     userId: localStorage.user ? JSON.parse(localStorage.user).id : null,
-    search: '',
-    scope: '我的'
+    searchNameOrPhone: '',
+    isMine: '1',
   }
 }
 
@@ -128,7 +128,7 @@ export default {
       })
     },
     onClickTab (name, title) {
-      this.query.scope = title
+      this.query.isMine = title
     }
   }
 }

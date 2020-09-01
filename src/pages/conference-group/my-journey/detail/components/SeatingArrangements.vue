@@ -1,21 +1,16 @@
 <template>
-  <div class="wrapper">
+  <div class="wrapper" v-if="seatPath">
     <div class="title">座位安排</div>
-    <img :src="data.meetRoom.seatPath" alt="">
+    <img :src="seatPath" alt="">
   </div>
 </template>
 
 <script>
 export default {
   name: 'SeatingArrangements',
-  data () {
-    return {
-      data: {}
-    }
-  },
-  watch: {
-    ['$attrs.data'] (newVal) {
-      this.data = newVal
+  computed: {
+    seatPath () {
+      return this.$attrs.data?.meetRoom?.seatPath
     }
   },
   methods: {}

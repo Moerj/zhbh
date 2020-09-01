@@ -1,13 +1,13 @@
 <template>
   <ui-main>
     <van-swipe @change="i=>current=i" autoplay="3000" height="233">
-      <van-swipe-item v-for="v of data.coverPath">
+      <van-swipe-item v-for="v of data.coverPaths">
         <van-image :src="v" fit="cover" height="100%"/>
       </van-swipe-item>
 
-      <template #indicator v-if="data.coverPath && data.coverPath.length">
+      <template #indicator v-if="data.coverPaths && data.coverPaths.length">
         <div class="custom-indicator">
-          {{ current + 1 }}/{{ data.coverPath && data.coverPath.length }}
+          {{ current + 1 }}/{{ data.coverPaths && data.coverPaths.length }}
         </div>
       </template>
     </van-swipe>
@@ -29,40 +29,40 @@
       </div>
       <div>
         <div @click="locate">
-          <span>
+          <span class="ellipsis-1">
             <span class="title">{{ data.schType === 3 ? '起点' : '地点' }}：</span>
-            <span class="ellipsis-1">{{ data.place }}</span>
+            <span>{{ data.place }}</span>
           </span>
           <van-icon name="arrow" size="12"/>
         </div>
         <div v-if="data.schType!==3" @click="call(data.chargerPhone)">
           <span class="title">联系电话：</span>
-          <span>
+          <span class="ellipsis-1">
             <van-icon :name="require('@/imgs/tel.svg')" size="12"/>&nbsp;
-            <span class="ellipsis-1 phone">{{ data.chargerPhone }}</span>
+            <span class="phone">{{ data.chargerPhone }}</span>
           </span>
         </div>
       </div>
       <template v-if="data.schType===3">
         <div v-for="v of data.carUsers">
           <div class="header">{{  }}</div>
-          <div v-if="v.carType===2">
+          <div v-if="v.carType===2" class="ellipsis-1">
             <span class="title">乘车人员：</span>
-            <span class="ellipsis-1">{{ v.seatPerson }}</span>
+            <span>{{ v.seatPerson }}</span>
           </div>
-          <div>
+          <div class="ellipsis-1">
             <span class="title">车牌号：</span>
-            <span class="ellipsis-1">{{ v.carNo }}</span>
+            <span>{{ v.carNo }}</span>
           </div>
-          <div>
+          <div class="ellipsis-1">
             <span class="title">司机姓名：</span>
-            <span class="ellipsis-1">{{ v.driver }}</span>
+            <span>{{ v.driver }}</span>
           </div>
           <div @click="call(v.driverPhone)">
             <span class="title">司机电话：</span>
-            <span>
+            <span class="ellipsis-1">
               <van-icon :name="require('@/imgs/tel.svg')" size="12"/>&nbsp;
-              <span class="ellipsis-1 phone">{{ v.driverPhone }}</span>
+              <span class="phone">{{ v.driverPhone }}</span>
             </span>
           </div>
         </div>
@@ -242,10 +242,6 @@ header {
         font-size: 15px;
         font-weight: 300;
         color: #595b64;
-      }
-
-      .ellipsis-1 {
-        display: inline;
       }
 
       & > div {

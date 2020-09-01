@@ -4,6 +4,9 @@
       <van-tabs v-model="activeTab" @click="onTabsClick">
         <van-tab v-for="(v,i) of dates" :title="$dayjs(v).format('M月DD号')" :key="i"/>
       </van-tabs>
+      <div class="notice">
+
+      </div>
       <div class="title">
         我的行程
       </div>
@@ -73,6 +76,7 @@ export default {
       activeStep: -1,
       dates: null,
       list: [],
+      notice: null,
       query: getQuery(),
       total: null
     }
@@ -96,7 +100,20 @@ export default {
         this.$loading.close()
       })
     },
+    getNotice () {
+      this.$loading.open()
+      this.$http.get('h5api/meet/noticelist', {
+        params: {
+          todayDate: this.query.date
+        }
+      }).then(({ list }) => {
+        this.notice = list || []
+      }).finally(e => {
+        this.$loading.close()
+      })
+    },
     onTabsClick (active) {
+      this.notice = null
       this.query.date = this.dates[active]
       this.$refs.pull.reload()
     },
@@ -104,6 +121,9 @@ export default {
       if (!this.dates) {
         this.getDates()
         return
+      }
+      if (!this.notice) {
+        this.getNotice()
       }
       this.list.length = 0
       this.$http.get('h5api/meet/get/by/user', {
@@ -233,7 +253,7 @@ export default {
       position: absolute;
       right: 59px;
       top: 0;
-      height: 100%;
+      height: 81px;
     }
 
     & > div:first-child {
@@ -288,7 +308,7 @@ export default {
 
 ::v-deep .van-step:last-child .van-step__line {
   width: 1px;
-  height: 110px;
+  height: calc(100% - 30px);
 }
 
 ::v-deep .van-step__circle {
