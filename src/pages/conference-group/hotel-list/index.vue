@@ -11,7 +11,7 @@
         <header>
           <div class="tr">
             <div class="th ellipsis-1">{{ v.title }}</div>
-            <div class="td" @click="scan">
+            <div class="td" @click="scan(v.id)">
               <van-icon :name="require('./assets/scan.svg')" size="16"/>
               <span>扫码</span>
             </div>
@@ -19,7 +19,7 @@
         </header>
         <main>
           <div class="tr">
-            <div class="th ellipsis-1" @click="locate">
+            <div class="th ellipsis-1" @click.stop="locate">
               <span>地址：</span>
               <span>{{ v.address }}</span>
             </div>
@@ -76,7 +76,7 @@ export default {
     call (phone) {
       window.location.href = `tel:${phone}`
     },
-    locate () {
+    locate (e) {
       wx.ready(() => {
         wx.openLocation({
           longitude: Number(this.data.longitude),
@@ -89,7 +89,7 @@ export default {
         })
       })
     },
-    async scan () {
+    async scan (schId) {
       if (['wechat', 'mp'].includes(await getEnv())) {
         wx.ready(() => {
           wx.scanQRCode({
@@ -99,7 +99,7 @@ export default {
               this.$loading.open()
               this.$http.get('h5api/meet/hasJoinSchedule', {
                 params: {
-                  schId: this.$route.query.schId,
+                  schId,
                   openId: res.resultStr // 当needResult 为 1 时，扫码返回的结果
                 }
               }).then(res => {
@@ -113,7 +113,7 @@ export default {
                       signedIn: res.errorCode === '00004' ? '1' : '0',
                       needSigningIn: res.data,
                       openId: res.resultStr,
-                      schId: this.$route.query.schId,
+                      schId,
                       schType: 0
                     }
                   })
@@ -129,7 +129,7 @@ export default {
             signedIn: '0',
             needSigningIn: '1',
             openId: 'opid121312312312313132',
-            schId: this.$route.query.schId,
+            schId,
             schType: 0
           }
         })
@@ -142,7 +142,7 @@ export default {
       }).then(({ data }) => {
         this.list = data || []
       }).finally(e => {
-        this.$refs.pull.endSuccess()
+        this.$refs.pull?.endSuccess()
       })
     },
   }

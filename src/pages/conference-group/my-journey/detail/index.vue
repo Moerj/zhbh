@@ -5,7 +5,7 @@
         <van-image :src="v" fit="cover" height="100%"/>
       </van-swipe-item>
 
-      <template #indicator v-if="data.coverPaths && data.coverPaths.length">
+      <template #indicator v-if="data.coverPaths && data.coverPaths.length>1">
         <div class="custom-indicator">
           {{ current + 1 }}/{{ data.coverPaths && data.coverPaths.length }}
         </div>
@@ -28,7 +28,7 @@
         <span>{{ temperature }}</span>
       </div>
       <div>
-        <div @click="locate">
+        <div @click.stop="locate">
           <span class="ellipsis-1">
             <span class="title">{{ data.schType === 3 ? '起点' : '地点' }}：</span>
             <span>{{ data.place }}</span>
@@ -130,7 +130,8 @@ export default {
       this.$loading.open()
       this.$http.get('h5api/meet/get/info', {
         params: {
-          schId: this.$route.query.schId
+          schId: this.$route.query.schId,
+          userId: localStorage.user ? JSON.parse(localStorage.user).id : null,
         }
       }).then(({ data }) => {
         this.data = data || {}

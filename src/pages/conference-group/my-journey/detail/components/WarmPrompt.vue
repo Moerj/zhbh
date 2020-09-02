@@ -1,7 +1,7 @@
 <template>
-  <div class="wrapper" v-if="warmPrompt">
+  <div class="wrapper" v-if="reminder">
     <div class="title">温馨提示</div>
-    <div>{{ warmPrompt }}</div>
+    <div>{{ reminder }}</div>
   </div>
 </template>
 
@@ -9,8 +9,8 @@
 export default {
   name: 'WarmPrompt',
   computed: {
-    warmPrompt () {
-      return this.$attrs.data?.warmPrompt
+    reminder () {
+      return this.$attrs.data?.reminder
     }
   },
   methods: {}

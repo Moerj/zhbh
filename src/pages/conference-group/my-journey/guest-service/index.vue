@@ -2,13 +2,13 @@
   <ui-main>
     <template #header>
       <van-search
-        v-model="query.search"
+        v-model="query.searchNameOrPhone"
         shape="round"
         placeholder="输入嘉宾姓名或手机号搜索"
       />
       <van-tabs v-model="tab" @click="onClickTab">
-        <van-tab title="我的"/>
-        <van-tab title="全部"/>
+        <van-tab title="我的" name="1"/>
+        <van-tab title="全部" name="0"/>
       </van-tabs>
     </template>
 
@@ -59,13 +59,16 @@
           <template v-else-if="schType===2">
             <div class="tr">
               <div class="th">桌号</div>
-              <div class="td ellipsis-1">{{ v.tabNo + '号' }}</div>
+              <div class="td ellipsis-1" v-if="!$isEmpty(v.tabNo)">{{ v.tabNo + '号' }}</div>
             </div>
           </template>
           <template v-else-if="schType===1">
             <div class="tr">
               <div class="th">座位</div>
-              <div class="td ellipsis-1">{{ `${v.tabNo}排${v.seatNo}号` }}</div>
+              <div class="td ellipsis-1" v-if="!$isEmpty(v.tabNo)&&!$isEmpty(v.seatNo)">{{
+                  `${v.tabNo}排${v.seatNo}号`
+                }}
+              </div>
             </div>
           </template>
         </main>
@@ -124,11 +127,11 @@ export default {
       }).then(({ data }) => {
         this.list = data || []
       }).finally(e => {
-        this.$refs.pull.endSuccess()
+        this.$refs.pull?.endSuccess()
       })
     },
     onClickTab (name, title) {
-      this.query.isMine = title
+      this.query.isMine = name
     }
   }
 }

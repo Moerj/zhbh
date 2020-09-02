@@ -94,8 +94,9 @@ const vue = new Vue({
   render: (h) => h(App),
 })
 
-if (['test', 'developer', 'localhost'].includes(window.location.hostname)
-  || /^((2[0-4]\d|25[0-5]|[01]?\d\d?)\.){3}(2[0-4]\d|25[0-5]|[01]?\d\d?)$/.test(window.location.hostname)) {
+if (window.location.hostname.includes('developer.') ||
+  window.location.hostname.includes('test.') ||
+  /^((2[0-4]\d|25[0-5]|[01]?\d\d?)\.){3}(2[0-4]\d|25[0-5]|[01]?\d\d?)$/.test(window.location.hostname)) {
   import('eruda').then(eruda => {
     eruda.default.init()
     vue.$mount('#app')

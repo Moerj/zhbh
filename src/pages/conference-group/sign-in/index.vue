@@ -27,7 +27,7 @@
         <div class="title">酒店信息</div>
         <div class="tr">
           <div class="th">酒店名称：</div>
-          <div class="td ellipsis-1">{{ schedule.restaurant.title }}</div>
+          <div class="td ellipsis-1">{{ schedule.restaurant&&schedule.restaurant.title }}</div>
         </div>
         <div class="tr">
           <div class="th">地址：</div>
@@ -46,7 +46,7 @@
         </div>
         <div class="tr">
           <div class="th">座位：</div>
-          <div class="td ellipsis-1">{{ schedule.meetRoom }}</div>
+          <div class="td ellipsis-1">{{ schedule.meetRoom&&schedule.meetRoom.seatNo }}</div>
         </div>
       </div>
       <div v-else-if="schType===2">
@@ -57,14 +57,14 @@
         </div>
         <div class="tr">
           <div class="th">桌号/包间号：</div>
-          <div class="td ellipsis-1">{{ schedule }}</div>
+          <div class="td ellipsis-1">{{ schedule.restaurant&&schedule.restaurant.seatNo }}</div>
         </div>
       </div>
       <div v-else-if="schType===3">
         <div class="title">车辆接送信息</div>
         <div class="tr">
           <div class="th">乘车地点：</div>
-          <div class="td ellipsis-1">{{ schedule.place }}</div>
+          <div class="td ellipsis-1" @click.stop="locate">{{ schedule.place }}</div>
         </div>
         <div class="tr">
           <div class="th">车牌号：</div>
@@ -83,14 +83,14 @@
         </div>
         <div class="tr">
           <div class="th">乘车地点：</div>
-          <div class="td ellipsis-1">{{ data }}</div>
+          <div class="td ellipsis-1" @click.stop="locate">{{ data }}</div>
         </div>
       </div>
     </div>
 
     <template #footer v-if="$route.query.needSigningIn==='1'">
       <div class="safe-area-plus">
-        <van-button round @click="signIn" :disabled="signedIn" :color="themeColor">
+        <van-button round @click="signIn" :disabled="healthCode.color!=='green'||signedIn" :color="themeColor">
           {{ signedIn ? '已签到' : `${schTypeName}签到` }}
         </van-button>
       </div>
@@ -164,29 +164,36 @@ export default {
         }).finally(e => {
           this.$loading.close()
         })
-      }
-      this.$loading.open()
-      this.$http.get('h5api/meet/infoByOpenId2', {
-        params: {
-          openId: this.$route.query.openId,
-          schId: this.$route.query.schId,
-        }
-      }).then(({ data }) => {
-        this.data = data || {}
-      }).finally(e => {
-        this.$loading.close()
-      })
 
-      this.$loading.open()
-      this.$http.get('h5api/meet/get/info', {
-        params: {
-          schId: this.$route.query.schId
+        this.$loading.open()
+        this.$http.get('h5api/meet/infoByOpenId2', {
+          params: {
+            openId: this.$route.query.openId,
+            schId: this.$route.query.schId,
+          }
+        }).then(({ data }) => {
+          this.data = data || {}
+          if (this.$route.query.schType === '0') {
+            this.schedule = data?.userHotelVo || {}
+          }
+        }).finally(e => {
+          this.$loading.close()
+        })
+
+        if (this.$route.query.schType !== '0') {
+          this.$loading.open()
+          this.$http.get('h5api/meet/get/info', {
+            params: {
+              schId: this.$route.query.schId,
+              userId: id
+            }
+          }).then(({ data }) => {
+            this.schedule = data || {}
+          }).finally(e => {
+            this.$loading.close()
+          })
         }
-      }).then(({ data }) => {
-        this.schedule = data || {}
-      }).finally(e => {
-        this.$loading.close()
-      })
+      }
     },
     signIn () {
       this.$loading.open()

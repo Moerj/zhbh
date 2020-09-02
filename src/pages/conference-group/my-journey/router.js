@@ -9,7 +9,11 @@ export default [
         name: '行程详情',
         component: () => import('./detail/index.vue'),
       },
+      {
+        path: 'notice-list',
+        name: '公告列表',
+        component: () => import('./notice-list/index.vue'),
+      },
     ],
-    meta: { root: true }
   },
 ]

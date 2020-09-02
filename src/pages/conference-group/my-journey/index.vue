@@ -5,7 +5,21 @@
         <van-tab v-for="(v,i) of dates" :title="$dayjs(v).format('M月DD号')" :key="i"/>
       </van-tabs>
       <div class="notice">
-
+        <div>
+          <div>{{ user.realName ? '尊敬的' + user.realName : '' }}欢迎您！</div>
+          <div @click="toNoticeList">
+            <span>全部</span>
+            <van-icon :name="require('./assets/right.svg')" size="8"/>
+          </div>
+        </div>
+        <div v-if="notice&&notice.length">
+          <van-icon :name="require('./assets/trumpet.svg')" style="margin-right:10px;"/>
+          <van-swipe autoplay="3000" height="20" vertical :show-indicators="false">
+            <van-swipe-item v-for="v of notice">
+              <span class="ellipsis-1">{{ v.title }}</span>
+            </van-swipe-item>
+          </van-swipe>
+        </div>
       </div>
       <div class="title">
         我的行程
@@ -27,14 +41,14 @@
               <span class="ellipsis-1">
                 <span v-if='v.schType===3'>起点：</span>
                 <span v-else>地点：</span>
-                <span class="ellipsis-1" style="display: inline">{{ v.place }}</span>
+                <span class="ellipsis-1" style="display: inline" @click.stop="locate">{{ v.place }}</span>
               </span>
               <van-icon name="arrow" size="12" color="rgba(0,0,0,.4)"/>
             </div>
             <div v-if="v.schType===3">
               <span>
                 <span>目的地：</span>
-                <span class="ellipsis-1" style="display: inline">{{ v.destination }}</span>
+                <span class="ellipsis-1" style="display: inline" @click.stop="locate">{{ v.destination }}</span>
               </span>
               <van-icon name="arrow" size="12" color="rgba(0,0,0,.4)"/>
             </div>
@@ -59,10 +73,12 @@ import empty from '@/components/empty'
 import { QR, timejs } from 'plain-kit'
 import ConferenceGroupTabbar from '../ConferenceGroupTabbar/index'
 
+const user = localStorage.user ? JSON.parse(localStorage.user) : {}
+
 function getQuery () {
   return {
     date: null,
-    userId: localStorage.user ? JSON.parse(localStorage.user).id : null,
+    userId: user.id,
   }
 }
 
@@ -72,6 +88,7 @@ export default {
   },
   data () {
     return {
+      user,
       activeTab: 0,
       activeStep: -1,
       dates: null,
@@ -86,11 +103,25 @@ export default {
       immediate: true,
       deep: true,
       handler (newVal) {
+        console.log(newVal)
         this.getList()
       }
     }
   },
   methods: {
+    locate (v) {
+      wx.ready(() => {
+        wx.openLocation({
+          longitude: Number(v.longitude),
+          latitude: Number(v.latitude),
+          name: v.title, // 位置名
+          address: v.place, // 地址详情说明
+          fail (e) {
+            console.log(e)
+          }
+        })
+      })
+    },
     getDates () {
       this.$loading.open()
       this.$http.get('h5api/meet/date/list').then(({ list }) => {
@@ -106,8 +137,8 @@ export default {
         params: {
           todayDate: this.query.date
         }
-      }).then(({ list }) => {
-        this.notice = list || []
+      }).then(({ data }) => {
+        this.notice = data || []
       }).finally(e => {
         this.$loading.close()
       })
@@ -115,7 +146,7 @@ export default {
     onTabsClick (active) {
       this.notice = null
       this.query.date = this.dates[active]
-      this.$refs.pull.reload()
+      this.$refs.pull?.reload()
     },
     getList () {
       if (!this.dates) {
@@ -143,7 +174,7 @@ export default {
           }
         }
       }).finally(e => {
-        this.$refs.pull.endSuccess()
+        this.$refs.pull?.endSuccess()
       })
     },
     toDetail (v) {
@@ -154,6 +185,14 @@ export default {
           schId: v.schId
         }
       })
+    },
+    toNoticeList () {
+      this.$router.push({
+        path: 'my-journey/notice-list',
+        query: {
+          todayDate: this.query.date,
+        }
+      })
     }
   }
 }
@@ -161,6 +200,62 @@ export default {
 
 <style lang="scss" scoped>
 @import "@/scss/variables.scss";
+
+.notice {
+  border-top: 1px solid #e5e6ea;
+  background: #fefffe;
+  padding: 7.5px 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  & > div:first-child {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    & > div:first-child {
+      font-size: 18px;
+      font-weight: 600;
+      color: #292a2c;
+    }
+
+    & > div:nth-child(2) {
+      width: 46px;
+      height: 21px;
+      background: #fff3f3;
+      border-radius: 5px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 5px;
+      font-size: 12px;
+      font-weight: 500;
+      color: #c7000b;
+
+      & > i {
+        display: flex;
+      }
+    }
+  }
+
+  & > div:nth-child(2) {
+    margin-top: 5px;
+    overflow: hidden;
+    height: 20px;
+    display: flex;
+    align-items: center;
+
+    & > .van-swipe {
+      height: 20px;
+      display: inline-block;
+
+      .van-swipe-item > span {
+        line-height: 22px;
+      }
+    }
+  }
+}
 
 .title {
   background-image: url(./assets/title-bg.png);

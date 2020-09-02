@@ -79,9 +79,7 @@ export default {
       // if (!res) {//未登录
       //     window.location.href = window.location.origin + '#/login' //跳转到登录页面
       // }
-      if (res.data.errorCode === '00003') {
-        Toast('您的身份信息已过期 需要重新进入哟')
-      } else if (res.data.errorCode === '00000') {
+      if (res.data.errorCode === '00000') {
         return res.data
       } else {
         if (res.data.message) {
