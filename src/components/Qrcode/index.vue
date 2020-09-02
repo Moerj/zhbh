@@ -58,7 +58,8 @@
 				index: 1,
 				codebg:'./image/codebg1.png',
 				user:{},
-				state:'正常'
+				state:'正常',
+				isClick: localStorage.getItem("openId")?1:0
             }
         },
         mounted(){
@@ -94,7 +95,11 @@
                 })
 			},
             click() {
-                this.isShowCode = true;
+				if (this.isClick) {
+					this.isShowCode = true;
+				}else{
+					this.$toast("获取二维码数据异常");
+				}
             },
             closeCode(ev) {
                 this.isShowCode = false;
