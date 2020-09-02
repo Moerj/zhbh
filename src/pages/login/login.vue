@@ -233,6 +233,7 @@
         const appletsOpenId = this.$route.query.openId || "";
           this.$store.dispatch("checkOpenId", { openId: appletsOpenId }).then((res) => {
               try {
+                  localStorage.setItem("user",qs.stringify(res.user))
                   if (res.user['userRole'] === "1") {
                       //	a. 嘉宾首页
                       this.$router.push({path: "/guest-home", query: {openId: appletsOpenId,}});
