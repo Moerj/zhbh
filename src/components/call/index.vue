@@ -11,8 +11,8 @@
                 </div>
                 <div v-if="isShowCode" style="width: 100%;height: 100%">
                     <div style="height: 43px;background: #c7000b;line-height: 43px;color: #ffffff;border-radius: 10px 10px 0px 0px;text-align: center;">应急电话列表</div>
-                    <div style="height: 320px;overflow: scroll;padding-bottom: 10px">
-                        <div v-for="item in list" style="margin: 0 1.25rem;border-bottom: 1px solid #E5E6EA;padding: 15px 0">
+                    <div style="max-height: 320px;overflow: scroll;padding-bottom: 10px">
+                        <div class="call-item" v-for="(item,index) in list" :style="index==list.length?'border-bottom: 1px solid #D9D9D9;':'border-bottom: 1px solid #FFFFFF;'">
                             <div style="font-size: 1rem;font-family: PingFangSC, PingFangSC-Medium;font-weight: 500;text-align: left;color: #2e3032;line-height: 1.375rem;">{{item.title}}</div>
                             <div style="margin-top: 0.3125rem">
                                 <a class="tel" :href="'tel:'+item.phone"></a>
@@ -120,6 +120,9 @@
                     width: 30px;
                     z-index: 10000 !important;
                 }
+				.call-item{
+					margin: 0 1.25rem;padding: 15px 0
+				}
             }
         }
     }
