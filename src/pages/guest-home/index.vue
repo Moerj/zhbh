@@ -1,7 +1,7 @@
 <template>
   <ui-main>
     <template v-slot:header>
-      <van-nav-bar title="嘉宾首页" fixed>
+      <van-nav-bar title="旅发大会行程" fixed>
       </van-nav-bar>
       <van-tabs
         class="tabs-cont"
