@@ -157,7 +157,7 @@
     },
     methods: {
       async login(data) {
-        const appletsOpenId = this.$route.query.openId || "";
+        const appletsOpenId = this.$route.query.openid;
         const validatePhone = await this.checkPhone(data.phoneNo);
         const validateCode = await this.checkCode(data.joinCode);
         if (validatePhone && validateCode) {
@@ -230,7 +230,8 @@
         return true;
       },
       checkOpenId() {
-        const appletsOpenId = this.$route.query.openId || "";
+        const appletsOpenId = this.$route.query.openid;
+        localStorage.setItem("openId", appletsOpenId);
           this.$store.dispatch("checkOpenId", { openId: appletsOpenId }).then((res) => {
               try {
                   localStorage.setItem("user",qs.stringify(res.user))

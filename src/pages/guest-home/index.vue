@@ -212,8 +212,7 @@ export default {
   },
   created() {
     //获取传过来的openid
-    //this.$route.query.openId
-    localStorage.setItem("openId", "");
+    //
     this.getTogPeople();
     this.get_notices();
   },
