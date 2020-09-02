@@ -86,7 +86,6 @@
       </van-tabs>
     </div>
     <Tabbar />
-  <Qrcode/>
   </ui-main>
 </template>
 <style lang="scss" scoped>

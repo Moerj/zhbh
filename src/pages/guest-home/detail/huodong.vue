@@ -85,7 +85,6 @@
         </div>
       </div>
     </div>
-    <Qrcode/>
   </ui-main>
 </template>
 
