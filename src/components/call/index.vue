@@ -25,7 +25,7 @@
                         </div>
                     </div>
                 </div>
-                <img v-else src="./image/call.png" />
+                <img v-else style="width: 2rem;" src="./image/call.png" />
             </div>
         </div>
         <div v-if="!isShowCode" style="font-size: 0.5rem;text-align: center;margin-top: 0.25rem">
@@ -71,7 +71,9 @@
         border-radius: 5px;
         background-color: #fff;
         box-shadow: 0px 2px 9px 0px rgba(199, 0, 11, 0.16);
-        padding: 5px;
+		padding: 0.4rem 0.3rem 0.4rem 0.3rem;
+		width: 3.757rem;
+		height: 3.75rem;
         .code-content {
             display: flex;
             justify-content: center;

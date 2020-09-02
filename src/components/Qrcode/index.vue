@@ -35,13 +35,14 @@
 					<img style="width: 10rem;height: 10rem;margin-top: 0.625rem;" :src="url" />
 					<div style="font-size: 16px;font-weight: 500;text-align: center;color: #e01414;line-height: 1.375rem;letter-spacing: -0.0625rem;">我的专属二维码</div>
 				</div>
-                <img v-else src="./image/mini-code.png" />
+				<div v-else>
+					<img style="width: 2rem;" src="./image/mini-code.png" />
+				</div>
             </div>
         </div>
-        <div v-if="!isShowCode" style="font-size: 0.5rem;text-align: center">
-            我的专属
-            <br/>
-            二维码
+        <div v-if="!isShowCode" style="text-align: center;margin-top: 0.1875rem;">
+        	<div style="font-size: 0.5rem;line-height: 0.5rem;">我的专属</div>
+            <div style="font-size: 0.5rem;">二维码</div>
         </div>
     </nut-drag>
 </template>
@@ -116,14 +117,16 @@
         border-radius: 5px;
         background-color: #fff;
         box-shadow: 0px 2px 9px 0px rgba(199, 0, 11, 0.16);
-        padding: 5px;
+        padding: 0.4rem 0.3rem 0.4rem 0.3rem;
+		width: 3.757rem;
+		height: 4.2rem;
         .code-content {
             display: flex;
             justify-content: center;
             align-items: center;
             .code {
-                width: 36px;
-                height: 36px;
+                width: 2rem;
+                height: 2rem;
                 img {
                     width: 100%;
                     vertical-align: middle;
