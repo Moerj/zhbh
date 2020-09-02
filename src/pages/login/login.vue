@@ -138,6 +138,7 @@
 </template>
 <script>
   import authApi from "@/api/auth";
+  import qs from "qs"
   export default {
     data() {
       return {
@@ -148,12 +149,15 @@
         },
       };
     },
-    mounted() {
-        this.checkOpenId()
+    beforeMount() {
+      const user = qs.parse(localStorage.getItem("user"));
+      if (!user) {
+        this.checkOpenId();
+      }
     },
     methods: {
       async login(data) {
-        const appletsOpenId = this.$route.query.openId || "";
+        const appletsOpenId = this.$route.query.openId || "ccccccccccc";
         const validatePhone = await this.checkPhone(data.phoneNo);
         const validateCode = await this.checkCode(data.joinCode);
         if (validatePhone && validateCode) {
@@ -164,6 +168,7 @@
           };
           this.$store.dispatch("login", param).then((res) => {
             try {
+              localStorage.setItem("user",qs.stringify(res.user))
               // userRole
               // 1.参会嘉宾  2 服务志愿者 3 媒体工作者
               if (res.user.userRole == "1") {
@@ -228,6 +233,7 @@
         const appletsOpenId = this.$route.query.openId || "";
           this.$store.dispatch("checkOpenId", { openId: appletsOpenId }).then((res) => {
               try {
+                  localStorage.setItem("user",qs.stringify(res.user))
                   if (res.user['userRole'] === "1") {
                       //	a. 嘉宾首页
                       this.$router.push({path: "/guest-home", query: {openId: appletsOpenId,}});
@@ -241,7 +247,7 @@
               } catch (error) {
                   this.$router.push({ path: "/" });
               }
-          });
+          })
       },
     },
   };

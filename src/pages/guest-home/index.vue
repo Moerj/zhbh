@@ -33,7 +33,7 @@
 			  </van-notice-bar>
 			</div>
 			<div class="title" @click="toDetailRoom(hotel.id)">我的酒店</div>
-			<div class="hotel-card" @click="toDetailRoom(hotel.id)">
+			<div class="hotel-card" v-if="hotel" @click="toDetailRoom(hotel.id)" >
 			  <div class="hotel-name" v-if="hotel">{{ hotel.title }}</div>
 			  <div class="hotel-info">
 				<div class="info-item flex row-between" @click.stop="showMapHandle">
@@ -46,7 +46,7 @@
 				<div class="info-item flex row-between">
 				  <span>
 					<span class="item-title">房间：</span>
-					<span class="item-text">{{ hotel.roomNo || '无房间号,请联系管理员' }}</span>
+					<span class="item-text">{{ hotel.roomNo }}</span>
 				  </span>
 				</div>
 				<div class="info-item flex row-between">
@@ -124,7 +124,7 @@
 		  </div>
 		</ui-pull>
 
-		
+
 		<!-- 106.681549,26.558844 -->
 		<!-- <CoordPicker
 		  :show.sync="showMap"
@@ -151,6 +151,7 @@ import Qrcode from "@/components/Qrcode";
 import Call from "@/components/call";
 
 import journeyAPI from "@/api/journey.js";
+import qs from "qs"
 
 // import "coord-picker/dist/coord-picker.css";
 // import { CoordPicker } from "coord-picker";
@@ -171,7 +172,7 @@ export default {
   },
   data() {
     return {
-      user: JSON.parse(localStorage.getItem("user")),
+      user: qs.parse(localStorage.getItem("user")),
       active: 0,
       tabCurrent: "",
       dates: [],
@@ -209,11 +210,11 @@ export default {
       return dates;
     },
   },
-  beforeCreate() {
+  created() {
     //获取传过来的openid
     //this.$route.query.openId
     localStorage.setItem("openId", "");
-    this.getTogPeople ();
+    this.getTogPeople();
     this.get_notices();
   },
   methods: {
@@ -236,7 +237,9 @@ export default {
       journeyAPI
           .getHotal(param)
           .then((res) => {
-            this.hotel = res.data
+            if (res.data != null) {
+              this.hotel = res.data
+            }
       })
     },
     toDetailRoom(id){
