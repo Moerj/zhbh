@@ -151,6 +151,7 @@ import Qrcode from "@/components/Qrcode";
 import Call from "@/components/call";
 
 import journeyAPI from "@/api/journey.js";
+import qs from "qs"
 
 // import "coord-picker/dist/coord-picker.css";
 // import { CoordPicker } from "coord-picker";
@@ -171,7 +172,7 @@ export default {
   },
   data() {
     return {
-      user: JSON.parse(localStorage.getItem("user")),
+      user: qs.parse(localStorage.getItem("user")),
       active: 0,
       tabCurrent: "",
       dates: [],
@@ -209,11 +210,11 @@ export default {
       return dates;
     },
   },
-  beforeCreate() {
+  created() {
     //获取传过来的openid
     //this.$route.query.openId
     localStorage.setItem("openId", "");
-    this.getTogPeople ();
+    this.getTogPeople();
     this.get_notices();
   },
   methods: {
