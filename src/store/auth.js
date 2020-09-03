@@ -9,9 +9,13 @@ const types = {
 };
 
 const state = {
-  isFirstLogin: "",
+  isFirstLogin: false,
   user: "",
   wxData: "",
+  roleNav: new Map()
+      .set("1","/guest-home")
+      .set("2","/conference-group/my-journey")
+      .set("3","/guest-home"),
 };
 
 const getters = {};
@@ -38,13 +42,13 @@ const actions = {
       (value) => {
         if (value.user && value.user != null) {
           const user = value.user;
-          commit(types.ISFIRSTLOGIN, false);
           commit(types.LOGIN, user);
           return value;
+        } else {
+          commit(types.ISFIRSTLOGIN, true);
         }
-        commit(types.ISFIRSTLOGIN, true);
       },
-      (res) => Promise.reject(res)
+      //(res) => Promise.reject(res)
     );
   },
 };

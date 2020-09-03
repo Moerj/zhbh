@@ -44,25 +44,30 @@ Vue.use(axios, {
 router.beforeEach((to, from, next) => {
 
   document.title = to.name || description
-  if (to.path !== '/login' && !localStorage.user) {
-    next('/login')
-  } else {
-    next()
-  }
 
-  if (store.getters.user) {
-    store.dispatch("checkOpenId", { openId: store.getters.wxData.openid }).then((res) => {
-      const user = res.user
-      localStorage.setItem("user", JSON.stringify(user));
-      if (res.user['userRole'] === "1") {
-        //	a. 嘉宾首页
-      } else if (res.user['userRole'] === "2") {
-        // b. 工作人员或志愿者首页
-      } else if (res.user['userRole'] === "3") {
-        // 	c. 新闻工作者首页（暂定与嘉宾首页一致）
-      }
+  console.log(to)
+  const wxData = store.getters.wxData;
+  // 检查是否已绑定
+  if (!store.getters.user && wxData.openid) {
+    store.dispatch("checkOpenId", { openId: wxData.openid}).then((res) => {
+      // next("/login")
+      console.log(res)
+      if (res && res.user) {
+        const user = res.user
+        localStorage.setItem("user", JSON.stringify(user));
+        // role 1 3 嘉宾首页, 2工作人员或志愿者首页
+        const _url = store.getters.roleNav.get(user.userRole);
+        next({ path: _url, query: { openId: wxData.openid }})
+      };
     })
   }
+
+  if (!localStorage.user || to.path !== '/login') {
+    next({path: "/login", query: wxData})
+  };
+  next();
+
+
 })
 
 // 公共事件监听器
