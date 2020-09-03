@@ -62,7 +62,7 @@ router.beforeEach((to, from, next) => {
     })
   }
 
-  if (!localStorage.user || to.path !== '/login') {
+  if (to.path !== '/login' && !localStorage.user) {
     next({path: "/login", query: wxData})
   };
   next();
