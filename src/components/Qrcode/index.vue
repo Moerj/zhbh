@@ -19,7 +19,8 @@
 						<div v-if="index==2" style="width: 15.25rem;margin: 0.4375rem auto;font-size: 1rem;font-weight: 400;text-align: left;color: #ffffff;line-height: 1.5rem;height: 4.5rem;">您好！为了您的健康安全和疫情防控需要，请您实行居家隔离医学观察。</div>
 						<div v-if="index==3" style="width: 15.25rem;margin: 0.4375rem auto;font-size: 1rem;font-weight: 400;text-align: left;color: #ffffff;line-height: 1.5rem;height: 4.5rem;">您好！为了您的健康安全和疫情防控需要，请您到指定的集中隔离医学观察点，实行集中隔离。</div>
 						<div v-if="index==1" style="width: 15.25rem;margin: 0.4375rem auto;font-size: 1rem;font-weight: 400;text-align: center;color: #ffffff;line-height: 1.5rem;height: 4.5rem;">防控疫情，人人有责，<br/> 请您继续做好个人防护。</div>
-						<div style="border-top: 0.0625rem dashed #ffffff;padding-top: 0.4375rem;font-size: 1rem;font-weight: 400;text-align: center;color: #ffffff;line-height: 1.375rem;">2020-05-07 13:50:24</div>
+						<div style="border-top: 0.0625rem dashed #ffffff;padding-top: 0.4375rem;font-size: 1rem;font-weight: 400;text-align: center;color: #ffffff;line-height: 1.375rem;">
+              {{ healthData.codeDate }}</div>
 					</div>
 					<div style="height: 13.5rem;"/>
 					<div style="margin: 0.9375rem 0.625rem 0 0.625rem;background-color: #F6F6F9;padding: 0.625rem 0.75rem;">
@@ -33,7 +34,7 @@
 						</div>
 					</div>
 					<img style="width: 10rem;height: 10rem;margin-top: 0.625rem;" :src="url" />
-					<div style="font-size: 16px;font-weight: 500;text-align: center;color: #e01414;line-height: 1.375rem;letter-spacing: -0.0625rem;">我的专属二维码</div>
+					<div style="font-size: 16px;font-weight: 500;text-align: center;color: #e01414;line-height: 1.375rem;letter-spacing: -0.0625rem;">专属二维码</div>
 				</div>
 				<div v-else>
 					<img style="width: 2rem;" src="./image/mini-code.png" />
@@ -41,7 +42,7 @@
             </div>
         </div>
         <div v-if="!isShowCode" style="text-align: center;margin-top: 0.1875rem;">
-        	<div style="font-size: 0.5rem;line-height: 0.5rem;">我的专属</div>
+        	<div style="font-size: 0.5rem;line-height: 0.5rem;">专属</div>
             <div style="font-size: 0.5rem;">二维码</div>
         </div>
     </nut-drag>
@@ -55,13 +56,14 @@
         name: "qrcode",
         data(){
             return{
-                url:'',
-                isShowCode: false,
-				index: 1,
-				codebg:'./image/codebg1.png',
-				user:user,
-				state:'正常',
-				isClick: user && user.phoneNo ? 1:0
+              url:'',
+              isShowCode: false,
+              index: 1,
+              codebg:'./image/codebg1.png',
+              user:user,
+              state:'正常',
+              isClick: user && user.phoneNo ? 1:0,
+              healthData:"",
             }
         },
         mounted(){
@@ -78,19 +80,17 @@
 			getHealthCode(){
 				let params = {phone:user.phoneNo,userId:user.id}
 				journeyAPI.healthCode(params).then(res => {
-					if(res.errorCode=="00000"){
-						let data = res.data
-						if(data.color=="green"){
-							this.index = 1
-							this.state = '正常'
-						}else if(data.color=="orange"){
-							this.index = 2
-							this.state = '居家隔离'
-						}else if(data.color=="red"){
-							this.index = 3
-							this.state = '集中隔离'
-						}
-					}
+          let data = this.healthData = res.data
+          if(data.color=="green"){
+            this.index = 1
+            this.state = '正常'
+          }else if(data.color=="orange"){
+            this.index = 2
+            this.state = '居家隔离'
+          }else if(data.color=="red"){
+            this.index = 3
+            this.state = '集中隔离'
+          }
         })
 			},
       click() {
