@@ -8,16 +8,16 @@
       </van-nav-bar>
     </template>
     <div class="user-container">
-      <van-tabs @click="tabClick" v-model="active" sticky offset-top="46">
+      <van-tabs @click="tabClick" v-model="typeActive" sticky offset-top="46">
         <van-tab title="全部">
           <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
             <van-list @load="getDateList" v-model="loading" :offset="500" finished-text="没有更多数据了~~~" :finished="finished">
               <div v-for="item in list" @click="toActiveDetail(item.id)" style="background: #ffffff;border-radius: 5px;margin: 10px 10px;padding: 10px">
                 <van-row>
                   <van-col span="7">
-                    <div>
+                    <div style="width: 100%;padding-right: 0.625rem;">
                       <div style="position: relative;width: 36px;height: 16px;background: #c7000b;border-radius: 5px 0px 5px 0px;font-size: 12px;font-family: PingFangSC, PingFangSC-Regular;font-weight: 400;text-align: center;color: #ffffff;line-height: 16px;">置顶</div>
-                      <img :src="item['coverPath']" alt="">
+                      <img style="width: 100%" :src="item['coverPath']" alt="">
                     </div>
                   </van-col>
                   <van-col span="17">
@@ -38,7 +38,7 @@
                       <div style="margin-top: 5px">
                         <img src="./image/time@2x.png" style="width: 12px;position: relative;top: 3px;" alt="">
                         <span style="font-size: 12px;font-family: PingFangSC, PingFangSC-Regular;font-weight: 500;text-align: left;color: #595b64;line-height: 17px;letter-spacing: 1px;">活动时间:</span>
-                        <span style="font-size: 12px;font-family: PingFangSC, PingFangSC-Regular;font-weight: 400;text-align: left;color: #9094a8;line-height: 17px;letter-spacing: 1px;">{{item['currentGroup']['groupStarttimeCN']}}</span>
+                        <span style="font-size: 12px;font-family: PingFangSC, PingFangSC-Regular;font-weight: 400;text-align: left;color: #9094a8;line-height: 17px;letter-spacing: 1px;">{{item['currentGroup']['groupStarttimeCN']}}-{{item['currentGroup']['groupEndtimeCN']}}</span>
                       </div>
                     </div>
                   </van-col>
@@ -77,7 +77,6 @@
                       </div>
                     </div>
                   </van-col>
-
                 </van-row>
               </div>
             </van-list>
