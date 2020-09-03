@@ -50,6 +50,7 @@
 <script>
 	import journeyAPI from "@/api/journey";
     import QRCode from 'qrcode'
+    const user = JSON.parse(localStorage.user)
     export default {
         name: "qrcode",
         data(){
@@ -58,13 +59,13 @@
                 isShowCode: false,
 				index: 1,
 				codebg:'./image/codebg1.png',
-				user:{},
+				user:user,
 				state:'正常',
-				isClick: localStorage.getItem("openId")?1:0
+				isClick: user && user.phoneNo ? 1:0
             }
         },
         mounted(){
-            let opengId = localStorage.getItem("openId")?localStorage.getItem("openId"):'数据错误';
+            let opengId = user && user.phoneNo?user.phoneNo:'数据错误';
             QRCode.toDataURL(opengId,{width:180,qzone:0,margin:1})
                 .then(url => {
                     this.url = url
@@ -75,10 +76,7 @@
         },
         methods:{
 			getHealthCode(){
-				let user = localStorage.getItem("user")
-				let data = JSON.parse(user)
-				this.user = data
-				let params = {phone:data.phoneNo,userId:data.id}
+				let params = {phone:user.phoneNo,userId:user.id}
 				journeyAPI.healthCode(params).then(res => {
 					if(res.errorCode=="00000"){
 						let data = res.data
@@ -93,9 +91,9 @@
 							this.state = '集中隔离'
 						}
 					}
-                })
+        })
 			},
-            click() {
+      click() {
 				if (this.isClick) {
 					this.isShowCode = true;
 				}else{
