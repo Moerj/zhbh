@@ -41,33 +41,28 @@ Vue.use(axios, {
   baseURL: process.env.VUE_APP_API_URL,
 })
 
+
 router.beforeEach((to, from, next) => {
-
   document.title = to.name || description
-
-  console.log(to)
-  const wxData = store.getters.wxData;
+  // wxData 在 store/auth.js  getOpenId中获取
+  const wxData = JSON.parse(localStorage.wxData)
   // 检查是否已绑定
-  if (!store.getters.user && wxData.openid) {
+  if (!localStorage.user && wxData) {
     store.dispatch("checkOpenId", { openId: wxData.openid}).then((res) => {
-      // next("/login")
-      console.log(res)
       if (res && res.user) {
         const user = res.user
-        localStorage.setItem("user", JSON.stringify(user));
+        console.log(user)
         // role 1 3 嘉宾首页, 2工作人员或志愿者首页
-        const _url = store.getters.roleNav.get(user.userRole);
+        const _url = store.getters.roleNav.get(user.userRole)
         next({ path: _url, query: { openId: wxData.openid }})
-      };
+      }
     })
   }
 
   if (to.path !== '/login' && !localStorage.user) {
     next({path: "/login", query: wxData})
-  };
+  }
   next();
-
-
 })
 
 // 公共事件监听器
