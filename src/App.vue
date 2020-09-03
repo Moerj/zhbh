@@ -28,6 +28,10 @@ export default {
     this.wxAuthorization()
     // 设置 rem 函数
     function setRem () {
+      if (/(pad|pod|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
+        htmlDom.style.fontSize = "16px"
+        return
+      }
       let htmlWidth = document.documentElement.clientWidth || document.body.clientWidth;
       //得到html的Dom元素
       let htmlDom = document.getElementsByTagName('html')[0];
