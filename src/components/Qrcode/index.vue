@@ -108,7 +108,6 @@
         }
     }
 </script>
-
 <style lang="scss" scoped>
     // 二维码部分
     .my-code.mini {
