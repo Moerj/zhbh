@@ -15,8 +15,8 @@
               <div v-for="item in list" @click="toActiveDetail(item.id)" style="background: #ffffff;border-radius: 5px;margin: 10px 10px;padding: 10px">
                 <van-row>
                   <van-col span="7">
-                    <div style="width: 100%;padding-right: 0.625rem;">
-                      <div style="position: relative;width: 36px;height: 16px;background: #c7000b;border-radius: 5px 0px 5px 0px;font-size: 12px;font-family: PingFangSC, PingFangSC-Regular;font-weight: 400;text-align: center;color: #ffffff;line-height: 16px;">置顶</div>
+                    <div style="width: 100%;margin-right: 0.625rem;position: relative;">
+                      <div style="position: absolute;width: 36px;height: 16px;background: #c7000b;border-radius: 5px 0px 5px 0px;font-size: 12px;font-family: PingFangSC, PingFangSC-Regular;font-weight: 400;text-align: center;color: #ffffff;line-height: 16px;">置顶</div>
                       <img style="width: 100%" :src="item['coverPath']" alt="">
                     </div>
                   </van-col>
@@ -33,12 +33,12 @@
                       <div style="margin-top: 6px">
                         <img src="./image/downtime@2x.png" style="width: 12px;position: relative;top: 2px;" alt="">
                         <span style="font-size: 12px;font-family: PingFangSC, PingFangSC-Regular;font-weight: 500;text-align: left;color: #595b64;line-height: 17px;letter-spacing: 1px;">报名截止时间:</span>
-                        <span style="font-size: 12px;font-family: PingFangSC, PingFangSC-Regular;font-weight: 400;text-align: left;color: #9094a8;line-height: 17px;letter-spacing: 1px;">{{item['currentGroup']['jionEndtimeCN']}}</span>
+                        <span style="font-size: 12px;font-family: PingFangSC, PingFangSC-Regular;font-weight: 400;text-align: left;color: #9094a8;line-height: 17px;letter-spacing: 1px;">{{item['endTimeCN']}}</span>
                       </div>
                       <div style="margin-top: 5px">
                         <img src="./image/time@2x.png" style="width: 12px;position: relative;top: 3px;" alt="">
                         <span style="font-size: 12px;font-family: PingFangSC, PingFangSC-Regular;font-weight: 500;text-align: left;color: #595b64;line-height: 17px;letter-spacing: 1px;">活动时间:</span>
-                        <span style="font-size: 12px;font-family: PingFangSC, PingFangSC-Regular;font-weight: 400;text-align: left;color: #9094a8;line-height: 17px;letter-spacing: 1px;">{{item['currentGroup']['groupStarttimeCN']}}-{{item['currentGroup']['groupEndtimeCN']}}</span>
+                        <span style="font-size: 12px;font-family: PingFangSC, PingFangSC-Regular;font-weight: 400;text-align: left;color: #9094a8;line-height: 17px;letter-spacing: 1px;">{{item['startTimeCN']}}</span>
                       </div>
                     </div>
                   </van-col>
