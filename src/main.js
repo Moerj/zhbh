@@ -17,15 +17,6 @@ const router = new VueRouter({
   routes,
 })
 
-router.beforeEach((to, from, next) => {
-  document.title = to.name || description
-  if (to.path !== '/login' && !localStorage.user) {
-    next('/login')
-  } else {
-    next()
-  }
-})
-
 const originalPush = VueRouter.prototype.push
 VueRouter.prototype.push = function push (location) {
   return originalPush.call(this, location).catch(err => err)
@@ -48,6 +39,30 @@ Vue.use(axios, {
    */
   withCredentials: true, //启用跨域支持
   baseURL: process.env.VUE_APP_API_URL,
+})
+
+router.beforeEach((to, from, next) => {
+
+  document.title = to.name || description
+  if (to.path !== '/login' && !localStorage.user) {
+    next('/login')
+  } else {
+    next()
+  }
+
+  if (store.getters.user) {
+    store.dispatch("checkOpenId", { openId: store.getters.wxData.openid }).then((res) => {
+      const user = res.user
+      localStorage.setItem("user", JSON.stringify(user));
+      if (res.user['userRole'] === "1") {
+        //	a. 嘉宾首页
+      } else if (res.user['userRole'] === "2") {
+        // b. 工作人员或志愿者首页
+      } else if (res.user['userRole'] === "3") {
+        // 	c. 新闻工作者首页（暂定与嘉宾首页一致）
+      }
+    })
+  }
 })
 
 // 公共事件监听器

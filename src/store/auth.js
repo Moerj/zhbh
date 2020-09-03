@@ -1,4 +1,5 @@
 import authAPI from "@/api/auth";
+import qs from "qs"
 
 // users
 const types = {
@@ -8,9 +9,9 @@ const types = {
 };
 
 const state = {
-  isFirstLogin: localStorage.getItem("isFirstLogin") || "YES",
-  user: localStorage.getItem("user") || null,
-  openId: localStorage.getItem("openId") || "ces",
+  isFirstLogin: "",
+  user: "",
+  wxData: "",
 };
 
 const getters = {};
@@ -28,27 +29,20 @@ const actions = {
     );
   },
   getOpenId({ commit }) {
-    const param = "openId";
-    let urls = location.href;
-    urls = urls.replace("?", "?&").split("&");
-    let val = "";
-    for (var i = 1; i < urls.length; i++) {
-      if (urls[i].indexOf(param + "=") == 0) {
-        val = urls[i].replace(param + "=", "");
-      }
-    }
-    localStorage.setItem("openId", val);
-    localStorage.setItem("isFirstLogin", "YES");
-    commit(types.GETOPENID, val);
-    commit(types.ISFIRSTLOGIN, "YES");
-    return val;
+    const params = qs.parse(location.href.split("?")[1]);
+    commit(types.GETOPENID, params);
+    return params;
   },
   checkOpenId({ commit }, params) {
-    return authAPI.checkOpenId1(params).then(
+    return authAPI.checkOpenId(params).then(
       (value) => {
-        const user = value.user;
-        localStorage.setItem("user", JSON.stringify(user));
-        return value;
+        if (value.user && value.user != null) {
+          const user = value.user;
+          commit(types.ISFIRSTLOGIN, false);
+          commit(types.LOGIN, user);
+          return value;
+        }
+        commit(types.ISFIRSTLOGIN, true);
       },
       (res) => Promise.reject(res)
     );
@@ -56,11 +50,11 @@ const actions = {
 };
 
 const mutations = {
-  [types.LOGIN](state, { value }) {
-    state.user = value.user;
+  [types.LOGIN](state, user) {
+    state.user = user;
   },
   [types.GETOPENID](state, value) {
-    state.openId = value;
+    state.wxData = value;
   },
   [types.ISFIRSTLOGIN](state, value) {
     state.isFirstLogin = value;

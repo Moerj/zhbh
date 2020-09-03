@@ -151,7 +151,6 @@ import Qrcode from "@/components/Qrcode";
 import Call from "@/components/call";
 
 import journeyAPI from "@/api/journey.js";
-import qs from "qs"
 
 // import "coord-picker/dist/coord-picker.css";
 // import { CoordPicker } from "coord-picker";
@@ -172,7 +171,7 @@ export default {
   },
   data() {
     return {
-      user: qs.parse(localStorage.getItem("user")),
+      user: JSON.parse(localStorage.user),
       active: 0,
       tabCurrent: "",
       dates: [],

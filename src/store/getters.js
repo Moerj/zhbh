@@ -1,5 +1,5 @@
 const getters = {
-  openId: (state) => state.auth.openId,
+  wxData: (state) => state.auth.wxData,
   user: (state) => state.auth.user,
   isFirstLogin: (state) => state.auth.isFirstLogin,
 };
