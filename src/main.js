@@ -45,7 +45,6 @@ router.beforeEach((to, from, next) => {
 
   document.title = to.name || description
 
-  console.log(to)
   const wxData = store.getters.wxData;
   // 检查是否已绑定
   if (!store.getters.user && wxData.openid) {

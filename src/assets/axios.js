@@ -87,7 +87,7 @@ export default {
         } else if (res.data.msg) {
           Toast(res.data.msg)
         }
-        Promise.reject(res.data)
+        return Promise.reject(res.data)
       }
     }, error => {
       // Do something with request error

@@ -35,18 +35,19 @@
           </span>
           <van-icon name="arrow" size="12"/>
         </div>
-        <div v-if="data.schType!==3" @click="call(data.chargerPhone)">
+        <div v-if="data.schType!==3">
           <span class="title">联系电话：</span>
-          <span class="ellipsis-1">
-            <van-icon :name="require('@/imgs/tel.svg')" size="12"/>&nbsp;
+          <span class="ellipsis-1" @click="call(data.chargerPhone)">
+            <van-icon :name="require('@/imgs/tel.svg')" size="12" v-if="data.chargerPhone"/>&nbsp;
             <span class="phone">{{ data.chargerPhone }}</span>
           </span>
         </div>
       </div>
       <template v-if="data.schType===3">
         <div v-for="v of data.carUsers">
-          <div class="header">{{  }}</div>
-          <div v-if="v.carType===2" class="ellipsis-1">
+          <div class="header">{{ v.carNoTitle }}</div>
+          <!--专车才显示乘车人员-->
+          <div v-if="v.carType===1" class="ellipsis-1">
             <span class="title">乘车人员：</span>
             <span>{{ v.seatPerson }}</span>
           </div>
@@ -150,7 +151,8 @@ export default {
           name: this.data.title, // 位置名
           address: this.data.place, // 地址详情说明
           fail (e) {
-            console.log(e)
+            console.error(e)
+            console.log(v)
           }
         })
       })

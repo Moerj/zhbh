@@ -1,6 +1,7 @@
 // 全局方法
 import { isEmpty } from 'plain-kit'
 import dayjs from 'dayjs'
+import isSameOrAfter from 'dayjs/plugin/isSameOrAfter.js'
 
 const STORAGE_KEY = 'user'
 export default {
@@ -80,6 +81,7 @@ export default {
             }
         })
 
+        dayjs.extend(isSameOrAfter)
         Object.defineProperty(Vue.prototype, '$dayjs', {
             value: dayjs
         })
