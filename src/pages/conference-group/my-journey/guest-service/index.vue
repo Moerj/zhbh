@@ -147,10 +147,6 @@ export default {
     margin-top: 10px;
   }
 
-  &:last-child {
-    margin-bottom: 0;
-  }
-
   background: #ffffff;
   border-radius: 10px;
   box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.08);

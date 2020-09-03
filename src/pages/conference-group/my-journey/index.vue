@@ -33,7 +33,7 @@
              v-if="list&&list.length>0"
     >
       <van-steps direction="vertical" :active="activeStep" active-color="#2B69E2">
-        <van-step v-for="(v,i) of list" :class="v.__isPast&&'van-step--finish'">
+        <van-step v-for="(v,i) of list" :class="v.__isPast&&'van-step--past'">
           <div>{{ v.startTime && `${v.startTime}${v.endTime && ('到' + v.endTime)}` }}</div>
           <div @click="()=>{toDetail(v)}">
             <div class="ellipsis-1">{{ v.title }}</div>
@@ -41,14 +41,14 @@
               <span class="ellipsis-1">
                 <span v-if='v.schType===3'>起点：</span>
                 <span v-else>地点：</span>
-                <span class="ellipsis-1" style="display: inline" @click.stop="locate">{{ v.place }}</span>
+                <span class="ellipsis-1" style="display: inline" @click.stop="locate(v)">{{ v.place }}</span>
               </span>
               <van-icon name="arrow" size="12" color="rgba(0,0,0,.4)"/>
             </div>
             <div v-if="v.schType===3">
               <span>
                 <span>目的地：</span>
-                <span class="ellipsis-1" style="display: inline" @click.stop="locate">{{ v.destination }}</span>
+                <span class="ellipsis-1" style="display: inline" @click.stop="locate(v)">{{ v.destination }}</span>
               </span>
               <van-icon name="arrow" size="12" color="rgba(0,0,0,.4)"/>
             </div>
@@ -117,7 +117,8 @@ export default {
           name: v.title, // 位置名
           address: v.place, // 地址详情说明
           fail (e) {
-            console.log(e)
+            console.error(e)
+            console.log(v)
           }
         })
       })
@@ -126,7 +127,13 @@ export default {
       this.$loading.open()
       this.$http.get('h5api/meet/date/list').then(({ list }) => {
         this.dates = list || []
-        this.query.date = list[0]
+        for (let [i, v] of this.dates.entries()) {
+          if (this.$dayjs(v).isSameOrAfter(this.$dayjs(), 'day')) {
+            this.activeTab = i
+            break
+          }
+        }
+        this.query.date = list[this.activeTab]
       }).finally(e => {
         this.$loading.close()
       })
@@ -162,15 +169,11 @@ export default {
       }).then(({ list }) => {
         this.list = list || []
         for (let [i, v] of this.list.entries()) {
-          if (v.startTime && v.endTime) {
-            const now = timejs()
-            if (now.isAfter(v.endTime)) {
-              v.__isPast = true
-            }
-            if (now.isBetween(v.startTime, v.endTime)) {
-              this.activeStep = i
-              break
-            }
+          if (v.activeState === '2') {
+            v.__isPast = true
+          } else if (v.activeState === '1') {
+            this.activeStep = i
+            break
           }
         }
       }).finally(e => {
@@ -287,7 +290,7 @@ export default {
   }
 }
 
-.van-step--finish {
+.van-step--past {
   .van-step__title {
     & > div:first-child {
       color: #9094a8;

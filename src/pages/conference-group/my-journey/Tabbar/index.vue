@@ -42,7 +42,7 @@ export default {
               this.$http.get('h5api/meet/hasJoinSchedule', {
                 params: {
                   schId: this.$route.query.schId,
-                  openId: res.resultStr // 当needResult 为 1 时，扫码返回的结果
+                  phoneNo: res.resultStr // 当needResult 为 1 时，扫码返回的结果
                 }
               }).then(res => {
 
@@ -54,7 +54,7 @@ export default {
                     query: {
                       signedIn: res.errorCode === '00004' ? '1' : '0',
                       needSigningIn: res.data,
-                      openId: res.resultStr,
+                      phoneNo: res.resultStr,
                       schId: this.$route.query.schId,
                       schType: this.$route.query.schType
                     }
@@ -70,7 +70,7 @@ export default {
           query: {
             signedIn: '0',
             needSigningIn: '1',
-            openId: 'opid121312312312313132',
+            phoneNo: '18275317951',
             schId: this.$route.query.schId,
             schType: this.$route.query.schType
           }

@@ -27,7 +27,7 @@
         <div class="title">酒店信息</div>
         <div class="tr">
           <div class="th">酒店名称：</div>
-          <div class="td ellipsis-1">{{ schedule.restaurant&&schedule.restaurant.title }}</div>
+          <div class="td ellipsis-1">{{ schedule.restaurant && schedule.restaurant.title }}</div>
         </div>
         <div class="tr">
           <div class="th">地址：</div>
@@ -46,7 +46,7 @@
         </div>
         <div class="tr">
           <div class="th">座位：</div>
-          <div class="td ellipsis-1">{{ schedule.meetRoom&&schedule.meetRoom.seatNo }}</div>
+          <div class="td ellipsis-1">{{ schedule.meetRoom && schedule.meetRoom.seatNo }}</div>
         </div>
       </div>
       <div v-else-if="schType===2">
@@ -57,7 +57,7 @@
         </div>
         <div class="tr">
           <div class="th">桌号/包间号：</div>
-          <div class="td ellipsis-1">{{ schedule.restaurant&&schedule.restaurant.seatNo }}</div>
+          <div class="td ellipsis-1">{{ schedule.restaurant && schedule.restaurant.seatNo }}</div>
         </div>
       </div>
       <div v-else-if="schType===3">
@@ -101,9 +101,12 @@
 <script>
 import { Dialog } from 'vant'
 
+const user = localStorage.user ? JSON.parse(localStorage.user) : {}
+
 export default {
   data () {
     return {
+      user,
       schType: Number(this.$route.query.schType),
       signedIn: this.$route.query.signedIn === '1',
       data: {},
@@ -151,84 +154,103 @@ export default {
   },
   methods: {
     getDetail () {
-      if (localStorage.user) {
-        this.$loading.open()
-        const { id, phoneNo } = JSON.parse(localStorage.user)
-        this.$http.get('h5api/meet/healthCode', {
-          params: {
-            phone: phoneNo,
-            userId: id
-          }
-        }).then(({ data }) => {
-          this.healthCode = data || {}
-        }).finally(e => {
-          this.$loading.close()
-        })
-
-        this.$loading.open()
-        this.$http.get('h5api/meet/infoByOpenId2', {
-          params: {
-            openId: this.$route.query.openId,
-            schId: this.$route.query.schId,
-          }
-        }).then(({ data }) => {
-          this.data = data || {}
-          if (this.$route.query.schType === '0') {
-            this.schedule = data?.userHotelVo || {}
-          }
-        }).finally(e => {
-          this.$loading.close()
-        })
-
-        if (this.$route.query.schType !== '0') {
-          this.$loading.open()
-          this.$http.get('h5api/meet/get/info', {
-            params: {
-              schId: this.$route.query.schId,
-              userId: id
-            }
-          }).then(({ data }) => {
-            this.schedule = data || {}
-          }).finally(e => {
-            this.$loading.close()
-          })
-        }
-      }
-    },
-    signIn () {
       this.$loading.open()
-      this.$http.get('h5api/meet/signSchedule', {
+      this.$http.get('h5api/meet/healthCode', {
         params: {
-          openId: this.$route.query.openId,
-          schId: this.$route.query.schId,
-          forceSign: '0'
+          phone: this.user.phoneNo,
+          userId: this.user.id
         }
       }).then(({ data }) => {
-        this.signedIn = true
-      }).catch(res => {
-        if (['00002', '00003'].includes(res.errorCode)) {
-          Dialog.confirm({
-            title: res.message,
-          }).then(() => {
-            this.$loading.open()
-            this.$http.get('h5api/meet/signSchedule', {
-              params: {
-                openId: this.$route.query.openId,
-                schId: this.$route.query.schId,
-                forceSign: '1'
-              }
-            }).then(({ data }) => {
-              this.signedIn = true
-            }).finally(e => {
-              this.$loading.close()
-            })
-          })
-        } else if (res.errorCode === '00004') {
-          this.signedIn = true
+        this.healthCode = data || {}
+      }).finally(e => {
+        this.$loading.close()
+      })
+
+      this.$loading.open()
+      this.$http.get('h5api/meet/infoByOpenId2', {
+        params: {
+          phoneNo: this.user.phoneNo,
+          schId: this.$route.query.schId,
+        }
+      }).then(({ data }) => {
+        this.data = data || {}
+        if (this.$route.query.schType === '0') {
+          this.schedule = data?.userHotelVo || {}
+        } else if (this.$route.query.schType === '3') {
+          this.schedule = data?.carVo || {}
         }
       }).finally(e => {
         this.$loading.close()
       })
+
+      if (!['0', '3'].includes(this.$route.query.schType)) {
+        this.$loading.open()
+        this.$http.get('h5api/meet/get/info', {
+          params: {
+            schId: this.$route.query.schId,
+            userId: this.user.id
+          }
+        }).then(({ data }) => {
+          this.schedule = data || {}
+        }).finally(e => {
+          this.$loading.close()
+        })
+      }
+    },
+    signIn () {
+      this.$loading.open()
+      if (this.schType === 0) {
+        this.$http.get('h5api/meet/signHotelSchedule', {
+          params: {
+            phoneNo: this.$route.query.phoneNo,
+            houtelId: this.$route.query.schId,
+          }
+        }).then(res => {
+          this.signedIn = true
+          this.$toast(res.message)
+        }).catch(res => {
+          if (['00004'].includes(res.errorCode)) {
+            this.signedIn = true
+          }
+        }).finally(e => {
+          this.$loading.close()
+        })
+      } else {
+        this.$http.get('h5api/meet/signSchedule', {
+          params: {
+            phoneNo: this.$route.query.phoneNo,
+            schId: this.$route.query.schId,
+            forceSign: '0'
+          }
+        }).then(res => {
+          this.signedIn = true
+          this.$toast(res.message)
+        }).catch(res => {
+          if (['00002', '00003'].includes(res.errorCode)) {
+            Dialog.confirm({
+              title: res.message + '，是否签到？',
+            }).then(() => {
+              this.$loading.open()
+              this.$http.get('h5api/meet/signSchedule', {
+                params: {
+                  phoneNo: this.user.phoneNo,
+                  schId: this.$route.query.schId,
+                  forceSign: '1'
+                }
+              }).then(res => {
+                this.signedIn = true
+                this.$toast(res.message)
+              }).finally(e => {
+                this.$loading.close()
+              })
+            })
+          } else if (['00004'].includes(res.errorCode)) {
+            this.signedIn = true
+          }
+        }).finally(e => {
+          this.$loading.close()
+        })
+      }
     }
   }
 }

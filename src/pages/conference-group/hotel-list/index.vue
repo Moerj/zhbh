@@ -19,7 +19,7 @@
         </header>
         <main>
           <div class="tr">
-            <div class="th ellipsis-1" @click.stop="locate">
+            <div class="th ellipsis-1" @click.stop="locate(v)">
               <span>地址：</span>
               <span>{{ v.address }}</span>
             </div>
@@ -76,20 +76,21 @@ export default {
     call (phone) {
       window.location.href = `tel:${phone}`
     },
-    locate (e) {
+    locate (v) {
       wx.ready(() => {
         wx.openLocation({
-          longitude: Number(this.data.longitude),
-          latitude: Number(this.data.latitude),
-          name: this.data.title, // 位置名
-          address: this.data.place, // 地址详情说明
-          fail (e) {
-            console.log(e)
+          longitude: Number(v.longitude),
+          latitude: Number(v.latitude),
+          name: v.title, // 位置名
+          address: v.place, // 地址详情说明
+          fail: e => {
+            console.error(e)
+            console.log(v)
           }
         })
       })
     },
-    async scan (schId) {
+    async scan (id) {
       if (['wechat', 'mp'].includes(await getEnv())) {
         wx.ready(() => {
           wx.scanQRCode({
@@ -97,23 +98,24 @@ export default {
             scanType: ['qrCode', 'barCode'], // 可以指定扫二维码还是一维码，默认二者都有
             success (res) {
               this.$loading.open()
-              this.$http.get('h5api/meet/hasJoinSchedule', {
+              this.$http.get('h5api/meet/hasSignHotelSchedule', {
                 params: {
-                  schId,
-                  openId: res.resultStr // 当needResult 为 1 时，扫码返回的结果
+                  houtelId: id,
+                  phoneNo: res.resultStr // 当needResult 为 1 时，扫码返回的结果
                 }
               }).then(res => {
 
               }).finally(res => {
                 this.$loading.close()
+                //未入住该酒店无需跳转
                 if (res.errorCode !== '00001') {
                   this.$router.push({
                     path: 'guest-service',
                     query: {
                       signedIn: res.errorCode === '00004' ? '1' : '0',
-                      needSigningIn: res.data,
-                      openId: res.resultStr,
-                      schId,
+                      needSigningIn: '1',
+                      phoneNo: res.resultStr,
+                      schId: id,
                       schType: 0
                     }
                   })
@@ -128,8 +130,8 @@ export default {
           query: {
             signedIn: '0',
             needSigningIn: '1',
-            openId: 'opid121312312312313132',
-            schId,
+            phoneNo: '18275317951',
+            schId: id,
             schType: 0
           }
         })
