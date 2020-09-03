@@ -147,57 +147,28 @@
         },
       };
     },
-    beforeMount() {
-      // const user = JSON.parse(localStorage.user);
-      // if (!user) {
-      //   this.checkOpenId();
-      // }
-    },
     methods: {
       async login(data) {
-        const appletsOpenId = this.$route.query.openid;
+        Object.assign(data,JSON.parse(localStorage.wxData))
         const validatePhone = await this.checkPhone(data.phoneNo);
         const validateCode = await this.checkCode(data.joinCode);
         if (validatePhone && validateCode) {
           let param = {
             joinCode: data.joinCode.toUpperCase(),
-            openId: appletsOpenId,
             phoneNo: data.phoneNo,
+            openId: data.openid,
+            wxNickName: data.nickName,
           };
           this.$store.dispatch("login", param).then((res) => {
-            try {
-              localStorage.setItem("user",JSON.stringify(res.user))
-              // userRole
-              // 1.参会嘉宾  2 服务志愿者 3 媒体工作者
-              if (res.user.userRole == "1") {
-                //	a. 嘉宾首页
-                this.$router.push({
-                  path: "/guest-home",
-                  query: {
-                    openId: appletsOpenId,
-                  },
-                });
-              } else if (res.user.userRole == "2") {
-                // b. 工作人员或志愿者首页
-                this.$router.push({
-                  path: "/conference-group/my-journey",
-                  query: {
-                    openId: appletsOpenId,
-                  },
-                });
-              } else if (res.user.userRole == "3") {
-                // 	c. 新闻工作者首页（暂定与嘉宾首页一致）
-                this.$router.push({
-                  path: "/guest-home",
-                  query: {
-                    openId: appletsOpenId,
-                  },
-                });
-              }
-            } catch (err) {
-              this.$router.push({ path: "/" });
-            }
-          });
+            console.log(res.user.userRole)
+              // userRole 1.参会嘉宾  2 服务志愿者 3 媒体工作者
+              this.$router.push({
+                path: this.$store.getters.roleNav.get(res.user.userRole),
+                query: {
+                  openId: data.openid,
+                },
+              })
+          })
         }
       },
       checkPhone(phoneNum) {
@@ -223,27 +194,6 @@
           return false;
         }
         return true;
-      },
-      checkOpenId() {
-        const appletsOpenId = this.$route.query.openid;
-        localStorage.setItem("openId", appletsOpenId);
-          this.$store.dispatch("checkOpenId", { openId: appletsOpenId }).then((res) => {
-              try {
-                  localStorage.setItem("user",JSON.stringify(res.user))
-                  if (res.user['userRole'] === "1") {
-                      //	a. 嘉宾首页
-                      this.$router.push({path: "/guest-home", query: {openId: appletsOpenId,}});
-                  } else if (res.user['userRole'] === "2") {
-                      // b. 工作人员或志愿者首页
-                      this.$router.push({path: "/conference-group/my-journey", query: {openId: appletsOpenId,},});
-                  } else if (res.user['userRole'] === "3") {
-                      // 	c. 新闻工作者首页（暂定与嘉宾首页一致）
-                      this.$router.push({path: "/guest-home", query: {openId: appletsOpenId,},});
-                  }
-              } catch (error) {
-                  this.$router.push({ path: "/" });
-              }
-          })
       },
     },
   };
