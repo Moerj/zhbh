@@ -212,8 +212,8 @@ export default {
   created() {
     //获取传过来的openid
     //
-    // this.getTogPeople();
-    // this.get_notices();
+    this.getTogPeople();
+    this.get_notices();
   },
   methods: {
     get_notices() {

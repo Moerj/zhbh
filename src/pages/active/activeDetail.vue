@@ -3,25 +3,15 @@
     <template v-slot:header>
       <van-nav-bar fixed left-arrow @click-left="$root.back()"></van-nav-bar>
     </template>
-
     <div class="detail-container">
       <img style="width: 100%;min-height: 200px;" :src="detailInfo['coverPath']">
-<!--      <van-swipe :autoplay="3000" :height="280" @change="swipeChange">-->
-<!--        <van-swipe-item v-for="(image, index) in images" :key="index">-->
-<!--          <img v-lazy="image" />-->
-<!--        </van-swipe-item>-->
-<!--        <template #indicator>-->
-<!--          <div class="custom-indicator">-->
-<!--            {{ current + 1 }}/{{ images.length }}-->
-<!--          </div>-->
-<!--        </template>-->
-<!--      </van-swipe>-->
       <div class="main-card">
         <div class="card-content">
           <div class="list-group">
             <div v-for="item in detailInfo['actGroups']" class="list-item">
               <div class="item-left">
-                <div class="mingci">第一组</div>
+                <div class="mingci">{{item['groupTitle']}}</div>
+				<!-- greenbaoming graybaoming-->
                 <div class="baoming">报名</div>
               </div>
               <div class="item-right">
@@ -42,55 +32,8 @@
                 </div>
               </div>
             </div>
-            <!--<div class="list-item">-->
-              <!--<div class="item-left">-->
-                <!--<div class="mingci">第二组</div>-->
-                <!--<div class="baoming graybaoming">报名</div>-->
-              <!--</div>-->
-              <!--<div class="item-right">-->
-                <!--<div class="renshu">-->
-                  <!--<span>已报名：8</span> |-->
-                  <!--<span>截止人数：198</span>-->
-                <!--</div>-->
-                <!--<div class="jindu">-->
-                  <!--<span style="width: 20%"></span>-->
-                <!--</div>-->
-                <!--<div class="time">-->
-                  <!--<img src="./image/time.png" height="12" />-->
-                  <!--报名截止时间 12月18号 12:00-->
-                <!--</div>-->
-                <!--<div class="time">-->
-                  <!--<img src="./image/downtime.png" height="12" />-->
-                  <!--报名截止时间 12月18号 12:00-->
-                <!--</div>-->
-              <!--</div>-->
-            <!--</div>-->
-            <!--<div class="list-item">-->
-              <!--<div class="item-left">-->
-                <!--<div class="mingci">第三组</div>-->
-                <!--<div class="baoming greenbaoming">已报名</div>-->
-              <!--</div>-->
-              <!--<div class="item-right">-->
-                <!--<div class="renshu">-->
-                  <!--<span>已报名：8</span> |-->
-                  <!--<span>截止人数：198</span>-->
-                <!--</div>-->
-                <!--<div class="jindu">-->
-                  <!--<span style="width: 20%"></span>-->
-                <!--</div>-->
-                <!--<div class="time">-->
-                  <!--<img src="./image/time.png" height="12" />-->
-                  <!--报名截止时间 12月18号 12:00-->
-                <!--</div>-->
-                <!--<div class="time">-->
-                  <!--<img src="./image/downtime.png" height="12" />-->
-                  <!--报名截止时间 12月18号 12:00-->
-                <!--</div>-->
-              <!--</div>-->
-            <!--</div>-->
           </div>
         </div>
-
         <div class="fullwidth-content">
           <div class="fullwidth-title">活动详情</div>
           <div class="fullwidth-main">
@@ -130,8 +73,10 @@ export default {
   methods: {
     //获取详情
     getDetailData() {
-      journeyAPI.activeDetail({actId: this.$route.query['activeId']}).then((res) => {
+		let user= JSON.parse(localStorage.user)
+      journeyAPI.activeDetail({actId: this.$route.query['activeId'], userId:user.id}).then((res) => {
         if (res.errorCode==="00000"){
+			console.log(res.data)
             this.detailInfo = res.data
         }else{
             this.$toast(res.msg);

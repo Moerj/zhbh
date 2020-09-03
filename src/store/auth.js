@@ -1,17 +1,7 @@
 import authAPI from "@/api/auth";
 import qs from "qs"
 
-// users
-const types = {
-  LOGIN: "auth/LOGIN",
-  GETOPENID: "auth/GETOPENID",
-  ISFIRSTLOGIN: "auth/ISFIRSTLOGIN",
-};
-
 const state = {
-  isFirstLogin: false,
-  user: "",
-  wxData: "",
   roleNav: new Map()
       .set("1","/guest-home")
       .set("2","/conference-group/my-journey")
@@ -21,49 +11,43 @@ const state = {
 const getters = {};
 
 const actions = {
-  login({ commit }, params,vue) {
-    return authAPI.login(params,vue).then(
+  login({ commit }, params) {
+    return authAPI.login(params).then(
       (value) => {
-        commit(types.LOGIN, { value });
-        const user = value.user;
-        localStorage.setItem("user", JSON.stringify(user));
+        const user = JSON.stringify(value.user);
+        localStorage.setItem("user", user);
         return value;
       },
       (res) => Promise.reject(res)
     );
   },
   getOpenId({ commit }) {
-    const params = qs.parse(location.href.split("?")[1]);
-    commit(types.GETOPENID, params);
-    return params;
+    if (!localStorage.wxData) {
+      const params = qs.parse(location.href.split("?")[1])
+      const wxData = JSON.stringify(params)
+      if (wxData == "{}") {
+        return
+      }
+      localStorage.setItem("wxData",wxData)
+    }
   },
-  checkOpenId({ commit }, params) {
+ checkOpenId({commit}, params) {
     return authAPI.checkOpenId(params).then(
-      (value) => {
-        if (value.user && value.user != null) {
-          const user = value.user;
-          commit(types.LOGIN, user);
-          return value;
-        } else {
-          commit(types.ISFIRSTLOGIN, true);
+        (value) => {
+          if (value.user && value.user != null) {
+            const user = JSON.stringify(value.user);
+            localStorage.setItem("user", user)
+            localStorage.setItem("ISFIRSTLOGIN", false)
+            return value;
+          } else {
+            localStorage.setItem("ISFIRSTLOGIN", true)
+          }
         }
-      },
-      //(res) => Promise.reject(res)
     );
   },
 };
 
-const mutations = {
-  [types.LOGIN](state, user) {
-    state.user = user;
-  },
-  [types.GETOPENID](state, value) {
-    state.wxData = value;
-  },
-  [types.ISFIRSTLOGIN](state, value) {
-    state.isFirstLogin = value;
-  },
-};
+const mutations = { };
 
 export default {
   state,
