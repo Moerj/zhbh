@@ -44,6 +44,10 @@
               <div class="td ellipsis-1">{{ v.carType }}</div>
             </div>
             <div class="tr">
+              <div class="th">车号</div>
+              <div class="td ellipsis-1">{{  }}</div>
+            </div>
+            <div class="tr">
               <div class="th">车牌号</div>
               <div class="td ellipsis-1">{{ v.carNo }}</div>
             </div>
@@ -65,9 +69,7 @@
           <template v-else-if="schType===1">
             <div class="tr">
               <div class="th">座位</div>
-              <div class="td ellipsis-1" v-if="!$isEmpty(v.tabNo)&&!$isEmpty(v.seatNo)">{{
-                  `${v.tabNo}排${v.seatNo}号`
-                }}
+              <div class="td ellipsis-1">{{ v.tabNo + v.seatNo }}
               </div>
             </div>
           </template>

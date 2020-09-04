@@ -31,7 +31,7 @@
         </div>
         <div class="tr">
           <div class="th">地址：</div>
-          <div class="td ellipsis-1">{{ schedule.place }}</div>
+          <div class="td ellipsis-1" @click.stop="locate(schedule)">{{ schedule.place }}</div>
         </div>
         <div class="tr">
           <div class="th">房间：</div>
@@ -42,7 +42,7 @@
         <div class="title">会议信息</div>
         <div class="tr">
           <div class="th">会议地址：</div>
-          <div class="td ellipsis-1">{{ schedule.place }}</div>
+          <div class="td ellipsis-1" @click.stop="locate(schedule)">{{ schedule.place }}</div>
         </div>
         <div class="tr">
           <div class="th">座位：</div>
@@ -53,7 +53,7 @@
         <div class="title">餐厅信息</div>
         <div class="tr">
           <div class="th">餐厅地址：</div>
-          <div class="td ellipsis-1">{{ schedule.place }}</div>
+          <div class="td ellipsis-1" @click.stop="locate(schedule)">{{ schedule.place }}</div>
         </div>
         <div class="tr">
           <div class="th">桌号/包间号：</div>
@@ -64,26 +64,26 @@
         <div class="title">车辆接送信息</div>
         <div class="tr">
           <div class="th">乘车地点：</div>
-          <div class="td ellipsis-1" @click.stop="locate">{{ schedule.place }}</div>
+          <div class="td ellipsis-1" @click.stop="locate(schedule)">{{ schedule.place }}</div>
         </div>
         <div class="tr">
           <div class="th">车牌号：</div>
-          <div class="td ellipsis-1">{{ data }}</div>
+          <div class="td ellipsis-1">{{ schedule.carNo }}</div>
         </div>
         <div class="tr" v-if="data">
           <div class="th">座位号：</div>
-          <div class="td ellipsis-1">{{ data }}</div>
+          <div class="td ellipsis-1">{{ schedule.seatNo }}</div>
         </div>
       </div>
       <div v-else-if="schType===4">
         <div class="title">活动信息</div>
         <div class="tr">
           <div class="th">活动地址：</div>
-          <div class="td ellipsis-1">{{ schedule.place }}</div>
+          <div class="td ellipsis-1" @click.stop="locate(schedule)">{{ schedule.place }}</div>
         </div>
         <div class="tr">
           <div class="th">乘车地点：</div>
-          <div class="td ellipsis-1" @click.stop="locate">{{ data }}</div>
+          <div class="td ellipsis-1" @click.stop="locate">{{ schedule }}</div>
         </div>
       </div>
     </div>
@@ -177,7 +177,7 @@ export default {
         if (this.$route.query.schType === '0') {
           this.schedule = data?.userHotelVo || {}
         } else if (this.$route.query.schType === '3') {
-          this.schedule = data?.carVo || {}
+          this.schedule = data?.userCarInfoVo || {}
         }
       }).finally(e => {
         this.$loading.close()
@@ -251,7 +251,21 @@ export default {
           this.$loading.close()
         })
       }
-    }
+    },
+    locate (v) {
+      wx.ready(() => {
+        wx.openLocation({
+          longitude: Number(v.longitude),
+          latitude: Number(v.latitude),
+          name: v.title, // 位置名
+          address: v.place, // 地址详情说明
+          fail: e => {
+            console.error(e)
+            console.log(v)
+          }
+        })
+      })
+    },
   }
 }
 </script>
