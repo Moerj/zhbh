@@ -45,11 +45,12 @@ Vue.use(axios, {
 router.beforeEach((to, from, next) => {
   document.title = to.name || description
 
+  console.log(store)
   if (to.path !== '/login' && !localStorage.user) {
     next({path: "/login", query: wxData})
-  }
-  // 检查是否已绑定
-  if (localStorage.wxData) {
+    // 检查是否已绑定
+  } else if (to.path == '/login' && localStorage.wxData) {
+    console.log("ces")
     // wxData 在 store/auth.js  getOpenId中获取
     const wxData = JSON.parse(localStorage.wxData)
     store.dispatch("checkOpenId", { openId: wxData.openid}).then((res) => {
@@ -61,6 +62,7 @@ router.beforeEach((to, from, next) => {
       }
     })
   }
+
   next();
 })
 
