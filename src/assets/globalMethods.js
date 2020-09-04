@@ -90,6 +90,22 @@ export default {
             value: isEmpty
         })
 
+        Object.defineProperty(Vue.prototype, '$wxMap', {
+            value: function (data) {
+                wx.ready(() => {
+                    wx.openLocation({
+                        longitude: Number(data.longitude),
+                        latitude: Number(data.latitude),
+                        name: data.title, // 位置名
+                        address: data.place, // 地址详情说明
+                        fail (e) {
+                            console.error(e)
+                            console.log(v)
+                        }
+                    })
+                })
+            }
+        })
     }
 }
 

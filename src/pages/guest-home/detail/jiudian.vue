@@ -102,25 +102,6 @@ export default {
     this.getDetailData();
   },
   methods: {
-    // swipeChange(index) {
-    //   this.current = index;
-    // },
-    // startNavigation() {
-    //   const location = {
-    //     latitude: parseFloat('26.587968'),
-    //     longitude: parseFloat('104.841134'),
-    //     name: '妇联',
-    //     address:'贵州省六盘水市钟山区开投大厦20楼',
-    //   }
-    //
-    //   if (window.$app) {
-    //     window.$app.openLocation(JSON.stringify(location))
-    //   } else {
-    //     wx.isMiniProgram.nvigateTo({
-    //       url:`/pages/indexPKG/traveMapGo/main?${qs.stringify(location, {encode:false})}`
-    //     })
-    //   }
-    // },
     getDetailData() {
       const param = {
         userHotelId: this.$route.query.userHotelId,

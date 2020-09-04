@@ -32,11 +32,11 @@
 				</van-swipe>
 			  </van-notice-bar>
 			</div>
-			<div class="title" @click="toDetailRoom(hotel.id)">我的酒店</div>
+			<div class="title" @click.stop="toDetailRoom(hotel.id)"> <p v-if="hotel">我的酒店</p></div>
 			<div class="hotel-card" v-if="hotel" @click="toDetailRoom(hotel.id)" >
 			  <div class="hotel-name" v-if="hotel">{{ hotel.title }}</div>
 			  <div class="hotel-info">
-				<div class="info-item flex row-between" @click.stop="showMapHandle">
+				<div class="info-item flex row-between" @click.stop="this.$locate(hotel)">
 				  <span>
 					<span class="item-title">地址：</span>
 					<span class="item-text">{{ hotel.address }}</span>
@@ -90,12 +90,12 @@
 					</span>
 				  </div>
 				  <div class="card-inner">
-					<div @click="toDetail(item)" class="signin-cont" v-if="item['activeState'] == 2">
+					<div class="signin-cont" v-if="item['activeState'] == 2">
 					  <img src="./image/signedin.png" alt="已签到" v-if="item.schState == 0"/>
 					  <img src="./image/nosignin.png" alt="未签到" v-else/>
 					</div>
 					<div @click="toDetail(item)" class="inner-title">{{ item.title }}</div>
-					<div @click="toDetail(item)" class="inner-item flex row-between">
+					<div class="inner-item flex row-between" @click.stop="$wxMap(item)">
 					  <span>
 						<span class="item-title">地址：</span>
 						<span class="item-text">{{ item['place'] }}</span>
@@ -151,9 +151,6 @@ import Qrcode from "@/components/Qrcode";
 import Call from "@/components/call";
 
 import journeyAPI from "@/api/journey.js";
-
-// import "coord-picker/dist/coord-picker.css";
-// import { CoordPicker } from "coord-picker";
 
 function getQuery() {
   return {
@@ -237,6 +234,7 @@ export default {
           .then((res) => {
             if (res.data != null) {
               this.hotel = res.data
+              this.hotel.place = this.hotel.address
             }
       })
     },

@@ -44,14 +44,14 @@ Vue.use(axios, {
 
 router.beforeEach((to, from, next) => {
   document.title = to.name || description
-  // wxData 在 store/auth.js  getOpenId中获取
-  const wxData = JSON.parse(localStorage.wxData)
+
   // 检查是否已绑定
-  if (!localStorage.user && wxData) {
+  if (!localStorage.user && localStorage.wxData) {
+    // wxData 在 store/auth.js  getOpenId中获取
+    const wxData = JSON.parse(localStorage.wxData)
     store.dispatch("checkOpenId", { openId: wxData.openid}).then((res) => {
       if (res && res.user) {
         const user = res.user
-        console.log(user)
         // role 1 3 嘉宾首页, 2工作人员或志愿者首页
         const _url = store.getters.roleNav.get(user.userRole)
         next({ path: _url, query: { openId: wxData.openid }})
