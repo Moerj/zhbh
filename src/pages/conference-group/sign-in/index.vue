@@ -27,15 +27,15 @@
         <div class="title">酒店信息</div>
         <div class="tr">
           <div class="th">酒店名称：</div>
-          <div class="td ellipsis-1">{{ schedule.restaurant && schedule.restaurant.title }}</div>
+          <div class="td ellipsis-1">{{ schedule.title }}</div>
         </div>
         <div class="tr">
           <div class="th">地址：</div>
-          <div class="td ellipsis-1" @click.stop="locate(schedule)">{{ schedule.place }}</div>
+          <div class="td ellipsis-1" @click.stop="locate(schedule)">{{ schedule.address }}</div>
         </div>
         <div class="tr">
           <div class="th">房间：</div>
-          <div class="td ellipsis-1">{{ schedule }}</div>
+          <div class="td ellipsis-1">{{ schedule.roomNo }}</div>
         </div>
       </div>
       <div v-else-if="schType===1">
@@ -83,7 +83,7 @@
         </div>
         <div class="tr">
           <div class="th">乘车地点：</div>
-          <div class="td ellipsis-1" @click.stop="locate">{{ schedule }}</div>
+          <div class="td ellipsis-1" @click.stop="locate(schedule)">{{ schedule }}</div>
         </div>
       </div>
     </div>
@@ -258,7 +258,7 @@ export default {
           longitude: Number(v.longitude),
           latitude: Number(v.latitude),
           name: v.title, // 位置名
-          address: v.place, // 地址详情说明
+          address: v.place || v.address, // 地址详情说明
           fail: e => {
             console.error(e)
             console.log(v)
@@ -287,12 +287,12 @@ export default {
     }
 
     & > div:nth-child(2) {
-      margin-top: 5px;
+      margin-top: 19px;
       font-size: 16px;
     }
 
     & > div:nth-child(3) {
-      margin-top: 5px;
+      margin-top: 4px;
       font-size: 16px;
       line-height: 24px;
       white-space: pre-line;

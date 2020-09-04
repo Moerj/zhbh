@@ -415,7 +415,7 @@ export default {
 
 ::v-deep .van-step:last-child .van-step__line {
   width: 1px;
-  height: calc(100% - 30px);
+  height: calc(100% - 32px);
 }
 
 ::v-deep .van-step__circle {

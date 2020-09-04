@@ -172,7 +172,7 @@ export default {
   }
 
   &:last-child {
-    margin-bottom: 0;
+    margin-bottom: 20px;
   }
 
   height: 122px;
