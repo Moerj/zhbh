@@ -34,8 +34,15 @@
           <div class="info-wrapper">
             <div class="info-item flex row-between">
               <span>
-                <span class="item-title">地点：</span>
+                <span class="item-title">起点：</span>
                 <span class="black-text">{{detailInfo.place}}</span>
+              </span>
+              <span><img src="../image/right.svg"/></span>
+            </div>
+            <div class="info-item flex row-between">
+              <span>
+                <span class="item-title">目的地：</span>
+                <span class="black-text">{{detailInfo.destination}}</span>
               </span>
               <span><img src="../image/right.svg"/></span>
             </div>
@@ -46,11 +53,11 @@
               </span>
             </div>
             <div class="info-item flex row-between">
-              <a class="tel" :href="'tel:' + (detailInfo.chargePhone )"></a>
+              <a class="tel" :href="'tel:' + (detailInfo.volunteerPhone )"></a>
               <span>
                 <span class="item-title">志愿者电话：</span>
                 <span class="red-text">{{
-                  detailInfo.chargePhone
+                  detailInfo.volunteerPhone
                 }}</span>
               </span>
             </div>

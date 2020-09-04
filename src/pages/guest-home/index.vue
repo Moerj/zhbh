@@ -36,7 +36,7 @@
 			<div class="hotel-card" v-if="hotel" @click="toDetailRoom(hotel.id)" >
 			  <div class="hotel-name" v-if="hotel">{{ hotel.title }}</div>
 			  <div class="hotel-info">
-				<div class="info-item flex row-between" @click.stop="this.$locate(hotel)">
+				<div class="info-item flex row-between" @click.stop="$wxMap(hotel)">
 				  <span>
 					<span class="item-title">地址：</span>
 					<span class="item-text">{{ hotel.address }}</span>
@@ -77,7 +77,7 @@
 				</div>
 			  </div>
 			</div>
-			<div class="journey-container">
+			<div class="journey-container" v-if="journeyList">
 			  <div class="journey-card" v-for="item in journeyList" :key="item.id"
 				:class="item['activeState'] == 0? 'notstarted': item['activeState'] == 1? 'ongoing': 'finished'">
 				<div class="card-content">
@@ -108,11 +108,11 @@
 						<span class="item-text">{{ item['tabNo'] + item['seatNo'] }} 座位</span>
 					  </span>
 					</div>
-					<a class="tel"  :href="'tel:'+ item.chargerPhone">
+					<a class="tel"  :href="'tel:'+ item.volunteerPhone">
 					  <div class="inner-item" style="width: 100%">
 						<div style="width: 100%">
 						  <span class="item-title">志愿者电话：</span>
-						  <span class="item-text-phone">{{item.chargerPhone}}</span>
+						  <span class="item-text-phone">{{item.volunteerPhone}}</span>
 						  <span style="position: relative;right: 0;float: right"><img src="./image/phone.svg"/></span>
 						</div>
 					  </div>
@@ -121,6 +121,7 @@
 				</div>
 			  </div>
 			</div>
+      <empty v-else/>
 		  </div>
 		</ui-pull>
 
@@ -149,6 +150,7 @@
 import Tabbar from "@/components/Tabbar";
 import Qrcode from "@/components/Qrcode";
 import Call from "@/components/call";
+import empty from '@/components/empty'
 
 import journeyAPI from "@/api/journey.js";
 
@@ -251,7 +253,7 @@ export default {
     },
     getDateList() {
       journeyAPI
-        .DateList()
+        .DateList({userId : this.user.id})
         .then((res) => {
           this.dates = res.list;
           this.tabCurrent = res.list[this.active];
@@ -275,13 +277,16 @@ export default {
           this.$refs.pull.endSuccess();
         });
     },
-    toDetail(data) {
+    async toDetail(data) {
       let currentData = data; // 当前点击的行程
-      let urls = { "1":"huiyi", "2":"canting", "3":"bashi", "4":"huodong"}
-      if (data.schType == 3) {
-        journeyAPI.schduleInfo({usId: data.userId})
-      }
+      const urls = { "1":"huiyi", "2":"canting", "4":"huodong"}
       let subFix = urls[data.schType]
+      if (data.schType == 3) {
+        await journeyAPI.schduleInfo({usId: data.usId}).then((res)=> {
+          const carUrls = {"1": "zhuanche", "2": "bashi"}
+          subFix = carUrls[res.data]
+        })
+      }
       this.$router.push({
         path: '/guest-home/'+subFix,
         query: {

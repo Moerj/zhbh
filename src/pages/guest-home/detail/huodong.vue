@@ -32,29 +32,23 @@
             <div class="info-item flex row-between">
               <span>
                 <span class="item-title">地点：</span>
-                <span class="black-text">{{detailInfo.address}}</span>
+                <span class="black-text">{{detailInfo.place}}</span>
               </span>
               <span><img src="../image/right.svg"/></span>
             </div>
-            <!-- <div class="info-item flex row-between">
-              <span>
-                <span class="item-title">座位：</span>
-                <span class="black-text">{{detailInfo.number}}</span>
-              </span>
-            </div> -->
             <div class="info-item flex row-between">
-              <a class="tel" href="tel:0856-8221657"></a>
+              <a class="tel" :href="'tel:'+detailInfo.phone"></a>
               <span>
                 <span class="item-title">联系电话：</span>
-                <span class="red-text">{{detailInfo.sitePhone}}</span>
+                <span class="red-text">{{detailInfo.phone}}</span>
               </span>
               <span><img src="../image/phone.svg"/></span>
             </div>
             <div class="info-item flex row-between">
-              <a class="tel" href="tel:13678391637"></a>
+              <a class="tel" :href="'tel'+detailInfo.volunteerPhone"></a>
               <span>
                 <span class="item-title">志愿者电话：</span>
-                <span class="red-text">{{detailInfo.phone }}</span>
+                <span class="red-text">{{detailInfo.volunteerPhone}}</span>
               </span>
               <span><img src="../image/phone.svg"/></span>
             </div>
@@ -66,11 +60,11 @@
           </div> -->
         </div>
 
-        <div class="fullwidth-content">
+        <div class="fullwidth-content" v-if="detailInfo.reminder">
           <div class="fullwidth-title">温馨提示</div>
           <div class="fullwidth-main">
             <div class="main-text">
-              六盘水市，是贵州省地级市。六盘水市地处贵州西部乌蒙山区，年平均气温15℃，夏季平均气温19.7℃，冬季平均气温3℃。
+              {{ detailInfo.reminder }}
             </div>
           </div>
         </div>
@@ -78,8 +72,7 @@
         <div class="fullwidth-content">
           <div class="fullwidth-title">简介</div>
           <div class="fullwidth-main">
-            <div class="main-text">
-              观摩路线：参观野鸡坪花海-海坪彝族文化小镇-鞭陀文化博物馆-玉舍国家级森林公园-野鸡坪高原户外运动基地-野鸡坪高原户外运动基地（野玉海汽车体验中心）
+            <div class="main-text" v-text="detailInfo.intro">
             </div>
           </div>
         </div>
@@ -108,8 +101,6 @@ export default {
     };
   },
   mounted() {
-    this.currentData = this.$route.query.currentData;
-    console.log(this.currentData);
     this.getDetailData();
   },
   methods: {
@@ -118,11 +109,10 @@ export default {
     // },
     getDetailData() {
       const param = {
-        id: this.$route.query.id,
+        usId: this.$route.query.usId,
       };
       journeyAPI.detailJourney(param).then((res) => {
-        console.log(res);
-        this.detailInfo = res.list;
+        this.detailInfo = res.data;
       });
     },
   },

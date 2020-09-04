@@ -44,7 +44,7 @@
               <span>
                 <span class="item-title">桌号：</span>
                 <span class="black-text">{{
-                  detailInfo.tabNo ? detailInfo.tabNo+detailInfo.seatNo : detailInfo.seatNo
+                  detailInfo.tabNo
                   }}</span>
               </span>
             </div>
@@ -59,11 +59,11 @@
               <span><img src="../image/phone.svg"/></span>
             </div>
             <div class="info-item flex row-between">
-              <a class="tel" :href="'tel:' + (detailInfo.chargePhone)"></a>
+              <a class="tel" :href="'tel:' + (detailInfo.volunteerPhone)"></a>
               <span>
                 <span class="item-title">志愿者电话：</span>
                 <span class="red-text">{{
-                  detailInfo.chargePhone
+                  detailInfo.volunteerPhone
                 }}</span>
               </span>
               <span><img src="../image/phone.svg"/></span>
@@ -76,11 +76,11 @@
           </div> -->
         </div>
 
-        <div class="fullwidth-content">
+        <div class="fullwidth-content" v-if="detailInfo.reminder">
           <div class="fullwidth-title">温馨提示</div>
           <div class="fullwidth-main">
             <div class="main-text">
-              六盘水市，是贵州省地级市。六盘水市地处贵州西部乌蒙山区，年平均气温15℃，夏季平均气温19.7℃，冬季平均气温3℃。
+              {{ detailInfo.reminder }}
             </div>
           </div>
         </div>

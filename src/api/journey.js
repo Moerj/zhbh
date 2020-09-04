@@ -7,7 +7,7 @@ const DateList = (param) =>
 const detailJourney = (param) =>
     vue.$http.get(`/guest/meet/get/commonDetail`, { params: param });
 const carDetail = (param) =>
-    vue.$http.get(`/guest/meet/get/commonDetail`, { params: param });
+    vue.$http.get(`/guest/meet/get/carDetail`, { params: param });
 const togPeople = (param) =>
     vue.$http.get(`/guest/meet/get/refUsers`, { params: param });
 const schduleInfo = (param) =>

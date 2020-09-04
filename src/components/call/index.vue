@@ -4,8 +4,8 @@
         :attract="true"
         class="my-call"
         :class="isShowCode ? 'big' : 'mini'">
-        <div class="code-content">
-            <div class="code">
+        <div class="code-content" >
+            <div class="code" v-if="list && list.length">
                 <div class="close-icon" v-if="isShowCode" @click.stop="closeCode">
                     <img src="./image/icons_Popup_close@2x.png" alt="关闭" />
                 </div>
@@ -27,6 +27,7 @@
                 </div>
                 <img v-else style="width: 2rem;" src="./image/call.png" />
             </div>
+            <empty v-else/>
         </div>
         <div v-if="!isShowCode" style="font-size: 0.5rem;text-align: center;margin-top: 0.25rem">
             应急电话
@@ -36,6 +37,7 @@
 
 <script>
     import journeyAPI from "@/api/journey";
+    import empty from '@/components/empty'
     export default {
         name: "qrcode",
         data(){

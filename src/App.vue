@@ -26,24 +26,6 @@ export default {
   },
   created () {
     this.wxAuthorization()
-    // 设置 rem 函数
-    function setRem () {
-      if (/(pad|pod|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
-        htmlDom.style.fontSize = "16px"
-        return
-      }
-      let htmlWidth = document.documentElement.clientWidth || document.body.clientWidth;
-      //得到html的Dom元素
-      let htmlDom = document.getElementsByTagName('html')[0];
-    //设置根元素字体大小
-      htmlDom.style.fontSize= htmlWidth/375*16 + 'px';
-    }
-    // 初始化
-    setRem();
-    // 改变窗口大小时重新设置 rem
-    window.onresize = function () {
-      setRem()
-    }
   },
   methods: {
     // jsSDK授权
