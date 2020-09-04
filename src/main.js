@@ -45,11 +45,16 @@ Vue.use(axios, {
 router.beforeEach((to, from, next) => {
   document.title = to.name || description
 
+  console.log(store._actions)
   // 检查是否已绑定
-  if (!localStorage.user && localStorage.wxData) {
+  if (to.path !== '/login' && !localStorage.user) {
+    next({path: "/login", query: wxData})
+  }
+
+  if (localStorage.wxData) {
     // wxData 在 store/auth.js  getOpenId中获取
     const wxData = JSON.parse(localStorage.wxData)
-    store.dispatch("checkOpenId", { openId: wxData.openid}).then((res) => {
+    store._actions({ openId: wxData.openid}).then((res) => {
       if (res && res.user) {
         const user = res.user
         // role 1 3 嘉宾首页, 2工作人员或志愿者首页
@@ -59,9 +64,6 @@ router.beforeEach((to, from, next) => {
     })
   }
 
-  if (to.path !== '/login' && !localStorage.user) {
-    next({path: "/login", query: wxData})
-  }
   next();
 })
 
