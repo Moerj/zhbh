@@ -279,20 +279,20 @@ export default {
     text-align: center;
     color: white;
     position: relative;
+    padding-top: 20px;
 
     & > div:first-child {
-      padding-top: 24px;
       font-size: 30px;
       font-weight: 600;
     }
 
     & > div:nth-child(2) {
-      margin-top: 19px;
+      margin-top: 5px;
       font-size: 16px;
     }
 
     & > div:nth-child(3) {
-      margin-top: 4px;
+      margin-top: 5px;
       font-size: 16px;
       line-height: 24px;
       white-space: pre-line;
@@ -317,7 +317,7 @@ export default {
       left: 0;
       right: 0;
       margin: auto;
-      width: 359px;
+      width: calc(100% - 20px);
       height: 10px;
       border-radius: 19px;
     }

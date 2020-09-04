@@ -125,7 +125,11 @@ export default {
     },
     getDates () {
       this.$loading.open()
-      this.$http.get('h5api/meet/date/list').then(({ list }) => {
+      this.$http.get('h5api/meet/date/list', {
+        params: {
+          userId: user.id
+        }
+      }).then(({ list }) => {
         this.dates = list || []
         for (let [i, v] of this.dates.entries()) {
           if (this.$dayjs(v).isSameOrAfter(this.$dayjs(), 'day')) {
@@ -291,6 +295,10 @@ export default {
   }
 }
 
+.van-step--vertical {
+  padding: 8px 10px 12px 0;
+}
+
 .van-step--past {
   .van-step__title {
     & > div:first-child {
@@ -416,22 +424,24 @@ export default {
   background: #2b69e2;
 }
 
-::v-deep .van-step__icon--active {
-  width: 13px;
-  height: 13px;
-  border: 1px solid #2b69e2;
-  border-radius: 6.5px;
-  position: relative;
+::v-deep .van-step__circle-container {
+  .van-step__icon--active {
+    width: 13px;
+    height: 13px;
+    border: 1px solid #2b69e2;
+    border-radius: 6.5px;
+    position: relative;
 
-  &:before {
-    position: absolute;
-    top: 1px;
-    left: 1px;
-    content: '';
-    width: 9px;
-    height: 9px;
-    border-radius: 4.5px;
-    background: #2b69e2;
+    &:before {
+      position: absolute;
+      top: 1px;
+      left: 1px;
+      content: '';
+      width: 9px;
+      height: 9px;
+      border-radius: 4.5px;
+      background: #2b69e2;
+    }
   }
 }
 
