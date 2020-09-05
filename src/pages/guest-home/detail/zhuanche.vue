@@ -2,7 +2,7 @@
   <ui-main>
 
     <div class="detail-container">
-      <img style="width: 100%;" src="./zhuanche.png">
+      <img style="width: 100%;" :src="image">
 <!--      <van-swipe :autoplay="3000" :height="280" @change="swipeChange">-->
 <!--        <van-swipe-item v-for="(image, index) in images" :key="index">-->
 <!--          <img v-lazy="image" />-->

@@ -3,7 +3,7 @@
 
 
     <div class="detail-container">
-      <img style="width: 100%;" :src=" detailInfo.coverPath || image">
+      <img style="width: 100%;" :src=" detailInfo.coverPath">
 <!--      <van-swipe :autoplay="3000" :height="280" @change="swipeChange">-->
 <!--        <van-swipe-item v-for="(image, index) in images" :key="index">-->
 <!--          <img v-lazy="image" />-->
@@ -109,11 +109,10 @@
     import Qrcode from "@/components/Qrcode";
 import journeyAPI from "@/api/journey.js";
 export default {
-    components:{Qrcode},
+  components:{Qrcode},
   name: "Detail",
   data() {
     return {
-      image: require ("./huiyi.png"),
       current: 0,
       currentData: "",
 

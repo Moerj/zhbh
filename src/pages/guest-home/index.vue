@@ -24,31 +24,32 @@
 	  	</van-swipe>
 	    </van-notice-bar>
 	  </div>
-	  <div class="title" @click.stop="toDetailRoom(hotel.id)"> <p v-if="hotel">我的酒店</p></div>
-	  <div class="hotel-card" v-if="hotel" @click="toDetailRoom(hotel.id)" >
-	    <div class="hotel-name" v-if="hotel">{{ hotel.title }}</div>
+	  <div class="title" @click="toDetailRoom(hotel.id)"> <p v-if="hotel">我的酒店</p></div>
+	  <div class="hotel-card" v-if="hotel">
+	    <div class="hotel-name" @click="toDetailRoom(hotel.id)" >{{ hotel.title }}</div>
 	    <div class="hotel-info">
-	  	<div class="info-item flex row-between" @click.stop="$wxMap(hotel)">
-	  	  <span>
-	  		<span class="item-title">地址：</span>
-	  		<span class="item-text">{{ hotel.address }}</span>
-	  	  </span>
-	  	  <span><img src="./image/right.svg"/></span>
-	  	</div>
-	  	<div class="info-item flex row-between">
-	  	  <span>
-	  		<span class="item-title">房间：</span>
-	  		<span class="item-text">{{ hotel.roomNo }}</span>
-	  	  </span>
-	  	</div>
-	  	<div class="info-item flex row-between">
-	  	  <a class="tel" :href="'tel:'+hotel.hotelPhone"></a>
-	  	  <span>
-	  		<span class="item-title">联系电话：</span>
-	  		<span class="item-text text-phone">{{ hotel.hotelPhone }}</span>
-	  	  </span>
-	  	  <span><img src="./image/phone.svg"/></span>
-	  	</div>
+        <div class="info-item flex row-between" @click.stop="$wxMap(hotel)">
+          <span>
+          <span class="item-title">地址：</span>
+          <span class="item-text">{{ hotel.address }}</span>
+          </span>
+          <span><img src="./image/right.svg"/></span>
+        </div>
+        <div class="info-item flex row-between" @click="toDetailRoom(hotel.id)" >
+          <span>
+          <span class="item-title">房间：</span>
+          <span class="item-text">{{ hotel.roomNo }}</span>
+          </span>
+        </div>
+        <a class="tel" :href="'tel:'+hotel.hotelPhone">
+          <div class="info-item flex row-between" style="width: 100%">
+              <span>
+                <span class="item-title">联系电话：</span>
+                <span class="item-text text-phone">{{ hotel.hotelPhone }}</span>
+              </span>
+              <span><img src="./image/phone.svg"/></span>
+          </div>
+        </a>
 	    </div>
 	  </div>
     </template>
@@ -79,7 +80,7 @@
 			  </div>
 			</div>
 			<div class="journey-container" v-if="journeyList">
-			  <div class="journey-card" v-for="item in journeyList" :key="item.id"
+			  <div class="journey-card" v-for="item in journeyList" :key="item.id" @click="toDetail(item)"
 				:class="item['activeState'] == 0? 'notstarted': item['activeState'] == 1? 'ongoing': 'finished'">
 				<div class="card-content">
 				  <div class="card-title">
@@ -95,29 +96,27 @@
 					  <img src="./image/signedin.png" alt="已签到" v-if="item.schState == 0"/>
 					  <img src="./image/nosignin.png" alt="未签到" v-else/>
 					</div>
-					<div @click="toDetail(item)" class="inner-title">{{ item.title }}</div>
-					<div class="inner-item flex row-between" @click.stop="$wxMap(item)">
+					<div class="inner-title">{{ item.title }}</div>
+					<div class="inner-item flex row-between">
 					  <span>
 						<span class="item-title">地址：</span>
 						<span class="item-text">{{ item['place'] }}</span>
 					  </span>
 					  <span><img src="./image/right.svg"/></span>
 					</div>
-					<div @click="toDetail(item)" class="inner-item" v-if="item['tabNo']">
+					<div class="inner-item" v-if="item['tabNo']">
 					  <span>
 						<span class="item-title">座位：</span>
 						<span class="item-text">{{ item['tabNo'] + item['seatNo'] }} 座位</span>
 					  </span>
 					</div>
-					<a class="tel"  :href="'tel:'+ item.volunteerPhone">
-					  <div class="inner-item" style="width: 100%">
-						<div style="width: 100%">
-						  <span class="item-title">志愿者电话：</span>
-						  <span class="item-text-phone">{{item.volunteerPhone}}</span>
-						  <span style="position: relative;right: 0;float: right"><img src="./image/phone.svg"/></span>
-						</div>
-					  </div>
-					</a>
+          <div class="inner-item" style="width: 100%">
+          <div style="width: 100%">
+            <span class="item-title">志愿者电话：</span>
+            <span class="item-text-phone">{{item.volunteerPhone}}</span>
+            <span style="position: relative;right: 0;float: right"><img src="./image/phone.svg"/></span>
+          </div>
+          </div>
 				  </div>
 				</div>
 			  </div>
@@ -235,10 +234,12 @@ export default {
       journeyAPI
           .getHotal(param)
           .then((res) => {
-            if (res.data != null) {
-              this.hotel = res.data
-              this.hotel.place = this.hotel.address
+            if (res.data == null) {
+              this.hotel = ""
+              return
             }
+            this.hotel = res.data
+            this.hotel.place = this.hotel.address
       })
     },
     toDetailRoom(id){
