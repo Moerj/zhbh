@@ -25,9 +25,11 @@
           </div>
 
           <div class="title-wrapper">
-            <p class="title">{{detailInfo.title}}</p>
-            <p class="weather"><img src="../image/weather.png" />5℃～12℃</p>
+              <p class="title">{{detailInfo.title }}</p>
+              <van-icon :name="weatherIcon"/>
+              <span>{{ temperature }}</span>
           </div>
+
           <div class="info-wrapper">
             <div class="info-item flex row-between" @click.stop="$wxMap(detailInfo)">
               <span>
@@ -82,23 +84,45 @@ export default {
     return {
       current: 0,
       currentData: "",
-
       detailInfo: "",
+      weather: {},
     };
   },
+  computed: {
+    weatherIcon () {
+      if (this.weather.cond_code_n) {
+        return 'https://yjtp.yjctrip.com/weather/' + this.weather.cond_code_n + '.png'
+      }
+    },
+    temperature () {
+      if (!this.$isEmpty(this.weather.tmp_min) && !this.$isEmpty(this.weather.tmp_max)) {
+        return `${this.weather.tmp_min}℃~${this.weather.tmp_max}℃`
+      }
+    }
+  },
   mounted() {
-      // this.startNavigation()
-    this.currentData = this.$route.query.currentData;
-    console.log(this.currentData);
+    this.getWeather ();
     this.getDetailData();
   },
   methods: {
+    getWeather () {
+      this.$loading.open()
+      this.$http.get(`${process.env.VUE_APP_BASE_API}guizhou/one-travel-app/weather/queryWeatherByAreaCode/520200000000`).then(({ data }) => {
+        this.weather = data?.dailyForecast[0]
+      }).finally(e => {
+        this.$loading.close()
+      })
+    },
+    swipeChange(index) {
+      this.current = index;
+    },
     getDetailData() {
       const param = {
         userHotelId: this.$route.query.userHotelId,
       };
       journeyAPI.hotelInfo(param).then((res) => {
         this.detailInfo = res.data;
+        // this.images = res.data.coverPaths
       });
     },
   },

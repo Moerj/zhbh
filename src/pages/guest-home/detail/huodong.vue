@@ -2,7 +2,17 @@
   <ui-main>
 
     <div class="detail-container">
-      <img style="width: 100%;" :src="detailInfo.coverPath">
+
+      <van-swipe :autoplay="3000" :height="280" @change="swipeChange">
+        <van-swipe-item v-for="(image, index) in images" :key="index">
+          <img v-lazy="image" />
+        </van-swipe-item>
+        <template #indicator>
+          <div class="custom-indicator">
+            {{ current + 1 }}/{{ images.length }}
+          </div>
+        </template>
+      </van-swipe>
       <div class="main-card">
         <div class="card-content">
           <div class="time-wrapper flex">
@@ -14,7 +24,8 @@
 
           <div class="title-wrapper">
             <p class="title">{{detailInfo.title }}</p>
-            <p class="weather"><img src="../image/weather.png" />5℃～12℃</p>
+            <van-icon :name="weatherIcon"/>
+            <span>{{ temperature }}</span>
           </div>
 
           <div class="info-wrapper">
@@ -34,7 +45,7 @@
               <span><img src="../image/phone.svg"/></span>
             </div>
             <div class="info-item flex row-between" v-if="detailInfo['volunteerPhone']">
-              <a class="tel" :href="'tel'+detailInfo.volunteerPhone"></a>
+              <a class="tel" :href="'tel:'+detailInfo.volunteerPhone"></a>
               <span>
                 <span class="item-title">志愿者电话：</span>
                 <span class="red-text">{{detailInfo.volunteerPhone}}</span>
@@ -43,10 +54,6 @@
             </div>
           </div>
 
-          <!-- <div class="code-wrapper">
-            <p>您的专属二维码</p>
-            <div><img src="../image/big-code.png" /></div>
-          </div> -->
         </div>
 
         <div class="fullwidth-content" v-if="detailInfo.reminder">
@@ -78,25 +85,48 @@ export default {
   name: "Detail",
   data() {
     return {
+      images: [],
       current: 0,
       currentData: "",
-
       detailInfo: "",
+      weather: {},
     };
   },
+  computed: {
+    weatherIcon () {
+      if (this.weather.cond_code_n) {
+        return 'https://yjtp.yjctrip.com/weather/' + this.weather.cond_code_n + '.png'
+      }
+    },
+    temperature () {
+      if (!this.$isEmpty(this.weather.tmp_min) && !this.$isEmpty(this.weather.tmp_max)) {
+        return `${this.weather.tmp_min}℃~${this.weather.tmp_max}℃`
+      }
+    }
+  },
   mounted() {
+    this.getWeather ();
     this.getDetailData();
   },
   methods: {
-    // swipeChange(index) {
-    //   this.current = index;
-    // },
+    getWeather () {
+      this.$loading.open()
+      this.$http.get(`${process.env.VUE_APP_BASE_API}guizhou/one-travel-app/weather/queryWeatherByAreaCode/520200000000`).then(({ data }) => {
+        this.weather = data?.dailyForecast[0]
+      }).finally(e => {
+        this.$loading.close()
+      })
+    },
+    swipeChange(index) {
+      this.current = index;
+    },
     getDetailData() {
       const param = {
         usId: this.$route.query.usId,
       };
       journeyAPI.detailJourney(param).then((res) => {
-        this.detailInfo = res.data;
+        this.detailInfo = res.data
+        this.images = res.data.coverPaths
       });
     },
   },

@@ -3,16 +3,6 @@
 
     <div class="detail-container">
       <img style="width: 100%;" :src="image">
-<!--      <van-swipe :autoplay="3000" :height="280" @change="swipeChange">-->
-<!--        <van-swipe-item v-for="(image, index) in images" :key="index">-->
-<!--          <img v-lazy="image" />-->
-<!--        </van-swipe-item>-->
-<!--        <template #indicator>-->
-<!--          <div class="custom-indicator">-->
-<!--            {{ current + 1 }}/{{ images.length }}-->
-<!--          </div>-->
-<!--        </template>-->
-<!--      </van-swipe>-->
 
       <div class="main-card">
         <div class="card-content">
@@ -26,7 +16,8 @@
 
           <div class="title-wrapper">
             <p class="title">{{detailInfo.title}}</p>
-            <p class="weather"><img src="../image/weather.png" />5℃～12℃</p>
+            <van-icon :name="weatherIcon"/>
+            <span>{{ temperature }}</span>
           </div>
 
           <div class="info-wrapper">
@@ -90,15 +81,34 @@ export default {
       current: 0,
       currentData: "",
       detailInfo: "",
+      weather: {},
     };
   },
+  computed: {
+    weatherIcon () {
+      if (this.weather.cond_code_n) {
+        return 'https://yjtp.yjctrip.com/weather/' + this.weather.cond_code_n + '.png'
+      }
+    },
+    temperature () {
+      if (!this.$isEmpty(this.weather.tmp_min) && !this.$isEmpty(this.weather.tmp_max)) {
+        return `${this.weather.tmp_min}℃~${this.weather.tmp_max}℃`
+      }
+    }
+  },
   mounted() {
+    this.getWeather ();
     this.getDetailData();
   },
   methods: {
-    // swipeChange(index) {
-    //   this.current = index;
-    // },
+    getWeather () {
+      this.$loading.open()
+      this.$http.get(`${process.env.VUE_APP_BASE_API}guizhou/one-travel-app/weather/queryWeatherByAreaCode/520200000000`).then(({ data }) => {
+        this.weather = data?.dailyForecast[0]
+      }).finally(e => {
+        this.$loading.close()
+      })
+    },
     getDetailData() {
       const param = {
         usId: this.$route.query.usId,

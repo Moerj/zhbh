@@ -107,12 +107,12 @@
 						<span class="item-text">{{ item['tabNo'] + item['seatNo'] }} 座位</span>
 					  </span>
 					</div>
-          <div class="inner-item" style="width: 100%">
-          <div style="width: 100%">
-            <span class="item-title">志愿者电话：</span>
-            <span class="item-text-phone">{{item.volunteerPhone}}</span>
-            <span style="position: relative;right: 0;float: right"><img src="./image/phone.svg"/></span>
-          </div>
+          <div class="inner-item" style="width: 100%" v-if="item.volunteerPhone">
+            <div style="width: 100%">
+              <span class="item-title">志愿者电话：</span>
+              <span class="item-text-phone">{{item.volunteerPhone}}</span>
+              <span style="position: relative;right: 0;float: right"><img src="./image/phone.svg"/></span>
+            </div>
           </div>
 				  </div>
 				</div>
@@ -157,6 +157,7 @@ function getQuery() {
     pageSize: 0
   };
 }
+const user = JSON.parse(localStorage.user);
 export default {
   name: "GuesetHome",
   components: {
@@ -167,7 +168,7 @@ export default {
   },
   data() {
     return {
-      user: JSON.parse(localStorage.user),
+      user: user,
       active: 0,
       tabCurrent: "",
       dates: [],
@@ -179,7 +180,7 @@ export default {
       togPeople: [],
       showMap: false,
       showLoading: false,
-      journeyActive: 0,
+      journeyActive: user.id,
       notices: "",
       hotel:"",
       zIndex:true
@@ -246,7 +247,7 @@ export default {
     },
     toDetailRoom(id){
         this.$router.push({
-          name: 'jiudian',
+          path: '/guest-home/jiudian',
           query: {
             userHotelId : id
           }
