@@ -12,6 +12,44 @@
       >
         <van-tab v-if="dateList && dateList.length>0" v-for="(v, i) of dateList" :title="v" :key="i" />
       </van-tabs>
+	  <div style="background-color: #ffffff;border-top: 0.04rem solid #EBEBF1;" v-if="notices">
+	    <div style="overflow: auto;zoom: 1;padding: 0.625rem 0.75rem 0 0.75rem;">
+	  	<div style="float: left;font-size: 1.125rem;font-weight: 600;text-align: left;color: #292a2c;line-height: 1.5625rem;">尊敬的{{user.realName}}欢迎您！</div>
+	  	<div style="float: right;font-size: 0.75rem;font-weight: 500;text-align: left;color: #c7000b;line-height: 1.0625rem;background: #fff3f3;border-radius: 0.3125rem;padding: 0.125rem 0.25rem;" @click="toNotic(tabCurrent)">全部<img style="width: 0.5rem;height: 0.4375rem;" src="./image/notice.png" alt=""></div>
+	    </div>
+	    <van-notice-bar background="#FFFFFF" color="#666666" left-icon="volume-o" :scrollable="false">
+	  	<van-swipe vertical  class="notice-swipe" :autoplay="3000" :show-indicators="false" >
+	  	  <van-swipe-item v-for="notic in notices">{{ notic.title }}</van-swipe-item>
+	  	</van-swipe>
+	    </van-notice-bar>
+	  </div>
+	  <div class="title" @click.stop="toDetailRoom(hotel.id)"> <p v-if="hotel">我的酒店</p></div>
+	  <div class="hotel-card" v-if="hotel" @click="toDetailRoom(hotel.id)" >
+	    <div class="hotel-name" v-if="hotel">{{ hotel.title }}</div>
+	    <div class="hotel-info">
+	  	<div class="info-item flex row-between" @click.stop="$wxMap(hotel)">
+	  	  <span>
+	  		<span class="item-title">地址：</span>
+	  		<span class="item-text">{{ hotel.address }}</span>
+	  	  </span>
+	  	  <span><img src="./image/right.svg"/></span>
+	  	</div>
+	  	<div class="info-item flex row-between">
+	  	  <span>
+	  		<span class="item-title">房间：</span>
+	  		<span class="item-text">{{ hotel.roomNo }}</span>
+	  	  </span>
+	  	</div>
+	  	<div class="info-item flex row-between">
+	  	  <a class="tel" :href="'tel:'+hotel.hotelPhone"></a>
+	  	  <span>
+	  		<span class="item-title">联系电话：</span>
+	  		<span class="item-text text-phone">{{ hotel.hotelPhone }}</span>
+	  	  </span>
+	  	  <span><img src="./image/phone.svg"/></span>
+	  	</div>
+	    </div>
+	  </div>
     </template>
     <ui-pull
       @load="getDateList"
@@ -21,45 +59,6 @@
       ref="pull"
     >
       <div class="hotel-container">
-			<div style="background-color: #ffffff;border-top: 0.04rem solid #EBEBF1;" v-if="notices">
-			  <div style="overflow: auto;zoom: 1;padding: 0.625rem 0.75rem 0 0.75rem;">
-				<div style="float: left;font-size: 1.125rem;font-weight: 600;text-align: left;color: #292a2c;line-height: 1.5625rem;">尊敬的{{user.realName}}欢迎您！</div>
-				<div style="float: right;font-size: 0.75rem;font-weight: 500;text-align: left;color: #c7000b;line-height: 1.0625rem;background: #fff3f3;border-radius: 0.3125rem;padding: 0.125rem 0.25rem;" @click="toNotic(tabCurrent)">全部<img style="width: 0.5rem;height: 0.4375rem;" src="./image/notice.png" alt=""></div>
-			  </div>
-			  <van-notice-bar background="#FFFFFF" color="#666666" left-icon="volume-o" :scrollable="false">
-				<van-swipe vertical  class="notice-swipe" :autoplay="3000" :show-indicators="false" >
-				  <van-swipe-item v-for="notic in notices">{{ notic.title }}</van-swipe-item>
-				</van-swipe>
-			  </van-notice-bar>
-			</div>
-			<div class="title" @click.stop="toDetailRoom(hotel.id)"> <p v-if="hotel">我的酒店</p></div>
-			<div class="hotel-card" v-if="hotel" @click="toDetailRoom(hotel.id)" >
-			  <div class="hotel-name" v-if="hotel">{{ hotel.title }}</div>
-			  <div class="hotel-info">
-				<div class="info-item flex row-between" @click.stop="$wxMap(hotel)">
-				  <span>
-					<span class="item-title">地址：</span>
-					<span class="item-text">{{ hotel.address }}</span>
-				  </span>
-				  <span><img src="./image/right.svg"/></span>
-				</div>
-				<div class="info-item flex row-between">
-				  <span>
-					<span class="item-title">房间：</span>
-					<span class="item-text">{{ hotel.roomNo }}</span>
-				  </span>
-				</div>
-				<div class="info-item flex row-between">
-				  <a class="tel" :href="'tel:'+hotel.hotelPhone"></a>
-				  <span>
-					<span class="item-title">联系电话：</span>
-					<span class="item-text text-phone">{{ hotel.hotelPhone }}</span>
-				  </span>
-				  <span><img src="./image/phone.svg"/></span>
-				</div>
-			  </div>
-			</div>
-
 			<div class="subtitle flex row-left col-center">
 			  <div class="peers-group">
 				<div>
@@ -120,15 +119,10 @@
 				  </div>
 				</div>
 			  </div>
+			  <Empty :textShow="false" :list="journeyList"/>
 			</div>
 		  </div>
-
 		</ui-pull>
-<!--    <empty :list="journeyList"/>-->
-
-
-
-
 		<!-- 106.681549,26.558844 -->
 		<!-- <CoordPicker
 		  :show.sync="showMap"
@@ -153,7 +147,7 @@
 import Tabbar from "@/components/Tabbar";
 import Qrcode from "@/components/Qrcode";
 import Call from "@/components/call";
-import empty from '@/components/empty'
+import Empty from '@/components/empty'
 
 import journeyAPI from "@/api/journey.js";
 
@@ -171,7 +165,7 @@ export default {
     Tabbar,
     Qrcode,
     Call,
-    empty,
+    Empty,
   },
   data() {
     return {
@@ -183,7 +177,7 @@ export default {
       list: [],
       total: null,
       isShowCode: false,
-      journeyList: "",
+      journeyList: [],
       togPeople: [],
       showMap: false,
       showLoading: false,
