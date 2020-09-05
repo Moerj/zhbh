@@ -58,7 +58,7 @@
       :num.sync="query.pageNo"
       :total="total"
       ref="pull"
-      v-if="dateList && dateList.length > 0"
+      v-show="dateList && dateList.length > 0"
     >
       <div class="hotel-container">
 			<div class="subtitle flex row-left col-center">
@@ -124,7 +124,7 @@
 			</div>
 		  </div>
 		</ui-pull>
-    <Empty v-else :textShow="false" :list="journeyList"/>
+    <Empty :textShow="false" :list="journeyList"/>
 		<!-- 106.681549,26.558844 -->
 		<!-- <CoordPicker
 		  :show.sync="showMap"
