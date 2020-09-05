@@ -16,6 +16,7 @@ const actions = {
       (value) => {
         const user = JSON.stringify(value.user);
         localStorage.setItem("user", user);
+        sessionStorage.setItem("user", user);
         return value;
       },
       (res) => Promise.reject(res)
@@ -24,7 +25,6 @@ const actions = {
   getOpenId({ commit }) {
     if (!sessionStorage.wxData) {
       const params = qs.parse(location.href.split("?")[1])
-        console.log(params)
       const wxData = JSON.stringify(params)
       if (wxData == "{}") {
         return
@@ -38,6 +38,7 @@ const actions = {
           if (value.user && value.user != null) {
             const user = JSON.stringify(value.user);
             localStorage.setItem("user", user)
+              sessionStorage.setItem("user", user)
             sessionStorage.setItem("ISFIRSTLOGIN", false)
             return value;
           } else {

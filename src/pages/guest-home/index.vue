@@ -5,12 +5,13 @@
       <van-nav-bar title="旅发大会行程" fixed>
       </van-nav-bar>
       <van-tabs
+        v-if="dateList && dateList.length>0"
         class="tabs-cont"
         v-model="active"
         :line-height="0"
         @click="onTabsClick"
       >
-        <van-tab v-if="dateList && dateList.length>0" v-for="(v, i) of dateList" :title="v" :key="i" />
+        <van-tab v-for="(v, i) of dateList" :title="v" :key="i" />
       </van-tabs>
 	  <div style="background-color: #ffffff;border-top: 0.04rem solid #EBEBF1;" v-if="notices">
 	    <div style="overflow: auto;zoom: 1;padding: 0.625rem 0.75rem 0 0.75rem;">
@@ -57,6 +58,7 @@
       :num.sync="query.pageNo"
       :total="total"
       ref="pull"
+      v-show="dateList && dateList.length > 0"
     >
       <div class="hotel-container">
 			<div class="subtitle flex row-left col-center">
@@ -119,10 +121,10 @@
 				  </div>
 				</div>
 			  </div>
-			  <Empty :textShow="false" :list="journeyList"/>
 			</div>
 		  </div>
 		</ui-pull>
+    <Empty :textShow="false" :list="journeyList"/>
 		<!-- 106.681549,26.558844 -->
 		<!-- <CoordPicker
 		  :show.sync="showMap"
@@ -256,8 +258,10 @@ export default {
         .then((res) => {
           this.dates = res.list;
           this.tabCurrent = res.list[this.active];
-          this.getMyJourney();
-          this.getHotal();
+          if (res.list && res.list.length>0) {
+            this.getMyJourney();
+            this.getHotal();
+          }
         })
     },
     getTogPeople () {

@@ -27,7 +27,6 @@
                 </div>
                 <img v-else style="width: 2rem;" src="./image/call.png" />
             </div>
-            <empty v-else :list="list"/>
         </div>
         <div v-if="!isShowCode" style="font-size: 0.5rem;text-align: center;margin-top: 0.25rem">
             应急电话
@@ -40,9 +39,6 @@
     import empty from '@/components/empty'
     export default {
         name: "qrcode",
-        components:{
-          empty
-        },
         data(){
             return{
                 url:'',

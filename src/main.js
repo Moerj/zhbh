@@ -45,7 +45,7 @@ Vue.use(axios, {
 router.beforeEach((to, from, next) => {
   document.title = to.name || description
 
-  if (to.path !== '/login' && !localStorage.user) {
+  if (to.path !== '/login' && !sessionStorage.user) {
     next({path: "/login"})
     // 检查是否已绑定
   } else if (to.path == '/login' && sessionStorage.wxData) {
