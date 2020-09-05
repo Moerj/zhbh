@@ -3,6 +3,7 @@
   "description": "智慧两会",
   "scripts": {
     "dev": "vue-cli-service serve",
+    "dev:local": "vue-cli-service serve --mode local",
     "build": "vue-cli-service build --mode development",
     "build:test": "vue-cli-service build --mode test",
     "build:prod": "vue-cli-service build",
