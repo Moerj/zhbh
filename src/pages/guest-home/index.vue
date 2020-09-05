@@ -66,8 +66,7 @@
 				  <span
 					:class="journeyActive == user.id ? 'active' : ''"
 					@click="journeyHandle(user.id)"
-					>我的行程</span
-				  >
+					>我的行程</span>
 				  <span v-for="people in togPeople"
 					:class="journeyActive == people.id ? 'active' : ''"
 					@click="journeyHandle(people.id)"
