@@ -50,7 +50,10 @@ module.exports = {
             'process.VERSION': JSON.stringify(gitRevisionPlugin.version()),
             'process.COMMIT': JSON.stringify(gitRevisionPlugin.commithash())
             // 'process.BRANCH': JSON.stringify(gitRevisionPlugin.branch())
-          })
+          }),
+            new webpack.ProvidePlugin({
+                introJs: ['intro.js', 'introJs']
+            })
         ],
       }
     }
@@ -58,7 +61,12 @@ module.exports = {
     // dev mode
     return {
       name: description,
-      plugins: [APP_VERSION],
+      plugins: [
+          APP_VERSION,
+          new webpack.ProvidePlugin({
+            introJs: ['intro.js', 'introJs']
+          })
+      ],
     }
   },
 }
