@@ -76,7 +76,6 @@ router.beforeEach(async (to, from, next) => {
   }
 
   next()
-  console.log("执行结束")
 })
 
 // 公共事件监听器

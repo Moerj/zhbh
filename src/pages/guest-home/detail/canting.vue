@@ -3,7 +3,7 @@
 
 
     <div class="detail-container">
-      <img style="width: 100%;"  :src=" detailInfo.coverPath || image">
+      <img style="width: 100%;"  :src=" detailInfo.coverPath">
 <!--      <van-swipe :autoplay="3000" :height="280" @change="swipeChange">-->
 <!--        <van-swipe-item v-for="(image, index) in images" :key="index">-->
 <!--          <img v-lazy="image" />-->
@@ -104,7 +104,6 @@ export default {
   name: "Detail",
   data() {
     return {
-      image: require("./canting.png"),
       // images: [
       //   require("./canting.png"),
       //   "https://img.yzcdn.cn/vant/apple-1.jpg",

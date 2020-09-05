@@ -2,7 +2,7 @@
   <ui-main>
 
     <div class="detail-container">
-      <img style="width: 100%;" src="./huodong.png">
+      <img style="width: 100%;" :src="detailInfo.coverPath">
       <div class="main-card">
         <div class="card-content">
           <div class="time-wrapper flex">
@@ -61,7 +61,7 @@
         <div class="fullwidth-content">
           <div class="fullwidth-title">简介</div>
           <div class="fullwidth-main">
-            <div class="main-text" v-text="detailInfo.intro">
+            <div class="main-text" v-html="detailInfo.intro">
             </div>
           </div>
         </div>
@@ -74,15 +74,10 @@
     import Qrcode from "@/components/Qrcode";
 import journeyAPI from "@/api/journey.js";
 export default {
-    components:{Qrcode},
+  components:{Qrcode},
   name: "Detail",
   data() {
     return {
-      // images: [
-      //   require("./bolanhui.png"),
-      //   "https://img.yzcdn.cn/vant/apple-1.jpg",
-      //   "https://img.yzcdn.cn/vant/apple-2.jpg",
-      // ],
       current: 0,
       currentData: "",
 
