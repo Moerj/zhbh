@@ -165,25 +165,27 @@ export default {
         this.getDates()
         return
       }
-      if (!this.notice) {
+      if (!this.notice && this.query.date) {
         this.getNotice()
       }
-      this.list.length = 0
-      this.$http.get('h5api/meet/get/by/user', {
-        params: this.query
-      }).then(({ list }) => {
-        this.list = list || []
-        for (let [i, v] of this.list.entries()) {
-          if (v.activeState === '2') {
-            v.__isPast = true
-          } else if (v.activeState === '1') {
-            this.activeStep = i
-            break
+      if (this.query.date) {
+        this.list.length = 0
+        this.$http.get('h5api/meet/get/by/user', {
+          params: this.query
+        }).then(({ list }) => {
+          this.list = list || []
+          for (let [i, v] of this.list.entries()) {
+            if (v.activeState === '2') {
+              v.__isPast = true
+            } else if (v.activeState === '1') {
+              this.activeStep = i
+              break
+            }
           }
-        }
-      }).finally(e => {
-        this.$refs.pull?.endSuccess()
-      })
+        }).finally(e => {
+          this.$refs.pull?.endSuccess()
+        })
+      }
     },
     toDetail (v) {
       this.$router.push({

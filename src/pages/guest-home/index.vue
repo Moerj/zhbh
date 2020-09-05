@@ -65,7 +65,7 @@
 			  <div class="peers-group">
 				<div>
 				  <span
-					:class="journeyActive == user.id ? 'active' : ''"
+          :class="journeyActive == user.id ? 'active' : ''"
 					@click="journeyHandle(user.id)"
 					>我的行程</span
 				  >

@@ -3,7 +3,6 @@
     <template v-slot:header>
       <van-nav-bar
         title="公告"
-        left-arrow
       ></van-nav-bar>
     </template>
 
@@ -41,7 +40,6 @@ export default {
       const day =  date.getFullYear()+"-" + (date.getMonth()+1) + "-" + date.getDate();
       journeyAPI.notices({todayDate : day}).then((res)=> {
         this.noticeData = res.data
-        console.log(this.noticeData)
       })
     },
   },
