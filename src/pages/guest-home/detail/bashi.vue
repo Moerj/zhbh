@@ -32,8 +32,8 @@
           <div class="info-wrapper">
             <div class="info-item flex row-between">
               <span>
-                <span class="item-title">起点：</span>
-                <span class="black-text">{{detailInfo.place}}</span>
+                <span class="item-title1">起点：</span>
+                <span class="black-text1">{{detailInfo.place}}</span>
               </span>
               <span><img src="../image/right.svg"/></span>
             </div>
@@ -50,13 +50,11 @@
                 <span class="black-text">{{detailInfo.carNo}}</span>
               </span>
             </div>
-            <div class="info-item flex row-between">
+            <div class="info-item flex row-between" v-if="detailInfo['volunteerPhone']">
               <a class="tel" :href="'tel:' + (detailInfo.volunteerPhone )"></a>
               <span>
                 <span class="item-title">志愿者电话：</span>
-                <span class="red-text">{{
-                  detailInfo.volunteerPhone
-                }}</span>
+                <span class="red-text">{{detailInfo.volunteerPhone}}</span>
               </span>
           </div>
         </div>
@@ -216,6 +214,7 @@ export default {
     }
     .item-title {
       color: #595b64;
+      font-weight: 300;
     }
     .black-text {
       color: #292a2c;
@@ -224,6 +223,16 @@ export default {
       color: #c7000b;
     }
   }
+}
+
+.item-title1 {
+  font-size: 15px;font-weight: 300;text-align: left;color: #595b64;line-height: 21px;
+}
+.black-text1 {
+  font-size: 15px;font-weight: 400;text-align: left;line-height: 21px;
+  overflow: hidden;
+  white-space: normal;
+  color: #292a2c;
 }
 
 .code-wrapper {

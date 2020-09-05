@@ -1,5 +1,6 @@
 <template>
     <nut-drag
+        style="z-index: 9999 !important;"
         @click.native="click"
         :attract="true"
         class="my-call"
@@ -57,9 +58,11 @@
                 })
             },
             click() {
+                this.$emit('click-z-index',true)
                 this.isShowCode = true;
             },
             closeCode(ev) {
+                this.$emit('click-z-index',false)
                 this.isShowCode = false;
             },
         }
@@ -76,6 +79,7 @@
 		padding: 0.4rem 0.3rem 0.4rem 0.3rem;
 		width: 3.757rem;
 		height: 3.75rem;
+        z-index: 1;
         .code-content {
             display: flex;
             justify-content: center;

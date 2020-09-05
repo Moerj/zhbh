@@ -3,7 +3,7 @@
         @click.native="click"
         :attract="true"
         class="my-code"
-        :class="isShowCode ? 'big' : 'mini'">
+        :class="isShowCode ? 'big' : 'mini'" :style="'z-index:'+zIndex1 +'!important'">
         <div class="code-content">
             <div class="code">
                 <div class="close-icon" v-if="isShowCode" @click.stop="closeCode">
@@ -54,6 +54,21 @@
     const user = JSON.parse(localStorage.user)
     export default {
         name: "qrcode",
+		props:{
+            zIndex:{
+                type:Number,
+			}
+		},
+		watch:{
+            zIndex:{
+                handler(newValue, _){
+					console.log(newValue)
+					this.zIndex1 = newValue
+                },
+                deep:true
+
+            }
+		},
         data(){
             return{
               url:'',
@@ -64,6 +79,7 @@
               state:'正常',
               isClick: user && user.phoneNo ? 1:0,
               healthData:"",
+                zIndex1:333,
             }
         },
         mounted(){
@@ -107,6 +123,9 @@
     }
 </script>
 <style lang="scss" scoped>
+	.my-code{
+		z-index: 9999 !important;
+	}
     // 二维码部分
     .my-code.mini {
         right: 2%;
@@ -162,7 +181,7 @@
                     top: -54px;
                     right: 20px;
                     width: 30px;
-                    z-index: 40000 !important;
+					z-index: 10000 !important;
                 }
             }
         }

@@ -137,8 +137,8 @@
 		  </div>
 		</van-overlay>
 	  </ui-main>
-	  <Qrcode/>
-	  <Call/>
+      <Qrcode v-if="zIndex"/>
+	  <Call @click-z-index="clickCallShow" />
   </div>
 </template>
 
@@ -155,7 +155,7 @@ function getQuery() {
   return {
     shop: [],
     pageNo: 1,
-    pageSize: 0,
+    pageSize: 0
   };
 }
 export default {
@@ -183,6 +183,7 @@ export default {
       journeyActive: 0,
       notices: "",
       hotel:"",
+      zIndex:true
     };
   },
   watch: {
@@ -221,6 +222,9 @@ export default {
         this.notices = res.data
       })
     },
+      clickCallShow(index){
+          this.zIndex = !index
+      },
     toNotic () {
       this.$router.push({
         path: '/notice/',

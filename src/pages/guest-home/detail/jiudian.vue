@@ -28,12 +28,11 @@
             <p class="title">{{detailInfo.title}}</p>
             <p class="weather"><img src="../image/weather.png" />5℃～12℃</p>
           </div>
-
           <div class="info-wrapper">
             <div class="info-item flex row-between" @click.stop="$wxMap(detailInfo)">
               <span>
-                <span class="item-title">地点：</span>
-                <span class="black-text">{{detailInfo.address}}</span>
+                <span class="item-title1">地点：</span>
+                <span class="black-text1">{{detailInfo.address}}回复的客户发的哈卡机了符合</span>
               </span>
               <span><img src="../image/right.svg"/></span>
             </div>
@@ -43,7 +42,7 @@
                 <span class="black-text">{{detailInfo.roomNo || '暂未分配房间'}}</span>
               </span>
             </div>
-            <div class="info-item flex row-between">
+            <div class="info-item flex row-between" v-if="detailInfo['hotelPhone']">
               <a class="tel" :href="'tel:'+detailInfo.hotelPhone"></a>
               <span>
                 <span class="item-title">联系电话：</span>
@@ -51,7 +50,7 @@
               </span>
               <span><img src="../image/phone.svg"/></span>
             </div>
-            <div class="info-item flex row-between">
+            <div class="info-item flex row-between" v-if="detailInfo['volunteerPhone']">
               <a class="tel" :href="'tel'+detailInfo.volunteerPhone"></a>
               <span>
                 <span class="item-title">志愿者电话：</span>
@@ -61,8 +60,6 @@
             </div>
           </div>
         </div>
-
-
         <div class="fullwidth-content">
           <div class="fullwidth-title">简介</div>
           <div class="fullwidth-main">
@@ -70,7 +67,6 @@
             </div>
           </div>
         </div>
-
       </div>
     </div>
   </ui-main>
@@ -212,6 +208,7 @@ export default {
     }
     .item-title {
       color: #595b64;
+      font-weight: 300;
     }
     .black-text {
       color: #292a2c;
@@ -220,6 +217,16 @@ export default {
       color: #c7000b;
     }
   }
+}
+
+.item-title1 {
+  font-size: 15px;font-weight: 300;text-align: left;color: #595b64;line-height: 21px;
+}
+.black-text1 {
+  font-size: 15px;font-weight: 400;text-align: left;line-height: 21px;
+  overflow: hidden;
+  white-space: normal;
+  color: #292a2c;
 }
 
 .code-wrapper {

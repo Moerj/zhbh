@@ -18,10 +18,10 @@
           </div>
 
           <div class="info-wrapper">
-            <div class="info-item flex row-between" @click.stop="$wxMap(detailInfo)">
+            <div class="flex row-between" @click.stop="$wxMap(detailInfo)">
               <span>
-                <span class="item-title">地点：</span>
-                <span class="black-text">{{detailInfo.place}}</span>
+                <span class="item-title1" >地点：</span>
+                <span class="black-text1" >{{detailInfo.place}}</span>
               </span>
               <span><img src="../image/right.svg"/></span>
             </div>
@@ -206,16 +206,24 @@ export default {
     }
     .item-title {
       color: #595b64;
+      font-weight: 300;
     }
     .black-text {
-      overflow: hidden;
-      white-space:nowrap;
       color: #292a2c;
     }
     .red-text {
       color: #c7000b;
     }
   }
+}
+.item-title1 {
+  font-size: 15px;font-weight: 300;text-align: left;color: #595b64;line-height: 21px;
+}
+.black-text1 {
+  font-size: 15px;font-weight: 400;text-align: left;line-height: 21px;
+  overflow: hidden;
+  white-space: normal;
+  color: #292a2c;
 }
 
 .code-wrapper {
