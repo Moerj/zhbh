@@ -7,33 +7,65 @@
       <img style="width: 100%;min-height: 200px;" :src="detailInfo['coverPath']">
       <div class="main-card">
         <div class="card-content">
-          <div class="list-group">
-            <div v-for="item in detailInfo['actGroups']" class="list-item">
-              <div class="item-left">
-                <div class="mingci">{{item['groupTitle']}}</div>
-				<!-- greenbaoming graybaoming-->
-                <div class="baoming">报名</div>
-              </div>
-              <div class="item-right">
-                <div class="renshu">
-                  <span>已报名：{{item['jionedNum']}}</span> |
-                  <span>截止人数：{{item['jionNum']}}</span>
-                </div>
-                <div class="jindu">
-                  <van-progress color="#FD5542" :show-pivot="false" :percentage="(item['jionedNum']*(item['jionNum']/100))*100" />
-                </div>
-                <div class="time">
-                  <img src="./image/time.png" height="12" />
-                  报名截止时间 {{item['jionEndtimeCN']}}
-                </div>
-                <div class="time">
-                  <img src="./image/downtime.png" height="12" />
-                  活动开始时间 {{item['groupStarttimeCN']}}
-                </div>
-              </div>
-            </div>
-          </div>
+			<div style="font-size: 1.25rem;font-weight: 600;text-align: left;color: #292a2c;line-height: 1.75rem;">
+				园区亲子摄影比赛
+			</div>
+			<div style="height: 4.7rem;background: #f6f6f9;padding: 0.9375rem 0.75rem;margin-top: 0.625rem;">
+				<div>
+				  <img src="./image/downtime@2x.png" style="width: 0.8125rem;position: relative;top: 2px;" alt="">
+				  <span style="font-size: 0.9375rem;font-weight: 400;text-align: left;color: #9094a8;line-height: 1.25rem;letter-spacing: 1px;">报名截止时间:</span>
+				  <span style="font-size: 0.9375rem;font-weight: 400;float: right;color: #292a2c;line-height: 1.25rem;">{{detailInfo['endTimeCN']}}</span>
+				</div>
+				<div style="margin-top: 0.3125rem">
+				  <img src="./image/time@2x.png" style="width: 0.8125rem;position: relative;top: 2px;" alt="">
+				  <span style="font-size: 0.9375rem;font-weight: 400;text-align: left;color: #9094a8;line-height: 1.25rem;letter-spacing: 1px;">活动时间:</span>
+				  <span style="font-size: 0.9375rem;font-weight: 400;float: right;color: #292a2c;line-height: 1.25rem;">{{detailInfo['startTimeCN']}}-{{detailInfo['endTimeCN']}}</span>
+				</div>
+			</div>
         </div>
+		<div class="fullwidth-content">
+		  <div class="fullwidth-title">活动报名</div>
+		  <div class="fullwidth-main">
+		    <div>
+		      <div style="border-bottom: 1px solid #d8d8d8;border-top: 1px solid #d8d8d8;margin: 0.625rem 0;">
+		      	<van-tabs @click="onTabsClick" v-model="active" :ellipsis="false" title-active-color="#C7000B" class="tabs-cont" :line-height="2" :line-width="50">
+		      		<van-tab v-for="(item,index) in detailInfo['dayArr']" :key="index" title-style="align-items: inherit;">
+		      			<template #title> 
+		      				<div style="font-size: 0.625rem;text-align: center;">{{item['day']}}</div>
+		      				<div style="font-size: 0.875rem;text-align: center;">{{item['dayWeek']}}</div>
+		      			</template>
+		      		</van-tab>
+		      	</van-tabs>
+		      </div>
+			  <div class="list-group" v-if="list.length>0">
+			    <div v-for="item in list" class="list-item">
+			      <div class="item-left">
+			        <div class="mingci">{{item['groupTitle']}}</div>
+			  				<!-- greenbaoming graybaoming-->
+			        <div class="baoming">报名</div>
+			      </div>
+			      <div class="item-right">
+			        <div class="renshu">
+			          <span>已报名：{{item['jionedNum']}}</span> |
+			          <span>截止人数：{{item['jionNum']}}</span>
+			        </div>
+			        <div class="jindu">
+			          <van-progress color="#FD5542" :show-pivot="false" :percentage="(item['jionedNum']*(item['jionNum']/100))*100" />
+			        </div>
+			        <div class="time">
+			          <img src="./image/time.png" height="12" />
+			          报名截止时间 {{item['jionEndtimeCN']}}
+			        </div>
+			        <div class="time">
+			          <img src="./image/downtime.png" height="12" />
+			          活动开始时间 {{item['groupStarttimeCN']}}
+			        </div>
+			      </div>
+			    </div>
+			  </div>
+		    </div>
+		  </div>
+		</div>
         <div class="fullwidth-content">
           <div class="fullwidth-title">活动详情</div>
           <div class="fullwidth-main">
@@ -65,6 +97,8 @@ export default {
       current: 0,
       currentData: "",
       detailInfo: {},
+	  list:[],
+	  active:0
     };
   },
   mounted() {
@@ -78,11 +112,28 @@ export default {
         if (res.errorCode==="00000"){
 			console.log(res.data)
             this.detailInfo = res.data
+			if(this.detailInfo['dayArr'].length>0){
+				if (this.detailInfo['dayArr'][0].day){
+					this.onTabsClick(this.detailInfo['dayArr'][0].day)
+				}
+			}
         }else{
             this.$toast(res.msg);
         }
       });
     },
+	onTabsClick(){
+		console.log(this.detailInfo['dayArr'][this.active].day)
+		let user= JSON.parse(localStorage.user)
+		journeyAPI.actgroupInfo({actId: this.$route.query['activeId'], userId:user.id,actDate:this.detailInfo['dayArr'][this.active].day}).then((res) => {
+		  if (res.errorCode==="00000"){
+				console.log(res.data)
+				this.list = res.data
+		  }else{
+				this.$toast(res.msg);
+		  }
+		});
+	}
   },
 };
 </script>

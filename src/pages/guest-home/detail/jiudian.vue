@@ -30,7 +30,7 @@
           </div>
 
           <div class="info-wrapper">
-            <div class="info-item flex row-between">
+            <div class="info-item flex row-between" @click.stop="$wxMap(detailInfo)">
               <span>
                 <span class="item-title">地点：</span>
                 <span class="black-text">{{detailInfo.address}}</span>
