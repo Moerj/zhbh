@@ -1,7 +1,7 @@
 <template>
   <ui-main>
     <template v-slot:header>
-      <van-tabs v-model="activeTab" @click="onTabsClick">
+      <van-tabs v-model="activeTab" @click="onTabsClick" v-if="dates&&dates.length">
         <van-tab v-for="(v,i) of dates" :title="$dayjs(v).format('M月DD号')" :key="i"/>
       </van-tabs>
       <div class="notice">
