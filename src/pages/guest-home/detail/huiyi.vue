@@ -34,42 +34,33 @@
             </p>
             <p class="weather"><img src="../image/weather.png" />5℃～12℃</p>
           </div>
-
           <div class="info-wrapper">
             <div class="info-item flex row-between" @click.stop="$wxMap(detailInfo)">
               <span>
                 <span class="item-title">地点：</span>
-                <span class="black-text">{{
-                  detailInfo.place
-                }}</span>
+                <span class="black-text">{{detailInfo.place}}</span>
               </span>
               <span><img src="../image/right.svg"/></span>
             </div>
             <div class="info-item flex row-between">
               <span>
                 <span class="item-title">座位：</span>
-                <span class="black-text">{{
-                  detailInfo.tabNo
-                }}</span>
+                <span class="black-text">{{detailInfo.tabNo}}</span>
               </span>
             </div>
-            <div class="info-item flex row-between">
+            <div class="info-item flex row-between" v-if="detailInfo.phone">
               <a class="tel" :href="'tel'+ (detailInfo.phone )"></a>
               <span>
                 <span class="item-title">联系电话：</span>
-                <span class="red-text">{{
-                  detailInfo.phone
-                }}</span>
+                <span class="red-text">{{detailInfo.phone}}</span>
               </span>
               <span><img src="../image/phone.svg"/></span>
             </div>
-            <div class="info-item flex row-between">
+            <div class="info-item flex row-between" v-if="detailInfo['volunteerPhone']">
               <a class="tel" :href="'tel:' + (detailInfo.volunteerPhone)"></a>
               <span>
                 <span class="item-title">志愿者电话：</span>
-                <span class="red-text">{{
-                  detailInfo.volunteerPhone
-                }}</span>
+                <span class="red-text">{{detailInfo.volunteerPhone}}</span>
               </span>
               <span><img src="../image/phone.svg"/></span>
             </div>

@@ -4,16 +4,14 @@
     <template v-slot:header>
       <van-nav-bar title="旅发大会行程" fixed>
       </van-nav-bar>
-        <div v-intro="'这里日期查询'" v-intro-position="'bottom'">
-            <van-tabs
-                v-if="dateList && dateList.length>0"
-                class="tabs-cont"
-                v-model="active"
-                :line-height="0"
-                @click="onTabsClick">
-                <van-tab v-for="(v, i) of dateList" :title="v" :key="i" />
-            </van-tabs>
-        </div>
+        <van-tabs
+            v-if="dateList && dateList.length>0"
+            class="tabs-cont"
+            v-model="active"
+            :line-height="0"
+            @click="onTabsClick">
+            <van-tab v-for="(v, i) of dateList" :title="v" :key="i" />
+        </van-tabs>
 	  <div style="background-color: #ffffff;border-top: 0.04rem solid #EBEBF1;" v-if="notices">
 	    <div style="overflow: auto;zoom: 1;padding: 0.625rem 0.75rem 0 0.75rem;">
 	  	<div style="float: left;font-size: 1.125rem;font-weight: 600;text-align: left;color: #292a2c;line-height: 1.5625rem;">尊敬的{{user.realName}}欢迎您！</div>
@@ -31,8 +29,8 @@
 	    <div class="hotel-info">
 	  	<div class="info-item flex row-between" @click.stop="$wxMap(hotel)">
 	  	  <span>
-	  		<span class="item-title">地址：</span>
-	  		<span class="item-text">{{ hotel.address }}</span>
+	  		<span class="item-title" style="float: left">地址：</span>
+	  		<span class="item-text  ellipsis-1">{{ hotel.address }}</span>
 	  	  </span>
 	  	  <span><img src="./image/right.svg"/></span>
 	  	</div>
@@ -99,8 +97,8 @@
 					<div @click="toDetail(item)" class="inner-title">{{ item.title }}</div>
 					<div class="inner-item flex row-between" @click.stop="$wxMap(item)">
 					  <span>
-						<span class="item-title">地址：</span>
-						<span class="item-text">{{ item['place'] }}</span>
+						<span class="item-title" style="float: left">地址：</span>
+						<span class="item-text ellipsis-1">{{ item['place'] }}</span>
 					  </span>
 					  <span><img src="./image/right.svg"/></span>
 					</div>
@@ -269,10 +267,6 @@ export default {
     getTogPeople () {
       journeyAPI.togPeople({id : this.user.id}).then(res => {
         this.togPeople = res.refUsers
-          this.$nextTick(()=>{
-              let introJS = require('intro.js')
-              introJS().start() // 退出引导调用 exit() 即可
-          })
       })
     },
     getMyJourney() {

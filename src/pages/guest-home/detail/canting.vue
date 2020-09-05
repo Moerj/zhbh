@@ -62,9 +62,7 @@
               <a class="tel" :href="'tel:' + (detailInfo.volunteerPhone)"></a>
               <span>
                 <span class="item-title">志愿者电话：</span>
-                <span class="red-text">{{
-                  detailInfo.volunteerPhone
-                }}</span>
+                <span class="red-text">{{detailInfo.volunteerPhone}}</span>
               </span>
               <span><img src="../image/phone.svg"/></span>
             </div>

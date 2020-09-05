@@ -3,17 +3,6 @@
 
     <div class="detail-container">
       <img style="width: 100%;" src="./huodong.png">
-<!--      <van-swipe :autoplay="3000" :height="280" @change="swipeChange">-->
-<!--        <van-swipe-item v-for="(image, index) in images" :key="index">-->
-<!--          <img v-lazy="image" />-->
-<!--        </van-swipe-item>-->
-<!--        <template #indicator>-->
-<!--          <div class="custom-indicator">-->
-<!--            {{ current + 1 }}/{{ images.length }}-->
-<!--          </div>-->
-<!--        </template>-->
-<!--      </van-swipe>-->
-
       <div class="main-card">
         <div class="card-content">
           <div class="time-wrapper flex">
@@ -36,7 +25,7 @@
               </span>
               <span><img src="../image/right.svg"/></span>
             </div>
-            <div class="info-item flex row-between">
+            <div class="info-item flex row-between" v-if="detailInfo.phone">
               <a class="tel" :href="'tel:'+detailInfo.phone"></a>
               <span>
                 <span class="item-title">联系电话：</span>
@@ -44,7 +33,7 @@
               </span>
               <span><img src="../image/phone.svg"/></span>
             </div>
-            <div class="info-item flex row-between">
+            <div class="info-item flex row-between" v-if="detailInfo['volunteerPhone']">
               <a class="tel" :href="'tel'+detailInfo.volunteerPhone"></a>
               <span>
                 <span class="item-title">志愿者电话：</span>
