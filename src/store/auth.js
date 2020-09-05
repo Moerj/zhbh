@@ -22,13 +22,14 @@ const actions = {
     );
   },
   getOpenId({ commit }) {
-    if (!localStorage.wxData) {
+    if (!sessionStorage.wxData) {
       const params = qs.parse(location.href.split("?")[1])
+        console.log(params)
       const wxData = JSON.stringify(params)
       if (wxData == "{}") {
         return
       }
-      localStorage.setItem("wxData",wxData)
+        sessionStorage.setItem("wxData",wxData)
     }
   },
  checkOpenId({commit}, params) {
@@ -37,10 +38,10 @@ const actions = {
           if (value.user && value.user != null) {
             const user = JSON.stringify(value.user);
             localStorage.setItem("user", user)
-            localStorage.setItem("ISFIRSTLOGIN", false)
+            sessionStorage.setItem("ISFIRSTLOGIN", false)
             return value;
           } else {
-            localStorage.setItem("ISFIRSTLOGIN", true)
+            sessionStorage.setItem("ISFIRSTLOGIN", true)
           }
         }
     );
