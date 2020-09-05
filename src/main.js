@@ -63,11 +63,10 @@ router.beforeEach(async (to, from, next) => {
           // role 1 3 嘉宾首页, 2工作人员或志愿者首页
           const _url = store.getters.roleNav.get(user.userRole)
           next({ path: _url, query: { openId: wxData.openid }})
+          return
         }
       })
-      return
     }
-
     sessionStorage.removeItem("user")
   }
 
