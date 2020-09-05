@@ -44,8 +44,9 @@
               <div class="td ellipsis-1">{{ v.carType }}</div>
             </div>
             <div class="tr">
+              <!--2020 9.5 创信 字段更改-->
               <div class="th">车号</div>
-              <div class="td ellipsis-1">{{  }}</div>
+              <div class="td ellipsis-1">{{ v.carNoTitle }}</div>
             </div>
             <div class="tr">
               <div class="th">车牌号</div>

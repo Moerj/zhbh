@@ -10,7 +10,7 @@
         :line-height="0"
         @click="onTabsClick"
       >
-        <van-tab v-for="(v, i) of dateList" :title="v" :key="i" />
+        <van-tab v-if="dateList && dateList.length>0" v-for="(v, i) of dateList" :title="v" :key="i" />
       </van-tabs>
     </template>
     <ui-pull
@@ -121,9 +121,12 @@
 				</div>
 			  </div>
 			</div>
-      <empty v-else/>
 		  </div>
+
 		</ui-pull>
+<!--    <empty :list="journeyList"/>-->
+
+
 
 
 		<!-- 106.681549,26.558844 -->
@@ -154,6 +157,7 @@ import empty from '@/components/empty'
 
 import journeyAPI from "@/api/journey.js";
 
+
 function getQuery() {
   return {
     shop: [],
@@ -165,8 +169,9 @@ export default {
   name: "GuesetHome",
   components: {
     Tabbar,
-     Qrcode,
-      Call
+    Qrcode,
+    Call,
+    empty,
   },
   data() {
     return {

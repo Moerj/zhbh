@@ -52,8 +52,9 @@
             <span>{{ v.seatPerson }}</span>
           </div>
           <div class="ellipsis-1">
+            <!--2020 9.5 创信 字段更改-->
             <span class="title">车号：</span>
-            <span>{{  }}</span>
+            <span>{{ v.carNoTitle }}</span>
           </div>
           <div class="ellipsis-1">
             <span class="title">车牌号：</span>
