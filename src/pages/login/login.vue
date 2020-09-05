@@ -149,7 +149,7 @@
     },
     methods: {
       async login(data) {
-        Object.assign(data,JSON.parse(sessionStorage.wxData))
+        Object.assign(data,JSON.parse(localStorage.wxData))
         const validatePhone = await this.checkPhone(data.phoneNo);
         const validateCode = await this.checkCode(data.joinCode);
         if (validatePhone && validateCode) {

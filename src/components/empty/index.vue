@@ -12,7 +12,7 @@
         height: 124px;
     }
     .empty-center{
-        transform: translateY(-50%);
+        // transform: translateY(-50%);
     }
     .empty-label{
         font-size: 12px;
@@ -24,7 +24,7 @@
     <div class="empty" v-if="list && list.length==0">
         <div class="empty-center">
             <img src="./empty.png" class="empty-icon">
-            <div class="empty-label">{{label}}</div>
+            <div v-if="textShow" class="empty-label">{{label}}</div>
         </div>
     </div>
 </template>
@@ -35,6 +35,10 @@
                 type:String,
                 default: '暂无记录'
             },
+			textShow:{
+			    type:Boolean,
+			    default: true
+			},
             list:{}
         },
     }
