@@ -45,8 +45,6 @@ Vue.use(axios, {
 router.beforeEach(async (to, from, next) => {
   document.title = to.name || description
 
-  console.log(to)
-  console.log(sessionStorage.user)
   // 未登录拦截
   if (to.path !== '/login' && !localStorage.user) {
     next({path: "/login"})
@@ -57,7 +55,7 @@ router.beforeEach(async (to, from, next) => {
     // 重新获取openId
     store._actions.getOpenId[0] ();
     // 第一次进入登录前检测 openid
-    if (sessionStorage.wxData && !localStorage.user) {
+    if (sessionStorage.wxData && !sessionStorage.user) {
       const wxData = JSON.parse(sessionStorage.wxData)
       await store._actions.checkOpenId[0]({ openId: wxData.openid}).then((res) => {
         if (res && res.user) {
@@ -69,8 +67,7 @@ router.beforeEach(async (to, from, next) => {
         }
       })
     }
-    // 二次进入登录页 删除user
-    localStorage.removeItem("user")
+    sessionStorage.removeItem("user")
   }
 
   next()
