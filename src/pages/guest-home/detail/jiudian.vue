@@ -3,7 +3,7 @@
 
 
     <div class="detail-container">
-      <img style="width: 100%;" src="./jiudian.png">
+      <img style="width: 100%;" :src="detailInfo.coverPath">
 <!--      <van-swipe :autoplay="3000" :height="280" @change="swipeChange">-->
 <!--        <van-swipe-item v-for="(image, index) in images" :key="index">-->
 <!--          <img v-lazy="image" />-->
@@ -25,15 +25,16 @@
           </div>
 
           <div class="title-wrapper">
-            <p class="title">{{detailInfo.title}}</p>
-            <p class="weather"><img src="../image/weather.png" />5℃～12℃</p>
+              <p class="title">{{detailInfo.title }}</p>
+              <van-icon :name="weatherIcon"/>
+              <span>{{ temperature }}</span>
           </div>
 
           <div class="info-wrapper">
             <div class="info-item flex row-between" @click.stop="$wxMap(detailInfo)">
               <span>
-                <span class="item-title">地点：</span>
-                <span class="black-text">{{detailInfo.address}}</span>
+                <span class="item-title1">地点：</span>
+                <span class="black-text1">{{detailInfo.address}}回复的客户发的哈卡机了符合</span>
               </span>
               <span><img src="../image/right.svg"/></span>
             </div>
@@ -43,7 +44,7 @@
                 <span class="black-text">{{detailInfo.roomNo || '暂未分配房间'}}</span>
               </span>
             </div>
-            <div class="info-item flex row-between">
+            <div class="info-item flex row-between" v-if="detailInfo['hotelPhone']">
               <a class="tel" :href="'tel:'+detailInfo.hotelPhone"></a>
               <span>
                 <span class="item-title">联系电话：</span>
@@ -51,7 +52,7 @@
               </span>
               <span><img src="../image/phone.svg"/></span>
             </div>
-            <div class="info-item flex row-between">
+            <div class="info-item flex row-between" v-if="detailInfo['volunteerPhone']">
               <a class="tel" :href="'tel'+detailInfo.volunteerPhone"></a>
               <span>
                 <span class="item-title">志愿者电话：</span>
@@ -61,8 +62,6 @@
             </div>
           </div>
         </div>
-
-
         <div class="fullwidth-content">
           <div class="fullwidth-title">简介</div>
           <div class="fullwidth-main">
@@ -70,7 +69,6 @@
             </div>
           </div>
         </div>
-
       </div>
     </div>
   </ui-main>
@@ -84,30 +82,47 @@ export default {
   name: "Detail",
   data() {
     return {
-      // images: [
-      //   require("./jiudian.png"),
-      //   "https://img.yzcdn.cn/vant/apple-1.jpg",
-      //   "https://img.yzcdn.cn/vant/apple-2.jpg",
-      // ],
       current: 0,
       currentData: "",
-
       detailInfo: "",
+      weather: {},
     };
   },
+  computed: {
+    weatherIcon () {
+      if (this.weather.cond_code_n) {
+        return 'https://yjtp.yjctrip.com/weather/' + this.weather.cond_code_n + '.png'
+      }
+    },
+    temperature () {
+      if (!this.$isEmpty(this.weather.tmp_min) && !this.$isEmpty(this.weather.tmp_max)) {
+        return `${this.weather.tmp_min}℃~${this.weather.tmp_max}℃`
+      }
+    }
+  },
   mounted() {
-      // this.startNavigation()
-    this.currentData = this.$route.query.currentData;
-    console.log(this.currentData);
+    this.getWeather ();
     this.getDetailData();
   },
   methods: {
+    getWeather () {
+      this.$loading.open()
+      this.$http.get(`${process.env.VUE_APP_BASE_API}guizhou/one-travel-app/weather/queryWeatherByAreaCode/520200000000`).then(({ data }) => {
+        this.weather = data?.dailyForecast[0]
+      }).finally(e => {
+        this.$loading.close()
+      })
+    },
+    swipeChange(index) {
+      this.current = index;
+    },
     getDetailData() {
       const param = {
         userHotelId: this.$route.query.userHotelId,
       };
       journeyAPI.hotelInfo(param).then((res) => {
         this.detailInfo = res.data;
+        // this.images = res.data.coverPaths
       });
     },
   },
@@ -217,6 +232,7 @@ export default {
     }
     .item-title {
       color: #595b64;
+      font-weight: 300;
     }
     .black-text {
       color: #292a2c;
@@ -225,6 +241,16 @@ export default {
       color: #c7000b;
     }
   }
+}
+
+.item-title1 {
+  font-size: 15px;font-weight: 300;text-align: left;color: #595b64;line-height: 21px;
+}
+.black-text1 {
+  font-size: 15px;font-weight: 400;text-align: left;line-height: 21px;
+  overflow: hidden;
+  white-space: normal;
+  color: #292a2c;
 }
 
 .code-wrapper {

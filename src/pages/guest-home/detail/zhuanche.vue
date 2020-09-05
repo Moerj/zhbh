@@ -2,7 +2,7 @@
   <ui-main>
 
     <div class="detail-container">
-      <img style="width: 100%;" src="./zhuanche.png">
+      <img style="width: 100%;" :src="image">
 <!--      <van-swipe :autoplay="3000" :height="280" @change="swipeChange">-->
 <!--        <van-swipe-item v-for="(image, index) in images" :key="index">-->
 <!--          <img v-lazy="image" />-->
@@ -28,21 +28,22 @@
 
           <div class="title-wrapper">
             <p class="title">{{detailInfo.title}}</p>
-            <p class="weather"><img src="../image/weather.png" />5℃～12℃</p>
+            <van-icon :name="weatherIcon"/>
+            <span>{{ temperature }}</span>
           </div>
 
           <div class="info-wrapper">
             <div class="info-item flex row-between" @click.stop="$wxMap(detailInfo)">
               <span>
-                <span class="item-title">起点：</span>
-                <span class="black-text">{{detailInfo.place}}</span>
+                <span class="item-title1">起点：</span>
+                <span class="black-text1">{{detailInfo.place}}</span>
               </span>
               <span><img src="../image/right.svg"/></span>
             </div>
             <div class="info-item flex row-between">
               <span>
-                <span class="item-title">目的地：</span>
-                <span class="black-text">{{detailInfo.destination}}</span>
+                <span class="item-title1">目的地：</span>
+                <span class="black-text1">{{detailInfo.destination}}</span>
               </span>
               <span><img src="../image/right.svg"/></span>
             </div>
@@ -52,7 +53,7 @@
                 <span class="black-text">{{detailInfo.carNo}}</span>
               </span>
             </div>
-            <div class="info-item flex row-between">
+            <div class="info-item flex row-between" v-if="detailInfo['volunteerPhone']">
               <a class="tel" :href="'tel:' + (detailInfo.volunteerPhone )"></a>
               <span>
                 <span class="item-title">志愿者电话：</span>
@@ -84,17 +85,35 @@ export default {
       // ],
       current: 0,
       currentData: "",
-
       detailInfo: "",
+      weather: {},
     };
   },
+  computed: {
+    weatherIcon () {
+      if (this.weather.cond_code_n) {
+        return 'https://yjtp.yjctrip.com/weather/' + this.weather.cond_code_n + '.png'
+      }
+    },
+    temperature () {
+      if (!this.$isEmpty(this.weather.tmp_min) && !this.$isEmpty(this.weather.tmp_max)) {
+        return `${this.weather.tmp_min}℃~${this.weather.tmp_max}℃`
+      }
+    }
+  },
   mounted() {
+    this.getWeather ();
     this.getDetailData();
   },
   methods: {
-    // swipeChange(index) {
-    //   this.current = index;
-    // },
+    getWeather () {
+      this.$loading.open()
+      this.$http.get(`${process.env.VUE_APP_BASE_API}guizhou/one-travel-app/weather/queryWeatherByAreaCode/520200000000`).then(({ data }) => {
+        this.weather = data?.dailyForecast[0]
+      }).finally(e => {
+        this.$loading.close()
+      })
+    },
     getDetailData() {
       const param = {
         usId: this.$route.query.usId,
@@ -210,6 +229,7 @@ export default {
     }
     .item-title {
       color: #595b64;
+      font-weight: 300;
     }
     .black-text {
       color: #292a2c;
@@ -218,6 +238,16 @@ export default {
       color: #c7000b;
     }
   }
+}
+
+.item-title1 {
+  font-size: 15px;font-weight: 300;text-align: left;color: #595b64;line-height: 21px;
+}
+.black-text1 {
+  font-size: 15px;font-weight: 400;text-align: left;line-height: 21px;
+  overflow: hidden;
+  white-space: normal;
+  color: #292a2c;
 }
 
 .code-wrapper {

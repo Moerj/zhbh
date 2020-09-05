@@ -1,5 +1,6 @@
 <template>
     <nut-drag
+        style="z-index: 9999 !important;"
         @click.native="click"
         :attract="true"
         class="my-call"
@@ -15,12 +16,13 @@
                         <div class="call-item" v-for="(item,index) in list" :style="index==list.length?'border-bottom: 1px solid #D9D9D9;':'border-bottom: 1px solid #FFFFFF;'">
                             <div style="font-size: 1rem;font-family: PingFangSC, PingFangSC-Medium;font-weight: 500;text-align: left;color: #2e3032;line-height: 1.375rem;">{{item.title}}</div>
                             <div style="margin-top: 0.3125rem">
-                                <a class="tel" :href="'tel:'+item.phone"></a>
-                                <span>
-                                    <span style="font-size: 0.9375rem;font-family: PingFangSC, PingFangSC-Light;font-weight: 300;text-align: left;color: #595b64;line-height: 1.3125rem;">联系电话：</span>
-                                    <span style="font-size: 0.9375rem;font-family: PingFangSC, PingFangSC-Light;font-weight: 400;text-align: left;color: #c7000b;line-height: 1.3125rem;">{{item.phone}}</span>
-                                </span>
-                                <span style="float: right"><img src="./image/phone.svg"/></span>
+                                <a class="tel" :href="'tel:'+item.phone">
+                                  <span>
+                                      <span style="font-size: 0.9375rem;font-family: PingFangSC, PingFangSC-Light;font-weight: 300;text-align: left;color: #595b64;line-height: 1.3125rem;">联系电话：</span>
+                                      <span style="font-size: 0.9375rem;font-family: PingFangSC, PingFangSC-Light;font-weight: 400;text-align: left;color: #c7000b;line-height: 1.3125rem;">{{item.phone}}</span>
+                                  </span>
+                                  <span style="float: right"><img src="./image/phone.svg"/></span>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -56,9 +58,11 @@
                 })
             },
             click() {
+                this.$emit('click-z-index',true)
                 this.isShowCode = true;
             },
             closeCode(ev) {
+                this.$emit('click-z-index',false)
                 this.isShowCode = false;
             },
         }
@@ -75,6 +79,7 @@
 		padding: 0.4rem 0.3rem 0.4rem 0.3rem;
 		width: 3.757rem;
 		height: 3.75rem;
+        z-index: 1;
         .code-content {
             display: flex;
             justify-content: center;

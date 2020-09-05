@@ -17,6 +17,10 @@ const router = new VueRouter({
   routes,
 })
 
+import VueIntro from 'vue-introjs'
+Vue.use(VueIntro);
+import 'intro.js/introjs.css';
+
 const originalPush = VueRouter.prototype.push
 VueRouter.prototype.push = function push (location) {
   return originalPush.call(this, location).catch(err => err)
@@ -26,6 +30,7 @@ import store from './store'
 
 Vue.router = router
 Vue.store = store
+//新手指引
 
 // http 模块
 import axios from './assets/axios'
@@ -71,7 +76,6 @@ router.beforeEach(async (to, from, next) => {
   }
 
   next()
-  console.log("执行结束")
 })
 
 // 公共事件监听器

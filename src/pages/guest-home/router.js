@@ -6,32 +6,32 @@ export default [
     children: [
       {
         path: 'huiyi',
-        name: "huiyi",
+        name: "会议",
         component: () => import('./detail/huiyi.vue'),
       },
       {
         path: 'jiudian',
-        name: "jiudian",
+        name: "酒店",
         component: () => import('./detail/jiudian.vue'),
       },
       {
         path: 'zhuanche',
-        name: "zhuanche",
+        name: "专车",
         component: () => import('./detail/zhuanche.vue'),
       },
       {
         path: 'bashi',
-        name: "bashi",
+        name: "巴士",
         component: () => import('./detail/bashi.vue'),
       },
       {
         path: 'canting',
-        name: "canting",
+        name: "餐厅",
         component: () => import('./detail/canting.vue'),
       },
       {
         path: 'huodong',
-        name: "huodong",
+        name: "活动",
         component: () => import('./detail/huodong.vue'),
       },
     ]

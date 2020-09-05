@@ -4,15 +4,14 @@
     <template v-slot:header>
       <van-nav-bar title="旅发大会行程" fixed>
       </van-nav-bar>
-      <van-tabs
-        v-if="dateList && dateList.length>0"
-        class="tabs-cont"
-        v-model="active"
-        :line-height="0"
-        @click="onTabsClick"
-      >
-        <van-tab v-for="(v, i) of dateList" :title="v" :key="i" />
-      </van-tabs>
+        <van-tabs
+            v-if="dateList && dateList.length>0"
+            class="tabs-cont"
+            v-model="active"
+            :line-height="0"
+            @click="onTabsClick">
+            <van-tab v-for="(v, i) of dateList" :title="v" :key="i" />
+        </van-tabs>
 	  <div style="background-color: #ffffff;border-top: 0.04rem solid #EBEBF1;" v-if="notices">
 	    <div style="overflow: auto;zoom: 1;padding: 0.625rem 0.75rem 0 0.75rem;">
 	  	<div style="float: left;font-size: 1.125rem;font-weight: 600;text-align: left;color: #292a2c;line-height: 1.5625rem;">尊敬的{{user.realName}}欢迎您！</div>
@@ -24,31 +23,31 @@
 	  	</van-swipe>
 	    </van-notice-bar>
 	  </div>
-	  <div class="title" @click.stop="toDetailRoom(hotel.id)"> <p v-if="hotel">我的酒店</p></div>
-	  <div class="hotel-card" v-if="hotel" @click="toDetailRoom(hotel.id)" >
-	    <div class="hotel-name" v-if="hotel">{{ hotel.title }}</div>
+	  <div class="title" @click="toDetailRoom(hotel.id)"> <p v-if="hotel">我的酒店</p></div>
+	  <div class="hotel-card" v-if="hotel">
+	    <div class="hotel-name" @click="toDetailRoom(hotel.id)" >{{ hotel.title }}</div>
 	    <div class="hotel-info">
-	  	<div class="info-item flex row-between" @click.stop="$wxMap(hotel)">
-	  	  <span>
-	  		<span class="item-title">地址：</span>
-	  		<span class="item-text">{{ hotel.address }}</span>
-	  	  </span>
-	  	  <span><img src="./image/right.svg"/></span>
-	  	</div>
-	  	<div class="info-item flex row-between">
-	  	  <span>
-	  		<span class="item-title">房间：</span>
-	  		<span class="item-text">{{ hotel.roomNo }}</span>
-	  	  </span>
-	  	</div>
-	  	<div class="info-item flex row-between">
-	  	  <a class="tel" :href="'tel:'+hotel.hotelPhone"></a>
-	  	  <span>
-	  		<span class="item-title">联系电话：</span>
-	  		<span class="item-text text-phone">{{ hotel.hotelPhone }}</span>
-	  	  </span>
-	  	  <span><img src="./image/phone.svg"/></span>
-	  	</div>
+            <div class="info-item flex row-between" @click.stop="$wxMap(hotel)">
+              <span>
+                <span class="item-title" style="float: left">地址：</span>
+                <span class="item-text  ellipsis-1">{{ hotel.address }}</span>
+              </span>
+              <span><img src="./image/right.svg"/></span>
+            </div>
+            <div class="info-item flex row-between">
+              <span>
+                <span class="item-title">房间：</span>
+                <span class="item-text">{{ hotel.roomNo }}</span>
+              </span>
+            </div>
+            <div class="info-item flex row-between">
+              <a class="tel" :href="'tel:'+hotel.hotelPhone"></a>
+              <span>
+                <span class="item-title">联系电话：</span>
+                <span class="item-text text-phone">{{ hotel.hotelPhone }}</span>
+              </span>
+              <span><img src="./image/phone.svg"/></span>
+            </div>
 	    </div>
 	  </div>
     </template>
@@ -65,10 +64,9 @@
 			  <div class="peers-group">
 				<div>
 				  <span
-          :class="journeyActive == user.id ? 'active' : ''"
+					:class="journeyActive == user.id ? 'active' : ''"
 					@click="journeyHandle(user.id)"
-					>我的行程</span
-				  >
+					>我的行程</span>
 				  <span v-for="people in togPeople"
 					:class="journeyActive == people.id ? 'active' : ''"
 					@click="journeyHandle(people.id)"
@@ -79,7 +77,7 @@
 			  </div>
 			</div>
 			<div class="journey-container" v-if="journeyList">
-			  <div class="journey-card" v-for="item in journeyList" :key="item.id"
+			  <div class="journey-card" v-for="item in journeyList" :key="item.id" @click="toDetail(item)"
 				:class="item['activeState'] == 0? 'notstarted': item['activeState'] == 1? 'ongoing': 'finished'">
 				<div class="card-content">
 				  <div class="card-title">
@@ -95,29 +93,27 @@
 					  <img src="./image/signedin.png" alt="已签到" v-if="item.schState == 0"/>
 					  <img src="./image/nosignin.png" alt="未签到" v-else/>
 					</div>
-					<div @click="toDetail(item)" class="inner-title">{{ item.title }}</div>
-					<div class="inner-item flex row-between" @click.stop="$wxMap(item)">
+					<div class="inner-title">{{ item.title }}</div>
+					<div class="inner-item flex row-between">
 					  <span>
-						<span class="item-title">地址：</span>
-						<span class="item-text">{{ item['place'] }}</span>
+						<span class="item-title" style="float: left">地址：</span>
+						<span class="item-text ellipsis-1">{{ item['place'] }}</span>
 					  </span>
 					  <span><img src="./image/right.svg"/></span>
 					</div>
-					<div @click="toDetail(item)" class="inner-item" v-if="item['tabNo']">
+					<div class="inner-item" v-if="item['tabNo']">
 					  <span>
 						<span class="item-title">座位：</span>
 						<span class="item-text">{{ item['tabNo'] + item['seatNo'] }} 座位</span>
 					  </span>
 					</div>
-					<a class="tel"  :href="'tel:'+ item.volunteerPhone">
-					  <div class="inner-item" style="width: 100%">
-						<div style="width: 100%">
-						  <span class="item-title">志愿者电话：</span>
-						  <span class="item-text-phone">{{item.volunteerPhone}}</span>
-						  <span style="position: relative;right: 0;float: right"><img src="./image/phone.svg"/></span>
-						</div>
-					  </div>
-					</a>
+          <div class="inner-item" style="width: 100%" v-if="item.volunteerPhone">
+            <div style="width: 100%">
+              <span class="item-title">志愿者电话：</span>
+              <span class="item-text-phone">{{item.volunteerPhone}}</span>
+              <span style="position: relative;right: 0;float: right"><img src="./image/phone.svg"/></span>
+            </div>
+          </div>
 				  </div>
 				</div>
 			  </div>
@@ -140,8 +136,8 @@
 		  </div>
 		</van-overlay>
 	  </ui-main>
-	  <Qrcode/>
-	  <Call/>
+      <Qrcode v-if="zIndex"/>
+	  <Call @click-z-index="clickCallShow" />
   </div>
 </template>
 
@@ -158,9 +154,10 @@ function getQuery() {
   return {
     shop: [],
     pageNo: 1,
-    pageSize: 0,
+    pageSize: 0
   };
 }
+const user = JSON.parse(localStorage.user);
 export default {
   name: "GuesetHome",
   components: {
@@ -171,7 +168,7 @@ export default {
   },
   data() {
     return {
-      user: JSON.parse(localStorage.user),
+      user: user,
       active: 0,
       tabCurrent: "",
       dates: [],
@@ -183,9 +180,10 @@ export default {
       togPeople: [],
       showMap: false,
       showLoading: false,
-      journeyActive: 0,
+      journeyActive: user.id,
       notices: "",
       hotel:"",
+      zIndex:true
     };
   },
   watch: {
@@ -214,6 +212,7 @@ export default {
     //
     this.getTogPeople();
     this.get_notices();
+
   },
   methods: {
     get_notices() {
@@ -223,6 +222,9 @@ export default {
         this.notices = res.data
       })
     },
+      clickCallShow(index){
+          this.zIndex = !index
+      },
     toNotic () {
       this.$router.push({
         path: '/notice/',
@@ -235,15 +237,17 @@ export default {
       journeyAPI
           .getHotal(param)
           .then((res) => {
-            if (res.data != null) {
-              this.hotel = res.data
-              this.hotel.place = this.hotel.address
+            if (res.data == null) {
+              this.hotel = ""
+              return
             }
+            this.hotel = res.data
+            this.hotel.place = this.hotel.address
       })
     },
     toDetailRoom(id){
         this.$router.push({
-          name: 'jiudian',
+          path: '/guest-home/jiudian',
           query: {
             userHotelId : id
           }
