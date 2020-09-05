@@ -157,8 +157,7 @@ export default {
       this.$loading.open()
       this.$http.get('h5api/meet/healthCode', {
         params: {
-          phone: this.user.phoneNo,
-          userId: this.user.id
+          phone: this.$route.query.phoneNo,
         }
       }).then(({ data }) => {
         this.healthCode = data || {}

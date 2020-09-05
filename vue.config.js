@@ -45,6 +45,7 @@ module.exports = {
             threshold: 10240, //对超过10k的数据进行压缩
             deleteOriginalAssets: false, //是否删除原文件
           }),
+<<<<<<< HEAD
           gitRevisionPlugin,
           new webpack.DefinePlugin({
             'process.VERSION': JSON.stringify(gitRevisionPlugin.version()),
@@ -54,6 +55,8 @@ module.exports = {
             new webpack.ProvidePlugin({
                 introJs: ['intro.js', 'introJs']
             })
+=======
+>>>>>>> a412a1793bfe095a6686c537943f1640143a30bf
         ],
       }
     }
@@ -62,11 +65,21 @@ module.exports = {
     return {
       name: description,
       plugins: [
+<<<<<<< HEAD
           APP_VERSION,
           new webpack.ProvidePlugin({
             introJs: ['intro.js', 'introJs']
           })
       ],
+=======
+        APP_VERSION,
+        gitRevisionPlugin,
+        new webpack.DefinePlugin({
+          'process.VERSION': JSON.stringify(gitRevisionPlugin.version()),
+          'process.COMMIT': JSON.stringify(gitRevisionPlugin.commithash())
+          // 'process.BRANCH': JSON.stringify(gitRevisionPlugin.branch())
+        })],
+>>>>>>> a412a1793bfe095a6686c537943f1640143a30bf
     }
   },
 }
