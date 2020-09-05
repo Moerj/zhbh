@@ -16,7 +16,6 @@ const actions = {
       (value) => {
         const user = JSON.stringify(value.user);
         localStorage.setItem("user", user);
-        sessionStorage.setItem("user", user);
         return value;
       },
       (res) => Promise.reject(res)
@@ -36,7 +35,6 @@ const actions = {
           if (value.user && value.user != null) {
             const user = JSON.stringify(value.user);
             localStorage.setItem("user", user)
-            sessionStorage.setItem("user", user)
             return value;
           }
           sessionStorage.setItem("ISFIRSTLOGIN", "true")
