@@ -22,8 +22,8 @@
               <img src="../image/time.png" />
             </div>
             <div class="time-text">
-              {{detailInfo.scheduleDate&&detailInfo.startTime ? detailInfo.scheduleDate +" "+ detailInfo.startTime : undefined || "2020-08-27 09:00" }}到{{
-                detailInfo.endTime || "12:00"
+              {{detailInfo.startTime }}到{{
+                detailInfo.endTime
               }}
             </div>
           </div>

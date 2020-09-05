@@ -45,6 +45,7 @@ Vue.use(axios, {
 router.beforeEach((to, from, next) => {
   document.title = to.name || description
 
+  console.log()
   if (to.path !== '/login' && !localStorage.user) {
     next({path: "/login"})
     // 检查是否已绑定
@@ -52,6 +53,7 @@ router.beforeEach((to, from, next) => {
     const wxData = JSON.parse(localStorage.wxData)
     // wxData 在 store/auth.js  getOpenId中获取
     store.dispatch("checkOpenId", { openId: wxData.openid}).then((res) => {
+    // store._actions.checkOpenId[0]({ openId: wxData.openid}).then((res) => {
       if (res && res.user) {
         const user = res.user
         // role 1 3 嘉宾首页, 2工作人员或志愿者首页
@@ -59,8 +61,9 @@ router.beforeEach((to, from, next) => {
         next({ path: _url, query: { openId: wxData.openid }})
       }
     })
+  } else {
+    next();
   }
-  next();
 })
 
 // 公共事件监听器
