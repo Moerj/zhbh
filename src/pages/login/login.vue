@@ -162,7 +162,6 @@
             wxNickName: data.nickName,
           };
           this.$store.dispatch("login", param).then((res) => {
-            console.log(res.user.userRole)
               // userRole 1.参会嘉宾  2 服务志愿者 3 媒体工作者
               this.$router.push({
                 path: this.$store.getters.roleNav.get(res.user.userRole),

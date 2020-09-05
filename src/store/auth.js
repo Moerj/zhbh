@@ -23,27 +23,23 @@ const actions = {
     );
   },
   getOpenId({ commit }) {
-    if (!sessionStorage.wxData) {
       const params = qs.parse(location.href.split("?")[1])
       const wxData = JSON.stringify(params)
       if (wxData == "{}") {
         return
       }
-        sessionStorage.setItem("wxData",wxData)
-    }
+      sessionStorage.setItem("wxData",wxData)
   },
- checkOpenId({commit}, params) {
+  checkOpenId({commit}, params) {
     return authAPI.checkOpenId(params).then(
         (value) => {
           if (value.user && value.user != null) {
             const user = JSON.stringify(value.user);
             localStorage.setItem("user", user)
-              sessionStorage.setItem("user", user)
-            sessionStorage.setItem("ISFIRSTLOGIN", false)
+            sessionStorage.setItem("user", user)
             return value;
-          } else {
-            sessionStorage.setItem("ISFIRSTLOGIN", true)
           }
+          sessionStorage.setItem("ISFIRSTLOGIN", "true")
         }
     );
   },

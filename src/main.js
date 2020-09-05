@@ -42,29 +42,37 @@ Vue.use(axios, {
 })
 
 
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
   document.title = to.name || description
 
+  // 未登录拦截
   if (to.path !== '/login' && !sessionStorage.user) {
     next({path: "/login"})
-    // 检查是否已绑定
-  } else if (to.path == '/login' && sessionStorage.wxData) {
-    const wxData = JSON.parse(sessionStorage.wxData)
-    // wxData 在 store/auth.js  getOpenId中获取
-    store.dispatch("checkOpenId", { openId: wxData.openid}).then((res) => {
-    // store._actions.checkOpenId[0]({ openId: wxData.openid}).then((res) => {
-      if (res && res.user) {
-        const user = res.user
-        // role 1 3 嘉宾首页, 2工作人员或志愿者首页
-        const _url = store.getters.roleNav.get(user.userRole)
-        next({ path: _url, query: { openId: wxData.openid }})
-      } else {
-        next();
-      }
-    })
-  } else {
-    next();
+    return
   }
+
+  if (to.path == '/login') {
+    // 重新获取openId
+    store._actions.getOpenId[0] ();
+    // 第一次进入登录前检测 openid
+    if (sessionStorage.wxData && !sessionStorage.user) {
+      const wxData = JSON.parse(sessionStorage.wxData)
+      await store._actions.checkOpenId[0]({ openId: wxData.openid}).then((res) => {
+        if (res && res.user) {
+          const user = res.user
+          // role 1 3 嘉宾首页, 2工作人员或志愿者首页
+          const _url = store.getters.roleNav.get(user.userRole)
+          next({ path: _url, query: { openId: wxData.openid }})
+        }
+      })
+      return
+    }
+
+    sessionStorage.removeItem("user")
+  }
+
+  next()
+  console.log("执行结束")
 })
 
 // 公共事件监听器
@@ -89,9 +97,6 @@ import '@/scss/index.scss'
 
 // Mixins
 import mixin from '@/mixins/mixin'
-
-store.dispatch('getOpenId').then(() => {})
-
 const { description } = require('../package.json')
 
 if (process.VERSION && process.COMMIT) {
