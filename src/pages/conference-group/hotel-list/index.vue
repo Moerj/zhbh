@@ -24,10 +24,10 @@
             </div>
             <van-icon class="td" name="arrow" size="12"/>
           </div>
-          <div class="tr" @click="call(v.chargerPhone)">
+          <div class="tr" @click="call(v.hotelPhone)">
             <div class="th ellipsis-1">
               <span>联系电话：</span>
-              <span>{{ v.chargerPhone }}</span>
+              <span>{{ v.hotelPhone }}</span>
             </div>
             <van-icon class="td" :name="require('@/imgs/tel.svg')" size="12"/>
           </div>

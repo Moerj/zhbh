@@ -66,7 +66,7 @@
           <template v-else-if="schType===2">
             <div class="tr">
               <div class="th">桌号</div>
-              <div class="td ellipsis-1" v-if="!$isEmpty(v.tabNo)">{{ v.tabNo + '号' }}</div>
+              <div class="td ellipsis-1" v-if="!$isEmpty(v.tabNo)">{{ v.tabNo }}</div>
             </div>
           </template>
           <template v-else-if="schType===1">
