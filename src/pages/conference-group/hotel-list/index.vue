@@ -140,7 +140,7 @@ export default {
           query: {
             signedIn: '0',
             needSigningIn: '1',
-            phoneNo: '18275317951',
+            phoneNo: '',
             schId: id,
             schType: 0
           }

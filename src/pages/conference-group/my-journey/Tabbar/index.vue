@@ -80,7 +80,7 @@ export default {
           query: {
             signedIn: '0',
             needSigningIn: '1',
-            phoneNo: '18275317951',
+            phoneNo: '',
             schId: this.$route.query.schId,
             schType: this.$route.query.schType
           }
