@@ -29,7 +29,7 @@
               <span>联系电话：</span>
               <span>{{ v.hotelPhone }}</span>
             </div>
-            <van-icon class="td" :name="require('@/imgs/tel.svg')" size="12"/>
+            <van-icon class="td" :name="require('@/imgs/tel.svg')" size="12" v-if="v.hotelPhone"/>
           </div>
         </main>
       </div>
