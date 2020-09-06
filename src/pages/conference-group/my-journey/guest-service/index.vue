@@ -58,7 +58,10 @@
             </div>
             <div class="tr">
               <div class="th">司机电话</div>
-              <div class="td ellipsis-1">{{ v.driverPhone }}</div>
+              <a class="td ellipsis-1" :href="`tel:${v.driverPhone}`" v-if="v.driverPhone">
+                <van-icon :name="require('@/imgs/tel.svg')" size="12"/>
+                &nbsp;{{ v.driverPhone }}
+              </a>
             </div>
           </template>
           <template v-else-if="schType===2">

@@ -22,20 +22,37 @@
           }}
         </div>
       </div>
-      <div>{{ data.title }}</div>
+      <div class="ellipsis-2">{{ data.title }}</div>
       <div>
         <van-icon :name="weatherIcon"/>
         <span>{{ temperature }}</span>
       </div>
       <div>
-        <div @click.stop="locate">
+        <div @click.stop="locate({
+          longitude: data.longitude,
+          latitude: data.latitude,
+          address: data.place,
+          name: ''
+        })">
           <span class="ellipsis-1">
             <span class="title">{{ data.schType === 3 ? '起点' : '地点' }}：</span>
             <span>{{ data.place }}</span>
           </span>
           <van-icon name="arrow" size="12"/>
         </div>
-        <div v-if="data.schType!==3">
+        <div v-if="data.schType===3" @click.stop="locate({
+          longitude: data.destinationLongitude,
+          latitude: data.destinationLatitude,
+          address: data.destination,
+          name: ''
+        })">
+          <span class="ellipsis-1">
+            <span class="title">目的地：</span>
+            <span>{{ data.destination }}</span>
+          </span>
+          <van-icon name="arrow" size="12"/>
+        </div>
+        <div v-else>
           <span class="title">联系电话：</span>
           <span class="ellipsis-1" @click="call(data.chargerPhone)">
             <van-icon :name="require('@/imgs/tel.svg')" size="12" v-if="data.chargerPhone"/>&nbsp;
@@ -148,13 +165,13 @@ export default {
     call (phone) {
       window.location.href = `tel:${phone}`
     },
-    locate () {
+    locate ({ longitude, latitude, name, address }) {
       wx.ready(() => {
         wx.openLocation({
-          longitude: Number(this.data.longitude),
-          latitude: Number(this.data.latitude),
-          name: this.data.title, // 位置名
-          address: this.data.place, // 地址详情说明
+          longitude: Number(longitude),
+          latitude: Number(latitude),
+          name, // 位置名
+          address, // 地址详情说明
           fail (e) {
             console.error(e)
             console.log(v)
