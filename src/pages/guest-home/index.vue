@@ -4,14 +4,16 @@
     <template v-slot:header>
       <van-nav-bar title="旅发大会行程" fixed>
       </van-nav-bar>
-        <van-tabs
-            v-if="dateList && dateList.length>0"
-            class="tabs-cont"
-            v-model="active"
-            :line-height="0"
-            @click="onTabsClick">
-            <van-tab v-for="(v, i) of dateList" :title="v" :key="i" />
-        </van-tabs>
+        <div :id="dateList.length>0?'stop1':''">
+            <van-tabs
+                    v-if="dateList && dateList.length>0"
+                    class="tabs-cont"
+                    v-model="active"
+                    :line-height="0"
+                    @click="onTabsClick">
+                <van-tab v-for="(v, i) of dateList" :title="v" :key="i" />
+            </van-tabs>
+        </div>
 	  <div style="background-color: #ffffff;border-top: 0.04rem solid #EBEBF1;" v-if="notices">
 	    <div style="overflow: auto;zoom: 1;padding: 0.625rem 0.75rem 0 0.75rem;">
 	  	<div style="float: left;font-size: 1.125rem;font-weight: 600;text-align: left;color: #292a2c;line-height: 1.5625rem;">尊敬的{{user.realName}}欢迎您！</div>
@@ -23,33 +25,35 @@
 	  	</van-swipe>
 	    </van-notice-bar>
 	  </div>
-	  <div class="title" @click="toDetailRoom(hotel.id)"> <p v-if="hotel">我的酒店</p></div>
-	  <div class="hotel-card" v-if="hotel">
-	    <div class="hotel-name" @click="toDetailRoom(hotel.id)" >{{ hotel.title }}</div>
-	    <div class="hotel-info">
-            <div class="info-item flex row-between" @click.stop="$wxMap(hotel)">
-              <span>
-                <span class="item-title" style="float: left">地址：</span>
-                <span class="item-text  ellipsis-1">{{ hotel.address }}</span>
-              </span>
-              <span><img src="./image/right.svg"/></span>
+      <div :id="hotel?'stop2':''">
+          <div class="title" @click="toDetailRoom(hotel.id)"> <p v-if="hotel">我的酒店</p></div>
+          <div class="hotel-card" v-if="hotel">
+            <div class="hotel-name" @click="toDetailRoom(hotel.id)" >{{ hotel.title }}</div>
+            <div class="hotel-info">
+                <div class="info-item flex row-between" @click.stop="$wxMap(hotel)">
+                  <span>
+                    <span class="item-title" style="float: left">地址：</span>
+                    <span class="item-text  ellipsis-1">{{ hotel.address }}</span>
+                  </span>
+                  <span><img src="./image/right.svg"/></span>
+                </div>
+                <div class="info-item flex row-between">
+                  <span>
+                    <span class="item-title">房间：</span>
+                    <span class="item-text">{{ hotel.roomNo }}</span>
+                  </span>
+                </div>
+                <div class="info-item flex row-between">
+                  <a class="tel" :href="'tel:'+hotel.hotelPhone"></a>
+                  <span>
+                    <span class="item-title">联系电话：</span>
+                    <span class="item-text text-phone">{{ hotel.hotelPhone }}</span>
+                  </span>
+                  <span><img src="./image/phone.svg"/></span>
+                </div>
             </div>
-            <div class="info-item flex row-between">
-              <span>
-                <span class="item-title">房间：</span>
-                <span class="item-text">{{ hotel.roomNo }}</span>
-              </span>
-            </div>
-            <div class="info-item flex row-between">
-              <a class="tel" :href="'tel:'+hotel.hotelPhone"></a>
-              <span>
-                <span class="item-title">联系电话：</span>
-                <span class="item-text text-phone">{{ hotel.hotelPhone }}</span>
-              </span>
-              <span><img src="./image/phone.svg"/></span>
-            </div>
-	    </div>
-	  </div>
+          </div>
+      </div>
     </template>
     <ui-pull
       @load="getDateList"
@@ -57,8 +61,7 @@
       :num.sync="query.pageNo"
       :total="total"
       ref="pull"
-      v-show="dateList && dateList.length > 0"
-    >
+      v-show="dateList && dateList.length > 0">
       <div class="hotel-container">
 			<div class="subtitle flex row-left col-center">
 			  <div class="peers-group">
@@ -77,7 +80,7 @@
 			  </div>
 			</div>
 			<div class="journey-container" v-if="journeyList">
-			  <div class="journey-card" v-for="item in journeyList" :key="item.id" @click="toDetail(item)"
+			  <div class="journey-card" v-for="(item,index) in journeyList" :id="journeyList.length>0 && index==0?'stop3':''" :key="item.id" @click="toDetail(item)"
 				:class="item['activeState'] == 0? 'notstarted': item['activeState'] == 1? 'ongoing': 'finished'">
 				<div class="card-content">
 				  <div class="card-title">
@@ -107,13 +110,13 @@
 						<span class="item-text">{{ item['tabNo'] + item['seatNo'] }} 座位</span>
 					  </span>
 					</div>
-          <div class="inner-item" style="width: 100%" v-if="item.volunteerPhone">
-            <div style="width: 100%">
-              <span class="item-title">志愿者电话：</span>
-              <span class="item-text-phone">{{item.volunteerPhone}}</span>
-              <span style="position: relative;right: 0;float: right"><img src="./image/phone.svg"/></span>
-            </div>
-          </div>
+                  <div class="inner-item" style="width: 100%" v-if="item.volunteerPhone">
+                    <div style="width: 100%">
+                      <span class="item-title">志愿者电话：</span>
+                      <span class="item-text-phone">{{item.volunteerPhone}}</span>
+                      <span style="position: relative;right: 0;float: right"><img src="./image/phone.svg"/></span>
+                    </div>
+                  </div>
 				  </div>
 				</div>
 			  </div>
@@ -136,9 +139,10 @@
 		  </div>
 		</van-overlay>
 	  </ui-main>
-      <Qrcode v-if="zIndex"/>
-	  <Call @click-z-index="clickCallShow" />
-  </div>
+      <Qrcode id="stop5" v-if="zIndex"/>
+	  <Call id="stop4" @click-z-index="clickCallShow" />
+        <div v-if="hh>0" :style="'position: relative;top: 0;bottom: 0;left: 0;right: 0;z-index:9999;background: rgba(0,0,0,0.1);height:'+hh+'px'"/>
+</div>
 </template>
 
 <script>
@@ -183,7 +187,8 @@ export default {
       journeyActive: user.id,
       notices: "",
       hotel:"",
-      zIndex:true
+      zIndex:true,
+        hh:0,
     };
   },
   watch: {
@@ -215,6 +220,62 @@ export default {
 
   },
   methods: {
+      shepherd() {
+          console.log("新手引导",sessionStorage['ISFIRSTLOGIN'])
+          if (!sessionStorage['ISFIRSTLOGIN']) {
+              this.hh = document.documentElement.clientHeight || document.body.clientHeight;
+              let $this = this;
+              this.$nextTick(() => {
+                  const tour = this.$shepherd({
+                      useModalOverlay: true,
+                      cancelIcon: {
+                          enabled: true
+                      },
+                      scrollTo: {behavior: 'smooth'}
+                  });
+                  tour.addStep({
+                      attachTo: {element: document.getElementById("stop1"), on: 'bottom'},
+                      text: '点击可查看对应日期查看日程',
+                      buttons: [
+                          {action() {return this.next();},text: '我知道了'}
+                      ],
+                  });
+                  if ($this.hotel) {
+                      tour.addStep({
+                          attachTo: {element: document.getElementById("stop2"), on: 'bottom'},
+                          text: '这里会显示您当日将要居住的酒店的信息',
+                          buttons: [{action() {return this.next();}, text: '我知道了'}],
+                      });
+                  }
+
+                  if ($this.journeyList.length>0){
+                      tour.addStep({
+                          attachTo: {element: document.getElementById("stop3"), on: 'top'},
+                          text: '点击行程列表，可以查看行程详情',
+                          buttons: [{action() {return this.next();}, text: '我知道了'}],
+                      });
+                  }
+
+                  tour.addStep({
+                      attachTo: {element: document.getElementById("stop4"), on: 'top'},
+                      text: '可点击查看应急电话列表',
+                      buttons: [{action() {return this.next();}, text: '我知道了'}],
+                  });
+                  tour.addStep({
+                      attachTo: {element: document.getElementById("stop5"), on: 'top'},
+                      text: '可点击查看您的专属二维码和健康码信息',
+                      buttons: [
+                          {action() {
+                                  console.log("完成了");
+                                  $this.hh = 0;
+                                  sessionStorage.removeItem('ISFIRSTLOGIN')
+                                  return this.next();}, text: '我知道了'}
+                      ],
+                  });
+                  tour.start();
+              });
+          }
+      },
     get_notices() {
       const date = new Date();
       const day =  date.getFullYear()+"-" + (date.getMonth()+1) + "-" + date.getDate();
@@ -288,6 +349,7 @@ export default {
         .then((res) => {
           this.journeyList = res.list;
           this.$refs.pull.endSuccess();
+            this.shepherd()
         })
         .catch((err) => {
           this.$refs.pull.endSuccess();
