@@ -164,7 +164,7 @@ export default {
       this.$loading.open()
       this.$http.get('h5api/meet/infoByOpenId2', {
         params: {
-          phoneNo: this.user.phoneNo,
+          phoneNo: this.$route.query.phoneNo,
           schId: this.$route.query.schId,
         }
       }).then(({ data }) => {
