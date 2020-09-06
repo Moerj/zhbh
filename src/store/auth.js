@@ -34,7 +34,7 @@ const actions = {
     return authAPI.checkOpenId(params).then(
         (value) => {
           if (value.user && value.user != null) {
-            const user = JSON.stringify(value.user);
+            const user = JSON.stringify(value.user)
             localStorage.setItem("user", user)
             sessionStorage.setItem("user", user)
             return value;

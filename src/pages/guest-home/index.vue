@@ -141,7 +141,7 @@
 	  </ui-main>
       <Qrcode id="stop5" v-if="zIndex"/>
 	  <Call id="stop4" @click-z-index="clickCallShow" />
-        <div v-if="hh>0" :style="'position: relative;top: 0;bottom: 0;left: 0;right: 0;z-index:9999;background: rgba(0,0,0,0.1);height:'+hh+'px'"/>
+        <div v-if="hh>0" :style="'position: relative;top: 0;bottom: 0;left: 0;right: 0;z-index:9999;background: transfer;height:'+hh+'px'"/>
 </div>
 </template>
 

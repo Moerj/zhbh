@@ -75,7 +75,7 @@
         bottom: 10%;
         border-radius: 5px;
         background-color: #fff;
-        box-shadow: 0px 2px 9px 0px rgba(199, 0, 11, 0.16);
+        box-shadow: 0px 2px 9px 0px rgba(199, 0, 11, 0.40);
 		padding: 0.4rem 0.3rem 0.4rem 0.3rem;
 		width: 3.757rem;
 		height: 3.75rem;

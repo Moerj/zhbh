@@ -87,6 +87,8 @@
       </van-tabs>
     </div>
     <Tabbar />
+    <Qrcode/>
+    <Call/>
   </ui-main>
 </template>
 <style lang="scss" scoped>
@@ -116,6 +118,7 @@
 <script>
 import Qrcode from "@/components/Qrcode";
 import Tabbar from "@/components/Tabbar";
+import Call from "@/components/call";
 import journeyAPI from "@/api/journey";
 export default {
   data() {
@@ -130,7 +133,7 @@ export default {
     };
   },
   components: {
-    Tabbar,Qrcode
+    Tabbar,Qrcode,Call
   },
     methods: {
       toActiveDetail(id){
