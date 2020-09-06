@@ -1,5 +1,5 @@
 <template>
-<div>
+<div id="index-home">
   <ui-main>
     <template v-slot:header>
         <div :id="dateList.length>0?'stop1':''">
@@ -141,7 +141,7 @@
 	  </ui-main>
       <Qrcode id="stop5" v-if="zIndex"/>
 	  <Call id="stop4" @click-z-index="clickCallShow" />
-        <div v-if="hh>0" :style="'position: relative;top: 0;bottom: 0;left: 0;right: 0;z-index:9999;background: rgba(0,0,0,0.1);height:'+hh+'px'"/>
+        <div v-if="hh>0" :style="'position: relative;top: 0;bottom: 0;left: 0;right: 0;z-index:9999;background: transfer;height:'+hh+'px'"/>
 </div>
 </template>
 
@@ -238,6 +238,7 @@ export default {
 
     },
       shepherd() {
+          console.log("新手引导",sessionStorage['ISFIRSTLOGIN'])
           if (sessionStorage['ISFIRSTLOGIN']) {
               this.hh = document.documentElement.clientHeight || document.body.clientHeight;
               let $this = this;
@@ -247,46 +248,94 @@ export default {
                       cancelIcon: {
                           enabled: true
                       },
-                      scrollTo: {behavior: 'smooth'}
+                      defaultStepOptions: {
+                          classes: 'shepherd-theme-custom3'
+                      },
+
                   });
                   tour.addStep({
-                      attachTo: {element: document.getElementById("stop1"), on: 'bottom'},
-                      text: '点击可查看对应日期查看日程',
+                      attachTo: {element: document.getElementById("stop1"), on: 'bottom-start'},
+                      text: `<div>
+								<div>
+									<div style="margin-left: 27px;width: 7px;height: 7px;border-radius: 5px;background-color: #ffffff"></div>
+									<div style="margin-left: 30px;height: 62px;width: 1px;border-left: 1px dashed white"/>
+								</div>
+								<div style="text-align: center;font-weight: 400;color: #ffffff;line-height: 40px;font-size: 15px;height: 40px;background: linear-gradient(180deg,#e9483c, #e55068);border-radius: 58px;">可点击切换日期，查看对应行程</div>
+							</div>`,
                       buttons: [
-                          {action() {return this.next();},text: '我知道了'}
+                          {action() {return this.next();},text: '<div style="font-size: 15px;font-weight: 500;text-align: center;color: #ffffff;line-height: 11px;">我知道了</div>'}
                       ],
+                      defaultStepOptions: {
+                          classes: 'shepherd-theme-custom'
+                      },
+                      classPrefix: 'my-tour1-',
+                      id:'stop11'
                   });
                   if ($this.hotel) {
                       tour.addStep({
                           attachTo: {element: document.getElementById("stop2"), on: 'bottom'},
-                          text: '这里会显示您当日将要居住的酒店的信息',
-                          buttons: [{action() {return this.next();}, text: '我知道了'}],
+                          text: `<div>
+								<div>
+									<div style="margin-left: 27px;width: 7px;height: 7px;border-radius: 5px;background-color: #ffffff"></div>
+									<div style="margin-left: 30px;height: 62px;width: 1px;border-left: 1px dashed white"/>
+								</div>
+								<div style="text-align: center;font-weight: 400;color: #ffffff;line-height: 40px;font-size: 15px;height: 40px;background: linear-gradient(180deg,#e9483c, #e55068);border-radius: 58px;">这里会显示您当日将要居住的酒店的信息</div>
+							</div>`,
+                          buttons: [{action() {return this.next();}, text: '<div style="font-size: 15px;font-weight: 500;text-align: center;color: #ffffff;line-height: 11px;">我知道了</div>'}],
+                          id:'stop22',
+						  classPrefix: 'my-tour2-',
                       });
                   }
 
                   if ($this.journeyList.length>0){
                       tour.addStep({
                           attachTo: {element: document.getElementById("stop3"), on: 'top'},
-                          text: '点击行程列表，可以查看行程详情',
-                          buttons: [{action() {return this.next();}, text: '我知道了'}],
+                          text: `<div>
+								<div style="text-align: center;font-weight: 400;color: #ffffff;line-height: 40px;font-size: 15px;height: 40px;background: linear-gradient(180deg,#e9483c, #e55068);border-radius: 58px;">点击行程列表，可以查看行程详情</div>
+								<div>
+									<div style="margin-left: 30px;height: 62px;width: 1px;border-left: 1px dashed white"></div>
+									<div style="margin-left: 27px;width: 7px;height: 7px;border-radius: 5px;background-color: #ffffff"></div>
+								</div>
+							</div>`,
+                          buttons: [{action() {return this.next();}, text: '<div style="font-size: 15px;font-weight: 500;text-align: center;color: #ffffff;line-height: 11px;">我知道了</div>'}],
+                          id:'stop33',
+                          classPrefix: 'my-tour3-',
                       });
                   }
 
                   tour.addStep({
                       attachTo: {element: document.getElementById("stop4"), on: 'top'},
-                      text: '可点击查看应急电话列表',
-                      buttons: [{action() {return this.next();}, text: '我知道了'}],
+                      text: `<div>
+								<div style="text-align: center;font-weight: 400;color: #ffffff;line-height: 40px;font-size: 15px;height: 40px;background: linear-gradient(180deg,#e9483c, #e55068);border-radius: 58px;">可点击查看应急电话列表</div>
+								<div>
+									<div style="position: relative;height: 62px;width: 30px;border-left: 1px dashed white;border-bottom: 1px dashed white;float: right;margin-right: 69px;">
+										<div style="position: absolute;bottom: -4px;right: -8px;width: 7px;height: 7px;border-radius: 5px;background-color: #ffffff"></div>
+									</div>
+								</div>
+							</div>`,
+                      buttons: [{action() {return this.next();}, text: '<div style="font-size: 15px;font-weight: 500;text-align: center;color: #ffffff;line-height: 11px;">我知道了</div>'}],
+                      id:'stop44',
+                      classPrefix: 'my-tour4-',
                   });
                   tour.addStep({
                       attachTo: {element: document.getElementById("stop5"), on: 'top'},
-                      text: '可点击查看您的专属二维码和健康码信息',
+                      text: `<div>
+								<div style="text-align: center;font-weight: 400;color: #ffffff;line-height: 40px;font-size: 15px;height: 40px;background: linear-gradient(180deg,#e9483c, #e55068);border-radius: 58px;">可点击查看您的专属二维码和健康码信息</div>
+								<div>
+									<div style="position: relative;margin-left: 30px;height: 62px;width: 30px;border-left: 1px dashed white;border-bottom: 1px dashed white;float: right;margin-right: 69px;">
+										<div style="position: absolute;bottom: -4px;right: -8px;width: 7px;height: 7px;border-radius: 5px;background-color: #ffffff"></div>
+									</div>
+								</div>
+							</div>`,
                       buttons: [
                           {action() {
                                   console.log("完成了");
                                   $this.hh = 0;
                                   sessionStorage.removeItem('ISFIRSTLOGIN')
-                                  return this.next();}, text: '我知道了'}
+                                  return this.next();}, text: '<div style="font-size: 15px;font-weight: 500;text-align: center;color: #ffffff;line-height: 11px;">我知道了</div>'}
                       ],
+                      id:'stop55',
+                      classPrefix: 'my-tour5-',
                   });
                   tour.start();
               });
@@ -426,4 +475,14 @@ export default {
     height: 40px;
     line-height: 40px;
   }
+body .shepherd-element{
+	background: transparent;
+}
+	.shepherd-theme-custom{
+		background: transparent;
+	}
+	#stop11{
+		background: transparent !important;
+	}
+
 </style>

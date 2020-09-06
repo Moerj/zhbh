@@ -162,7 +162,7 @@
             width: 100%;
             height: 100%;
             margin: auto;
-            background-color: rgba(0, 0, 0, 0.16);
+            background-color: rgba(0, 0, 0, 0.40);
             text-align: center;
             .code {
                 position: absolute;

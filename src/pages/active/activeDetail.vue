@@ -84,13 +84,19 @@
         </div>
       </div>
     </div>
+    <Qrcode/>
+    <Call/>
   </ui-main>
 </template>
 <script>
 import Qrcode from "@/components/Qrcode";
 import journeyAPI from "@/api/journey";
+import Call from "@/components/call";
+
 export default {
-    components:{Qrcode},
+  components: {
+    Qrcode,Call
+  },
   name: "Detail",
   data() {
     return {
