@@ -221,7 +221,6 @@ export default {
   padding: 10px;
   margin-top: 20px;
   .info-item {
-    height: 21px;
     font-size: 15px;
     padding: 5px 0;
     box-sizing: content-box;

@@ -30,7 +30,7 @@
 		      <div style="border-bottom: 1px solid #d8d8d8;border-top: 1px solid #d8d8d8;margin: 0.625rem 0;">
 		      	<van-tabs @click="onTabsClick" v-model="active" :ellipsis="false" title-active-color="#C7000B" class="tabs-cont" :line-height="2" :line-width="50">
 		      		<van-tab v-for="(item,index) in detailInfo['dayArr']" :key="index" title-style="align-items: inherit;">
-		      			<template #title> 
+		      			<template #title>
 		      				<div style="font-size: 0.625rem;text-align: center;">{{item['day']}}</div>
 		      				<div style="font-size: 0.875rem;text-align: center;">{{item['dayWeek']}}</div>
 		      			</template>
@@ -221,7 +221,6 @@ export default {
   padding: 10px;
   margin-top: 20px;
   .info-item {
-    height: 21px;
     font-size: 15px;
     padding: 5px 0;
     box-sizing: content-box;
