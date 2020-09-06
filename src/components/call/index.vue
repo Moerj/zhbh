@@ -75,7 +75,7 @@
         bottom: 10%;
         border-radius: 5px;
         background-color: #fff;
-        box-shadow: 0px 2px 9px 0px rgba(199, 0, 11, 0.40);
+        box-shadow: 0px 2px 9px 0px rgba(199, 0, 11, 0.16);
 		padding: 0.4rem 0.3rem 0.4rem 0.3rem;
 		width: 3.757rem;
 		height: 3.75rem;
@@ -106,7 +106,7 @@
             width: 100%;
             height: 100%;
             margin: auto;
-            background-color: rgba(0, 0, 0, 0.16);
+            background-color: rgba(0, 0, 0, 0.40);
             .code {
                 position: absolute;
                 top: 50%;

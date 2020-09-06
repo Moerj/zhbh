@@ -100,7 +100,7 @@
 						<span class="item-title" style="float: left">地址：</span>
 						<span class="item-text ellipsis-1">{{ item['place'] }}</span>
 					  </span>
-					  <span><img src="./image/right.svg"/></span>
+					  <!--<span><img src="./image/right.svg"/></span>-->
 					</div>
 					<div class="inner-item" v-if="item['tabNo'] && item['seatNo']">
 					  <span>

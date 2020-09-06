@@ -29,7 +29,7 @@
 							<div style="float: right;font-size: 15px;font-weight: 400;color: #292a2c;line-height: 1.375rem;">{{user.realName}}</div>
 						</div>
 						<div style="overflow: auto;zoom: 1;margin-top: 0.2rem;">
-							<div style="float: left;font-size: 15px;font-weight: 300;color: #595b64;line-height: 1.375rem;">身份</div>
+							<div style="float: left;font-size: 15px;font-weight: 300;color: #595b64;line-height: 1.375rem;">职务</div>
 							<div style="float: right;font-size: 15px;font-weight: 400;color: #292a2c;line-height: 1.375rem;">{{user.duty}}</div>
 						</div>
 					</div>
