@@ -82,7 +82,7 @@
           </div>
         </div>
         <div class="fullwidth-content" v-if="detailInfo.intro">
-          <div class="fullwidth-title">会议日程</div>
+          <div class="fullwidth-title">会议议程</div>
           <div class="fullwidth-main">
             <div class="main-text" v-html="detailInfo.intro">
             </div>

@@ -207,7 +207,7 @@ export default {
   computed: {
     param() {
       return {
-        userId: this.user.id,
+        userId: this.journeyActive,
         date: this.tabCurrent}
     },
     dateList() {
@@ -238,7 +238,6 @@ export default {
 
     },
       shepherd() {
-          console.log("新手引导",sessionStorage['ISFIRSTLOGIN'])
           if (sessionStorage['ISFIRSTLOGIN']) {
               this.hh = document.documentElement.clientHeight || document.body.clientHeight;
               let $this = this;
@@ -310,7 +309,7 @@ export default {
     },
     getHotal() {
       const param = {
-          userId: this.user.id,
+          userId: this.journeyActive,
           liveDate: this.tabCurrent}
       journeyAPI
           .getHotal(param)
@@ -324,12 +323,12 @@ export default {
       })
     },
     toDetailRoom(id){
-        this.$router.push({
-          path: '/guest-home/jiudian',
-          query: {
-            userHotelId : id
-          }
-        });
+      this.$router.push({
+        path: '/guest-home/jiudian',
+        query: {
+          userHotelId : id
+        }
+      })
     },
     onTabsClick() {
       this.$refs.pull.reload();
