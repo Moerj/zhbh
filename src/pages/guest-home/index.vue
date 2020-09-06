@@ -184,12 +184,12 @@
             };
         },
         watch: {
-            query: {
-                immediate: true,
-                deep: true,
-                handler(newVal) {
-                },
-            },
+          query: {
+              immediate: true,
+              deep: true,
+              handler(newVal) {
+              },
+          },
         },
         computed: {
             param() {
@@ -214,8 +214,8 @@
         },
         methods: {
             shepherd() {
-                console.log('是否需要执行新手指引---',sessionStorage['ISFIRSTLOGIN']);
                 if (sessionStorage['ISFIRSTLOGIN']) {
+                  console.log("新手引导")
                     this.hh = document.documentElement.clientHeight || document.body.clientHeight;
                     let $this = this;
                     this.$nextTick(() => {
@@ -269,6 +269,7 @@
                                 {action() {
                                     console.log("完成了");
                                     $this.hh = 0;
+                                    sessionStorage.removeItem('ISFIRSTLOGIN')
                                     return this.next();}, text: '我知道了'}
                             ],
                         });
@@ -325,6 +326,15 @@
                         this.dates = res.list;
                         this.tabCurrent = res.list[this.active];
                         if (res.list && res.list.length > 0) {
+                            const now = this.$dayjs().format('YYYY-MM-DD')
+                            for (let i = 0; i<val.length; i++) {
+                              let date = val[i]
+                              let flag = this.$dayjs(now).isSameOrBefore(this.$dayjs(date))
+                              if (flag) {
+                                this.active = i
+                                break
+                              }
+                            }
                             this.getMyJourney();
                             this.getHotal();
                         }
