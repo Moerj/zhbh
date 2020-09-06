@@ -192,6 +192,17 @@ export default {
       deep: true,
       handler(newVal) {},
     },
+    dates: function (val) {
+      const now = this.$dayjs().format('YYYY-MM-DD')
+      for (let i = 0; i<val.length; i++) {
+        let date = val[i]
+        let flag = this.$dayjs(now).isSameOrBefore(this.$dayjs(date))
+        if (flag) {
+          this.active = i
+          return
+        }
+      }
+    }
   },
   computed: {
     param() {
