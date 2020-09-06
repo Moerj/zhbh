@@ -37,13 +37,13 @@
               <div class="hotel-card" v-if="hotel">
                   <div class="hotel-name" @click="toDetailRoom(hotel.id)" >{{ hotel.title }}</div>
                   <div class="hotel-info">
-                      <div class="info-item flex row-between" @click.stop="$wxMap(hotel)">
+                <div class="info-item flex row-between" @click="$wxMap(hotel)">
                   <span>
                     <span class="item-title" style="float: left">地址：</span>
                     <span class="item-text  ellipsis-1">{{ hotel.address }}</span>
                   </span>
-                          <span><img src="./image/right.svg"/></span>
-                      </div>
+                  <span><img src="./image/right.svg"/></span>
+                </div>
                       <div class="info-item flex row-between">
                   <span>
                     <span class="item-title">房间：</span>
