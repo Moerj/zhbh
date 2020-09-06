@@ -9,7 +9,7 @@
         <div class="head-item">
           <img src="https://img.yzcdn.cn/vant/cat.jpeg" alt="" />
         </div>
-        <div class="user-name">尊敬的环海先生</div>
+        <div class="user-name">{{ user.realName }}</div>
       </div>
 
       <div class="card-cont">
@@ -32,9 +32,9 @@
       </div>
       <div class="card-cont">
         <div class="card-code">
-          <div class="inner-title">您的专属二维码</div>
+          <div class="inner-title">我的专属二维码</div>
           <div class="big-code">
-            <img src="./big-code.png" />
+            <img style="width: 10rem;height: 10rem;margin-top: 0.625rem;" :src="url" />
           </div>
         </div>
       </div>
@@ -44,31 +44,29 @@
 </template>
 <script>
 import Tabbar from "@/components/Tabbar";
+import QRCode from "qrcode";
 export default {
   data() {
     return {
+      url:"",
+      user: JSON.parse(localStorage.user),
       appVersion: process.env.APP_VERSION,
     };
   },
   components: {
     Tabbar,
   },
+  mounted() {
+    let opengId = this.user && this.user.phoneNo?this.user.phoneNo:'数据错误';
+    QRCode.toDataURL(opengId,{width:180,qzone:0,margin:1})
+        .then(url => {
+          this.url = url
+        }).catch(err => {
+      this.$toast("二维码错误");
+    })
+  },
   methods: {
     logout() {
-      this.$dialog
-        .confirm({
-          title: "提示",
-          message: "确认退出吗?",
-        })
-        .then(() => {
-          // on confirm
-          sessionStorage.clear();
-          localStorage.clear();
-          this.$router.push("/login");
-        })
-        .catch(() => {
-          // on cancel
-        });
     },
   },
 };
