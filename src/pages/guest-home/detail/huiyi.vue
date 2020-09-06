@@ -22,7 +22,7 @@
               <img src="../image/time.png" />
             </div>
             <div class="time-text">
-              {{detailInfo.startTime }}到{{
+              {{detailInfo.scheduleDate +" "+ detailInfo.startTime }}到{{
                 detailInfo.endTime
               }}
             </div>

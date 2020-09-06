@@ -43,7 +43,7 @@
             </div>
             <div class="info-item flex row-between" v-if="detailInfo.tabNo">
               <span>
-                <span class="item-title">桌号：</span>
+                <span class="item-title">桌号/座位号：</span>
                 <span class="black-text">{{detailInfo.tabNo}}</span>
               </span>
             </div>

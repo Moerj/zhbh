@@ -7,7 +7,7 @@ export default [
   },
     {
         path: "/active-detail",
-        name: "active-detail",
+        name: "活动详情",
         meta: { root: true,title:"活动详情" },
         component: () => import("./activeDetail.vue"),
     }
