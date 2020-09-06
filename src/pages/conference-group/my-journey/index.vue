@@ -42,14 +42,12 @@
                 <span v-else>地点：</span>
                 <span style="display: inline">{{ v.place }}</span>
               </span>
-              <van-icon name="arrow" size="12" color="rgba(0,0,0,.4)"/>
             </div>
             <div v-if="v.schType===3">
               <span class="ellipsis-1">
                 <span>目的地：</span>
                 <span style="display: inline">{{ v.destination }}</span>
               </span>
-              <van-icon name="arrow" size="12" color="rgba(0,0,0,.4)"/>
             </div>
             <img v-if="v.__isPast" src="./assets/done.png" alt="">
           </div>
@@ -183,6 +181,8 @@ export default {
         }).finally(e => {
           this.$refs.pull?.endSuccess()
         })
+      } else {
+        this.$refs.pull?.endSuccess()
       }
     },
     toDetail (v) {

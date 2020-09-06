@@ -95,17 +95,18 @@ export default {
             needResult: 1, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
             scanType: ['qrCode', 'barCode'], // 可以指定扫二维码还是一维码，默认二者都有
             success: res => {
+              console.log(res)
               this.$loading.open()
               this.$http.get('h5api/meet/hasSignHotelSchedule', {
                 params: {
                   houtelId: id,
                   phoneNo: res.resultStr // 当needResult 为 1 时，扫码返回的结果
                 }
-              }).then(res => {
+              }).then(res2 => {
                 this.$router.push({
                   path: '/conference-group/sign-in',
                   query: {
-                    signedIn: res.errorCode === '00004' ? '1' : '0',
+                    signedIn: res2.errorCode === '00004' ? '1' : '0',
                     needSigningIn: '1',
                     phoneNo: res.resultStr,
                     schId: id,
