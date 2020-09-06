@@ -37,30 +37,30 @@
               <div class="hotel-card" v-if="hotel">
                   <div class="hotel-name" @click="toDetailRoom(hotel.id)" >{{ hotel.title }}</div>
                   <div class="hotel-info">
-                      <div class="info-item flex row-between" @click.stop="$wxMap(hotel)">
+                <div class="info-item flex row-between" @click="$wxMap(hotel)">
                   <span>
                     <span class="item-title" style="float: left">地址：</span>
                     <span class="item-text  ellipsis-1">{{ hotel.address }}</span>
                   </span>
-                          <span><img src="./image/right.svg"/></span>
-                      </div>
-                      <div class="info-item flex row-between">
+                  <span><img src="./image/right.svg"/></span>
+                </div>
+                <div class="info-item flex row-between" @click="toDetailRoom(hotel.id)" >
                   <span>
                     <span class="item-title">房间：</span>
                     <span class="item-text">{{ hotel.roomNo }}</span>
                   </span>
-                      </div>
-                      <div class="info-item flex row-between">
-                          <a class="tel" :href="'tel:'+hotel.hotelPhone"></a>
-                          <span>
-                    <span class="item-title">联系电话：</span>
-                    <span class="item-text text-phone">{{ hotel.hotelPhone }}</span>
-                  </span>
-                          <span><img src="./image/phone.svg"/></span>
-                      </div>
-                  </div>
+                </div>
+                <div class="info-item flex row-between">
+                  <a class="tel" :href="'tel:'+hotel.hotelPhone"></a>
+                    <span>
+                      <span class="item-title">联系电话：</span>
+                      <span class="item-text text-phone">{{ hotel.hotelPhone }}</span>
+                    </span>
+                  <span><img src="./image/phone.svg"/></span>
+                </div>
               </div>
           </div>
+        </div>
 			<div class="subtitle flex row-left col-center" :style="hotel?'':'margin-top:10px'">
 			  <div class="peers-group">
 				<div>
@@ -100,7 +100,7 @@
 						<span class="item-title" style="float: left">地址：</span>
 						<span class="item-text ellipsis-1">{{ item['place'] }}</span>
 					  </span>
-					  <span><img src="./image/right.svg"/></span>
+					  <!--<span><img src="./image/right.svg"/></span>-->
 					</div>
 					<div class="inner-item" v-if="item['tabNo'] && item['seatNo']">
 					  <span>
@@ -110,13 +110,13 @@
                 ((item['tabNo']? item['tabNo']:'') + (item['seatNo']? item['seatNo']:''))}} </span>
 					  </span>
 					</div>
-                  <div class="inner-item" style="width: 100%" v-if="item.volunteerPhone">
-                    <div style="width: 100%">
-                      <span class="item-title">志愿者电话：</span>
-                      <span class="item-text-phone">{{item.volunteerPhone}}</span>
-                      <span style="position: relative;right: 0;float: right"><img src="./image/phone.svg"/></span>
-                    </div>
-                  </div>
+            <div class="inner-item" style="width: 100%" v-if="item.volunteerPhone">
+              <div style="width: 100%">
+                <span class="item-title">志愿者电话：</span>
+                <span class="item-text-phone">{{item.volunteerPhone}}</span>
+                <span style="position: relative;right: 0;float: right"><img src="./image/phone.svg"/></span>
+              </div>
+            </div>
 				  </div>
 				</div>
 			  </div>

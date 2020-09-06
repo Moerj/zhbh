@@ -19,7 +19,7 @@
             <div class="time-icon">
               <img src="../image/time.png" />
             </div>
-            <div class="time-text">{{detailInfo.startTime }}到{{detailInfo.endTime }}</div>
+            <div class="time-text">{{detailInfo.scheduleDate +" "+ detailInfo.startTime }}到{{detailInfo.endTime }}</div>
           </div>
 
           <div class="title-wrapper">
@@ -29,7 +29,7 @@
           </div>
 
           <div class="info-wrapper">
-            <div class="flex row-between" @click.stop="$wxMap(detailInfo)">
+            <div class="flex row-between" @click="$wxMap(detailInfo)">
               <span>
                 <span class="item-title1" >地点：</span>
                 <span class="black-text1" >{{detailInfo.place}}</span>

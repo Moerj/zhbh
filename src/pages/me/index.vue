@@ -9,7 +9,7 @@
         <div class="head-item">
           <img src="https://img.yzcdn.cn/vant/cat.jpeg" alt="" />
         </div>
-        <div class="user-name">{{ user.realName }}</div>
+        <div class="user-name">尊敬的{{user.realName}}欢迎您！</div>
       </div>
 
       <div class="card-cont">
