@@ -35,8 +35,8 @@ export default {
         url: window.location.href
       }).then(({ data }) => {
         wx.config({
-          debug: ['test', 'developer', 'localhost'].includes(window.location.hostname)
-            || /^((2[0-4]\d|25[0-5]|[01]?\d\d?)\.){3}(2[0-4]\d|25[0-5]|[01]?\d\d?)$/.test(window.location.hostname),
+          debug: window.location.hostname.includes('developer.') ||
+            /^((2[0-4]\d|25[0-5]|[01]?\d\d?)\.){3}(2[0-4]\d|25[0-5]|[01]?\d\d?)$/.test(window.location.hostname),
           appId: data.appId,//appId通过微信服务号后台查看
           timestamp: data.timestamp,//生成签名的时间戳
           nonceStr: data.noncestr,//生成签名的随机字符串
