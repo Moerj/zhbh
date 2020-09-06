@@ -23,35 +23,6 @@
 	  	</van-swipe>
 	    </van-notice-bar>
 	  </div>
-      <div :id="hotel?'stop2':''">
-          <div class="title" @click="toDetailRoom(hotel.id)"> <p v-if="hotel">我的酒店</p></div>
-          <div class="hotel-card" v-if="hotel">
-            <div class="hotel-name" @click="toDetailRoom(hotel.id)" >{{ hotel.title }}</div>
-            <div class="hotel-info">
-                <div class="info-item flex row-between" @click.stop="$wxMap(hotel)">
-                  <span>
-                    <span class="item-title" style="float: left">地址：</span>
-                    <span class="item-text  ellipsis-1">{{ hotel.address }}</span>
-                  </span>
-                  <span><img src="./image/right.svg"/></span>
-                </div>
-                <div class="info-item flex row-between">
-                  <span>
-                    <span class="item-title">房间：</span>
-                    <span class="item-text">{{ hotel.roomNo }}</span>
-                  </span>
-                </div>
-                <div class="info-item flex row-between">
-                  <a class="tel" :href="'tel:'+hotel.hotelPhone"></a>
-                  <span>
-                    <span class="item-title">联系电话：</span>
-                    <span class="item-text text-phone">{{ hotel.hotelPhone }}</span>
-                  </span>
-                  <span><img src="./image/phone.svg"/></span>
-                </div>
-            </div>
-          </div>
-      </div>
     </template>
     <ui-pull
       @load="getList"
@@ -61,7 +32,36 @@
       ref="pull"
       v-show="dateList && dateList.length > 0">
       <div class="hotel-container">
-			<div class="subtitle flex row-left col-center">
+          <div :id="hotel?'stop2':''">
+              <div class="title" @click="toDetailRoom(hotel.id)"> <p v-if="hotel">我的酒店</p></div>
+              <div class="hotel-card" v-if="hotel">
+                  <div class="hotel-name" @click="toDetailRoom(hotel.id)" >{{ hotel.title }}</div>
+                  <div class="hotel-info">
+                      <div class="info-item flex row-between" @click.stop="$wxMap(hotel)">
+                  <span>
+                    <span class="item-title" style="float: left">地址：</span>
+                    <span class="item-text  ellipsis-1">{{ hotel.address }}</span>
+                  </span>
+                          <span><img src="./image/right.svg"/></span>
+                      </div>
+                      <div class="info-item flex row-between">
+                  <span>
+                    <span class="item-title">房间：</span>
+                    <span class="item-text">{{ hotel.roomNo }}</span>
+                  </span>
+                      </div>
+                      <div class="info-item flex row-between">
+                          <a class="tel" :href="'tel:'+hotel.hotelPhone"></a>
+                          <span>
+                    <span class="item-title">联系电话：</span>
+                    <span class="item-text text-phone">{{ hotel.hotelPhone }}</span>
+                  </span>
+                          <span><img src="./image/phone.svg"/></span>
+                      </div>
+                  </div>
+              </div>
+          </div>
+			<div class="subtitle flex row-left col-center" :style="hotel?'':'margin-top:10px'">
 			  <div class="peers-group">
 				<div>
 				  <span
