@@ -47,7 +47,7 @@
               </span>
               <span><img src="../image/right.svg"/></span>
             </div>
-            <div class="info-item flex row-between">
+            <div class="info-item flex row-between" v-if="detailInfo.carNo">
               <span>
                 <span class="item-title">车号：</span>
                 <span class="black-text">{{detailInfo.carNo}}</span>

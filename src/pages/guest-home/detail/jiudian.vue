@@ -34,11 +34,11 @@
             <div class="info-item flex row-between" @click.stop="$wxMap(detailInfo)">
               <span>
                 <span class="item-title1">地点：</span>
-                <span class="black-text1">{{detailInfo.address}}回复的客户发的哈卡机了符合</span>
+                <span class="black-text1">{{detailInfo.address}}</span>
               </span>
               <span><img src="../image/right.svg"/></span>
             </div>
-            <div class="info-item flex row-between">
+            <div class="info-item flex row-between" v-if="detailInfo.roomNo">
               <span>
                 <span class="item-title">房间：</span>
                 <span class="black-text">{{detailInfo.roomNo || '暂未分配房间'}}</span>
@@ -62,7 +62,7 @@
             </div>
           </div>
         </div>
-        <div class="fullwidth-content">
+        <div class="fullwidth-content" v-if="detailInfo.intro">
           <div class="fullwidth-title">简介</div>
           <div class="fullwidth-main">
             <div class="main-text" v-html="detailInfo.intro">

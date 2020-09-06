@@ -41,7 +41,7 @@
               </span>
               <span><img src="../image/right.svg"/></span>
             </div>
-            <div class="info-item flex row-between">
+            <div class="info-item flex row-between" v-if="detailInfo.tabNo">
               <span>
                 <span class="item-title">座位：</span>
                 <span class="black-text">{{detailInfo.tabNo}}</span>
@@ -73,20 +73,18 @@
             </div>
           </div>
         </div>
-
-        <div class="fullwidth-content">
-          <div class="fullwidth-title">简介</div>
-          <div class="fullwidth-main">
-            <div class="main-text" v-html="detailInfo.intro">
-            </div>
-          </div>
-        </div>
-
-        <div class="fullwidth-content">
+        <div class="fullwidth-content" v-if="detailInfo.meetSeatPath">
           <div class="fullwidth-title">座位安排</div>
           <div class="fullwidth-main">
             <div class="main-text">
-              <img src="./zuowei.png" style="width:100%;" />
+              <img :src="detailInfo.meetSeatPath" style="width:100%;" />
+            </div>
+          </div>
+        </div>
+        <div class="fullwidth-content" v-if="detailInfo.intro">
+          <div class="fullwidth-title">会议日程</div>
+          <div class="fullwidth-main">
+            <div class="main-text" v-html="detailInfo.intro">
             </div>
           </div>
         </div>

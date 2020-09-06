@@ -65,7 +65,7 @@
           </div>
         </div>
 
-        <div class="fullwidth-content">
+        <div class="fullwidth-content" v-if="detailInfo.intro">
           <div class="fullwidth-title">简介</div>
           <div class="fullwidth-main">
             <div class="main-text" v-html="detailInfo.intro">

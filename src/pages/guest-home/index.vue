@@ -2,8 +2,6 @@
 <div>
   <ui-main>
     <template v-slot:header>
-      <van-nav-bar title="旅发大会行程" fixed>
-      </van-nav-bar>
         <div :id="dateList.length>0?'stop1':''">
             <van-tabs
                     v-if="dateList && dateList.length>0"
@@ -104,10 +102,12 @@
 					  </span>
 					  <span><img src="./image/right.svg"/></span>
 					</div>
-					<div class="inner-item" v-if="item['tabNo']">
+					<div class="inner-item" v-if="item['tabNo'] && item['seatNo']">
 					  <span>
-						<span class="item-title">座位：</span>
-						<span class="item-text">{{ item['tabNo'] + item['seatNo'] }} 座位</span>
+
+						<span class="item-title">{{ item.schType=='2' ? "桌号":"座位"}}：</span>
+						<span class="item-text">{{ item.schType=='2' ? (item['tabNo']? item['tabNo']:'') :
+                ((item['tabNo']? item['tabNo']:'') + (item['seatNo']? item['seatNo']:''))}} </span>
 					  </span>
 					</div>
                   <div class="inner-item" style="width: 100%" v-if="item.volunteerPhone">

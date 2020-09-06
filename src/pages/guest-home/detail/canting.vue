@@ -41,7 +41,7 @@
               </span>
               <span><img src="../image/right.svg"/></span>
             </div>
-            <div class="info-item flex row-between">
+            <div class="info-item flex row-between" v-if="detailInfo.tabNo">
               <span>
                 <span class="item-title">桌号：</span>
                 <span class="black-text">{{detailInfo.tabNo}}</span>
@@ -64,11 +64,6 @@
               <span><img src="../image/phone.svg"/></span>
             </div>
           </div>
-
-          <!-- <div class="code-wrapper">
-            <p>您的专属二维码</p>
-            <div><img src="../image/big-code.png" /></div>
-          </div> -->
         </div>
 
         <div class="fullwidth-content" v-if="detailInfo.reminder">
@@ -80,7 +75,7 @@
           </div>
         </div>
 
-        <div class="fullwidth-content">
+        <div class="fullwidth-content" v-if="detailInfo.intro">
           <div class="fullwidth-title">简介</div>
           <div class="fullwidth-main">
             <div class="main-text" v-html="detailInfo.intro">

@@ -50,15 +50,15 @@
           </div>
         </div>
 
-        <div class="fullwidth-content">
+        <div class="fullwidth-content" v-if="detailInfo.busPath">
           <div class="fullwidth-title">温馨提示</div>
           <div class="fullwidth-main">
             <div class="main-img flex row-around">
-              <div><img src="../image/zuowei.png" /></div>
+              <div><img :src="detailInfo.busPath" /></div>
               <div>
                 <div class="title">您的座位</div>
                 <div class="subtitle">请有序对号入座</div>
-                <div class="text">{{detailInfo.seatNo}}</div>
+                <div class="text">{{detailInfo.seatNo? detailInfo.seatNo:"无"}}</div>
               </div>
             </div>
           </div>
