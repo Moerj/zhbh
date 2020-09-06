@@ -30,7 +30,6 @@
              :num.sync="query.pageNo"
              :total="total"
              ref="pull"
-             v-if="list&&list.length>0"
     >
       <van-steps direction="vertical" :active="activeStep" active-color="#2B69E2">
         <van-step v-for="(v,i) of list" :class="v.__isPast&&'van-step--past'">
@@ -60,7 +59,6 @@
         </van-step>
       </van-steps>
     </ui-pull>
-    <empty v-else :list="list"/>
 
     <template #footer>
       <ConferenceGroupTabbar/>

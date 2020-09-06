@@ -17,9 +17,9 @@ const router = new VueRouter({
   routes,
 })
 //新手指引
-import VueShepherd from 'vue-shepherd';
-import 'shepherd.js/dist/css/shepherd.css';
-Vue.use(VueShepherd);
+import VueShepherd from 'vue-shepherd'
+import 'shepherd.js/dist/css/shepherd.css'
+Vue.use(VueShepherd)
 
 const originalPush = VueRouter.prototype.push
 VueRouter.prototype.push = function push (location) {
@@ -30,7 +30,6 @@ import store from './store'
 
 Vue.router = router
 Vue.store = store
-
 
 // http 模块
 import axios from './assets/axios'
@@ -46,39 +45,61 @@ Vue.use(axios, {
   baseURL: process.env.VUE_APP_API_URL,
 })
 
+import Axios from 'axios'
+
+function wxAuthorization () {
+  Axios.post(process.env.VUE_APP_BASE_API + 'yyt/wechat/wechat/queryJsConfigInfo', {
+    mchId: '-1',
+    url: window.location.href
+  }).then(res => {
+    const data = res?.data?.data
+    wx.config({
+      debug: process.env.NODE_ENV === 'development',
+      appId: data.appId,//appId通过微信服务号后台查看
+      timestamp: data.timestamp,//生成签名的时间戳
+      nonceStr: data.noncestr,//生成签名的随机字符串
+      signature: data.signature,//签名
+      jsApiList: ['scanQRCode', 'openLocation']
+    })
+    wx.error((res) => {
+    })
+  })
+}
 
 router.beforeEach(async (to, from, next) => {
   document.title = to.name || description
 
   // 未登录拦截
   if (to.path !== '/login' && !localStorage.user) {
-    console.log("拦截登录")
-    next({path: "/login"})
+    next({ path: '/login' })
     return
   }
 
   if (to.path == '/login') {
-    console.log("登录页跳转")
     // 重新获取openId
-    store._actions.getOpenId[0] ();
+    store._actions.getOpenId[0]()
     // 第一次进入登录前检测 openid
     if (sessionStorage.wxData && !sessionStorage.user) {
       const wxData = JSON.parse(sessionStorage.wxData)
-      await store._actions.checkOpenId[0]({ openId: wxData.openid}).then((res) => {
+      await store._actions.checkOpenId[0]({ openId: wxData.openId }).then((res) => {
         if (res && res.user) {
           const user = res.user
           // role 1 3 嘉宾首页, 2工作人员或志愿者首页
           const _url = store.getters.roleNav.get(user.userRole)
-          console.log("登录页跳转链接"+ _url)
-          next({ path: _url, query: { openId: wxData.openid }})
+          next({ path: _url, query: { openId: wxData.openId } })
         }
       })
     }
-    console.log("登录页删除user")
-    sessionStorage.removeItem("user")
+    sessionStorage.removeItem('user')
   }
-   console.log("直接跳转 url " + to.path)
-    next()
+  next()
+})
+
+router.afterEach((to, from) => {
+  if (!sessionStorage.wxConfig) {
+    wxAuthorization()
+    sessionStorage.wxConfig = '1'
+  }
 })
 
 // 公共事件监听器

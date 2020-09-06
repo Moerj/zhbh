@@ -135,7 +135,7 @@ export default {
     methods: {
       toActiveDetail(id){
           console.log(id)
-          this.$router.push({name: 'active-detail', query: {activeId: id,}});
+          this.$router.push({path: '/active-detail', query: {activeId: id,}});
       },
       onRefresh(){
           this.isLoading = true;
