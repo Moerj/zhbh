@@ -52,11 +52,13 @@ router.beforeEach(async (to, from, next) => {
 
   // 未登录拦截
   if (to.path !== '/login' && !localStorage.user) {
+    console.log("拦截登录")
     next({path: "/login"})
     return
   }
 
   if (to.path == '/login') {
+    console.log("登录页跳转")
     // 重新获取openId
     store._actions.getOpenId[0] ();
     // 第一次进入登录前检测 openid
@@ -67,15 +69,16 @@ router.beforeEach(async (to, from, next) => {
           const user = res.user
           // role 1 3 嘉宾首页, 2工作人员或志愿者首页
           const _url = store.getters.roleNav.get(user.userRole)
+          console.log("登录页跳转链接"+ _url)
           next({ path: _url, query: { openId: wxData.openid }})
-          return
         }
       })
     }
+    console.log("登录页删除user")
     sessionStorage.removeItem("user")
   }
-
-  next()
+   console.log("直接跳转 url " + to.path)
+    next()
 })
 
 // 公共事件监听器
