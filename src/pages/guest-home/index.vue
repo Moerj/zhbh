@@ -56,7 +56,7 @@
       </div>
     </template>
     <ui-pull
-      @load="getDateList"
+      @load="getList"
       v-model="list"
       :num.sync="query.pageNo"
       :total="total"
@@ -197,6 +197,12 @@ export default {
       deep: true,
       handler(newVal) {},
     },
+    dates: function() {
+      this.getList()
+    },
+    active: function() {
+
+    }
   },
   computed: {
     param() {
@@ -220,9 +226,20 @@ export default {
 
   },
   methods: {
+
+    getList () {
+      if (!this.dates || !this.dates.length>0) {
+        this.getDateList()
+        return
+      }
+      this.tabCurrent = this.dates[this.active]
+      this.getMyJourney();
+      this.getHotal();
+
+    },
       shepherd() {
           console.log("新手引导",sessionStorage['ISFIRSTLOGIN'])
-          if (!sessionStorage['ISFIRSTLOGIN']) {
+          if (sessionStorage['ISFIRSTLOGIN']) {
               this.hh = document.documentElement.clientHeight || document.body.clientHeight;
               let $this = this;
               this.$nextTick(() => {
@@ -321,20 +338,18 @@ export default {
       journeyAPI
         .DateList({userId : this.user.id})
         .then((res) => {
-          this.dates = res.list;
-          this.tabCurrent = res.list[this.active];
           if (res.list && res.list.length>0) {
-            // const now = this.$dayjs().format('YYYY-MM-DD')
-            // for (let i = 0; i<res.list.length; i++) {
-            //   let date = res.list[i]
-            //   let flag = this.$dayjs(now).isSameOrBefore(this.$dayjs(date))
-            //   if (flag) {
-            //     this.active = i
-            //     break
-            //   }
-            // }
-            this.getMyJourney();
-            this.getHotal();
+
+            const now = this.$dayjs().format('YYYY-MM-DD')
+            for (let i = 0; i<res.list.length; i++) {
+              let date = res.list[i]
+              let flag = this.$dayjs(now).isSameOrBefore(this.$dayjs(date))
+              if (flag) {
+                this.active = i
+                break
+              }
+            }
+            this.dates = res.list;
           }
         })
     },
