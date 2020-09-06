@@ -16,13 +16,10 @@ import routes from './assets/router'
 const router = new VueRouter({
   routes,
 })
-
+//新手指引
 import VueShepherd from 'vue-shepherd';
 import 'shepherd.js/dist/css/shepherd.css';
 Vue.use(VueShepherd);
-import VueIntro from 'vue-introjs'
-Vue.use(VueIntro);
-import 'intro.js/introjs.css';
 
 const originalPush = VueRouter.prototype.push
 VueRouter.prototype.push = function push (location) {
@@ -33,7 +30,7 @@ import store from './store'
 
 Vue.router = router
 Vue.store = store
-//新手指引
+
 
 // http 模块
 import axios from './assets/axios'

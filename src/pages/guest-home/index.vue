@@ -142,10 +142,8 @@
     import Qrcode from "@/components/Qrcode";
     import Call from "@/components/call";
     import Empty from '@/components/empty'
-    import Shepherd from '@/components/shepher'
 
-    import journeyAPI from "@/api/journey.js";
-
+    import journeyAPI from "@/api/journey";
 
     function getQuery() {
         return {
@@ -162,8 +160,7 @@
             Tabbar,
             Qrcode,
             Call,
-            Empty,
-            Shepherd
+            Empty
         },
         data() {
             return {
@@ -229,7 +226,6 @@
                             },
                             scrollTo: {behavior: 'smooth'}
                         });
-
                         tour.addStep({
                             attachTo: {element: document.getElementById("stop1"), on: 'bottom'},
                             text: '点击可查看对应日期查看日程',

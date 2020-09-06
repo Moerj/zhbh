@@ -81,10 +81,6 @@
           <div class="th">活动地址：</div>
           <div class="td ellipsis-1" @click.stop="locate(schedule)">{{ schedule.place }}</div>
         </div>
-        <div class="tr">
-          <div class="th">乘车地点：</div>
-          <div class="td ellipsis-1" @click.stop="locate(schedule)">{{ schedule }}</div>
-        </div>
       </div>
     </div>
 

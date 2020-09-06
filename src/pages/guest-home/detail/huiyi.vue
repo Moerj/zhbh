@@ -106,6 +106,7 @@ export default {
       current: 0,
       currentData: "",
       images: [],
+      detailInfo:"",
       weather: {},
     };
   },

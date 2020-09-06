@@ -2,6 +2,7 @@
 import { isEmpty } from 'plain-kit'
 import dayjs from 'dayjs'
 import isSameOrAfter from 'dayjs/plugin/isSameOrAfter.js'
+import isSameOrBefore from 'dayjs/plugin/isSameOrBefore.js'
 
 const STORAGE_KEY = 'user'
 export default {
@@ -82,6 +83,7 @@ export default {
         })
 
         dayjs.extend(isSameOrAfter)
+        dayjs.extend(isSameOrBefore)
         Object.defineProperty(Vue.prototype, '$dayjs', {
             value: dayjs
         })
