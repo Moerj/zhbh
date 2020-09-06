@@ -17,6 +17,9 @@ const router = new VueRouter({
   routes,
 })
 
+import VueShepherd from 'vue-shepherd';
+import 'shepherd.js/dist/css/shepherd.css';
+Vue.use(VueShepherd);
 import VueIntro from 'vue-introjs'
 Vue.use(VueIntro);
 import 'intro.js/introjs.css';

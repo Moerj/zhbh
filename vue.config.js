@@ -50,10 +50,7 @@ module.exports = {
             'process.VERSION': JSON.stringify(gitRevisionPlugin.version()),
             'process.COMMIT': JSON.stringify(gitRevisionPlugin.commithash())
             // 'process.BRANCH': JSON.stringify(gitRevisionPlugin.branch())
-          }),
-            new webpack.ProvidePlugin({
-                introJs: ['intro.js', 'introJs']
-            })
+          })
         ],
       }
     }
@@ -63,9 +60,6 @@ module.exports = {
       name: description,
       plugins: [
           APP_VERSION,
-          new webpack.ProvidePlugin({
-            introJs: ['intro.js', 'introJs']
-          }),
           gitRevisionPlugin,
           new webpack.DefinePlugin({
               'process.VERSION': JSON.stringify(gitRevisionPlugin.version()),
