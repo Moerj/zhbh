@@ -35,6 +35,9 @@ const actgroupJoin = (param) =>
 const activeCancel = (param) =>
     vue.$http.get(`/guest/meet/cancelJoinActivity`,{ params: param });
 
+const activeJoined = (param) =>
+    vue.$http.get(`/guest/meet/joinedActList`,{params: param});
+
 export default {
   myJourney,
   DateList,
@@ -51,5 +54,6 @@ export default {
   notices,
   actgroupInfo,
     actgroupJoin,
-    activeCancel
+    activeCancel,
+    activeJoined
 };

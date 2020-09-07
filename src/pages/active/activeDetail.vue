@@ -41,7 +41,17 @@
 			    <div v-for="item in list" class="list-item">
 			      <div class="item-left">
 			        <div class="mingci">{{item['groupTitle']}}</div>
-			        <div :class="item['hasJioned']===0?'baoming':item['hasJioned']===1?'greenbaoming':item['hasJioned']===3?'graybaoming':'graybaoming'" @click="joinActive(item)">报名</div>
+			        <div :class="item['groupStatue']===1?'baoming':
+								  item['groupStatue']===2?'greenbaoming':
+									  item['groupStatue']===3?'graybaoming':
+										  item['groupStatue']===4?'graybaoming':
+											item['groupStatue']===5?'baoming':'graybaoming'"
+						 @click="joinActive(item)">
+						{{item['groupStatue']===1?'报名':
+						item['groupStatue']===2?'取消报名':
+						item['groupStatue']===3?'人数已满':
+						item['groupStatue']===4?'活动结束':
+						item['groupStatue']===5?'报名':'非法'}}</div>
 			      </div>
 			      <div class="item-right">
 			        <div class="renshu">
@@ -123,9 +133,8 @@ export default {
       });
     },
 	joinActive(item){
-        console.log(item['hasJioned']);
-        let index = 0;
-		if (item['hasJioned'] === 0) {//报名活动
+        console.log(item['groupStatue']);
+		if (item['groupStatue'] === 1 || item['groupStatue'] === 5) {//报名活动
             journeyAPI.actgroupJoin({actGroupId: item.id, userId:this.user.id}).then((res) => {
                 if (res.errorCode==="00000"){
                     console.log(res.data);
@@ -135,8 +144,8 @@ export default {
                     this.$toast(res.msg);
                 }
             });
-		} else if (index == 2) {//取消报名
-            journeyAPI.activeCancel({userActId: ''}).then((res) => {
+		} else if (item['groupStatue'] === 2) {//取消报名
+            journeyAPI.activeCancel({userActId: item.userActId}).then((res) => {
                 if (res.errorCode==="00000"){
                     console.log(res.data)
 					this.getDetailData()
@@ -368,7 +377,6 @@ export default {
 .mingci {
   height: 22px;
   font-size: 18px;
-  font-family: PingFangSC, PingFangSC-Medium;
   font-weight: 600;
   text-align: center;
   color: #2e3032;
@@ -376,14 +384,12 @@ export default {
 }
 
 .baoming {
-  width: 50px;
   height: 25px;
-  margin: 4px auto;
+  margin: 4px 4px;
   background: #c7000b;
   border-radius: 4px;
   line-height: 25px;
   font-size: 15px;
-  font-family: PingFangSC, PingFangSC-Regular;
   font-weight: 400;
   text-align: center;
   color: #ffffff;
@@ -393,9 +399,26 @@ export default {
 .graybaoming {
   background: #f3f4f8;
   color: #c4c6cf;
+	height: 25px;
+	margin: 4px 4px;
+	border-radius: 4px;
+	line-height: 25px;
+	font-size: 15px;
+	font-weight: 400;
+	text-align: center;
+	letter-spacing: 0px;
 }
 .greenbaoming {
+	color: #ffffff;
   background: #22b938;
+	height: 25px;
+	margin: 4px 4px;
+	border-radius: 4px;
+	line-height: 25px;
+	font-size: 15px;
+	font-weight: 400;
+	text-align: center;
+	letter-spacing: 0px;
 }
 
 .item-right {
