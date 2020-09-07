@@ -48,7 +48,7 @@
               </span>
             </div>
             <div class="info-item flex row-between" v-if="detailInfo.phone">
-              <a class="tel" :href="'tel'+ (detailInfo.phone )"></a>
+              <a class="tel" :href="'tel:'+ (detailInfo.phone )"></a>
               <span>
                 <span class="item-title">联系电话：</span>
                 <span class="red-text">{{detailInfo.phone}}</span>
