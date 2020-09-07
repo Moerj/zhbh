@@ -26,11 +26,11 @@
           </div>
         </header>
         <main>
-          <div class="tr">
-            <div class="th">嘉宾身份</div>
+          <div class="tr" v-if="v.duty">
+            <div class="th">嘉宾职务</div>
             <div class="td ellipsis-1">{{ v.duty }}</div>
           </div>
-          <div class="tr">
+          <div class="tr" v-if="v.phoneNo">
             <div class="th">嘉宾电话</div>
             <a class="td ellipsis-1" :href="`tel:${v.phoneNo}`">
               <van-icon :name="require('@/imgs/tel.svg')" size="12"/>
@@ -42,12 +42,12 @@
               <div class="th">车辆类型</div>
               <div class="td ellipsis-1">{{ v.carType }}</div>
             </div>
-            <div class="tr">
+            <div class="tr" v-if="v.carNoTitle">
               <!--2020 9.5 创信 字段更改-->
               <div class="th">车号</div>
               <div class="td ellipsis-1">{{ v.carNoTitle }}</div>
             </div>
-            <div class="tr">
+            <div class="tr" v-if="v.carNo">
               <div class="th">车牌号</div>
               <div class="td ellipsis-1">{{ v.carNo }}</div>
             </div>
@@ -55,7 +55,7 @@
               <div class="th">司机姓名</div>
               <div class="td ellipsis-1">{{ v.driver }}</div>
             </div>
-            <div class="tr">
+            <div class="tr" v-if="v.driverPhone">
               <div class="th">司机电话</div>
               <a class="td ellipsis-1" :href="`tel:${v.driverPhone}`" v-if="v.driverPhone">
                 <van-icon :name="require('@/imgs/tel.svg')" size="12"/>
@@ -63,13 +63,13 @@
               </a>
             </div>
           </template>
-          <template v-else-if="schType===2">
+          <template v-else-if="schType===2&&!$isEmpty(v.tabNo)">
             <div class="tr">
               <div class="th">桌号</div>
-              <div class="td ellipsis-1" v-if="!$isEmpty(v.tabNo)">{{ v.tabNo }}</div>
+              <div class="td ellipsis-1">{{ v.tabNo }}</div>
             </div>
           </template>
-          <template v-else-if="schType===1">
+          <template v-else-if="schType===1&&(!$isEmpty(v.tabNo)||!$isEmpty(v.seatNo))">
             <div class="tr">
               <div class="th">座位</div>
               <div class="td ellipsis-1">{{ v.tabNo + v.seatNo }}
@@ -158,7 +158,7 @@ export default {
   background: #ffffff;
   border-radius: 10px;
   box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.08);
-  padding: 0 10px;
+  padding: 0 10px 5px 10px;
 
   & > header {
     & > .tr {

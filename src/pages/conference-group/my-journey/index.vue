@@ -12,7 +12,7 @@
             <van-icon :name="require('./assets/right.svg')" size="8"/>
           </div>
         </div>
-        <div v-if="notice&&notice.length">
+        <div v-if="notice&&notice.length&&$route.path==='/conference-group/my-journey'">
           <van-icon :name="require('./assets/trumpet.svg')" style="margin-right:10px;"/>
           <van-swipe autoplay="3000" height="20" vertical :show-indicators="false">
             <van-swipe-item v-for="v of notice">

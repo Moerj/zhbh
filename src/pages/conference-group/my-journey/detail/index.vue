@@ -52,7 +52,7 @@
           </span>
           <van-icon name="arrow" size="12"/>
         </div>
-        <div v-else>
+        <div v-else-if="data.chargerPhone">
           <span class="title">联系电话：</span>
           <span class="ellipsis-1" @click="call(data.chargerPhone)">
             <van-icon :name="require('@/imgs/tel.svg')" size="12" v-if="data.chargerPhone"/>&nbsp;
@@ -68,12 +68,12 @@
             <span class="title">乘车人员：</span>
             <span>{{ v.seatPerson }}</span>
           </div>
-          <div class="ellipsis-1">
+          <div class="ellipsis-1" v-if="v.carNoTitle">
             <!--2020 9.5 创信 字段更改-->
             <span class="title">车号：</span>
             <span>{{ v.carNoTitle }}</span>
           </div>
-          <div class="ellipsis-1">
+          <div class="ellipsis-1" v-if="v.carNo">
             <span class="title">车牌号：</span>
             <span>{{ v.carNo }}</span>
           </div>
@@ -81,7 +81,7 @@
             <span class="title">司机姓名：</span>
             <span>{{ v.driver }}</span>
           </div>
-          <div @click="call(v.driverPhone)">
+          <div @click="call(v.driverPhone)" v-if="v.driverPhone">
             <span class="title">司机电话：</span>
             <span class="ellipsis-1">
               <van-icon :name="require('@/imgs/tel.svg')" size="12"/>&nbsp;

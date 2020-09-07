@@ -1,6 +1,6 @@
 <template>
   <ui-main>
-    <div :style="{backgroundImage}">
+    <div :style="{backgroundImage,height:healthCode.color==='red'?'270px':'250px'}">
       <div>健康状态：{{ status }}</div>
       <div>{{ data.realName }}</div>
       <div>{{ statusPostscript }}</div>
@@ -18,8 +18,8 @@
           <div class="th">嘉宾姓名：</div>
           <div class="td ellipsis-1">{{ data.realName }}</div>
         </div>
-        <div class="tr">
-          <div class="th">嘉宾身份：</div>
+        <div class="tr" v-if="data.duty">
+          <div class="th">嘉宾职务：</div>
           <div class="td ellipsis-1">{{ data.duty }}</div>
         </div>
       </div>
@@ -31,9 +31,9 @@
         </div>
         <div class="tr">
           <div class="th">地址：</div>
-          <div class="td ellipsis-1" @click.stop="locate(schedule)">{{ schedule.address }}</div>
+          <div class="td ellipsis-1" @click.stop="locate(schedule, schedule.address)">{{ schedule.address }}</div>
         </div>
-        <div class="tr">
+        <div class="tr" v-if="schedule.roomNo">
           <div class="th">房间：</div>
           <div class="td ellipsis-1">{{ schedule.roomNo }}</div>
         </div>
@@ -42,9 +42,9 @@
         <div class="title">会议信息</div>
         <div class="tr">
           <div class="th">会议地址：</div>
-          <div class="td ellipsis-1" @click.stop="locate(schedule)">{{ schedule.place }}</div>
+          <div class="td ellipsis-1" @click.stop="locate(schedule, schedule.place)">{{ schedule.place }}</div>
         </div>
-        <div class="tr">
+        <div class="tr" v-if="schedule.meetRoom && !$isEmpty(schedule.meetRoom.seatNo)">
           <div class="th">座位：</div>
           <div class="td ellipsis-1">{{ schedule.meetRoom && schedule.meetRoom.seatNo }}</div>
         </div>
@@ -53,9 +53,11 @@
         <div class="title">餐厅信息</div>
         <div class="tr">
           <div class="th">餐厅地址：</div>
-          <div class="td ellipsis-1" @click.stop="locate(schedule)">{{ schedule.place }}</div>
+          <div class="td ellipsis-1" @click.stop="locate(schedule, schedule.restaurant&&schedule.restaurant.address)">
+            {{ schedule.restaurant && schedule.restaurant.address }}
+          </div>
         </div>
-        <div class="tr">
+        <div class="tr" v-if="schedule.restaurant && !$isEmpty(schedule.restaurant.seatNo)">
           <div class="th">桌号/包间号：</div>
           <div class="td ellipsis-1">{{ schedule.restaurant && schedule.restaurant.seatNo }}</div>
         </div>
@@ -64,13 +66,13 @@
         <div class="title">车辆接送信息</div>
         <div class="tr">
           <div class="th">乘车地点：</div>
-          <div class="td ellipsis-1" @click.stop="locate(schedule)">{{ schedule.place }}</div>
+          <div class="td ellipsis-1" @click.stop="locate(schedule, schedule.place)">{{ schedule.place }}</div>
         </div>
-        <div class="tr">
-          <div class="th">车牌号：</div>
+        <div class="tr" v-if="schedule.carNo">
+          <div class="th">车号：</div>
           <div class="td ellipsis-1">{{ schedule.carNo }}</div>
         </div>
-        <div class="tr" v-if="data">
+        <div class="tr" v-if="!$isEmpty(schedule.seatNo)">
           <div class="th">座位号：</div>
           <div class="td ellipsis-1">{{ schedule.seatNo }}</div>
         </div>
@@ -84,10 +86,10 @@
       </div>
     </div>
 
-    <template #footer v-if="$route.query.needSigningIn==='1'">
+    <template #footer v-if="healthCode.color==='green'">
       <div class="safe-area-plus">
-        <van-button round @click="signIn" :disabled="healthCode.color!=='green'||signedIn" :color="themeColor">
-          {{ signedIn ? '已签到' : `${schTypeName}签到` }}
+        <van-button round @click="signIn" :disabled="Boolean(disabled)" :color="themeColor">
+          {{ disabled ? disabled : `${schTypeName}签到` }}
         </van-button>
       </div>
     </template>
@@ -104,7 +106,7 @@ export default {
     return {
       user,
       schType: Number(this.$route.query.schType),
-      signedIn: this.$route.query.signedIn === '1',
+      disabled: this.$route.query.disabled,
       data: {},
       schedule: {
         restaurant: {}
@@ -151,9 +153,9 @@ export default {
   methods: {
     getDetail () {
       this.$loading.open()
-      this.$http.get('h5api/meet/healthCode', {
+      this.$http.get('h5api/meet/healthByJoinCode', {
         params: {
-          phone: this.$route.query.phoneNo,
+          joinCode: this.$route.query.joinCode,
         }
       }).then(({ data }) => {
         this.healthCode = data || {}
@@ -162,24 +164,23 @@ export default {
       })
 
       this.$loading.open()
-      this.$http.get('h5api/meet/infoByOpenId2', {
-        params: {
-          phoneNo: this.$route.query.phoneNo,
-          schId: this.$route.query.schId,
-        }
-      }).then(({ data }) => {
-        this.data = data || {}
-        if (this.$route.query.schType === '0') {
-          this.schedule = data?.userHotelVo || {}
-        } else if (this.$route.query.schType === '3') {
-          this.schedule = data?.userCarInfoVo || {}
-        }
-      }).finally(e => {
-        this.$loading.close()
-      })
-
-      if (!['0', '3'].includes(this.$route.query.schType)) {
-        this.$loading.open()
+      if (['0', '3'].includes(this.$route.query.schType)) {
+        this.$http.get('h5api/meet/infoByOpenId2', {
+          params: {
+            joinCode: this.$route.query.joinCode,
+            schId: this.$route.query.schId,
+          }
+        }).then(({ data }) => {
+          this.data = data || {}
+          if (this.$route.query.schType === '0') {
+            this.schedule = data?.userHotelVo || {}
+          } else if (this.$route.query.schType === '3') {
+            this.schedule = data?.userCarInfoVo || {}
+          }
+        }).finally(e => {
+          this.$loading.close()
+        })
+      } else {
         this.$http.get('h5api/meet/get/info', {
           params: {
             schId: this.$route.query.schId,
@@ -197,15 +198,20 @@ export default {
       if (this.schType === 0) {
         this.$http.get('h5api/meet/signHotelSchedule', {
           params: {
-            phoneNo: this.$route.query.phoneNo,
+            joinCode: this.$route.query.joinCode,
             houtelId: this.$route.query.schId,
           }
         }).then(res => {
-          this.signedIn = true
+          this.disabled = '已签到'
           this.$toast(res.message)
         }).catch(res => {
-          if (['00004'].includes(res.errorCode)) {
-            this.signedIn = true
+          switch (res.errorCode) {
+            case '00003':
+              this.disabled = '已结束'
+              break
+            case '00004':
+              this.disabled = '已签到'
+              break
           }
         }).finally(e => {
           this.$loading.close()
@@ -213,47 +219,53 @@ export default {
       } else {
         this.$http.get('h5api/meet/signSchedule', {
           params: {
-            phoneNo: this.$route.query.phoneNo,
+            joinCode: this.$route.query.joinCode,
             schId: this.$route.query.schId,
             forceSign: '0'
           }
         }).then(res => {
-          this.signedIn = true
+          this.disabled = '已签到'
           this.$toast(res.message)
         }).catch(res => {
-          if (['00002', '00003'].includes(res.errorCode)) {
-            Dialog.confirm({
-              title: res.message + '，是否签到？',
-            }).then(() => {
-              this.$loading.open()
-              this.$http.get('h5api/meet/signSchedule', {
-                params: {
-                  phoneNo: this.user.phoneNo,
-                  schId: this.$route.query.schId,
-                  forceSign: '1'
-                }
-              }).then(res => {
-                this.signedIn = true
-                this.$toast(res.message)
-              }).finally(e => {
-                this.$loading.close()
+          switch (res.errorCode) {
+            case '00002':
+              Dialog.confirm({
+                title: res.message + '，是否签到？',
+              }).then(() => {
+                this.$loading.open()
+                this.$http.get('h5api/meet/signSchedule', {
+                  params: {
+                    joinCode: this.$route.query.joinCode,
+                    schId: this.$route.query.schId,
+                    forceSign: '1'
+                  }
+                }).then(res => {
+                  this.disabled = '已签到'
+                  this.$toast(res.message)
+                }).finally(e => {
+                  this.$loading.close()
+                })
               })
-            })
-          } else if (['00004'].includes(res.errorCode)) {
-            this.signedIn = true
+              break
+            case '00003':
+              this.disabled = '已结束'
+              break
+            case '00004':
+              this.disabled = '已签到'
+              break
           }
         }).finally(e => {
           this.$loading.close()
         })
       }
     },
-    locate (v) {
+    locate (v, address) {
       wx.ready(() => {
         wx.openLocation({
           longitude: Number(v.longitude),
           latitude: Number(v.latitude),
           name: v.title, // 位置名
-          address: v.place || v.address, // 地址详情说明
+          address, // 地址详情说明
           fail: e => {
             console.error(e)
             console.log(v)
@@ -268,7 +280,6 @@ export default {
 <style lang="scss" scoped>
 .ui-main-scroll {
   & > div:first-child {
-    height: 252px;
     background-position: center;
     background-size: cover;
     text-align: center;

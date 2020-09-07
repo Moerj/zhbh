@@ -37,33 +37,55 @@ export default {
           wx.scanQRCode({
             needResult: 1, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
             scanType: ['qrCode', 'barCode'], // 可以指定扫二维码还是一维码，默认二者都有
-            success: res => {
-              console.log(res)
+            success: scanRes => {
+              console.log(scanRes)
               this.$loading.open()
               this.$http.get('h5api/meet/hasJoinSchedule', {
                 params: {
                   schId: this.$route.query.schId,
-                  phoneNo: res.resultStr // 当needResult 为 1 时，扫码返回的结果
+                  joinCode: scanRes.resultStr // 当needResult 为 1 时，扫码返回的结果
                 }
-              }).then(res2 => {
+              }).then(res => {
+                let disabled = ''
+                switch (true) {
+                  case res.errorCode === '00004':
+                    disabled = '已签到'
+                    break
+                  case res.errorCode === '00003':
+                    disabled = '已结束'
+                    break
+                  case res.data === '0':
+                    disabled = '不需要签到'
+                    break
+                }
                 this.$router.push({
                   path: '/conference-group/sign-in',
                   query: {
-                    signedIn: res2.errorCode === '00004' ? '1' : '0',
-                    needSigningIn: res2.data,
-                    phoneNo: res.resultStr,
+                    disabled,
+                    joinCode: scanRes.resultStr,
                     schId: this.$route.query.schId,
                     schType: this.$route.query.schType
                   }
                 })
               }).catch(res => {
-                if (res.errorCode !== '00001') {
+                if (scanRes.errorCode !== '00001') {
+                  let disabled = ''
+                  switch (true) {
+                    case res.errorCode === '00004':
+                      disabled = '已签到'
+                      break
+                    case res.errorCode === '00003':
+                      disabled = '已结束'
+                      break
+                    case res.data === '0':
+                      disabled = '不需要签到'
+                      break
+                  }
                   this.$router.push({
                     path: '/conference-group/sign-in',
                     query: {
-                      signedIn: res.errorCode === '00004' ? '1' : '0',
-                      needSigningIn: res.data,
-                      phoneNo: res.resultStr,
+                      disabled,
+                      joinCode: scanRes.resultStr,
                       schId: this.$route.query.schId,
                       schType: this.$route.query.schType
                     }
@@ -79,9 +101,6 @@ export default {
         this.$router.push({
           path: '/conference-group/sign-in',
           query: {
-            signedIn: '0',
-            needSigningIn: '1',
-            phoneNo: '',
             schId: this.$route.query.schId,
             schType: this.$route.query.schType
           }
