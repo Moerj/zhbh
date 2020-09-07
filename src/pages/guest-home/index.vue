@@ -386,7 +386,7 @@ export default {
           if (res.list) {
 
             const now = this.$dayjs().format('YYYY-MM-DD')
-            for (let i = 0; i<res.list.datelist.length; i++) {
+            for (let i = 0; i<res.list.datelistFull.length; i++) {
               let date = res.list[i]
               let flag = this.$dayjs(now).isSameOrBefore(this.$dayjs(date))
               if (flag) {
