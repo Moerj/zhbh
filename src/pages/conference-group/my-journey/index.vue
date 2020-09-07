@@ -96,13 +96,14 @@ export default {
   },
   watch: {
     query: {
-      immediate: true,
       deep: true,
       handler (newVal) {
-        console.log(newVal)
         this.getList()
       }
     }
+  },
+  created () {
+    this.getDates()
   },
   methods: {
     locate (v) {
@@ -157,14 +158,8 @@ export default {
       this.$refs.pull?.reload()
     },
     getList () {
-      if (!this.dates) {
-        this.getDates()
-        return
-      }
-      if (!this.notice && this.query.date) {
-        this.getNotice()
-      }
       if (this.query.date) {
+        this.getNotice()
         this.list.length = 0
         this.$http.get('h5api/meet/get/by/user', {
           params: this.query
@@ -443,10 +438,6 @@ export default {
       background: #2b69e2;
     }
   }
-}
-
-::v-deep .van-tabs__nav {
-  padding: 0 7px;
 }
 
 ::v-deep .van-tab--active {

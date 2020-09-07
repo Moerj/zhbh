@@ -113,7 +113,6 @@ export default {
   },
   watch: {
     query: {
-      immediate: true,
       deep: true,
       handler (newVal) {
         this.getList()
