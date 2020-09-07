@@ -8,7 +8,7 @@
       <div class="main-card">
         <div class="card-content">
 			<div style="font-size: 1.25rem;font-weight: 600;text-align: left;color: #292a2c;line-height: 1.75rem;">
-				园区亲子摄影比赛
+				{{detailInfo.title}}
 			</div>
 			<div style="height: 4.7rem;background: #f6f6f9;padding: 0.9375rem 0.75rem;margin-top: 0.625rem;">
 				<div>
@@ -41,24 +41,18 @@
 			    <div v-for="item in list" class="list-item">
 			      <div class="item-left">
 			        <div class="mingci">{{item['groupTitle']}}</div>
-			  				<!-- greenbaoming graybaoming-->
-			        <div class="baoming">报名</div>
+			        <div :class="item['hasJioned']===0?'baoming':item['hasJioned']===1?'greenbaoming':item['hasJioned']===3?'graybaoming':'graybaoming'" @click="joinActive(item)">报名</div>
 			      </div>
 			      <div class="item-right">
 			        <div class="renshu">
-			          <span>已报名：{{item['jionedNum']}}</span> |
-			          <span>截止人数：{{item['jionNum']}}</span>
+			          <span>已报名：{{item['jionedNum']}}</span> | <span>截止人数：{{item['jionNum']}}</span>
 			        </div>
 			        <div class="jindu">
 			          <van-progress color="#FD5542" :show-pivot="false" :percentage="(item['jionedNum']*(item['jionNum']/100))*100" />
 			        </div>
 			        <div class="time">
-			          <img src="./image/time.png" height="12" />
-			          报名截止时间 {{item['jionEndtimeCN']}}
-			        </div>
-			        <div class="time">
-			          <img src="./image/downtime.png" height="12" />
-			          活动开始时间 {{item['groupStarttimeCN']}}
+			          <img src="./image/time@2x.png" height="14" style="position: relative;top: 1px;" />
+			          活动时间 {{item['groupStarttimeCN']}}-{{item['groupEndtimeCN']}}
 			        </div>
 			      </div>
 			    </div>
@@ -104,7 +98,8 @@ export default {
       currentData: "",
       detailInfo: {},
 	  list:[],
-	  active:0
+	  active:0,
+      user:JSON.parse(localStorage.user)
     };
   },
   mounted() {
@@ -113,8 +108,7 @@ export default {
   methods: {
     //获取详情
     getDetailData() {
-		let user= JSON.parse(localStorage.user)
-      journeyAPI.activeDetail({actId: this.$route.query['activeId'], userId:user.id}).then((res) => {
+      journeyAPI.activeDetail({actId: this.$route.query['activeId'], userId:this.user.id}).then((res) => {
         if (res.errorCode==="00000"){
 			console.log(res.data)
             this.detailInfo = res.data
@@ -128,6 +122,30 @@ export default {
         }
       });
     },
+	joinActive(item){
+        console.log(item['hasJioned']);
+        let index = 0;
+		if (item['hasJioned'] === 0) {//报名活动
+            journeyAPI.actgroupJoin({actGroupId: item.id, userId:this.user.id}).then((res) => {
+                if (res.errorCode==="00000"){
+                    console.log(res.data);
+                    this.$toast('报名成功');
+                    this.getDetailData()
+                }else{
+                    this.$toast(res.msg);
+                }
+            });
+		} else if (index == 2) {//取消报名
+            journeyAPI.activeCancel({userActId: ''}).then((res) => {
+                if (res.errorCode==="00000"){
+                    console.log(res.data)
+					this.getDetailData()
+                }else{
+                    this.$toast(res.msg);
+                }
+            });
+		}
+	},
 	onTabsClick(){
 		console.log(this.detailInfo['dayArr'][this.active].day)
 		let user= JSON.parse(localStorage.user)
@@ -322,7 +340,11 @@ export default {
     }
   }
 }
+.list-group{
+	padding-bottom: 10px;
+}
 .list-item {
+	margin: 0 15px;
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -377,6 +399,7 @@ export default {
 }
 
 .item-right {
+	width: 60%;
   padding-left: 20px;
   box-sizing: border-box;
 }
@@ -384,8 +407,7 @@ export default {
 .renshu {
   display: inline-block;
   height: 17px;
-  font-size: 12px;
-  font-family: PingFangSC, PingFangSC-Regular;
+  font-size: 14px;
   font-weight: 400;
   text-align: left;
   color: #292a2c;
@@ -394,13 +416,12 @@ export default {
 }
 
 .time {
-  height: 17px;
-  font-size: 12px;
-  font-family: PingFangSC, PingFangSC-Regular;
+  height: 20px;
+  font-size: 14px;
   font-weight: 400;
   text-align: left;
   color: #9094a8;
-  line-height: 17px;
+  line-height: 20px;
   letter-spacing: 1px;
 }
 .time img {
@@ -411,7 +432,7 @@ export default {
   height: 4px;
   background: #f3f4f8;
   border-radius: 2px;
-  margin: 4px 0 8px;
+  margin: 8px 0;
   position: relative;
 }
 .jindu span {
