@@ -2,7 +2,7 @@
   <ui-main>
 
     <div class="detail-container">
-      <img style="width: 100%;" :src="image">
+      <img style="width: 100%;" :src="detailInfo.coverPath">
 
       <div class="main-card">
         <div class="card-content">

@@ -205,7 +205,7 @@ export default {
       journeyActive: user.id,
       notices: "",
       hotel: "",
-      hotelName:"我的",
+      hotelName:"我",
       zIndex: true,
       hh: 0,
     };
