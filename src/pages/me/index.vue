@@ -1,9 +1,5 @@
 <template>
   <ui-main>
-    <template v-slot:header>
-      <van-nav-bar title="我的" fixed>
-      </van-nav-bar>
-    </template>
     <div class="user-container">
       <div class="use-info flex row-left col-center">
         <div class="head-item">
@@ -73,11 +69,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.user-container {
-  padding-top: 46px;
-  // background-color: #fff;
-}
-
 .use-info {
   padding: 1rem;
 }

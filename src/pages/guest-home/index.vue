@@ -39,7 +39,7 @@
                   <div class="hotel-info">
                 <div class="info-item flex row-between" @click="$wxMap(hotel)">
                   <span>
-                    <span class="item-title" style="float: left">地址：</span>
+                    <span class="item-title" style="float: left">地点：</span>
                     <span class="item-text  ellipsis-1">{{ hotel.address }}</span>
                   </span>
                   <span><img src="./image/right.svg"/></span>
@@ -66,13 +66,12 @@
 				<div>
 				  <span
 					:class="journeyActive == user.id ? 'active' : ''"
-					@click="journeyHandle(user.id)"
+					@click="()=>{journeyActive = user.id; getList()}"
 					>我的行程</span>
 				  <span v-for="people in togPeople"
 					:class="journeyActive == people.id ? 'active' : ''"
-					@click="journeyHandle(people.id)"
-					>{{people['realName']}}</span
-				  >
+					@click="()=>{journeyActive = people.id; getList()}"
+					>{{people['realName']}}</span>
 
 				</div>
 			  </div>
@@ -101,12 +100,12 @@
 						<span class="item-text ellipsis-1">{{ item['place'] }}</span>
 					  </span>
 					</div>
-					<div class="inner-item" v-if="item['tabNo'] && item['seatNo']">
+					<div class="inner-item" v-if="item['tabNo'] || item['seatNo']">
 					  <span>
 
-						<span class="item-title">{{ item.schType=='2' ? "桌号":"座位"}}：</span>
-						<span class="item-text">{{ item.schType=='2' ? (item['tabNo']? item['tabNo']:'') :
-                ((item['tabNo']? item['tabNo']:'') + (item['seatNo']? item['seatNo']:''))}} </span>
+						<span class="item-title">{{ item.schType=='2' ? "桌号/座位":"座位"}}：</span>
+						<span class="item-text" v-if="item.schType == '2'">{{(item['tabNo']? item['tabNo']+'桌':'') + (item['seatNo']? item['seatNo']+'座':'')}} </span>
+						<span class="item-text" v-else>{{(item['tabNo']? item['tabNo']:'') + (item['seatNo']? item['seatNo']+'座':'')}} </span>
 					  </span>
 					</div>
             <div class="inner-item" style="width: 100%" v-if="item.volunteerPhone">
@@ -328,7 +327,6 @@ export default {
 							</div>`,
                       buttons: [
                           {action() {
-                                  console.log("完成了");
                                   $this.hh = 0;
                                   sessionStorage.removeItem('ISFIRSTLOGIN')
                                   return this.next();}, text: '<div style="font-size: 15px;font-weight: 500;text-align: center;color: #ffffff;line-height: 11px;">我知道了</div>'}
@@ -385,10 +383,10 @@ export default {
       journeyAPI
         .DateList({userId : this.user.id})
         .then((res) => {
-          if (res.list && res.list.length>0) {
+          if (res.list) {
 
             const now = this.$dayjs().format('YYYY-MM-DD')
-            for (let i = 0; i<res.list.length; i++) {
+            for (let i = 0; i<res.list.datelist.length; i++) {
               let date = res.list[i]
               let flag = this.$dayjs(now).isSameOrBefore(this.$dayjs(date))
               if (flag) {
@@ -396,7 +394,7 @@ export default {
                 break
               }
             }
-            this.dates = res.list;
+            this.dates = res.list.datelistFull;
           }
         })
     },
@@ -445,18 +443,6 @@ export default {
       setTimeout(() => {
         this.showLoading = false;
       }, 500);
-    },
-    journeyHandle(id) {
-      this.journeyActive = id;
-      const param = {
-        userId: id,
-        date: this.tabCurrent,
-      };
-      journeyAPI
-        .myJourney(param)
-        .then((res) => {
-          this.journeyList = res.list;
-        })
     },
   },
 };

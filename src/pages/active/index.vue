@@ -1,14 +1,7 @@
 <template>
   <ui-main>
-    <template v-slot:header>
-      <van-nav-bar title="活动报名" fixed>
-        <div>
-          <van-icon name="cross" size="1rem"></van-icon>
-        </div>
-      </van-nav-bar>
-    </template>
     <div class="user-container">
-      <van-tabs @click="tabClick" v-model="typeActive" sticky offset-top="46">
+      <van-tabs @click="tabClick" v-model="typeActive" sticky>
         <van-tab title="全部">
           <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
             <van-list @load="getDateList" v-model="loading" :offset="500" finished-text="没有更多数据了~~~" :finished="finished">
@@ -93,7 +86,6 @@
 </template>
 <style lang="scss" scoped>
   .user-container {
-    padding-top: 46px;
     padding-bottom: 46px;
   }
   .item-title{

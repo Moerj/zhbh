@@ -149,8 +149,9 @@
     },
     methods: {
       async login(data) {
+        let wxData = {}
         if (sessionStorage.wxData) {
-          Object.assign(data,JSON.parse(sessionStorage.wxData))
+          wxData = JSON.parse(sessionStorage.wxData)
         }
         const validatePhone = await this.checkPhone(data.phoneNo);
         const validateCode = await this.checkCode(data.joinCode);
@@ -158,15 +159,15 @@
           let param = {
             joinCode: data.joinCode.toUpperCase(),
             phoneNo: data.phoneNo,
-            openId: data.openid,
-            wxNickName: data.nickName,
+            openId: wxData.openId,
+            wxNickName: wxData.nick,
           };
           this.$store.dispatch("login", param).then((res) => {
               // userRole 1.参会嘉宾  2 服务志愿者 3 媒体工作者
               this.$router.push({
                 path: this.$store.getters.roleNav.get(res.user.userRole),
                 query: {
-                  openId: data.openid,
+                  openId: wxData.openId,
                 },
               })
           })
