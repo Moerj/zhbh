@@ -70,7 +70,7 @@ router.beforeEach(async (to, from, next) => {
   document.title = to.name || description
 
   // 未登录拦截
-  if (to.path !== '/login' && !localStorage.user) {
+  if (to.path !== '/login' && !sessionStorage.user) {
     next({ path: '/login' })
     return
   }
