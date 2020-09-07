@@ -2,7 +2,7 @@
   <ui-main>
 
     <div class="detail-container">
-      <img style="width: 100%;" :src="image">
+      <img style="width: 100%;" :src="detailInfo.coverPath">
 <!--      <van-swipe :autoplay="3000" :height="280" @change="swipeChange">-->
 <!--        <van-swipe-item v-for="(image, index) in images" :key="index">-->
 <!--          <img v-lazy="image" />-->
@@ -32,14 +32,14 @@
           </div>
 
           <div class="info-wrapper">
-            <div class="info-item flex row-between" @click.stop="$wxMap(detailInfo)">
+            <div class="info-item flex row-between" @click="$wxMap(detailInfo)">
               <span>
                 <span class="item-title1">起点：</span>
                 <span class="black-text1">{{detailInfo.place}}</span>
               </span>
               <span><img src="../image/right.svg"/></span>
             </div>
-            <div class="info-item flex row-between">
+            <div class="info-item flex row-between" @click="$wxMap(destination)">
               <span>
                 <span class="item-title1">目的地：</span>
                 <span class="black-text1">{{detailInfo.destination}}</span>
@@ -76,7 +76,6 @@ export default {
   name: "Detail",
   data() {
     return {
-      image: require("./zhuanche.png"),
       // images: [
       //   require("./zhuanche.png"),
       //   "https://img.yzcdn.cn/vant/apple-1.jpg",
@@ -86,6 +85,12 @@ export default {
       currentData: "",
       detailInfo: "",
       weather: {},
+      destination: {
+        place: "",
+        longitude:"",
+        latitude:"",
+        title:"",
+      },
     };
   },
   computed: {
@@ -119,6 +124,10 @@ export default {
       };
       journeyAPI.carDetail(param).then((res) => {
         this.detailInfo = res.data;
+        this.destination.title = res.data.title
+        this.destination.place = res.data.place
+        this.destination.longitude = res.data.longitude
+        this.destination.latitude = res.data.latitude
       });
     },
   },

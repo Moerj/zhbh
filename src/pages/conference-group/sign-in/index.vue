@@ -154,6 +154,9 @@ export default {
         }
       }).then(({ data }) => {
         this.healthCode = data || {}
+        if (!this.disabled && data.healthCode === 'green') {
+          this.signIn()
+        }
       }).finally(e => {
         this.$loading.close()
       })

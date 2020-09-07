@@ -2,7 +2,7 @@
   <ui-main>
 
     <div class="detail-container">
-      <img style="width: 100%;" :src="image">
+      <img style="width: 100%;" :src="detailInfo.coverPath">
 
       <div class="main-card">
         <div class="card-content">
@@ -28,7 +28,7 @@
               </span>
               <span><img src="../image/right.svg"/></span>
             </div>
-            <div class="info-item flex row-between">
+            <div class="info-item flex row-between" @click="$wxMap(destination)" >
               <span>
                 <span class="item-title">目的地：</span>
                 <span class="black-text">{{detailInfo.destination}}</span>
@@ -58,7 +58,7 @@
               <div>
                 <div class="title">您的座位</div>
                 <div class="subtitle">请有序对号入座</div>
-                <div class="text">{{detailInfo.seatNo? detailInfo.seatNo:"无"}}</div>
+                <div class="text">{{detailInfo.tabNo? detailInfo.tabNo:"无"}}</div>
               </div>
             </div>
           </div>
@@ -77,11 +77,16 @@ export default {
   name: "Detail",
   data() {
     return {
-      image: require("./bashi.png"),
       current: 0,
       currentData: "",
       detailInfo: "",
       weather: {},
+      destination: {
+        place: "",
+        longitude:"",
+        latitude:"",
+        title:"",
+      },
     };
   },
   computed: {
@@ -115,6 +120,10 @@ export default {
       };
       journeyAPI.carDetail(param).then((res) => {
         this.detailInfo = res.data;
+        this.destination.title = res.data.title
+        this.destination.place = res.data.place
+        this.destination.longitude = res.data.longitude
+        this.destination.latitude = res.data.latitude
       });
     },
   },
