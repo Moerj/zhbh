@@ -37,6 +37,7 @@ const actions = {
             const user = JSON.stringify(value.user)
             localStorage.setItem("user", user)
             sessionStorage.setItem("user", user)
+            sessionStorage.removeItem("ISFIRSTLOGIN")
             return value;
           }
           sessionStorage.setItem("ISFIRSTLOGIN", "true")

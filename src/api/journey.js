@@ -29,8 +29,11 @@ const healthCode = (param) =>
 	vue.$http.get(`/h5api/meet/healthCode`,{ params: param });
 
 const actgroupInfo = (param) =>
-	vue.$http.get(`/guest/meet/actgroupinfo`,{ params: param });
-
+    vue.$http.get(`/guest/meet/actgroupinfo`,{ params: param });
+const actgroupJoin = (param) =>
+	vue.$http.get(`/guest/meet/jionAct`,{ params: param });
+const activeCancel = (param) =>
+    vue.$http.get(`/guest/meet/cancelJoinActivity`,{ params: param });
 
 export default {
   myJourney,
@@ -46,5 +49,7 @@ export default {
   getHotal,
   hotelInfo,
   notices,
-  actgroupInfo
+  actgroupInfo,
+    actgroupJoin,
+    activeCancel
 };

@@ -39,7 +39,7 @@
 				<div v-else>
 					<img style="width: 2rem;" src="./image/mini-code.png" />
 				</div>
-            </div>
+          </div>
         </div>
         <div v-if="!isShowCode" style="text-align: center;margin-top: 0.1875rem;">
         	<div style="font-size: 0.5rem;line-height: 0.5rem;">专属</div>
@@ -60,14 +60,12 @@
 			}
 		},
 		watch:{
-            zIndex:{
-                handler(newValue, _){
-					console.log(newValue)
-					this.zIndex1 = newValue
-                },
-                deep:true
-
-            }
+      zIndex:{
+          handler(newValue, _){
+          this.zIndex1 = newValue
+        },
+        deep:true
+      }
 		},
         data(){
             return{
@@ -83,19 +81,19 @@
             }
         },
         mounted(){
-            let opengId = user && user.phoneNo?user.phoneNo:'数据错误';
-            QRCode.toDataURL(opengId,{width:180,qzone:0,margin:1})
+            let joinCode = user && user.joinCode?user.joinCode:'数据错误';
+            QRCode.toDataURL(joinCode,{width:180,qzone:0,margin:1})
                 .then(url => {
                     this.url = url
                 }).catch(err => {
                     this.$toast("二维码错误");
                 })
-				this.getHealthCode()
         },
         methods:{
 			getHealthCode(){
 				let params = {phone:user.phoneNo,userId:user.id}
 				journeyAPI.healthCode(params).then(res => {
+				  console.log(res)
           let data = this.healthData = res.data
           if(data.color=="green"){
             this.index = 1
@@ -111,6 +109,7 @@
 			},
       click() {
 				if (this.isClick) {
+          this.getHealthCode()
 					this.isShowCode = true;
 				}else{
 					this.$toast("获取二维码数据异常");
