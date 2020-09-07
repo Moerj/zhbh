@@ -58,7 +58,7 @@
               <div>
                 <div class="title">您的座位</div>
                 <div class="subtitle">请有序对号入座</div>
-                <div class="text">{{detailInfo.seatNo? detailInfo.seatNo:"无"}}</div>
+                <div class="text">{{detailInfo.tabNo? detailInfo.tabNo:"无"}}</div>
               </div>
             </div>
           </div>
