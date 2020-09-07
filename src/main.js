@@ -74,7 +74,6 @@ router.beforeEach(async (to, from, next) => {
     next({ path: '/login' })
     return
   }
-
   if (to.path == '/login') {
     // 重新获取openId
     store._actions.getOpenId[0]()
@@ -92,9 +91,8 @@ router.beforeEach(async (to, from, next) => {
     } else{
       sessionStorage.removeItem('user')
     }
-  } else {
-    next()
   }
+  next()
 })
 
 router.afterEach((to, from) => {
