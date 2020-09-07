@@ -164,7 +164,7 @@
           };
           this.$store.dispatch("login", param).then((res) => {
               // userRole 1.参会嘉宾  2 服务志愿者 3 媒体工作者
-              this.$router.push({
+              this.$router.replace({
                 path: this.$store.getters.roleNav.get(res.user.userRole),
                 query: {
                   openId: wxData.openId,
