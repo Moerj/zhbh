@@ -70,7 +70,7 @@ router.beforeEach(async (to, from, next) => {
   document.title = to.name || description
 
   // 未登录拦截
-  if (to.path !== '/login' && !localStorage.user) {
+  if (to.path !== '/login' && !sessionStorage.user) {
     next({ path: '/login' })
     return
   }
@@ -89,10 +89,12 @@ router.beforeEach(async (to, from, next) => {
           next({ path: _url, query: { openId: wxData.openId } })
         }
       })
+    } else{
+      sessionStorage.removeItem('user')
     }
-    sessionStorage.removeItem('user')
+  } else {
+    next()
   }
-  next()
 })
 
 router.afterEach((to, from) => {
