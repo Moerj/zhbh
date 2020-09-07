@@ -68,6 +68,7 @@ export default {
                   }
                 })
               }).catch(res => {
+                //行程与嘉宾不匹配 不跳转
                 if (scanRes.errorCode !== '00001') {
                   let disabled = ''
                   switch (true) {

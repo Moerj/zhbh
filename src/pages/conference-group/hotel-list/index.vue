@@ -107,9 +107,6 @@ export default {
                   case res.errorCode === '00004':
                     disabled = '已签到'
                     break
-                  case res.errorCode === '00003':
-                    disabled = '已结束'
-                    break
                   case res.data === '0':
                     disabled = '不需要签到'
                     break
@@ -124,7 +121,7 @@ export default {
                   }
                 })
               }).catch(res => {
-                let disabled = ''
+                /*let disabled = ''
                 switch (true) {
                   case res.errorCode === '00004':
                     disabled = '已签到'
@@ -147,7 +144,7 @@ export default {
                       schType: 0
                     }
                   })
-                }
+                }*/
               }).finally(res => {
                 this.$loading.close()
               })
