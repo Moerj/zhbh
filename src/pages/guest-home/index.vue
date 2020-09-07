@@ -429,22 +429,22 @@ export default {
     },
     getDateList() {
       journeyAPI
-          .DateList({userId: this.user.id})
-          .then((res) => {
-            if (res.list) {
+        .DateList({userId: this.user.id})
+        .then((res) => {
+          if (res.list) {
 
-              const now = this.$dayjs().format('YYYY-MM-DD')
-              for (let i = 0; i < res.list.datelistFull.length; i++) {
-                let date = res.list[i]
-                let flag = this.$dayjs(now).isSameOrBefore(this.$dayjs(date))
-                if (flag) {
-                  this.active = i
-                  break
-                }
+            const now = this.$dayjs().format('YYYY-MM-DD')
+            for (let i = 0; i < res.list.datelistFull.length; i++) {
+              let date = res.list.datelistFull[i]
+              let flag = this.$dayjs(now).isSameOrBefore(this.$dayjs(date))
+              if (flag) {
+                this.active = i
+                break
               }
-              this.dates = res.list.datelistFull;
             }
-          })
+            this.dates = res.list.datelistFull;
+          }
+        })
     },
     getTogPeople() {
       journeyAPI.togPeople({id: this.user.id}).then(res => {
