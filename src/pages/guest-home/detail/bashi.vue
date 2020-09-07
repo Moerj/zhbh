@@ -77,7 +77,6 @@ export default {
   name: "Detail",
   data() {
     return {
-      image: require("./bashi.png"),
       current: 0,
       currentData: "",
       detailInfo: "",

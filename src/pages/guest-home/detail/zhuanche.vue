@@ -76,7 +76,6 @@ export default {
   name: "Detail",
   data() {
     return {
-      image: require("./zhuanche.png"),
       // images: [
       //   require("./zhuanche.png"),
       //   "https://img.yzcdn.cn/vant/apple-1.jpg",
