@@ -22,7 +22,7 @@
           }}
         </div>
       </div>
-      <div class="ellipsis-2">{{ data.title }}</div>
+      <div>{{ data.title }}</div>
       <div>
         <van-icon :name="weatherIcon"/>
         <span>{{ temperature }}</span>
@@ -222,6 +222,7 @@ header {
     font-weight: 600;
     color: #292a2c;
     margin-top: 15px;
+    word-break: break-all;
   }
 
   & > div:nth-child(3) {
