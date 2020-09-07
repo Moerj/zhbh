@@ -32,14 +32,14 @@
           </div>
 
           <div class="info-wrapper">
-            <div class="info-item flex row-between" @click.stop="$wxMap(detailInfo)">
+            <div class="info-item flex row-between" @click="$wxMap(detailInfo)">
               <span>
                 <span class="item-title1">起点：</span>
                 <span class="black-text1">{{detailInfo.place}}</span>
               </span>
               <span><img src="../image/right.svg"/></span>
             </div>
-            <div class="info-item flex row-between">
+            <div class="info-item flex row-between" @click="$wxMap(destination)">
               <span>
                 <span class="item-title1">目的地：</span>
                 <span class="black-text1">{{detailInfo.destination}}</span>
@@ -86,6 +86,12 @@ export default {
       currentData: "",
       detailInfo: "",
       weather: {},
+      destination: {
+        place: "",
+        longitude:"",
+        latitude:"",
+        title:"",
+      },
     };
   },
   computed: {
@@ -119,6 +125,10 @@ export default {
       };
       journeyAPI.carDetail(param).then((res) => {
         this.detailInfo = res.data;
+        this.destination.title = res.data.title
+        this.destination.place = res.data.place
+        this.destination.longitude = res.data.longitude
+        this.destination.latitude = res.data.latitude
       });
     },
   },
