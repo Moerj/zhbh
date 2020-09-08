@@ -6,13 +6,13 @@
           <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
             <van-list @load="getDateList" v-model="loading" :offset="500" finished-text="没有更多数据了~~~" :finished="finished">
               <div v-for="item in list" @click="toActiveDetail(item.id)" style="position: relative;background: #ffffff;border-radius: 5px;margin: 10px 10px;padding: 10px">
-				<div v-if="item.activityState+''=='0'" style="position: absolute;top: 0;bottom: 0;left: 0;right: 0;width: 100%;height: 100%;background-color: rgba(255,255,255,0.5);z-index: 99999;"></div>
+				<div v-if="item.activityState =='0'" style="position: absolute;top: 0;bottom: 0;left: 0;right: 0;width: 100%;height: 100%;background-color: rgba(255,255,255,0.5);z-index: 99999;"></div>
 				<van-row>
 					<van-col span="7">
                     <div style="width: 100%;position: relative;border-radius: 0.375rem;">
                       <div style="position: absolute;width: 36px;height: 16px;background: #c7000b;border-radius: 5px 0px 5px 0px;font-size: 12px;font-family: PingFangSC, PingFangSC-Regular;font-weight: 400;text-align: center;color: #ffffff;line-height: 16px;">置顶</div>
                       <img style="width: 100%;border-radius: 0.375rem;" :src="item['coverPath']" alt="">
-					  <div v-if="item.activityState+''=='0'" style="position: absolute;bottom: 0;left: 0;right: 0;width: 100%;z-index: 999999;font-size: 0.75rem;color: #ffffff;text-align: center;background-color: rgba(0,0,0,0.6);border-radius:0 0 0.375rem 0.375rem;">该场次已关闭</div>
+					  <div v-if="item.activityState =='0'" style="position: absolute;bottom: 0;left: 0;right: 0;width: 100%;z-index: 999999;font-size: 0.75rem;color: #ffffff;text-align: center;background-color: rgba(0,0,0,0.6);border-radius:0 0 0.375rem 0.375rem;">该场次已关闭</div>
                     </div>
                   </van-col>
                   <van-col span="17">
@@ -50,9 +50,9 @@
                 <van-row>
                   <van-col span="7">
                     <div style="width: 100%;position: relative;border-radius: 0.375rem;">
-                      <div style="position: absolute;width: 36px;height: 16px;background: #c7000b;border-radius: 5px 0px 5px 0px;font-size: 12px;font-family: PingFangSC, PingFangSC-Regular;font-weight: 400;text-align: center;color: #ffffff;line-height: 16px;">置顶</div>
+                      <!--<div style="position: absolute;width: 36px;height: 16px;background: #c7000b;border-radius: 5px 0px 5px 0px;font-size: 12px;font-family: PingFangSC, PingFangSC-Regular;font-weight: 400;text-align: center;color: #ffffff;line-height: 16px;">置顶</div>-->
                       <img style="width: 100%;border-radius: 0.375rem;" :src="item['activityVo']['coverPath']" alt="">
-                      <div v-if="item['activityVo']['activityState']+''=='0'" style="position: absolute;bottom: 0;left: 0;right: 0;width: 100%;z-index: 999999;font-size: 0.75rem;color: #ffffff;text-align: center;background-color: rgba(0,0,0,0.6);border-radius:0 0 0.375rem 0.375rem;">该场次已关闭</div>
+                      <div v-if="item['activityVo']['activityState']=='0'" style="position: absolute;bottom: 0;left: 0;right: 0;width: 100%;z-index: 999999;font-size: 0.75rem;color: #ffffff;text-align: center;background-color: rgba(0,0,0,0.6);border-radius:0 0 0.375rem 0.375rem;">该场次已关闭</div>
                     </div>
                   </van-col>
                   <van-col span="17">
@@ -73,7 +73,7 @@
                       <div>
                         <img src="./image/time@2x.png" style="width: 12px;position: relative;top: 3px;" alt="">
                         <span style="font-size: 12px;font-family: PingFangSC, PingFangSC-Regular;font-weight: 500;text-align: left;color: #595b64;line-height: 17px;letter-spacing: 1px;">活动时间:</span>
-                        <span style="font-size: 12px;font-family: PingFangSC, PingFangSC-Regular;font-weight: 400;text-align: left;color: #9094a8;line-height: 17px;letter-spacing: 1px;">{{item['groupVo']['groupStarttime']}}-{{item['groupVo']['groupEndtime']}}</span>
+                        <span style="font-size: 12px;font-family: PingFangSC, PingFangSC-Regular;font-weight: 400;text-align: left;color: #9094a8;line-height: 17px;letter-spacing: 1px;">{{item['groupVo']['groupStarttimeCN']}}-{{item['groupVo']['groupEndtimeCN']}}</span>
                       </div>
                     </div>
                   </van-col>
@@ -135,7 +135,6 @@ export default {
   },
     methods: {
       toActiveDetail(id){
-          console.log(id)
           this.$router.push({path: '/active-detail', query: {activeId: id,}});
       },
       onRefresh(){
@@ -149,7 +148,6 @@ export default {
       getDateList(){
           this.loading = true;
           journeyAPI.activeList().then((res)=>{
-              console.log(res);
               this.list = [];
 
               if (res.errorCode==="00000"){

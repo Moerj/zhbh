@@ -58,7 +58,7 @@
 			          <span>已报名：{{item['jionedNum']}}</span> | <span>截止人数：{{item['jionNum']}}</span>
 			        </div>
 			        <div class="jindu">
-			          <van-progress color="#FD5542" :show-pivot="false" :percentage="(item['jionedNum']*(item['jionNum']/100))*100" />
+			          <van-progress color="#FD5542" :show-pivot="false" :percentage="item['jionedNum']/item['jionNum']*100" />
 			        </div>
 			        <div class="time">
 			          <img src="./image/time@2x.png" height="14" style="position: relative;top: 1px;" />
@@ -73,8 +73,7 @@
         <div class="fullwidth-content">
           <div class="fullwidth-title">活动详情</div>
           <div class="fullwidth-main">
-            <div class="main-text">
-              {{detailInfo.content}}
+            <div class="main-text" v-html="detailInfo.content">
             </div>
           </div>
         </div>
