@@ -53,8 +53,8 @@ export default {
     Tabbar,
   },
   mounted() {
-    let opengId = this.user && this.user.phoneNo?this.user.phoneNo:'数据错误';
-    QRCode.toDataURL(opengId,{width:180,qzone:0,margin:1})
+    let joinCode = this.user && this.user.joinCode?this.user.joinCode:'数据错误';
+    QRCode.toDataURL(joinCode,{width:180,qzone:0,margin:1})
         .then(url => {
           this.url = url
         }).catch(err => {

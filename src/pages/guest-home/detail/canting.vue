@@ -75,7 +75,7 @@
           </div>
         </div>
 
-        <div class="fullwidth-content" v-if="detailInfo.intro">
+        <div class="fullwidth-content intro" v-if="detailInfo.intro">
           <div class="fullwidth-title">简介</div>
           <div class="fullwidth-main">
             <div class="main-text" v-html="detailInfo.intro">
@@ -89,7 +89,7 @@
 </template>
 
 <script>
-    import Qrcode from "@/components/Qrcode";
+import Qrcode from "@/components/Qrcode";
 import journeyAPI from "@/api/journey.js";
 export default {
     components:{Qrcode},
@@ -148,6 +148,11 @@ export default {
   },
 };
 </script>
+<style>
+.intro img{
+  max-width:100%;
+}
+</style>
 <style lang="scss" scoped>
 ::v-deep .van-nav-bar {
   background-color: transparent;
