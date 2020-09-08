@@ -88,7 +88,7 @@ router.beforeEach(async (to, from, next) => {
           next({ path: _url, query: { openId: wxData.openId } })
         }
       })
-    } else{
+    } else {
       sessionStorage.removeItem('user')
     }
   }
@@ -111,6 +111,8 @@ import VueTouch from 'vue-touch'
 Vue.use(VueTouch, { name: 'v-touch' })
 
 // 组件库
+import { Toast } from 'vant'
+Toast.setDefaultOptions({ duration: 3000 })
 import vantUI from 'vant-ui' //npm库 - 正式项目请用这个
 Vue.use(vantUI)
 import { Lazyload } from 'vant'
