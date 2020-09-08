@@ -54,7 +54,7 @@ export default {
                   case res.errorCode === '00003':
                     disabled = '已结束'
                     break
-                  case res.data === '0':
+                  case res.data === 0:
                     disabled = '不需要签到'
                     break
                 }
@@ -78,7 +78,7 @@ export default {
                     case res.errorCode === '00003':
                       disabled = '已结束'
                       break
-                    case res.data === '0':
+                    case res.data === 0:
                       disabled = '不需要签到'
                       break
                   }
