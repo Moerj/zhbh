@@ -19,8 +19,8 @@
       </div>
       <div class="card-cont">
         <div class="card-inner card-inner2">
-          <div class="inner-title">游记分享<img src="./right.png" /></div>
-          <div class="inner-subtitle">游记分享</div>
+          <div class="inner-title">精彩瞬间<img src="./right.png" /></div>
+          <!--<div class="inner-subtitle">游记分享</div>-->
           <div class="inner-img">
             <img src="./card2.png" />
           </div>

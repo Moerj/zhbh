@@ -27,7 +27,7 @@
                         </div>
                     </div>
                 </div>
-                <img v-else style="width: 2rem;" src="./image/call.png" />
+                <img v-else style="width: 2rem;" :src="callImg" />
             </div>
         </div>
         <div v-if="!isShowCode" style="font-size: 0.5rem;text-align: center;margin-top: 0.25rem">
@@ -43,6 +43,7 @@
         name: "qrcode",
         data(){
             return{
+                callImg: require('./image/call.png'),
                 url:'',
                 isShowCode: false,
                 list:[]

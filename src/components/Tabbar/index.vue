@@ -27,12 +27,12 @@ export default {
           label: "首页",
           path: "/guest-home",
         },
-        {
+      /*  {
           iconCheck: require("./assets/active_check.svg"),
           iconChecked: require("./assets/active_checked.svg"),
           label: "活动报名",
           path: "/active",
-        },
+        },*/
         {
           iconCheck: require("./assets/user_check.svg"),
           iconChecked: require("./assets/user_checked.svg"),
