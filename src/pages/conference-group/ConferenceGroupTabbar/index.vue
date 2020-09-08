@@ -38,7 +38,7 @@ export default {
   },
   methods: {
     clickItem (item) {
-      item.path && this.$router.push(item.path)
+      item.path && this.$router.replace(item.path)
     },
     updateTabState () {
       this.items.forEach((item, index) => {

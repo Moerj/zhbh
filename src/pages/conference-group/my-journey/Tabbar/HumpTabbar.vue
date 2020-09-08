@@ -36,7 +36,7 @@ export default {
         $event.stopPropagation()
         item.onClick()
       } else if (item.path) {
-        this.$router.push({
+        this.$router.replace({
           path: item.path,
           query: this.$route.query
         })
