@@ -77,7 +77,7 @@
             <span class="title">车牌号：</span>
             <span>{{ v.carNo }}</span>
           </div>
-          <div class="ellipsis-1">
+          <div class="ellipsis-1" v-if="v.driver">
             <span class="title">司机姓名：</span>
             <span>{{ v.driver }}</span>
           </div>

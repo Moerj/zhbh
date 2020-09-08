@@ -51,7 +51,7 @@
               <div class="th">车牌号</div>
               <div class="td ellipsis-1">{{ v.carNo }}</div>
             </div>
-            <div class="tr">
+            <div class="tr" v-if="v.driver">
               <div class="th">司机姓名</div>
               <div class="td ellipsis-1">{{ v.driver }}</div>
             </div>
