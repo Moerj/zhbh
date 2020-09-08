@@ -104,6 +104,7 @@ export default {
   },
   created () {
     this.getDates()
+    this.getNotice()
   },
   methods: {
     locate (v) {
@@ -159,7 +160,6 @@ export default {
     },
     getList () {
       if (this.query.date) {
-        this.getNotice()
         this.list.length = 0
         this.$http.get('h5api/meet/get/by/user', {
           params: this.query
