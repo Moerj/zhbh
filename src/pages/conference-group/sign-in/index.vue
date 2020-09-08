@@ -174,7 +174,7 @@ export default {
             ...data,
             ...data.userHotelVo,
             place: data.userHotelVo.address,
-            tabNo: data.userHotelVo.zoomNo
+            tabNo: data.userHotelVo.roomNo
           }
         }
         this.data = data || {}
