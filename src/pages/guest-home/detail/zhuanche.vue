@@ -125,9 +125,9 @@ export default {
       journeyAPI.carDetail(param).then((res) => {
         this.detailInfo = res.data;
         this.destination.title = res.data.title
-        this.destination.place = res.data.place
-        this.destination.longitude = res.data.longitude
-        this.destination.latitude = res.data.latitude
+        this.destination.place = res.data.destination
+        this.destination.longitude = res.data.destinationLongitude
+        this.destination.latitude = res.data.destinationLatitude
       });
     },
   },
@@ -223,7 +223,7 @@ export default {
   margin-top: 20px;
   .info-item {
     font-size: 15px;
-    padding: 5px 0;
+    padding: 7px 0;
     box-sizing: content-box;
     position: relative;
     .tel {

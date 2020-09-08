@@ -1,6 +1,6 @@
 {
   "name": "zhlh",
-  "description": "智慧两会",
+  "description": "旅发大会",
   "scripts": {
     "dev": "vue-cli-service serve",
     "dev:local": "vue-cli-service serve --mode local",
