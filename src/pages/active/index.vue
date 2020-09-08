@@ -23,7 +23,7 @@
                         <span  style="margin-left:0.625rem;font-size: 0.75rem;font-family: PingFangSC, PingFangSC-Regular;font-weight: 400;text-align: left;color: #292a2c;line-height: 1.0625rem;letter-spacing: 1px;">截止人数：{{item['currentGroup']['jionNum']}}</span>
                       </div>
                       <div style="margin-top: 0.3125rem;width: 80%">
-                        <van-progress color="#FD5542" :show-pivot="false" :percentage="(item['currentGroup']['jionedNum']*(item['currentGroup']['jionNum']/100))*100" />
+                        <van-progress color="#FD5542" :show-pivot="false" :percentage="item['currentGroup']['jionedNum']/item['currentGroup']['jionNum']*100" />
                       </div>
                       <div style="margin-top: 0.2rem">
                         <img src="./image/downtime@2x.png" style="width: 12px;position: relative;top: 2px;" alt="">
@@ -151,12 +151,12 @@ export default {
           journeyAPI.activeList().then((res)=>{
               console.log(res);
               this.list = [];
+
               if (res.errorCode==="00000"){
                   this.list = res.data;
                   this.loading = false;
                   this.finished = true;
                   this.isLoading = false;
-                this.list[0].currentGroup.jionedNum = 10
               }
           });
       },

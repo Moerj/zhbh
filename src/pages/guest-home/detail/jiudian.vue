@@ -62,7 +62,7 @@
             </div>
           </div>
         </div>
-        <div class="fullwidth-content" v-if="detailInfo.intro">
+        <div class="fullwidth-content intro" v-if="detailInfo.intro">
           <div class="fullwidth-title">简介</div>
           <div class="fullwidth-main">
             <div class="main-text" v-html="detailInfo.intro">
@@ -128,6 +128,11 @@ export default {
   },
 };
 </script>
+<style>
+.intro img{
+  width:100%;
+}
+</style>
 <style lang="scss" scoped>
 ::v-deep .van-nav-bar {
   background-color: transparent;
