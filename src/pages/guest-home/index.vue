@@ -108,7 +108,7 @@
                   <div class="signin-cont" v-if="item['activeState'] != 0">
                     <img src="./image/overSign.png" alt="已结束" v-if="item.isSign == 0 && item.activeState == 2"/>
                     <span v-if="item.isSign == 1">
-                       <img src="./image/signedin.png" alt="已签到" v-if="item.schState == 0"/>
+                       <img src="./image/signedin.png" alt="已签到" v-if="item.schState == 1"/>
                        <img src="./image/nosignin.png" alt="未签到" v-else/>
                     </span>
 

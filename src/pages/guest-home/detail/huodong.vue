@@ -134,7 +134,7 @@ export default {
 </script>
 <style>
 .intro img{
-  width:100%;
+  max-width:100%;
 }
 </style>
 <style lang="scss" scoped>
