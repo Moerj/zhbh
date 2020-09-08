@@ -62,6 +62,7 @@ function wxAuthorization () {
       jsApiList: ['scanQRCode', 'openLocation']
     })
     wx.error((res) => {
+      console.error(res)
     })
   })
 }
