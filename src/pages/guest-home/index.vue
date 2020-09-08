@@ -35,6 +35,7 @@
           ref="pull"
           v-show="dateList && dateList.length > 0">
         <div class="hotel-container">
+          <!--原本 我的酒店-->
           <div :id="hotel?'stop2':''">
             <div class="title" @click="toDetailRoom(hotel.id)"><p v-if="hotel">{{ hotelName + '的酒店'}}</p></div>
             <div class="hotel-card" v-if="hotel">
@@ -64,6 +65,7 @@
               </div>
             </div>
           </div>
+          <!--新版 我的酒店-->
           <div style="position: relative;margin: 10px 18px;height: 172px;padding: 5px">
             <!--left top-->
             <div style="position: absolute;top: 0;left: 0;">
@@ -93,7 +95,7 @@
                 <div style="width: 5px;height: 5px;background: #c7000b;border-radius: 5px;position: absolute;left: 0;bottom: -3px;"></div>
               </div>
             </div>
-            <!--title-->
+            <!--title 我的酒店img-->
             <div style="position: absolute;top: -5px;width: 100%">
               <div style="display: flex;justify-content: center;position: relative">
                 <div style="width: 262px;height: 0;border-bottom: 10px solid #A4020B;border-right: 10px solid transparent;border-left: 10px solid transparent;"></div>
@@ -176,15 +178,21 @@
             <div class="journey-card" v-for="(item,index) in journeyList"
                  :id="journeyList.length>0 && index==0?'stop3':''" :key="item.id" @click="toDetail(item)"
                  :class="item['activeState'] == 0? 'notstarted': item['activeState'] == 1? 'ongoing': 'finished'">
-              <div class="card-content">
+              <div class="card-content" style="position: relative">
+                <!--箭头 start-->
+                <img v-if="index==journeyList.length-1" style="position: absolute;top:54%;left: 5px;width: 10px" src="./image/time_line.png" alt="">
+                <div v-if="index==journeyList.length-1" style="width: 5px;height: 50%;background: #ffffff;position: absolute;bottom: -10px;z-index: 3"></div>
+                <!--箭头 end-->
                 <div style="width: 28px;height: 4px;" :style="item['activeState'] == 2?'background:#b7bacc': 'background:#f95020'"></div>
                 <div class="card-title" style="position: relative">
+                  <!--时间标题 start-->
                   <img v-if="item['activeState'] == 1" style="position: absolute;width: 15px;height: 14px;left: -5px;top: 3px;z-index: 3;" src="./image/red_round.png" alt="">
                   <img v-else style="position: absolute;width: 15px;height: 14px;left: -5px;top: 3px;z-index: 3;" src="./image/gray_round.png" alt="">
                   <span>{{ item.startTime }}到{{ item.endTime }}</span>
                   <img style="width: 170px;position: absolute;bottom: 0;right: 0;" v-if="item['activeState'] == 0" src="./image/gray_line.png" alt="">
                   <img style="width: 170px;position: absolute;bottom: 0;right: 0;" v-else-if="item['activeState'] == 1" src="./image/red_line_jxz.png" alt="">
                   <img style="width: 170px;position: absolute;bottom: 0;right: 0;" v-else src="./image/gray_line.png" alt="">
+                  <!--时间标题 end-->
                 </div>
                 <div class="card-inner" style="position: relative">
                   <div style="width: 100%;height: 100%;position: absolute">
