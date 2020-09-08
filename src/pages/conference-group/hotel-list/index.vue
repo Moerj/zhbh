@@ -102,19 +102,10 @@ export default {
                   joinCode: scanRes.resultStr // 当needResult 为 1 时，扫码返回的结果
                 }
               }).then(res => {
-                let disabled = ''
-                switch (true) {
-                  case res.errorCode === '00004':
-                    disabled = '已签到'
-                    break
-                  case res.data === '0':
-                    disabled = '不需要签到'
-                    break
-                }
                 this.$router.push({
                   path: '/conference-group/sign-in',
                   query: {
-                    disabled,
+                    disabled: res.errorCode === '00004' ? '已签到' : '',
                     joinCode: scanRes.resultStr,
                     schId: id,
                     schType: 0
