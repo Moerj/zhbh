@@ -156,6 +156,7 @@ export default {
                   this.loading = false;
                   this.finished = true;
                   this.isLoading = false;
+                this.list[0].currentGroup.jionedNum = 10
               }
           });
       },
