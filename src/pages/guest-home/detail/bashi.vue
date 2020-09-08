@@ -51,7 +51,7 @@
         </div>
 
         <div class="fullwidth-content" v-if="detailInfo.busPath">
-          <div class="fullwidth-title">温馨提示</div>
+          <div class="fullwidth-title">座位安排</div>
           <div class="fullwidth-main">
             <div class="main-img flex row-around">
               <div><img :src="detailInfo.busPath" /></div>
