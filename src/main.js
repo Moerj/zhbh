@@ -48,6 +48,7 @@ Vue.use(axios, {
 import Axios from 'axios'
 
 function wxAuthorization () {
+  const before = window.location.href
   Axios.post(process.env.VUE_APP_BASE_API + 'yyt/wechat/wechat/queryJsConfigInfo', {
     mchId: '-1',
     url: window.location.href
@@ -63,6 +64,9 @@ function wxAuthorization () {
     })
     wx.error((res) => {
       console.error(res)
+      console.log('href before: ' + before)
+      console.log('href after: ' + window.location.href)
+      console.log('是否一致：' + before === window.location.href)
     })
   })
 }
