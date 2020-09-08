@@ -68,10 +68,10 @@ function wxAuthorization () {
 
 router.beforeEach(async (to, from, next) => {
   document.title = to.name || description
-
+  let flag = true;
   // 未登录拦截
   if (to.path !== '/login' && !sessionStorage.user) {
-    next({ path: '/login' })
+    next({ path: '/login', replace: true })
     return
   }
   if (to.path == '/login') {
@@ -85,14 +85,17 @@ router.beforeEach(async (to, from, next) => {
           const user = res.user
           // role 1 3 嘉宾首页, 2工作人员或志愿者首页
           const _url = store.getters.roleNav.get(user.userRole)
-          next({ path: _url, query: { openId: wxData.openId } })
+          next({ path: _url, query: { openId: wxData.openId }, replace: true })
+          flag = false
         }
       })
     } else {
       sessionStorage.removeItem('user')
     }
   }
-  next()
+  if (flag) {
+    next()
+  }
 })
 
 router.afterEach((to, from) => {

@@ -21,7 +21,7 @@
             <div class="time-icon">
               <img src="../image/time.png" />
             </div>
-            <div class="time-text">{{detailInfo.startTimeStr }}到{{detailInfo.endTimeStr}}</div>
+            <div class="time-text" v-if="detailInfo.scheduleDate && detailInfo.startTime &&  detailInfo.endTime">{{detailInfo.startTimeStr }}到{{detailInfo.endTimeStr}}</div>
           </div>
 
           <div class="title-wrapper">
@@ -117,12 +117,15 @@ export default {
       this.current = index;
     },
     getDetailData() {
+      this.$loading.open()
       const param = {
         userHotelId: this.$route.query.userHotelId,
       };
       journeyAPI.hotelInfo(param).then((res) => {
         this.detailInfo = res.data;
         // this.images = res.data.coverPaths
+      }).finally(e => {
+        this.$loading.close()
       });
     },
   },

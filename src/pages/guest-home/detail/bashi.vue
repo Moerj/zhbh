@@ -10,7 +10,7 @@
             <div class="time-icon">
               <img src="../image/time.png" />
             </div>
-            <div class="time-text">
+            <div class="time-text" v-if="detailInfo.scheduleDate && detailInfo.startTime &&  detailInfo.endTime">
               {{detailInfo.scheduleDate +" "+ detailInfo.startTime }}到{{ detailInfo.endTime }}</div>
           </div>
 
@@ -21,7 +21,7 @@
           </div>
 
           <div class="info-wrapper">
-            <div class="info-item flex row-between">
+            <div class="info-item flex row-between" @click="$wxMap(detailInfo)">
               <span>
                 <span class="item-title1">起点：</span>
                 <span class="black-text1">{{detailInfo.place}}</span>
@@ -115,15 +115,18 @@ export default {
       })
     },
     getDetailData() {
+      this.$loading.open()
       const param = {
         usId: this.$route.query.usId,
       };
       journeyAPI.carDetail(param).then((res) => {
         this.detailInfo = res.data;
         this.destination.title = res.data.title
-        this.destination.place = res.data.place
-        this.destination.longitude = res.data.longitude
-        this.destination.latitude = res.data.latitude
+        this.destination.place = res.data.destination
+        this.destination.longitude = res.data.destinationLongitude
+        this.destination.latitude = res.data.destinationLatitude
+      }).finally(e => {
+        this.$loading.close()
       });
     },
   },
@@ -223,7 +226,7 @@ export default {
   margin-top: 20px;
   .info-item {
     font-size: 15px;
-    padding: 5px 0;
+    padding: 7px 0;
     box-sizing: content-box;
     position: relative;
     .tel {
