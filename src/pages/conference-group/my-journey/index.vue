@@ -7,7 +7,7 @@
       <div class="notice">
         <div>
           <div>{{ user.realName ? '尊敬的' + user.realName : '' }}欢迎您！</div>
-          <div @click="toNoticeList">
+          <div @click="toNoticeList" v-if="notice&&notice.length">
             <span>全部</span>
             <van-icon :name="require('./assets/right.svg')" size="8"/>
           </div>
