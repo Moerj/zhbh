@@ -18,7 +18,7 @@
         </div>
       </div>
       <div class="card-cont">
-        <div class="card-inner card-inner2">
+        <div class="card-inner card-inner2" @click="toMoments">
           <div class="inner-title">精彩瞬间<img src="./right.png" /></div>
           <!--<div class="inner-subtitle">游记分享</div>-->
           <div class="inner-img">
@@ -64,6 +64,9 @@ export default {
   methods: {
     logout() {
     },
+    toMoments() {
+      this.$router.push({path: "/me/moments"})
+    }
   },
 };
 </script>

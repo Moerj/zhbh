@@ -1,11 +1,5 @@
 <template>
   <ui-main>
-    <template v-slot:header>
-      <van-nav-bar
-        title="公告"
-      ></van-nav-bar>
-    </template>
-
     <div class="notice-container">
       <van-collapse v-model="activeName" accordion v-if="noticeData">
         <template v-for="(item,index) in noticeData">
@@ -48,6 +42,5 @@ export default {
 
 <style lang="scss" scoped>
 .notice-container {
-  margin-top: 11px;
 }
 </style>
