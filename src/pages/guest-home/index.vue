@@ -36,7 +36,7 @@
           v-show="dateList && dateList.length > 0">
         <div class="hotel-container">
           <!--原本 我的酒店-->
-          <div :id="hotel?'stop2':''">
+          <!--<div :id="hotel?'stop2':''">
             <div class="title" @click="toDetailRoom(hotel.id)"><p v-if="hotel">{{ hotelName + '的酒店'}}</p></div>
             <div class="hotel-card" v-if="hotel">
               <div class="hotel-name" @click="toDetailRoom(hotel.id)">{{ hotel.title }}</div>
@@ -64,9 +64,9 @@
                 </div>
               </div>
             </div>
-          </div>
+          </div>-->
           <!--新版 我的酒店-->
-          <div style="position: relative;margin: 10px 18px;height: 172px;padding: 5px">
+          <div style="position: relative;margin: 10px 18px;height: 172px;padding: 5px" v-if="hotel">
             <!--left top-->
             <div style="position: absolute;top: 0;left: 0;">
               <div style="position:relative;width: 22px;height: 32px;border-top: 1px solid #c7000b;border-left: 1px solid #c7000b;">
@@ -107,31 +107,31 @@
             <div style="border: 1px solid #C7000B;height: 100%">
               <div style="margin-top: 35px;position: relative">
                 <div style="height: 36px;background: linear-gradient(90deg,rgba(199,0,11,0.11), rgba(199,0,11,0) 53%, rgba(199,0,11,0.1));">
-                  <div style="font-size: 17px;font-weight: 500;text-align: center;color: #292a2c;line-height: 36px;">天怡豪生大酒店</div>
+                  <div style="font-size: 17px;font-weight: 500;text-align: center;color: #292a2c;line-height: 36px;" @click="toDetailRoom(hotel.id)">{{ hotel.title }}</div>
                 </div>
                 <div style="position: absolute;top: -3px;width: 0;height: 41px;border-left: 5px solid #C7000B;border-top: 3px solid transparent;border-bottom: 3px solid transparent;"></div>
                 <div style="position: absolute;top: -3px;right:0;width: 0;height: 41px;border-right: 5px solid #C7000B;border-top: 3px solid transparent;border-bottom: 3px solid transparent;"></div>
               </div>
               <div style="padding:4px 10px">
                 <div class="hotel-info">
-                  <div class="info-item flex row-between">
+                  <div class="info-item flex row-between" @click="$wxMap(hotel)">
                   <span>
                     <span class="item-title" style="float: left">地点：</span>
-                    <span class="item-text  ellipsis-1">复合大师分类范德萨发</span>
+                    <span class="item-text  ellipsis-1">{{ hotel.address }}</span>
                   </span>
                     <span><img src="./image/right.svg"/></span>
                   </div>
-                  <div class="info-item flex row-between">
+                  <div class="info-item flex row-between" @click="toDetailRoom(hotel.id)">
                   <span>
                     <span class="item-title">房间：</span>
-                    <span class="item-text">发电机房空间的快乐；撒酒疯</span>
+                    <span class="item-text">{{ hotel.roomNo }}</span>
                   </span>
                   </div>
                   <div class="info-item flex row-between">
-                    <a class="tel" :href="'tel:213219839'"></a>
+                    <a class="tel" :href="'tel:'+hotel.hotelPhone"></a>
                     <span>
                       <span class="item-title">联系电话：</span>
-                      <span class="item-text text-phone">787498372497</span>
+                      <span class="item-text text-phone">{{ hotel.hotelPhone }}</span>
                     </span>
                     <span><img src="./image/phone.svg"/></span>
                   </div>
