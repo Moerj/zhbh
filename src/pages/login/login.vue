@@ -192,7 +192,7 @@
             </div>
           <div class="bg" ref="bg" style="min-height:750px"></div>
           <!--<div class="bg-bottom"></div>-->
-          <div style="width: 100%; min-height:750px">
+          <div style="width: 100%;">
             <img src="../../static/images/ bg-bottom.jpg" style="width: 150%;position: absolute; bottom: 0px; left: -30%;opacity: 0.7;">
           </div>
 
