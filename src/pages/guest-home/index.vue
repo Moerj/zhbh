@@ -196,8 +196,8 @@
                 </div>
                 <div class="card-inner" style="position: relative">
                   <div style="width: 100%;height: 100%;position: absolute">
-                    <img style="width: 100%;height: 100%" v-if="item['activeState'] == 2" src="./image/gray_border.png" alt="">
-                    <img style="width: 100%;height: 100%" v-else src="./image/red_border.png" alt="">
+                    <img style="width: 100%;height: 100%" v-if="item['activeState'] == 1" src="./image/red_border.png" alt="">
+                    <img style="width: 100%;height: 100%" v-else src="./image/gray_border.png" alt="">
                   </div>
                   <div  style="padding: 20px 12px">
                     <div class="signin-cont">
