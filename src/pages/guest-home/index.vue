@@ -200,11 +200,11 @@
                     <img style="width: 100%;height: 100%" v-else src="./image/gray_border.png" alt="">
                   </div>
                   <div  style="padding: 20px 12px">
-                    <div class="signin-cont" v-if="item['activeState'] != 0">
+                    <div class="signin-cont">
                       <img src="./image/overSign.png" alt="已结束" v-if="item.isSign == 0 && item.activeState == 2"/>
                       <span v-if="item.isSign == 1">
                        <img src="./image/signedin.png" alt="已签到" v-if="item.schState == 1"/>
-                       <img src="./image/nosignin.png" alt="未签到" v-else/>
+                       <img src="./image/nosignin.png" alt="未签到" v-else-if="item['activeState'] != 0"/>
                     </span>
 
                     </div>
@@ -217,11 +217,14 @@
                     </div>
                     <div class="inner-item" v-if="item['tabNo'] || item['seatNo']">
 					  <span>
+
 						<span class="item-title">{{ item.schType == '2' ? "桌号/座位" : "座位" }}：</span>
 						<span class="item-text"
-                              v-if="item.schType == '2'">{{ (item['tabNo'] ? item['tabNo'] + '桌' : '') + (item['seatNo'] ? item['seatNo'] + '座' : '') }} </span>
-                    <span class="item-text"
-                          v-else-if="item.schType == '1'">{{ (item['tabNo'] ? item['tabNo'] + '排' : '') + (item['seatNo'] ? item['seatNo'] + '座' : '') }} </span>
+                  v-if="item.schType == '2'">{{ (item['tabNo'] ? item['tabNo'] + '桌' : '') + (item['seatNo'] ? item['seatNo'] + '座' : '') }} </span>
+              <span class="item-text"
+                    v-else-if="item.schType == '1'">{{ (item['tabNo'] ? item['tabNo'] + '排' : '') + (item['seatNo'] ? item['seatNo'] + '座' : '') }} </span>
+               <span class="item-text"
+                     v-else-if="item.schType == '3'">{{item['tabNo'] ? item['tabNo'] : '' }} </span>
 						<span class="item-text"
                               v-else>{{ (item['tabNo'] ? item['tabNo'] : '') + (item['seatNo'] ? item['seatNo'] + '座' : '') }} </span>
 					  </span>

@@ -196,6 +196,7 @@
     </ui-main>
 </template>
 <script>
+  export default {
     import logo from '../../static/images/ logo-partner.png'
     import newLife from '../../static/images/newLife.png'
     import meeting from '../../static/images/commity.png'
@@ -203,28 +204,72 @@
     import fifthZC from '../../static/images/fifth.png'
     import phoneIcon from '../../static/images/ icon-mm.png'
     import pwdIcon from '../../static/images/ icon-gzzh.png'
-    export default {
-        data() {
-            return {
-                isDevelopment: process.env.NODE_ENV === 'development',//开发模式
-                form: {
-                    username: '',
-                    password: ''
+    data() {
+      return {
+        isDevelopment: process.env.NODE_ENV === "development", //开发模式
+        loginForm: {
+          joinCode: "",
+          phoneNo: "",
+        },
+        logo,
+        newLife,
+        meeting,
+        fifth,
+        fifthZC,
+        phoneIcon,
+        pwdIcon
+      };
+    },
+    methods: {
+      async login(data) {
+        let wxData = {}
+        if (sessionStorage.wxData) {
+          wxData = JSON.parse(sessionStorage.wxData)
+        }
+        const validatePhone = await this.checkPhone(data.phoneNo);
+        const validateCode = await this.checkCode(data.joinCode);
+        if (validatePhone && validateCode) {
+          let param = {
+            joinCode: data.joinCode.toUpperCase(),
+            phoneNo: data.phoneNo,
+            openId: wxData.openId,
+            wxNickName: wxData.nick,
+          };
+          this.$store.dispatch("login", param).then((res) => {
+              // userRole 1.参会嘉宾  2 服务志愿者 3 媒体工作者
+              this.$router.replace({
+                path: this.$store.getters.roleNav.get(res.user.userRole),
+                query: {
+                  openId: wxData.openId,
                 },
-                logo,
-                newLife,
-                meeting,
-                fifth,
-                fifthZC,
-                phoneIcon,
-                pwdIcon
-            }
-        },
-        methods:{
-            login(){
-                // 请根据账号判断是登录那个首页, 比如嘉宾或者是会务组
-                this.$router.replace('/guest-home')
-            }
-        },
-    }
+              })
+          })
+        }
+      },
+      checkPhone(phoneNum) {
+        let phone = phoneNum;
+        if (!phone) {
+          this.$toast("手机号码不能为空");
+          return false;
+        }
+        if (!/^1[3456789]\d{9}$/.test(phone)) {
+          this.$toast("手机号码格式错误");
+          return false;
+        }
+        return true;
+      },
+      checkCode(codeVal) {
+        let code = codeVal;
+        if (!code) {
+          this.$toast("邀请码不能为空");
+          return false;
+        }
+        if (!/^[A-Za-z0-9]+$/.test(code)) {
+          this.$toast("邀请码错误");
+          return false;
+        }
+        return true;
+      },
+    },
+  };
 </script>

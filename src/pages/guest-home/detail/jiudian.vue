@@ -21,7 +21,7 @@
             <div class="time-icon">
               <img src="../image/time.png" />
             </div>
-            <div class="time-text" v-if="detailInfo.scheduleDate && detailInfo.startTime &&  detailInfo.endTime">{{detailInfo.startTimeStr }}到{{detailInfo.endTimeStr}}</div>
+            <div class="time-text" v-if="detailInfo.startTimeStr &&  detailInfo.endTimeStr">{{ detailInfo.startTimeStr }}到{{detailInfo.endTimeStr}}</div>
           </div>
 
           <div class="title-wrapper">
