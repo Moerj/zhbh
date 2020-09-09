@@ -379,7 +379,15 @@ export default {
     width: 100%;
     height: 45px;
     background: #349c1e;
-    color: #fff !important;
+
+    &.van-button--disabled {
+      background: lightgray !important;
+      color: black !important;
+    }
+
+    &:not(.van-button--disabled) {
+      color: #fff !important;
+    }
   }
 }
 </style>
