@@ -61,7 +61,7 @@
     }
     .bg-bottom{
         z-index: 0;
-        width: 100%;
+        width: 200%;
         height: 23rem;
         position: absolute;
         bottom: 0;
@@ -150,8 +150,7 @@
 <template>
     <ui-main>
         <div class="flex flex-column h-100">
-            <div class="bg" ref="bg"></div>
-            <div class="bg-bottom"></div>
+
             <div class="flex w-100 row-center flex-column h-100" style="z-index: 999;">
                 <div class="header flex row-center w-100">
                     <!--<div class="logo"></div>-->
@@ -172,16 +171,16 @@
                 <div class="form">
                     <div class="form-item">
                         <van-image width="14" :src="phoneIcon" fit="cover"/>
-                        <input v-model="form.username" type="text" placeholder="输入用户名">
+                        <input v-model="loginForm.phoneNo" type="text" placeholder="输入手机号">
                         <i class="line"></i>
                     </div>
                     <div class="form-item">
                         <van-image width="14" :src="pwdIcon" fit="cover"/>
-                        <input v-model="form.password" type="password" placeholder="输入登录密码">
+                        <input v-model="loginForm.joinCode" type="password" placeholder="输入邀请码">
                         <i class="line"></i>
                     </div>
                     <div class="form-item btn_box">
-                        <div @click="login" class="login-btn">登录</div>
+                        <div @click="login(loginForm)" class="login-btn">登录</div>
                     </div>
 
                 </div>
@@ -191,19 +190,24 @@
                     <div class="unit">承办单位:中共六盘水市委、六盘水市人民政府、贵州省文化旅游厅</div>
                 </div>
             </div>
+          <div class="bg" ref="bg" style="min-height:750px"></div>
+          <!--<div class="bg-bottom"></div>-->
+          <div style="width: 100%; min-height:750px">
+            <img src="../../static/images/ bg-bottom.jpg" style="width: 150%;position: absolute; bottom: 0px; left: -30%;opacity: 0.7;">
+          </div>
 
         </div>
     </ui-main>
 </template>
 <script>
+import logo from '../../static/images/ logo-partner.png'
+import newLife from '../../static/images/newLife.png'
+import meeting from '../../static/images/commity.png'
+import fifth from '../../static/images/Guizhou15th.png'
+import fifthZC from '../../static/images/fifth.png'
+import phoneIcon from '../../static/images/ icon-mm.png'
+import pwdIcon from '../../static/images/ icon-gzzh.png'
   export default {
-    import logo from '../../static/images/ logo-partner.png'
-    import newLife from '../../static/images/newLife.png'
-    import meeting from '../../static/images/commity.png'
-    import fifth from '../../static/images/Guizhou15th.png'
-    import fifthZC from '../../static/images/fifth.png'
-    import phoneIcon from '../../static/images/ icon-mm.png'
-    import pwdIcon from '../../static/images/ icon-gzzh.png'
     data() {
       return {
         isDevelopment: process.env.NODE_ENV === "development", //开发模式
