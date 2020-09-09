@@ -189,15 +189,15 @@
                   <img v-if="item['activeState'] == 1" style="position: absolute;width: 15px;height: 14px;left: -5px;top: 3px;z-index: 3;" src="./image/red_round.png" alt="">
                   <img v-else style="position: absolute;width: 15px;height: 14px;left: -5px;top: 3px;z-index: 3;" src="./image/gray_round.png" alt="">
                   <span>{{ item.startTime }}到{{ item.endTime }}</span>
-                  <img style="width: 170px;position: absolute;bottom: 0;right: 0;" v-if="item['activeState'] == 0" src="./image/gray_line.png" alt="">
+                  <img style="width: 170px;position: absolute;bottom: 0;right: 0;" v-if="item['activeState'] == 0" src="./image/red_line.png" alt="">
                   <img style="width: 170px;position: absolute;bottom: 0;right: 0;" v-else-if="item['activeState'] == 1" src="./image/red_line_jxz.png" alt="">
                   <img style="width: 170px;position: absolute;bottom: 0;right: 0;" v-else src="./image/gray_line.png" alt="">
                   <!--时间标题 end-->
                 </div>
                 <div class="card-inner" style="position: relative">
                   <div style="width: 100%;height: 100%;position: absolute">
-                    <img style="width: 100%;height: 100%" v-if="item['activeState'] == 1" src="./image/red_border.png" alt="">
-                    <img style="width: 100%;height: 100%" v-else src="./image/gray_border.png" alt="">
+                    <img style="width: 100%;height: 100%" v-if="item['activeState'] == 2" src="./image/gray_border.png" alt="">
+                    <img style="width: 100%;height: 100%" v-else src="./image/red_border.png" alt="">
                   </div>
                   <div  style="padding: 20px 12px">
                     <div class="signin-cont">
