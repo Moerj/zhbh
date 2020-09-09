@@ -94,13 +94,13 @@
           <div class="journey-container" v-if="journeyList">
             <div class="journey-card" v-for="(item,index) in journeyList"
                  :id="journeyList.length>0 && index==0?'stop3':''" :key="item.id" @click="toDetail(item)"
-                 :class="item['activeState'] == 0? 'notstarted': item['activeState'] == 1? 'ongoing': 'finished'">
+                 :class="item['activeState'] == '0'? 'notstarted': item['activeState'] == '1'? 'ongoing': 'finished'">
               <div class="card-content">
                 <div class="card-title">
 					<span>
 					  {{ item.startTime }}到{{ item.endTime }}
 					</span>
-                  <span style="float: right" v-if="item['activeState'] == 1">
+                  <span style="float: right" v-if="item['activeState'] == '1'">
 					  进行中
 					</span>
                 </div>
