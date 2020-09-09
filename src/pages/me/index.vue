@@ -35,7 +35,9 @@
         </div>
       </div>
     </div>
-    <Tabbar />
+    <template #footer>
+      <Tabbar/>
+    </template>
   </ui-main>
 </template>
 <script>

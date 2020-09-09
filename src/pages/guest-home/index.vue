@@ -245,7 +245,9 @@
         </div>
       </ui-pull>
       <Empty :textShow="false" :list="journeyList"/>
-      <Tabbar/>
+      <template #footer>
+        <Tabbar/>
+      </template>
       <van-overlay :show="showLoading">
         <div>
           <van-loading type="spinner"/>
