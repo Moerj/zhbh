@@ -293,6 +293,7 @@ export default {
       active: 0,
       tabCurrent: "",
       dates: [],
+      schDates:[],
       query: getQuery(),
       list: [],
       total: null,
@@ -358,7 +359,6 @@ export default {
 
     },
     shepherd() {
-      console.log("新手引导", sessionStorage['ISFIRSTLOGIN'])
       if (sessionStorage['ISFIRSTLOGIN']) {
         this.hh = document.documentElement.clientHeight || document.body.clientHeight;
         let $this = this;
@@ -531,17 +531,14 @@ export default {
         .DateList({userId: this.user.id})
         .then((res) => {
           if (res.list) {
-
             const now = this.$dayjs().format('YYYY-MM-DD')
-            for (let i = 0; i < res.list.datelistFull.length; i++) {
-              let date = res.list.datelistFull[i]
-              let flag = this.$dayjs(now).isSameOrBefore(this.$dayjs(date))
-              if (flag) {
-                this.active = i
-                break
-              }
+            if (res.list.datelistFull.indexOf(now) == -1){
+              res.list.datelistFull.push(now);
+              res.list.datelistFull.sort()
             }
             this.dates = res.list.datelistFull;
+            this.schDates = res.list.datelist;
+            this.active = this.dates.indexOf(now)
           }
         })
     },
@@ -557,6 +554,35 @@ export default {
             this.journeyList = res.list;
             this.$refs.pull.endSuccess();
             this.shepherd()
+            if (!res.list || res.list.length === 0) {
+              this.$dialog.confirm({
+                title: '行程跳转确认',
+                message: '您当日无行程,是否跳转到最近有行程的一天?',
+              }).then(() => {
+                // on confirm
+                const now = this.$dayjs().format('YYYY-MM-DD');
+                let minMill;
+                let val = "";
+                for (let i=0; i<this.schDates.length; i++){
+                  const date = this.$dayjs(this.schDates[i])
+                  let diffMill = date.diff(now);
+
+                  if (!minMill || minMill<diffMill){
+                    minMill = diffMill;
+                    val = this.schDates[i]
+                  } else {
+                    break;
+                  }
+                }
+
+                if (val){
+                  this.active = this.dates.indexOf(val)
+                  this.getList()
+                }
+              }).catch((err) => {
+                console.log(err)
+              });
+            }
           })
           .catch((err) => {
             this.$refs.pull.endSuccess();
