@@ -241,12 +241,17 @@ import pwdIcon from '../../static/images/ icon-gzzh.png'
           };
           this.$store.dispatch("login", param).then((res) => {
               // userRole 1.参会嘉宾  2 服务志愿者 3 媒体工作者
-              this.$router.replace({
-                path: this.$store.getters.roleNav.get(res.user.userRole),
-                query: {
-                  openId: wxData.openId,
-                },
-              })
+            // 新手指引页
+            if ((res.user.userRole==1 || res.user.userRole == 3)) {
+              this.$router.replace({ path: "/guest-home/index_novice" })
+              return
+            }
+            this.$router.replace({
+              path: this.$store.getters.roleNav.get(res.user.userRole),
+              query: {
+                openId: wxData.openId,
+              },
+            })
           })
         }
       },
