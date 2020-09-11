@@ -32,7 +32,7 @@
           </div>
           <div class="tr" v-if="v.phoneNo">
             <div class="th">嘉宾电话</div>
-            <a class="td ellipsis-1" :href="`tel:${v.phoneNo}`">
+            <a class="td ellipsis-1" :href="`tel:${v.phoneNo}`" style="color:#c7000b;">
               <van-icon :name="require('@/imgs/tel.svg')" size="12"/>
               &nbsp;{{ v.phoneNo }}
             </a>

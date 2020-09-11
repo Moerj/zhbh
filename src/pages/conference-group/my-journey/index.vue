@@ -360,7 +360,7 @@ export default {
 
     & > div:first-child {
       font-size: 15px;
-      font-weight: 500;
+      font-weight: bold;
       color: #292a2c;
 
       & ~ div {
