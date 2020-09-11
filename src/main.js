@@ -48,10 +48,10 @@ Vue.use(axios, {
 import Axios from 'axios'
 
 function wxAuthorization () {
-  const before = window.location.href.split('#')[0]
+  const hrefBefore = encodeURIComponent(window.location.href.split('#')[0])
   Axios.post(process.env.VUE_APP_BASE_API + 'yyt/wechat/wechat/queryJsConfigInfo', {
     mchId: '-1',
-    url: window.location.href.split('#')[0]
+    url: hrefBefore
   }).then(res => {
     const data = res?.data?.data
     wx.config({
@@ -64,16 +64,17 @@ function wxAuthorization () {
     })
     wx.error(res => {
       console.error(res)
-      console.log('href before: ' + before)
-      console.log('href after: ' + window.location.href.split('#')[0])
-      console.log('是否一致：' + before === window.location.href.split('#')[0])
+      console.log('href before: ' + decodeURIComponent(hrefBefore))
+      const hrefAfter = window.location.href.split('#')[0]
+      console.log('href after: ' + hrefAfter)
+      console.log('是否一致：' + hrefBefore === hrefAfter)
     })
   })
 }
 
 router.beforeEach(async (to, from, next) => {
   document.title = to.name || description
-  let flag = true;
+  let flag = true
   // 未登录拦截
   if (to.path !== '/login' && !sessionStorage.user) {
     next({ path: '/login', replace: true })
