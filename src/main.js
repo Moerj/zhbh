@@ -57,8 +57,8 @@ function wxAuthorization () {
     wx.config({
       debug: process.env.NODE_ENV === 'development',
       appId: data.appId,//appId通过微信服务号后台查看
-      timestamp: data.timestamp,//生成签名的时间戳
-      nonceStr: data.noncestr,//生成签名的随机字符串
+      timestamp: data.timestamp.toString(),//生成签名的时间戳
+      nonceStr: data.noncestr.toString(),//生成签名的随机字符串
       signature: data.signature,//签名
       jsApiList: ['scanQRCode', 'openLocation']
     })
