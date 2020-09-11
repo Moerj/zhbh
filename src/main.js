@@ -62,7 +62,7 @@ function wxAuthorization () {
       signature: data.signature,//签名
       jsApiList: ['scanQRCode', 'openLocation']
     })
-    wx.error((res) => {
+    wx.error(res => {
       console.error(res)
       console.log('href before: ' + before)
       console.log('href after: ' + window.location.href)
