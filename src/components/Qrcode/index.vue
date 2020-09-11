@@ -123,7 +123,7 @@
 </script>
 <style lang="scss" scoped>
 	.my-code{
-		z-index: 9999 !important;
+		z-index: 4 !important;
 	}
     // 二维码部分
     .my-code.mini {

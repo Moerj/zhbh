@@ -1,6 +1,5 @@
 <template>
     <nut-drag
-        style="z-index: 9999 !important;"
         @click.native="click"
         :attract="true"
         class="my-call"
@@ -74,13 +73,13 @@
     .my-call.mini {
         right: 2%;
         bottom: 10%;
-        border-radius: 5px;
+        border-radius: 5px ;
         background-color: #fff;
         box-shadow: 0px 2px 9px 0px rgba(199, 0, 11, 0.16);
-		padding: 0.4rem 0.3rem 0.4rem 0.3rem;
-		width: 3.757rem;
-		height: 3.75rem;
-        z-index: 1;
+        z-index: 4 !important;
+        padding: 0.4rem 0.3rem 0.4rem 0.3rem;
+        width: 3.757rem;
+        height: 3.75rem;
         .code-content {
             display: flex;
             justify-content: center;
@@ -125,7 +124,7 @@
                     top: -54px;
                     right: 20px;
                     width: 30px;
-                    z-index: 10000 !important;
+                    z-index: 4 !important;
                 }
 				.call-item{
 					margin: 0 1.25rem;padding: 15px 0

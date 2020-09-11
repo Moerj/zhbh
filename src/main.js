@@ -88,6 +88,10 @@ router.beforeEach(async (to, from, next) => {
       await store._actions.checkOpenId[0]({ openId: wxData.openId }).then((res) => {
         if (res && res.user) {
           const user = res.user
+          // 新手指引页
+          if (user.userRole && sessionStorage.ISFIRSTLOGIN) {
+            next({ path: "/guest-home/index_novice", replace: true })
+          }
           // role 1 3 嘉宾首页, 2工作人员或志愿者首页
           const _url = store.getters.roleNav.get(user.userRole)
           next({ path: _url, query: { openId: wxData.openId }, replace: true })
