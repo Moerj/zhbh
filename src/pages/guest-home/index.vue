@@ -25,103 +25,95 @@
           </van-notice-bar>
         </div>
       </template>
-      <ui-pull
-          @load="getList"
-          v-model="list"
-          :num.sync="query.pageNo"
-          :total="total"
-          ref="pull"
-          v-show="dateList && dateList.length > 0">
-        <div class="hotel-container">
-          <!--新版 我的酒店-->
-          <div style="position: relative;margin: 10px 18px;height: 172px;padding: 5px" v-if="hotel">
-            <!--left top-->
-            <div style="position: absolute;top: 0;left: 0;">
-              <div style="position:relative;width: 22px;height: 32px;border-top: 1px solid #c7000b;border-left: 1px solid #c7000b;">
-                <div style="width: 5px;height: 5px;background: #c7000b;border-radius: 5px;position: absolute;right: 0;top: -3px;"></div>
-                <div style="width: 5px;height: 5px;background: #c7000b;border-radius: 5px;position: absolute;left: -3px;bottom: 0;"></div>
-              </div>
+      <!--新版 我的酒店-->
+      <div style="position: relative;margin: 10px 18px;height: 172px;padding: 5px" v-if="hotel">
+        <!--left top-->
+        <div style="position: absolute;top: 0;left: 0;">
+          <div style="position:relative;width: 22px;height: 32px;border-top: 1px solid #c7000b;border-left: 1px solid #c7000b;">
+            <div style="width: 5px;height: 5px;background: #c7000b;border-radius: 5px;position: absolute;right: 0;top: -3px;"></div>
+            <div style="width: 5px;height: 5px;background: #c7000b;border-radius: 5px;position: absolute;left: -3px;bottom: 0;"></div>
+          </div>
+        </div>
+        <!--right top-->
+        <div style="position: absolute;top: 0;right: 0;">
+          <div style="position:relative;width: 22px;height: 32px;border-top: 1px solid #c7000b;border-right: 1px solid #c7000b;">
+            <div style="width: 5px;height: 5px;background: #c7000b;border-radius: 5px;position: absolute;left: 0;top: -3px;"></div>
+            <div style="width: 5px;height: 5px;background: #c7000b;border-radius: 5px;position: absolute;right: -3px;bottom: 0;"></div>
+          </div>
+        </div>
+        <!--left bottom-->
+        <div style="position: absolute;bottom: 0;left: 0;">
+          <div style="position:relative;width: 22px;height: 32px;border-bottom: 1px solid #c7000b;border-left: 1px solid #c7000b;">
+            <div style="width: 5px;height: 5px;background: #c7000b;border-radius: 5px;position: absolute;left: -3px;top: 0;"></div>
+            <div style="width: 5px;height: 5px;background: #c7000b;border-radius: 5px;position: absolute;right: 0;bottom: -3px;"></div>
+          </div>
+        </div>
+        <!--right bottom-->
+        <div style="position: absolute;bottom: 0;right: 0;">
+          <div style="position:relative;width: 22px;height: 32px;border-bottom: 1px solid #c7000b;border-right: 1px solid #c7000b;">
+            <div style="width: 5px;height: 5px;background: #c7000b;border-radius: 5px;position: absolute;right: -3px;top: 0;"></div>
+            <div style="width: 5px;height: 5px;background: #c7000b;border-radius: 5px;position: absolute;left: 0;bottom: -3px;"></div>
+          </div>
+        </div>
+        <!--title 我的酒店img-->
+        <div style="position: absolute;top: -5px;width: 100%">
+          <div style="display: flex;justify-content: center;position: relative">
+            <div style="width: 262px;height: 0;border-bottom: 10px solid #A4020B;border-right: 10px solid transparent;border-left: 10px solid transparent;"></div>
+            <div style="position: absolute;top:0;width: 240px;height: 0;border-top: 35px solid #C7000B;border-right: 10px solid transparent;border-left: 10px solid transparent;"></div>
+            <img style="position: absolute;top:5px;width: 96px;" src="./image/wodejiudiannew.png" alt="">
+          </div>
+        </div>
+        <!--content-->
+        <div style="border: 1px solid #C7000B;height: 100%">
+          <div style="margin-top: 35px;position: relative">
+            <div style="height: 36px;background: linear-gradient(90deg,rgba(199,0,11,0.11), rgba(199,0,11,0) 53%, rgba(199,0,11,0.1));">
+              <div style="font-size: 17px;font-weight: 500;text-align: center;color: #292a2c;line-height: 36px;" @click="toDetailRoom(hotel.id)">{{ hotel.title }}</div>
             </div>
-            <!--right top-->
-            <div style="position: absolute;top: 0;right: 0;">
-              <div style="position:relative;width: 22px;height: 32px;border-top: 1px solid #c7000b;border-right: 1px solid #c7000b;">
-                <div style="width: 5px;height: 5px;background: #c7000b;border-radius: 5px;position: absolute;left: 0;top: -3px;"></div>
-                <div style="width: 5px;height: 5px;background: #c7000b;border-radius: 5px;position: absolute;right: -3px;bottom: 0;"></div>
-              </div>
-            </div>
-            <!--left bottom-->
-            <div style="position: absolute;bottom: 0;left: 0;">
-              <div style="position:relative;width: 22px;height: 32px;border-bottom: 1px solid #c7000b;border-left: 1px solid #c7000b;">
-                <div style="width: 5px;height: 5px;background: #c7000b;border-radius: 5px;position: absolute;left: -3px;top: 0;"></div>
-                <div style="width: 5px;height: 5px;background: #c7000b;border-radius: 5px;position: absolute;right: 0;bottom: -3px;"></div>
-              </div>
-            </div>
-            <!--right bottom-->
-            <div style="position: absolute;bottom: 0;right: 0;">
-              <div style="position:relative;width: 22px;height: 32px;border-bottom: 1px solid #c7000b;border-right: 1px solid #c7000b;">
-                <div style="width: 5px;height: 5px;background: #c7000b;border-radius: 5px;position: absolute;right: -3px;top: 0;"></div>
-                <div style="width: 5px;height: 5px;background: #c7000b;border-radius: 5px;position: absolute;left: 0;bottom: -3px;"></div>
-              </div>
-            </div>
-            <!--title 我的酒店img-->
-            <div style="position: absolute;top: -5px;width: 100%">
-              <div style="display: flex;justify-content: center;position: relative">
-                <div style="width: 262px;height: 0;border-bottom: 10px solid #A4020B;border-right: 10px solid transparent;border-left: 10px solid transparent;"></div>
-                <div style="position: absolute;top:0;width: 240px;height: 0;border-top: 35px solid #C7000B;border-right: 10px solid transparent;border-left: 10px solid transparent;"></div>
-                <img style="position: absolute;top:5px;width: 96px;" src="./image/wodejiudiannew.png" alt="">
-              </div>
-            </div>
-            <!--content-->
-            <div style="border: 1px solid #C7000B;height: 100%">
-              <div style="margin-top: 35px;position: relative">
-                <div style="height: 36px;background: linear-gradient(90deg,rgba(199,0,11,0.11), rgba(199,0,11,0) 53%, rgba(199,0,11,0.1));">
-                  <div style="font-size: 17px;font-weight: 500;text-align: center;color: #292a2c;line-height: 36px;" @click="toDetailRoom(hotel.id)">{{ hotel.title }}</div>
-                </div>
-                <div style="position: absolute;top: -3px;width: 0;height: 41px;border-left: 5px solid #C7000B;border-top: 3px solid transparent;border-bottom: 3px solid transparent;"></div>
-                <div style="position: absolute;top: -3px;right:0;width: 0;height: 41px;border-right: 5px solid #C7000B;border-top: 3px solid transparent;border-bottom: 3px solid transparent;"></div>
-              </div>
-              <div style="padding:4px 10px">
-                <div class="hotel-info">
-                  <div class="info-item flex row-between" @click="$wxMap(hotel)">
+            <div style="position: absolute;top: -3px;width: 0;height: 41px;border-left: 5px solid #C7000B;border-top: 3px solid transparent;border-bottom: 3px solid transparent;"></div>
+            <div style="position: absolute;top: -3px;right:0;width: 0;height: 41px;border-right: 5px solid #C7000B;border-top: 3px solid transparent;border-bottom: 3px solid transparent;"></div>
+          </div>
+          <div style="padding:4px 10px">
+            <div class="hotel-info">
+              <div class="info-item flex row-between" @click="$wxMap(hotel)">
                   <span>
                     <span class="item-title" style="float: left">地点：</span>
                     <span class="item-text  ellipsis-1">{{ hotel.address }}</span>
                   </span>
-                    <span><img src="./image/right.svg"/></span>
-                  </div>
-                  <div class="info-item flex row-between" @click="toDetailRoom(hotel.id)">
+                <span><img src="./image/right.svg"/></span>
+              </div>
+              <div class="info-item flex row-between" @click="toDetailRoom(hotel.id)">
                   <span>
                     <span class="item-title">房间：</span>
                     <span class="item-text">{{ hotel.roomNo }}</span>
                   </span>
-                  </div>
-                  <div class="info-item flex row-between">
-                    <a class="tel" :href="'tel:'+hotel.hotelPhone"></a>
-                    <span>
+              </div>
+              <div class="info-item flex row-between">
+                <a class="tel" :href="'tel:'+hotel.hotelPhone"></a>
+                <span>
                       <span class="item-title">联系电话：</span>
                       <span class="item-text text-phone">{{ hotel.hotelPhone }}</span>
                     </span>
-                    <span><img src="./image/phone.svg"/></span>
-                  </div>
-                </div>
+                <span><img src="./image/phone.svg"/></span>
               </div>
             </div>
           </div>
-          <!--行程列表 image title start-->
-          <div style="width: 100%;line-height: 70px;position: relative;height: 70px;">
-            <img style="width: 100%;position: absolute;z-index: 0;height: 70px;" src="./image/xingchengliebiaobg.png" alt="">
-            <div style="position: absolute;z-index: 1;width: 100%;bottom: 5px">
-              <div style="position: relative;display: flex;justify-content: space-around">
-                <img style="width: 98px;height: 25px;" src="./image/xingchengliebiao.png" alt="行程列表">
-                <img style="width: 100px;height: 5px;position: relative;top: 17px;" src="./image/xingchengliebiaoline.png" alt="">
-                <img style="width: 115px;height: 33px;position: relative;top: -10px;" src="./image/xingchengliebiaologo.png" alt="">
-              </div>
-            </div>
+        </div>
+      </div>
+      <!--行程列表 image title start-->
+      <div style="width: 100%;line-height: 70px;position: relative;height: 70px;">
+        <img style="width: 100%;position: absolute;z-index: 0;height: 70px;" src="./image/xingchengliebiaobg.png" alt="">
+        <div style="position: absolute;z-index: 1;width: 100%;bottom: 5px">
+          <div style="position: relative;display: flex;justify-content: space-around">
+            <img style="width: 98px;height: 25px;" src="./image/xingchengliebiao.png" alt="行程列表">
+            <img style="width: 100px;height: 5px;position: relative;top: 17px;" src="./image/xingchengliebiaoline.png" alt="">
+            <img style="width: 115px;height: 33px;position: relative;top: -10px;" src="./image/xingchengliebiaologo.png" alt="">
           </div>
-          <!--行程列表 image title end-->
-          <div class="subtitle flex row-left col-center" :style="hotel?'':'margin-top:10px'" v-if="togPeople && togPeople.length>0">
-            <div class="peers-group">
-              <div>
+        </div>
+      </div>
+      <!--行程列表 image title end-->
+      <div class="subtitle flex row-left col-center" :style="hotel?'':'margin-top:10px'" v-if="togPeople && togPeople.length>0">
+        <div class="peers-group">
+          <div>
 				  <span
               :class="journeyActive == user.id ? 'active' : ''"
               @click='()=>{
@@ -130,18 +122,27 @@
                 getList()
               }'
           >我的行程</span>
-                <span v-for="people in togPeople"
-                      :class="journeyActive == people.id ? 'active' : ''"
-                      @click="()=>{
+            <span v-for="people in togPeople"
+                  :class="journeyActive == people.id ? 'active' : ''"
+                  @click="()=>{
                         journeyActive = people.id
                         hotelName = people.realName
                         getList()
                       }"
-                >{{ people['realName'] }}</span>
+            >{{ people['realName'] }}</span>
 
-              </div>
-            </div>
           </div>
+        </div>
+      </div>
+      <ui-pull
+          @load="getList"
+          v-model="list"
+          :num.sync="query.pageNo"
+          :total="total"
+          ref="pull"
+          v-show="journeyList && journeyList.length > 0">
+        <div class="hotel-container">
+
           <div class="journey-container" v-if="journeyList">
             <div class="journey-card" v-for="(item,index) in journeyList"
                  :key="item.id" @click="toDetail(item)"
@@ -372,12 +373,12 @@ export default {
         .then((res) => {
           if (res.list) {
             const now = this.$dayjs().format('YYYY-MM-DD')
-            if (res.list.datelistFull.indexOf(now) == -1){
-              res.list.datelistFull.push(now);
-              res.list.datelistFull.sort()
+            this.dates = res.list.datelistFull.concat();
+            if (this.dates.indexOf(now) == -1){
+              this.dates.push(now);
+              this.dates.sort()
             }
-            this.dates = res.list.datelistFull;
-            this.schDates = res.list.datelist;
+            this.schDates = res.list.datelistFull;
             this.active = this.dates.indexOf(now)
           }
         })
@@ -393,7 +394,7 @@ export default {
           .then((res) => {
             this.journeyList = res.list;
             this.$refs.pull.endSuccess();
-            if (!res.list || res.list.length === 0) {
+            if ((!res.list || res.list.length === 0) && this.param.userId === this.user.id) {
               this.$dialog.confirm({
                 title: '行程跳转确认',
                 message: '您当日无行程,是否跳转到最近有行程的一天?',
