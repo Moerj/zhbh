@@ -35,5 +35,9 @@ export default [
         component: () => import('./detail/huodong.vue'),
       },
     ]
+  },{
+    path: '/guest-home/index_novice',
+    name: "新手指引",
+    component: () => import('./index_novice.vue'),
   },
 ];

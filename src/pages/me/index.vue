@@ -3,7 +3,7 @@
     <div class="user-container">
       <div class="use-info flex row-left col-center">
         <div class="head-item">
-          <img src="https://img.yzcdn.cn/vant/cat.jpeg" alt="" />
+          <img :src="img" alt="" />
         </div>
         <div class="user-name">尊敬的{{user.realName}}欢迎您！</div>
       </div>
@@ -35,7 +35,9 @@
         </div>
       </div>
     </div>
-    <Tabbar />
+    <template #footer>
+      <Tabbar/>
+    </template>
   </ui-main>
 </template>
 <script>
@@ -44,6 +46,7 @@ import QRCode from "qrcode";
 export default {
   data() {
     return {
+      img: require("./head_default.png"),
       url:"",
       user: JSON.parse(localStorage.user),
       appVersion: process.env.APP_VERSION,

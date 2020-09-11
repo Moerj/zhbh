@@ -3,8 +3,9 @@
 }
 
 .hotel-container {
-  background: url("./image/bg@2x.png");
+  //background: url("./image/bg@2x.png");
   background-size: cover;
+  background: #ffffff;
 }
 .title {
   background-image: url(./image/title-bg.png);
@@ -67,7 +68,7 @@
       right: 0;
       width: 1px;
       height: calc(100% - 50%);
-      background-color: #ebebf1;
+      //background-color: #ebebf1;
     }
   }
   .van-tab--active {
@@ -75,6 +76,7 @@
     color: #fff;
     z-index: 30;
     transition: 0.3s;
+    padding: 0 18px;
     & .van-tab__text {
       position: relative;
       z-index: 30;
@@ -86,7 +88,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: url("./image/tab-bg.png");
+      background: url("./image/tab.png");
       background-position: top center;
       background-size: cover;
       border-radius: 0.36rem;
@@ -97,9 +99,9 @@
       position: absolute;
       top: 0;
       left: 0;
-      width: 100%;
+      width: 130%;
       height: 100%;
-      background-color: #c7000b;
+      //background-color: #c7000b;
       border-radius: 0.36rem;
       z-index: 20;
     }
@@ -133,9 +135,10 @@
 
 .hotel-info .info-item {
   height: 1.25rem;
-  line-height: 1.25rem;
-  padding: 5px 0;
+  line-height: 21px;
+  padding: 3px 0;
   box-sizing: content-box;
+  font-size: 15px;
   position: relative;
   .tel {
     position: absolute;
@@ -174,103 +177,18 @@
 
 .journey-card {
   padding: 0 1rem;
-  .card-title {
-    font-size: 17px;
-    padding-left: 0.8rem;
-    position: relative;
-    font-family: PingFangSC, PingFangSC-Regular;
-    font-weight: 400;
-    text-align: left;
-    color: #2b69e2;
-    line-height: 24px;
-
-  }
-  .card-title-no {
-    font-size: 17px;
-    padding-left: 0.8rem;
-    position: relative;
-    font-family: PingFangSC, PingFangSC-Regular;
-    font-weight: 400;
-    text-align: left;
-    color: #c7cccc;
-    line-height: 24px;
-
-  }
-  .card-inner {
-    background-color: #fff;
-    padding: 0.9rem;
-    margin-top: 10px;
-    border-right: 0.25rem solid #e02020;
-    border-top-right-radius: 4px;
-    border-bottom-right-radius: 4px;
-    box-shadow: 1px 0 5px 1px rgba(0, 0, 0, 0.2);
-    position: relative;
-  }
-  .card-inner-no {
-    background-color: #fff;
-    padding: 0.9rem;
-    margin-top: 10px;
-    border-right: 0.25rem solid #e02020;
-    border-top-right-radius: 4px;
-    border-bottom-right-radius: 4px;
-    box-shadow: 1px 0 5px 1px rgba(0, 0, 0, 0.2);
-    position: relative;
-    .item-text{
-      color: #b7bacc;
-    }
-    .item-title{
-      color: #b7bacc;
-    }
-  }
-
   .card-content {
     position: relative;
-    padding-bottom: 1.5625rem;
+    padding-bottom: 10px;
   }
 }
 
-.journey-card {
-  .card-title::before {
-    content: "";
-    position: absolute;
-    left: -0.265rem;
-    top: calc(100% / 2 - 0.28125rem);
-    width: 0.5625rem;
-    height: 0.5625rem;
-    border-radius: 50%;
-    background-color: #b7bacc;
-    z-index: 5;
-  }
-  .card-title-no::before {
-    content: "";
-    position: absolute;
-    left: -0.265rem;
-    top: calc(100% / 2 - 0.28125rem);
-    width: 0.5625rem;
-    height: 0.5625rem;
-    border-radius: 50%;
-    background-color: #b7bacc;
-    z-index: 5;
-  }
-}
-.card-title-no .inner-item .item-text {
-  color: #b7bacc;
-}
 
-.card-content::before {
-  content: "";
-  position: absolute;
-  top: 0.5625rem;
-  bottom: auto;
-  left: 0;
-  width: 1px;
-  height: 100%;
-  background-color: #b7bacc;
-  z-index: 2;
-}
+
 
 .journey-container {
   padding-top: 15px;
+  padding-bottom: 15px;
   .journey-card:last-child {
     .card-content::before {
       height: calc(100% - 0.5625rem);
@@ -305,33 +223,46 @@
 
 // 未开始
 .journey-card.notstarted {
-  .inner-title {
-    color: #333333;
-  }
-  .card-title{
-    font-size: 17px;
+  .card-title {
     padding-left: 0.8rem;
-    position: relative;
-    font-family: PingFangSC, PingFangSC-Regular;
-    font-weight: 400;
+    color: #C7000B;
+    font-size: 20px;
+    font-weight: 600;
     text-align: left;
-    color: #666666;
-    line-height: 24px;
+    line-height: 20px;
   }
-  .card-title::before,
   .card-content::before {
-    //background-color: #2b69e2;
+    content: "";
+    position: absolute;
+    top: 1rem;
+    bottom: auto;
+    left: 0;
+    width: 1px;
+    height: 90%;
+    border-left:3px dashed #EC4831;
+    z-index: 2;
+  }
+
+  .card-title::before {
+    background-color: #2b69e2;
   }
   .card-inner {
-    background-color: #ffffff;
+    background-color: #fff;
+    margin: 10px 5px 0 20px;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+    position: relative;
+    .inner-title{
+      color: #292A2C;
+    }
     .inner-item{
       margin-top: 10px;
       font-size: 0.9375rem;
       .item-text {
-        color: #333333;
+        color: #292A2C;
       }
       .item-title {
-        color: #333333;
+        color: #292A2C;
       }
     }
   }
@@ -340,44 +271,44 @@
 // 进行中
 .journey-card.ongoing {
   .card-title {
-    color: #2b69e2;
+    padding-left: 0.8rem;
+    color: #C7000B;
+    font-size: 20px;
+    font-weight: 600;
+    text-align: left;
+    line-height: 20px;
   }
-  .card-title::after {
-    content: "";
-    position: absolute;
-    left: -0.44rem;
-    top: calc(100% / 2 - 0.46rem);
-    width: 0.8125rem;
-    height: 0.8125rem;
-    border-radius: 50%;
-    border: 1px solid #2b69e2;
-    z-index: 30;
-  }
-  .card-title-no::after {
-    content: "";
-    position: absolute;
-    left: -0.44rem;
-    top: calc(100% / 2 - 0.46rem);
-    width: 0.8125rem;
-    height: 0.8125rem;
-    border-radius: 50%;
-    border: 1px solid #c7cccc;
-    z-index: 30;
-  }
-  .card-title::before,
   .card-content::before {
+    content: "";
+    position: absolute;
+    top: 1rem;
+    bottom: auto;
+    left: 0;
+    width: 1px;
+    height: 90%;
+    border-left:3px dashed #EC4831;
+    z-index: 2;
+  }
+  .card-title::before{
     background-color: #2b69e2;
   }
   .card-inner {
-    background-color: #ffffff;
+    background-color: #fff;
+    margin: 10px 5px 0 20px;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+    position: relative;
+    .inner-title{
+      color: #292A2C;
+    }
     .inner-item{
       margin-top: 10px;
       font-size: 0.9375rem;
       .item-text {
-        color: #333333;
+        color: #292A2C;
       }
       .item-title {
-        color: #333333;
+        color: #595B64;
       }
     }
   }
@@ -386,15 +317,30 @@
 // 已结束
 .journey-card.finished {
   .card-title {
-    color: #c7cccc;
+    padding-left: 0.8rem;
+    color: #9094a8;
+    font-size: 20px;
+    font-weight: 600;
+    text-align: left;
+    line-height: 20px;
   }
-  .card-title::before,
   .card-content::before {
-    background-color: #c7cccc;
+    content: "";
+    position: absolute;
+    top: 1rem;
+    bottom: auto;
+    left: 0;
+    width: 1px;
+    height: 90%;
+    border-left:3px dashed #b7bacc;
+    z-index: 2;
   }
   .card-inner {
-    background-color: #f3f5fc;
-    border-right: 0.25rem solid #B7BACC;
+    background-color: #fff;
+    margin: 10px 5px 0 20px;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+    position: relative;
     .inner-title{
       color: #c7cccc;
     }
