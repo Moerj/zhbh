@@ -151,7 +151,7 @@
     <ui-main>
         <div class="flex flex-column h-100">
 
-            <div class="flex w-100 row-center flex-column h-100" style="z-index: 999; min-height: 750px;">
+            <div class="flex w-100 row-center flex-column h-100" style="z-index: 999; min-height: 750px; position: relative;">
                 <div class="header flex row-center w-100">
                     <!--<div class="logo"></div>-->
                     <van-image width="160" :src="logo" fit="cover"/>
