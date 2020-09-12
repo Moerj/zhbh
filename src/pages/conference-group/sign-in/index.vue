@@ -154,7 +154,7 @@ export default {
         }
       }).then(({ data }) => {
         this.healthCode = data || {}
-        if (!this.disabled && data.healthCode === 'green') {
+        if (!this.disabled && data?.color === 'green') {
           this.signIn()
         }
       }).finally(e => {
