@@ -67,7 +67,7 @@ function wxAuthorization () {
       console.log('href before: ' + decodeURIComponent(hrefBefore))
       const hrefAfter = window.location.href.split('#')[0]
       console.log('href after: ' + hrefAfter)
-      console.log('是否一致：' + hrefBefore === hrefAfter)
+      console.log('是否一致：' + (hrefBefore === hrefAfter))
     })
   })
 }
