@@ -180,7 +180,7 @@
                         <i class="line"></i>
                     </div>
                     <div class="form-item btn_box">
-                        <div @click="login(loginForm)" class="login-btn">登录</div>
+                        <div @click="login(loginForm)" class="login-btn">登录 <img :src="loginBtnIcon" style="margin-left: 6px;"/></div>
                     </div>
 
                 </div>
@@ -221,7 +221,8 @@ import pwdIcon from '../../static/images/ icon-gzzh.png'
         fifth,
         fifthZC,
         phoneIcon,
-        pwdIcon
+        pwdIcon,
+        loginBtnIcon: require("./image/login_btn.png")
       };
     },
     methods: {
