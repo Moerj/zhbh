@@ -37,6 +37,8 @@ const activeCancel = (param) =>
 
 const activeJoined = (param) =>
     vue.$http.get(`/guest/meet/joinedActList`,{params: param});
+const mettingGuide = (param) =>
+    vue.$http.get(`/guest/meet/guide`,{params: param});
 
 export default {
   myJourney,
@@ -45,15 +47,16 @@ export default {
   togPeople,
   schduleInfo,
   carDetail,
-    activeList,
-    activeDetail,
-    getCallData,
-	healthCode,
+  activeList,
+  activeDetail,
+  getCallData,
+  healthCode,
   getHotal,
   hotelInfo,
   notices,
   actgroupInfo,
-    actgroupJoin,
-    activeCancel,
-    activeJoined
+  actgroupJoin,
+  activeCancel,
+  activeJoined,
+  mettingGuide,
 };

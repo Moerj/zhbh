@@ -8,6 +8,10 @@ export default [
             path: 'moments',
             name: "精彩瞬间",
             component: () => import('./detail/moments.vue'),
+        }, {
+            path: 'guide',
+            name: "会务指南",
+            component: () => import('./detail/guide.vue'),
         }],
     }
 ]
