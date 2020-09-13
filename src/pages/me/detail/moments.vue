@@ -83,30 +83,6 @@ export default {
 }
 </script>
 
-<style lang="scss">
-.content {
-  .van-tabs__nav {
-    background: transparent;
-  }
-  .van-tab {
-    background: url("./yjjx-white.png") no-repeat;
-    background-size: 100% 100%;
-    padding: 5px 14px;
-    width: 90px;
-    height: 24px;
-  }
-  .van-tab + .van-tab {
-    margin-left: 30px;
-  }
-  .van-tab--active {
-    color: #ffffff;
-    font-weight: 500;
-    background: url("./yjjx-red.png") no-repeat;
-    background-size: 100% 100%;
-  }
-}
-</style>
-
 <style lang="scss" scoped>
 .content {
   width: 100%;
@@ -179,5 +155,24 @@ export default {
       }
     }
   }
+}
+/deep/.van-tabs__nav {
+  background: transparent;
+}
+/deep/.van-tab {
+  background: url("./yjjx-white.png") no-repeat;
+  background-size: 100% 100%;
+  padding: 5px 14px;
+  width: 90px;
+  height: 24px;
+}
+/deep/.van-tab + .van-tab {
+  margin-left: 30px;
+}
+/deep/.van-tab--active {
+  color: #ffffff;
+  font-weight: 500;
+  background: url("./yjjx-red.png") no-repeat;
+  background-size: 100% 100%;
 }
 </style>
