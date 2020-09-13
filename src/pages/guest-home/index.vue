@@ -397,7 +397,9 @@ export default {
             if ((!res.list || res.list.length === 0) && this.param.userId === this.user.id) {
               this.$dialog.confirm({
                 title: '行程跳转确认',
-                message: '您当日无行程,是否跳转到最近有行程的一天?',
+                message: '您当日无行程,是否跳转到最近有行程的日期?',
+                confirmButtonText: '是',
+                cancelButtonText: '否',
               }).then(() => {
                 // on confirm
                 const now = this.$dayjs().format('YYYY-MM-DD');

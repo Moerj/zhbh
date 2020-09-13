@@ -29,7 +29,7 @@
         <div class="hotel-container">
           <!--新版 我的酒店-->
           <div id="stop2" style="width: 100%">
-            <div style="position: relative;margin: 10px 18px;height: 172px;padding: 5px" v-if="hotel">
+            <div style="position: relative;margin: 20px 18px;height: 172px;padding: 5px" v-if="hotel">
               <!--left top-->
               <div style="position: absolute;top: 0;left: 0;">
                 <div style="position:relative;width: 22px;height: 32px;border-top: 1px solid #c7000b;border-left: 1px solid #c7000b;">
