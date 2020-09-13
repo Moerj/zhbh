@@ -26,7 +26,7 @@
         <img :src="logo" alt="logo">
       </div>
       <div class="banner">
-        <img :src="dataItem['coverPath']" alt="banner">
+        <img :src="banner" alt="banner">
         <div class="sign-in">
           <img src="./sign-in.png" alt="signIn">
         </div>
