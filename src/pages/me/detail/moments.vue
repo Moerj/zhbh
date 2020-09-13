@@ -115,7 +115,7 @@ export default {
   background: url("./bj.png") no-repeat;
   background-size: 100% 100%;
   .title {
-    margin-top: 60px;
+    margin-top: 40px;
     .item {
       width: 100%;
       text-align: center;
