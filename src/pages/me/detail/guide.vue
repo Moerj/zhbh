@@ -1,6 +1,6 @@
 <template>
   <ui-main>
-    <article v-html="guid"></article>
+    <article class="content" v-html="guid"></article>
   </ui-main>
 </template>
 
@@ -21,6 +21,11 @@ export default {
 }
 </script>
 
+<style>
+.content img{
+  width:100%;
+}
+</style>
 <style scoped>
 
 </style>

@@ -10,15 +10,14 @@
             @click="onTabsClick">
           <van-tab v-for="(v, i) of dateList" :title="v" :key="i"/>
         </van-tabs>
-        <div style="background-color: #ffffff;border-top: 0.04rem solid #EBEBF1;" v-if="notices">
-          <div style="overflow: auto;zoom: 1;padding: 0.625rem 0.75rem 0 0.75rem;">
-            <div style="float: left;font-size: 1.125rem;font-weight: 600;text-align: left;color: #292a2c;line-height: 1.5625rem;">
+        <div class="notice-div" v-if="notices">
+          <div class="notice-title">
+            <div class="greeting">
               尊敬的{{ user.realName }}欢迎您！
             </div>
-            <div style="float: right;font-size: 0.75rem;font-weight: 500;text-align: left;color: #c7000b;line-height: 1.0625rem;background: #fff3f3;border-radius: 0.3125rem;padding: 0.125rem 0.25rem;"
-                @click="toNotic(tabCurrent)">全部<img style="width: 0.5rem;height: 0.4375rem;" src="./image/notice.png" alt=""></div>
+            <div class="notic-all" @click="toNotic(tabCurrent)">全部<img src="./image/notice.png" alt=""></div>
           </div>
-          <van-notice-bar background="#FFFFFF" color="#666666" left-icon="volume-o" :scrollable="false">
+          <van-notice-bar background="#FFFFFF"  speed="30" color="#666666" left-icon="volume-o" :scrollable="false">
             <van-swipe vertical class="notice-swipe" :autoplay="3000" :show-indicators="false">
               <van-swipe-item v-for="notic in notices">{{ notic.title }}</van-swipe-item>
             </van-swipe>
@@ -34,40 +33,40 @@
           ref="pull">
         <div class="hotel-container">
           <!--新版 我的酒店-->
-          <div style="position: relative;margin: 10px 18px;height: 172px;padding: 5px" v-if="hotel">
+          <div class="hotel-div" v-if="hotel">
             <!--left top-->
-            <div style="position: absolute;top: 0;left: 0;">
-              <div style="position:relative;width: 22px;height: 32px;border-top: 1px solid #c7000b;border-left: 1px solid #c7000b;">
-                <div style="width: 5px;height: 5px;background: #c7000b;border-radius: 5px;position: absolute;right: 0;top: -3px;"></div>
-                <div style="width: 5px;height: 5px;background: #c7000b;border-radius: 5px;position: absolute;left: -3px;bottom: 0;"></div>
+            <div class="abs-left-top">
+              <div class="border-box top-l left-l">
+                <div class="point" style="right: 0;top: -3px;"/>
+                <div class="point" style="left: -3px;bottom: 0;"/>
               </div>
             </div>
             <!--right top-->
-            <div style="position: absolute;top: 0;right: 0;">
-              <div style="position:relative;width: 22px;height: 32px;border-top: 1px solid #c7000b;border-right: 1px solid #c7000b;">
-                <div style="width: 5px;height: 5px;background: #c7000b;border-radius: 5px;position: absolute;left: 0;top: -3px;"></div>
-                <div style="width: 5px;height: 5px;background: #c7000b;border-radius: 5px;position: absolute;right: -3px;bottom: 0;"></div>
+            <div class="abs-right-top">
+              <div class="border-box top-l right-l">
+                <div class="point" style="left: 0;top: -3px;"/>
+                <div class="point" style="right: -3px;bottom: 0;"/>
               </div>
             </div>
             <!--left bottom-->
-            <div style="position: absolute;bottom: 0;left: 0;">
-              <div style="position:relative;width: 22px;height: 32px;border-bottom: 1px solid #c7000b;border-left: 1px solid #c7000b;">
-                <div style="width: 5px;height: 5px;background: #c7000b;border-radius: 5px;position: absolute;left: -3px;top: 0;"></div>
-                <div style="width: 5px;height: 5px;background: #c7000b;border-radius: 5px;position: absolute;right: 0;bottom: -3px;"></div>
+            <div class="abs-left-bottom">
+              <div class="border-box bottom-l left-l">
+                <div class="point" style="left: -3px;top: 0;"/>
+                <div class="point" style="right: 0;bottom: -3px;"/>
               </div>
             </div>
             <!--right bottom-->
-            <div style="position: absolute;bottom: 0;right: 0;">
-              <div style="position:relative;width: 22px;height: 32px;border-bottom: 1px solid #c7000b;border-right: 1px solid #c7000b;">
-                <div style="width: 5px;height: 5px;background: #c7000b;border-radius: 5px;position: absolute;right: -3px;top: 0;"></div>
-                <div style="width: 5px;height: 5px;background: #c7000b;border-radius: 5px;position: absolute;left: 0;bottom: -3px;"></div>
+            <div class="abs-right-bottom">
+              <div class="border-box bottom-l right-l">
+                <div class="point" style="right: -3px;top: 0;"/>
+                <div class="point" style="left: 0;bottom: -3px;"/>
               </div>
             </div>
             <!--title 我的酒店img-->
-            <div style="position: absolute;top: -5px;width: 100%">
-              <div style="display: flex;justify-content: center;position: relative">
-                <div style="width: 262px;height: 0;border-bottom: 10px solid #A4020B;border-right: 10px solid transparent;border-left: 10px solid transparent;"></div>
-                <div style="position: absolute;top:0;width: 240px;height: 0;border-top: 35px solid #C7000B;border-right: 10px solid transparent;border-left: 10px solid transparent;"></div>
+            <div class="hotel-title">
+              <div class="title-inner">
+                <div class="bg-l bg-inner"/>
+                <div class="bg-l bg-out"/>
                 <img style="position: absolute;top:5px;width: 96px;" src="./image/wodejiudiannew.png" alt="">
               </div>
             </div>
@@ -394,7 +393,8 @@ export default {
           .then((res) => {
             this.journeyList = res.list;
             this.$refs.pull.endSuccess();
-            const now = this.$dayjs().format('YYYY-MM-DD');
+            const now = this.$dayjs(this.param.date).format('YYYY-MM-DD');
+            const nowDysjs = this.$dayjs(now);
             if ((!res.list || res.list.length === 0) && this.param.userId === this.user.id && this.schDates.indexOf(now) == -1) {
               this.$dialog.confirm({
                 title: '行程跳转确认',
@@ -403,13 +403,14 @@ export default {
                 cancelButtonText: '否',
               }).then(() => {
                 // on confirm
-                let minMill;
+                let minMill = '';
                 let val = "";
                 for (let i=0; i<this.schDates.length; i++){
+                  console.log('date  '+this.schDates[i])
                   const date = this.$dayjs(this.schDates[i])
-                  let diffMill = Math.abs(this.$dayjs(now).diff(date));
-
-                  if ((!minMill && minMill != 0 ) || minMill>diffMill){
+                  let diffMill = nowDysjs.diff(date);
+                  console.log(this.schDates[i])
+                  if ((!minMill && minMill !== 0) || (minMill>diffMill && minMill>0)){
                     minMill = diffMill;
                     val = this.schDates[i]
                   } else {
@@ -466,17 +467,20 @@ export default {
 <style lang="scss" scoped>
 @import "./index.scss";
 
-.van-overlay {
-  z-index: 9999;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+  .van-overlay {
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 
-.notice-swipe {
-  height: 40px;
-  line-height: 40px;
-}
-
-
+  .notice-swipe {
+    height: 40px;
+    line-height: 40px;
+  }
+</style>
+<style>
+  .notice-div .van-notice-bar {
+    height: 30px;
+  }
 </style>
