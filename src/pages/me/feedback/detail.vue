@@ -29,6 +29,9 @@
                         确认提交
                     </div>
                 </div>
+                <div class="cImg"  v-for="(cImg,cIndex) in uploadImages" :key="cIndex">
+                    <img :src="cImg" :preview="cIndex" width="54px" height="54px" alt="" fit="cover">
+                </div>
             </div>
         </div>
     </ui-main>
@@ -106,7 +109,7 @@
     height: 330px;
     background: #ffffff;
     position: relative;
-    overflow: hidden;
+    /*overflow: hidden;*/
 }
 /deep/.van-cell {
     overflow: initial !important;

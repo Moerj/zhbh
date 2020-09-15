@@ -78,7 +78,7 @@
 <style lang="scss" scoped>
     .my-call.mini {
         right: 2%;
-        bottom: 10%;
+        bottom: 20%;
         border-radius: 5px ;
         background-color: #fff;
         box-shadow: 0px 2px 9px 0px rgba(199, 0, 11, 0.16);
