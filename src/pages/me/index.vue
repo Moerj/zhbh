@@ -8,7 +8,7 @@
         <div class="user-name">尊敬的{{user.realName}}欢迎您！</div>
       </div>
 
-      <div class="card-cont" @click="toGuide()">
+      <div class="card-cont">
         <div class="card-inner">
           <div class="inner-title">会务指南<img src="./right.png" /></div>
           <div class="inner-subtitle">参会者详细指南</div>
@@ -34,6 +34,23 @@
           </div>
         </div>
       </div>
+      <div class="card-cont">
+        <div class="feed" style="border-radius: 10px;overflow: hidden;" @click="toFeedback()">
+          <van-cell value="" is-link>
+            <template #title>
+              <div class="flex col-center">
+                <van-image
+                        width="16px"
+                        height="16px"
+                        fit="contain"
+                        :src="feedIcon"
+                />
+                <span class="custom-title title">意见反馈</span>
+              </div>
+            </template>
+          </van-cell>
+        </div>
+      </div>
     </div>
     <template #footer>
       <Tabbar/>
@@ -47,6 +64,7 @@ export default {
   data() {
     return {
       img: require("./head_default.png"),
+      feedIcon: require("./icon_feedback.png"),
       url:"",
       user: JSON.parse(localStorage.user),
       appVersion: process.env.APP_VERSION,
@@ -70,6 +88,9 @@ export default {
     toMoments() {
       this.$router.push({path: "/me/moments"})
     },
+    toFeedback() {
+      this.$router.push({path: "/me/feedback"})
+    },
     toGuide() {
       this.$router.push({path: "/me/guide"})
     }
@@ -78,6 +99,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.user-container{
+  min-height: 600px;
+  padding-bottom: 50px;
+}
 .use-info {
   padding: 1rem;
 }
@@ -169,6 +194,17 @@ export default {
     img {
       width: 100%;
     }
+  }
+}
+.feed{
+  .title{
+    font-size: 16px;
+    font-family: PingFangSC, PingFangSC-Regular;
+    font-weight: 400;
+    text-align: justify;
+    color: #292a2c;
+    line-height: 22px;
+    margin-left:8px;
   }
 }
 </style>

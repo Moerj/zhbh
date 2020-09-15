@@ -95,7 +95,9 @@ Vue.use(Lazyload)
 import Drag from '@nutui/nutui/dist/packages/drag/drag.js'
 import '@nutui/nutui/dist/packages/drag/drag.css'
 Drag.install(Vue)
-
+import preview from 'vue-photo-preview'
+import 'vue-photo-preview/dist/skin.css'
+Vue.use(preview)
 // 框架样式
 import '@/scss/index.scss'
 

@@ -21,7 +21,7 @@
           </div>
           <van-notice-bar background="#FFFFFF" color="#666666" left-icon="volume-o" :scrollable="false">
             <van-swipe vertical class="notice-swipe" :autoplay="3000" :show-indicators="false">
-              <van-swipe-item v-for="notic in notices">{{ notic }}</van-swipe-item>
+              <van-swipe-item v-for="(notic,nIndex) in notices" :key="nIndex">{{ notic }}</van-swipe-item>
             </van-swipe>
           </van-notice-bar>
         </div>

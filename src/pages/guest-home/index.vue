@@ -220,6 +220,7 @@
     </ui-main>
     <Qrcode v-if="zIndex"/>
     <Call @click-z-index="clickCallShow"/>
+    <Pupon @click-z-index="clickPuponShow"/>
     <div v-if="hh>0"
          :style="'position: relative;top: 0;bottom: 0;left: 0;right: 0;z-index:9999;background: transfer;height:'+hh+'px'"/>
   </div>
@@ -230,6 +231,7 @@ import Tabbar from "@/components/Tabbar";
 import Qrcode from "@/components/Qrcode";
 import Call from "@/components/call";
 import Empty from '@/components/empty'
+import Pupon from '@/components/Popup'
 
 import journeyAPI from "@/api/journey.js";
 
@@ -250,6 +252,7 @@ export default {
     Qrcode,
     Call,
     Empty,
+    Pupon
   },
   data() {
     return {
@@ -272,6 +275,7 @@ export default {
       hotelName:"我",
       zIndex: true,
       hh: 0,
+      showPupon:false
     };
   },
   watch: {
@@ -329,6 +333,9 @@ export default {
     },
     clickCallShow(index) {
       this.zIndex = !index
+    },
+    clickPuponShow(showPupon) {
+       this.showPupon = !showPupon
     },
     toNotic() {
       this.$router.push({
@@ -449,6 +456,10 @@ export default {
     },
     closeCode(ev) {
       this.isShowCode = false;
+    },
+    optionCoupon(){
+        console.log('optionCoupon>>>>>>>11')
+        this.$router.push({path:'/me/coupons'})
     },
     showMapHandle() {
       this.showLoading = true;
