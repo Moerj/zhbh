@@ -147,6 +147,7 @@
           height: 28px;
           right: -17px;
         }
+
         .hotel_left-tag {
           width: 7px;
           height: 40px;
@@ -177,6 +178,47 @@
     }
   }
 }
+
+.journey-card {
+  .card-title::before {
+    content: "";
+    width: 28px;
+    height: 4px;
+    display: block;
+    margin-bottom: 6px;
+    background: rgba(183, 186, 204, 1);
+  }
+
+  .card-title {
+    font-size: 20px;
+    font-weight: 600;
+    text-align: left;
+    line-height: 20px;
+    color: #9094A8;
+  }
+
+  .card-content::before {
+    content: "";
+    position: absolute;
+    top: 30px;
+    bottom: auto;
+    left: 0;
+    width: 1px;
+    height: 90%;
+    border-left: 3px dashed #EC4831;
+    z-index: 2;
+  }
+}
+
+.red-title {
+  color: #C7000B;
+}
+
+.red-title::before {
+  background: rgba(249, 80, 32, 1);
+}
+
+
 // FanAo 样式调整结束
 
 
@@ -378,7 +420,7 @@
 
   .journey-card:last-child {
     .card-content::before {
-      height: calc(100% - 0.5625rem);
+      height: calc(100% - 30px);
     }
   }
 
@@ -410,42 +452,14 @@
   }
 }
 
-.red-title-l::before {
-  background: rgba(249,80,32,1);
-}
-
-.gray-title-l::before {
-  background: rgba(183,186,204,1);
-}
-
-.card-title::before{
-  content: "";
-  width: 28px;
-  height: 4px;
-  display: block;
-  margin-bottom: 6px;
-}
-
 // 未开始
 .journey-card.notstarted {
   .card-title {
-    padding-left: 0.8rem;
     color: #C7000B;
     font-size: 20px;
     font-weight: 600;
     text-align: left;
     line-height: 20px;
-  }
-  .card-content::before {
-    content: "";
-    position: absolute;
-    top: 1rem;
-    bottom: auto;
-    left: 0;
-    width: 1px;
-    height: 90%;
-    border-left: 3px dashed #EC4831;
-    z-index: 2;
   }
 
   .card-inner {
@@ -477,24 +491,11 @@
 // 进行中
 .journey-card.ongoing {
   .card-title {
-    padding-left: 0.8rem;
     color: #C7000B;
     font-size: 20px;
     font-weight: 600;
     text-align: left;
     line-height: 20px;
-  }
-
-  .card-content::before {
-    content: "";
-    position: absolute;
-    top: 1rem;
-    bottom: auto;
-    left: 0;
-    width: 1px;
-    height: 90%;
-    border-left: 3px dashed #EC4831;
-    z-index: 2;
   }
 
   .card-inner {
@@ -526,24 +527,8 @@
 // 已结束
 .journey-card.finished {
   .card-title {
-    padding-left: 0.8rem;
     color: #9094a8;
-    font-size: 20px;
-    font-weight: 600;
-    text-align: left;
-    line-height: 20px;
-  }
 
-  .card-content::before {
-    content: "";
-    position: absolute;
-    top: 1rem;
-    bottom: auto;
-    left: 0;
-    width: 1px;
-    height: 90%;
-    border-left: 3px dashed #b7bacc;
-    z-index: 2;
   }
 
   .card-inner {
