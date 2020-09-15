@@ -1,38 +1,44 @@
 <template>
-    <nut-drag
-        @click.native="click"
-        :attract="true"
-        class="my-call"
-        :class="isShowCode ? 'big' : 'mini'">
-        <div class="code-content" >
-            <div class="code" v-if="list && list.length">
-                <div class="close-icon" v-if="isShowCode" @click.stop="closeCode">
-                    <img src="./image/icons_Popup_close@2x.png" alt="关闭" />
+    <div>
+        <nut-drag @click.native="click" :attract="true" class="my-call" :class="isShowCode ?'big':'mini'">
+            <div v-if="!isShowCode" class="code-content">
+                <div style="width: 100%;text-align: center"><img style="width: 2rem;" :src="callImg" /></div>
+                <div style="width: 100%;font-size: 0.5rem;text-align: center;">
+                    应急电话
                 </div>
-                <div v-if="isShowCode" style="width: 100%;height: 100%">
-                    <div style="height: 43px;background: #c7000b;line-height: 43px;color: #ffffff;border-radius: 10px 10px 0px 0px;text-align: center;">应急电话列表</div>
-                    <div style="max-height: 320px;overflow: scroll;padding-bottom: 10px">
-                        <div class="call-item" v-for="(item,index) in list" :style="index==list.length?'border-bottom: 1px solid #D9D9D9;':'border-bottom: 1px solid #FFFFFF;'">
-                            <div style="font-size: 1rem;font-family: PingFangSC, PingFangSC-Medium;font-weight: 500;text-align: left;color: #2e3032;line-height: 1.375rem;">{{item.title}}</div>
-                            <div style="margin-top: 0.3125rem">
-                                <a class="tel" :href="'tel:'+item.phone">
+            </div>
+        </nut-drag>
+        <div class="my-call" :class="isShowCode ? 'big' : 'mini'" style="z-index: 111;">
+            <div class="code-content" >
+                <div class="code" >
+                    <div class="close-icon" v-if="isShowCode" @click.stop="closeCode">
+                        <img src="./image/icons_Popup_close@2x.png" alt="关闭" />
+                    </div>
+                    <div v-if="isShowCode" style="width: 100%;height: 100%">
+                        <div style="height: 43px;background: #c7000b;line-height: 43px;color: #ffffff;border-radius: 10px 10px 0px 0px;text-align: center;">应急电话列表</div>
+                        <div v-if="list && list.length" style="max-height: 320px;overflow: scroll;padding-bottom: 10px">
+                            <div class="call-item"  v-for="(item,index) in list" :style="index==list.length?'border-bottom: 1px solid #D9D9D9;':'border-bottom: 1px solid #FFFFFF;'">
+                                <div style="font-size: 1rem;font-family: PingFangSC, PingFangSC-Medium;font-weight: 500;text-align: left;color: #2e3032;line-height: 1.375rem;">{{item.title}}</div>
+                                <div style="margin-top: 0.3125rem">
+                                    <a class="tel" :href="'tel:'+item.phone">
                                   <span>
                                       <span style="font-size: 0.9375rem;font-family: PingFangSC, PingFangSC-Light;font-weight: 300;text-align: left;color: #595b64;line-height: 1.3125rem;">联系电话：</span>
                                       <span style="font-size: 0.9375rem;font-family: PingFangSC, PingFangSC-Light;font-weight: 400;text-align: left;color: #c7000b;line-height: 1.3125rem;">{{item.phone}}</span>
                                   </span>
-                                  <span style="float: right"><img src="./image/phone.svg"/></span>
-                                </a>
+                                        <span style="float: right"><img src="./image/phone.svg"/></span>
+                                    </a>
+                                </div>
                             </div>
+                        </div>
+                        <div style="display: flex;justify-content: center;align-items: center;min-height: 300px;" v-else>
+                            <van-loading type="spinner" color="#c7000b"/>
                         </div>
                     </div>
                 </div>
-                <img v-else style="width: 2rem;" :src="callImg" />
+
             </div>
         </div>
-        <div v-if="!isShowCode" style="font-size: 0.5rem;text-align: center;margin-top: 0.25rem">
-            应急电话
-        </div>
-    </nut-drag>
+    </div>
 </template>
 
 <script>
@@ -81,9 +87,6 @@
         width: 3.757rem;
         height: 3.75rem;
         .code-content {
-            display: flex;
-            justify-content: center;
-            align-items: center;
             .code {
                 width: 30px;
                 height: 30px;
