@@ -135,7 +135,7 @@
 .bg-bottom{
     background: linear-gradient(135deg,#ffc357 13%, #ffa436 59%);
     box-shadow: 0px 12px 25px 0px rgba(255,221,151,0.85) inset;
-    min-height: 300px;
+    min-height: 600px;
     padding-bottom: 50px;
 }
 .rules-box{
