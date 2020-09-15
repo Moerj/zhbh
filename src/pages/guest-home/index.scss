@@ -482,18 +482,18 @@
     border-bottom-right-radius: 4px;
     position: relative;
     .card-inner-content{
-      padding: 20px 12px;margin-left: 20px;border: 0.001rem solid #C7000B;position: relative;
+      padding: 20px 12px;margin-left: 20px;border: 0.001rem solid #B7BACC;position: relative;
       .border-bg-h{
-        background: linear-gradient(90deg,#9d0c0c, #cb3434 52%, #850b0b);
+        background: linear-gradient(90deg,#606374, #b7bacc 53%, #666980);;
       }
       .border-bg-v{
-        background: linear-gradient(180deg, #9d0c0c, #cb3434 52%, #8b0a0a);
+        background: linear-gradient(180deg,#606374, #b7bacc 53%, #666980);;
       }
       .top-right-edge{
-        top: -8px;right: -3px;height: 22px;width: 13px;border-left: 1px solid #C7000B;transform:rotate(-45deg);background: #ffffff
+        top: -8px;right: -3px;height: 22px;width: 13px;border-left: 1px solid #B7BACC;transform:rotate(-45deg);background: #ffffff
       }
       .bottom-left-round{
-        border-radius: 4px;width: 4px;height: 4px;background: linear-gradient(137deg,#9d0c0c 18%, #cb3434 50%, #850b0b 79%);
+        border-radius: 4px;width: 4px;height: 4px;background: linear-gradient(128deg,#606374 18%, #b7bacc 54%, #666980 85%);
       }
     }
     .inner-title {
