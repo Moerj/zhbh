@@ -77,7 +77,7 @@
           <div class="fullwidth-title">座位安排</div>
           <div class="fullwidth-main">
             <div class="main-text">
-              <img :src="detailInfo.meetSeatPath" style="width:100%;" />
+              <img preview="1" :src="detailInfo.meetSeatPath" style="width:100%;" />
             </div>
           </div>
         </div>

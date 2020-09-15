@@ -1,6 +1,6 @@
 <template>
   <ui-main>
-    <article class="content" v-html="guid"></article>
+    <article id="guide" class="content" v-html="guid"></article>
   </ui-main>
 </template>
 
@@ -12,6 +12,12 @@ export default {
     return {
       guid:"",
     }
+  },
+  updated() {
+    for (const dom of document.querySelectorAll('#guide img')) {
+      dom.setAttribute('preview', '1')
+    }
+    this.initPreview("#guide img");
   },
   mounted() {
     JourneyApi.mettingGuide().then((res)=> {
