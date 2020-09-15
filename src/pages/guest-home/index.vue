@@ -166,17 +166,17 @@
                   <!--箭头 end-->
                   <div class="card-inner-content">
                     <!--边框 start-->
-                    <div class="absolute top-2 left-2 height3 border-bg-h" style="width: 30px;"></div>
-                    <div class="absolute left-2 border-bg-v" style="top:1px;width: 3px;height: 20px;"></div>
-                    <div class="absolute flex top-2" style="margin-left: 40%;">
+                    <div class="absolute height3 border-bg-h" :class="systemIsAndroid?'top-1 left-1':'top-2 left-2'" style="width: 30px;"></div>
+                    <div class="absolute border-bg-v" :class="systemIsAndroid?'left-1':'left-2'" style="top:1px;width: 3px;height: 20px;"></div>
+                    <div class="absolute flex" :class="systemIsAndroid?'top-1':'top-2'" style="margin-left: 40%;">
                       <div class="height3 border-bg-h" style="width: 12px;"></div>
                       <div class="height3 border-bg-h" style="width: 4px;margin-left: 7px"></div>
                       <div class="height3 border-bg-h" style="width: 4px;margin-left: 3px"></div>
                     </div>
-                    <div class="absolute bottom-2 height3 border-bg-h" style="left: 10%;width: 30px;"></div>
-                    <div class="absolute bottom-2 right-2 height3 border-bg-h" style="width: 19px;"></div>
-                    <div class="absolute right-2 border-bg-v" style="bottom:1px;width: 3px;height: 22px;"></div>
-                    <div class="absolute bottom-2 left-2 bottom-left-round"></div>
+                    <div class="absolute height3 border-bg-h" :class="systemIsAndroid?'bottom-1':'bottom-2'" style="left: 10%;width: 30px;"></div>
+                    <div class="absolute height3 border-bg-h" :class="systemIsAndroid?'bottom-1 right-1':'bottom-2 right-2'" style="width: 19px;"></div>
+                    <div class="absolute border-bg-v" :class="systemIsAndroid?'right-1':'right-2'" style="bottom:1px;width: 3px;height: 22px;"></div>
+                    <div class="absolute bottom-left-round" :class="systemIsAndroid?'bottom-1 left-1':'bottom-2 left-2'"></div>
                     <div class="absolute top-right-edge"></div>
                     <!--边框 end-->
                     <div class="signin-cont">
@@ -284,7 +284,8 @@ export default {
       hotelName:"我",
       zIndex: true,
       hh: 0,
-      showPupon:false
+      showPupon:false,
+      systemIsAndroid:true
     };
   },
   watch: {
@@ -320,10 +321,23 @@ export default {
     //获取传过来的openid
     this.getTogPeople();
     this.get_notices();
-
+       // const userAgent = navigator.userAgent.toLowerCase();
+       // console.log(userAgent)
+      //Android终端
+      //let isAndroid = userAgent.indexOf('Android') > -1 || userAgent.indexOf('android') > -1;
+      //Ios终端
+      //let isiOS = !!userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);
+    if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
+        //Ios
+        console.log('iOS')
+        this.systemIsAndroid = false
+    } else if (/(Android)/i.test(navigator.userAgent)) {
+        //Android终端
+        console.log('Android')
+        this.systemIsAndroid = true
+    }
   },
   methods: {
-
     getList() {
       if (!this.dates || !this.dates.length > 0) {
         this.getDateList()
@@ -338,6 +352,7 @@ export default {
       const day = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
       journeyAPI.notices({todayDate: day}).then((res) => {
         this.notices = res.data
+
       })
     },
     clickCallShow(index) {
