@@ -53,7 +53,7 @@
                 this.isShowCode = false;
             },
             openCoupons(){
-                this.closeCode();
+                // this.closeCode();
                 console.log('optionCoupon>>>>>====')
                 this.$emit('optionCoupon',true)
                 this.$router.push({path:'/me/coupons'})
@@ -105,7 +105,10 @@
         position: relative !important;
         .code-content {
             position: fixed;
-            right: 2%;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
             width: 100%;
             height: 100%;
             margin: auto;
