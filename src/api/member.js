@@ -12,7 +12,7 @@ const getFeedbackList = (params) =>
 const getCouponList = (params) =>
     vue.$http.get(`/common/coupon/list`, {params:params});
 const useCoupon = (params) =>
-    vue.$http.post(`/common/coupon/getCoupon`, params);
+    vue.$http.get(`/common/coupon/getCoupon`, {params:params});
 const feedbackCoupon = (params) =>
     vue.$http.post(`/common/coupon/feedback`, params);
 export default {

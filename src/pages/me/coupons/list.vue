@@ -91,18 +91,7 @@
                 this.$router.push({path:'./coupons/couponRule'})
             },
             onLoad() {//滚动加载
-                // setTimeout(() => {
-                //     for (let i = 0; i < 3; i++) {
-                //         this.couponList.push(this.couponList.length + 1);
-                //     }
-                //     this.loading = false;
-                //
-                //     if (this.couponList.length >=10) {
-                //         this.finished = true;
-                //     }
-                // }, 1000);
                 this.getCouponList()
-
             },
             onRefresh(){//下拉刷新
                 this.reloading = false;
@@ -116,7 +105,6 @@
                         this.couponList = res.data
                         this.loading = false;
                         this.finished = true;
-                        this.$refs.uiPull.endSuccess()
                     }else{
                         this.loading = false;
                         this.finished = true;
@@ -125,7 +113,12 @@
             },
             handleCoupon(stockId){
                 memberApi.useCoupon({stockId:stockId,userId:this.user.id}).then(res =>{
-                    this.getCouponList()
+                    if (res.errorCode==="00000"){
+                        this.getCouponList()
+                        this.$toast('领取成功');
+                    }else{
+                        this.$toast(res.message);
+                    }
                 })
             }
         }
