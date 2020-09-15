@@ -22,7 +22,7 @@
                                             <div class="flex">
                                                 <!--<van-uploader v-model="item.optionImages" multiple :max-count="5" />-->
                                                 <div class="cImg"  v-for="(cImg,cIndex) in item.optionImages" :key="cIndex"  @click="checkView(item.optionImages,cIndex)">
-                                                    <img :src="cImg" :preview="index" width="54px" height="54px" alt="" fit="cover">
+                                                    <img :src="cImg" width="54px" height="54px" alt="" fit="cover">
                                                 </div>
                                             </div>
                                         </div>
@@ -54,9 +54,9 @@
 </template>
 
 <script>
-    import Vue from 'vue'
     import Empty from '../../../components/empty'
     import memberAPI from "@/api/member.js";
+    import Vue from 'vue'
     import { ImagePreview } from 'vant';
     Vue.use(ImagePreview);
     export default {
@@ -71,9 +71,16 @@
                 user:JSON.parse(localStorage.user)
             }
         },
+        watch:{
+
+        },
+        created(){
+          // console.log('121212121')
+        },
         mounted(){
+            // console.log('222222222222222')
             this.feedbackList = []
-            console.log(this.feedbackList.length)
+            // console.log(this.feedbackList.length)
             this.getFeedList();
         },
         methods:{

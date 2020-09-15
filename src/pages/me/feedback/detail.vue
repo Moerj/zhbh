@@ -17,7 +17,7 @@
                 <!--</div>-->
                 <div class="upload-img" style="padding:0 0 4px;height: 92px;align-items: flex-end">
                     <div class="img-box" v-for="(item,index) in fileList" :key="index" @click="checkView(fileList,index)">
-                        <img class="image" :src="item" :preview="index">
+                        <img class="image" :src="item">
                     </div>
                     <!--<div class="flex flex-wrap">-->
                         <!--<div @click="openLightbox(i)" v-for="(item,i) in fileList" class="img-box">-->
