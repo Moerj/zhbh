@@ -58,11 +58,6 @@
               <span><img src="../image/phone.svg"/></span>
             </div>
           </div>
-
-          <!-- <div class="code-wrapper">
-            <p>您的专属二维码</p>
-            <div><img src="../image/big-code.png" /></div>
-          </div> -->
         </div>
 
         <div class="fullwidth-content">
@@ -78,7 +73,7 @@
           <div class="fullwidth-title">座位安排</div>
           <div class="fullwidth-main">
             <div class="main-img flex row-around">
-              <div><img src="../image/zuowei.png" /></div>
+              <div><img src="" /></div>
               <div>
                 <div class="title">您的座位</div>
                 <div class="subtitle">请有序对号入座</div>

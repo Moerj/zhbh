@@ -1348,10 +1348,10 @@
     "@types/webpack-sources" "*"
     source-map "^0.6.0"
 
-"@vant/icons@1.3.0":
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/@vant/icons/-/icons-1.3.0.tgz#94f4c93122fd7331e0e00df55804779aead8c9c2"
-  integrity sha512-uQ0H19C+SDZbvaUR3CfrpJe/oiMeXPtJJvdRNjswpxICh1LRdKvQf9FxG2PhhWjAJWKyP55CVXn22qFswOUIRg==
+"@vant/icons@1.2.5":
+  version "1.2.5"
+  resolved "https://registry.npm.taobao.org/@vant/icons/download/@vant/icons-1.2.5.tgz?cache=0&sync_timestamp=1599114567909&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40vant%2Ficons%2Fdownload%2F%40vant%2Ficons-1.2.5.tgz#f3db43c4b300300829e3c4e909beaa33d1cbe786"
+  integrity sha1-89tDxLMAMAgp48TpCb6qM9HL54Y=
 
 "@vue/babel-helper-vue-jsx-merge-props@^1.0.0":
   version "1.0.0"
@@ -1820,10 +1820,10 @@ amdefine@>=0.0.4:
   resolved "https://registry.npmjs.org/amdefine/-/amdefine-1.0.1.tgz#4a5282ac164729e93619bcfd3ad151f817ce91f5"
   integrity sha1-SlKCrBZHKek2Gbz9OtFR+BfOkfU=
 
-animate.css@^4.1.1:
+animate.css@^4.1.0:
   version "4.1.1"
-  resolved "https://registry.yarnpkg.com/animate.css/-/animate.css-4.1.1.tgz#614ec5a81131d7e4dc362a58143f7406abd68075"
-  integrity sha512-+mRmCTv6SbCmtYJCN4faJMNFVNN5EuCTTprDTAo7YzIGji2KADmakjVA3+8mVDkZ2Bf09vayB35lSQIex2+QaQ==
+  resolved "https://registry.npm.taobao.org/animate.css/download/animate.css-4.1.1.tgz#614ec5a81131d7e4dc362a58143f7406abd68075"
+  integrity sha1-YU7FqBEx1+TcNipYFD90BqvWgHU=
 
 ansi-colors@^3.0.0:
   version "3.2.4"
@@ -3436,10 +3436,10 @@ dayjs@^1.8.26:
   resolved "https://registry.npmjs.org/dayjs/-/dayjs-1.8.33.tgz#18bc4a2b6c1c6f4d67b4c4f2536c0b97e5b766f7"
   integrity sha512-881TDLZCdpJFKbraWRHcUG8zfMLLX400ENf9rFZDuWc5zYMss6xifo2PhlDX0ftOmR2NRmaIY47bAa4gKQfXqw==
 
-dayjs@^1.8.35:
+dayjs@^1.8.34:
   version "1.8.35"
-  resolved "https://registry.yarnpkg.com/dayjs/-/dayjs-1.8.35.tgz#67118378f15d31623f3ee2992f5244b887606888"
-  integrity sha512-isAbIEenO4ilm6f8cpqvgjZCsuerDAz2Kb7ri201AiNn58aqXuaLJEnCtfIMdCvERZHNGRY5lDMTr/jdAnKSWQ==
+  resolved "https://registry.npm.taobao.org/dayjs/download/dayjs-1.8.35.tgz?cache=0&sync_timestamp=1599050511263&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fdayjs%2Fdownload%2Fdayjs-1.8.35.tgz#67118378f15d31623f3ee2992f5244b887606888"
+  integrity sha1-ZxGDePFdMWI/PuKZL1JEuIdgaIg=
 
 de-indent@^1.0.2:
   version "1.0.2"
@@ -3850,10 +3850,10 @@ error-stack-parser@^2.0.0:
   dependencies:
     stackframe "^1.1.1"
 
-eruda@2.3.3:
-  version "2.3.3"
-  resolved "https://registry.npmjs.org/eruda/-/eruda-2.3.3.tgz#d976943b96e4d4f9d786fb9773180b9fe1a17305"
-  integrity sha512-ZC3PzJxDYER0fEW33Brmn8f+xIO+m+Hn9wJBjxj7+WN66hRElqfTfMafsAL97E5RYFGZ40xY0TxaKbg8pp68Tg==
+eruda@2.4.0:
+  version "2.4.0"
+  resolved "https://registry.npm.taobao.org/eruda/download/eruda-2.4.0.tgz#142cce465417ffde9dbe2a3c76b1866249391009"
+  integrity sha1-FCzORlQX/96dvio8drGGYkk5EAk=
 
 es-abstract@^1.17.0-next.1, es-abstract@^1.17.2, es-abstract@^1.17.5:
   version "1.17.6"
@@ -8781,10 +8781,10 @@ svgo@^1.0.0:
     unquote "~1.1.1"
     util.promisify "~1.0.0"
 
-sweetalert2@^10.0.0:
-  version "10.0.1"
-  resolved "https://registry.yarnpkg.com/sweetalert2/-/sweetalert2-10.0.1.tgz#1538a8a161676c72e42793c1291a3101254a03da"
-  integrity sha512-U7haMP/twW4atNBCBnKSt7r+TdBA/WOdjLtFyyRNPecHjk/wqp12AiPwGoYpJmdMoT/g2DLwvUSyNcPRHQq7SQ==
+sweetalert2@^9.17.1:
+  version "9.17.2"
+  resolved "https://registry.npm.taobao.org/sweetalert2/download/sweetalert2-9.17.2.tgz#7f33ce157a64c303d2ca98863c9a3f437e5f1187"
+  integrity sha1-fzPOFXpkwwPSypiGPJo/Q35fEYc=
 
 tapable@^1.0.0, tapable@^1.1.3:
   version "1.1.3"

@@ -67,32 +67,34 @@
               <div class="title-inner">
                 <div class="bg-l bg-inner"/>
                 <div class="bg-l bg-out"/>
-                <img style="position: absolute;top:5px;width: 96px;" src="./image/wodejiudiannew.png" alt="">
+                <img src="./image/wodejiudiannew.png" alt="">
               </div>
             </div>
             <!--content-->
-            <div style="border: 1px solid #C7000B;height: 100%">
+            <div class="hotel-content border-all">
               <div style="margin-top: 35px;position: relative">
-                <div style="height: 36px;background: linear-gradient(90deg,rgba(199,0,11,0.11), rgba(199,0,11,0) 53%, rgba(199,0,11,0.1));">
-                  <div style="font-size: 17px;font-weight: 500;text-align: center;color: #292a2c;line-height: 36px;" @click="toDetailRoom(hotel.id)">{{ hotel.title }}</div>
+                <div class="hotel-name">
+                  <div class="name" @click="toDetailRoom(hotel.id)">{{ hotel.title }}</div>
                 </div>
-                <div style="position: absolute;top: -3px;width: 0;height: 41px;border-left: 5px solid #C7000B;border-top: 3px solid transparent;border-bottom: 3px solid transparent;"></div>
-                <div style="position: absolute;top: -3px;right:0;width: 0;height: 41px;border-right: 5px solid #C7000B;border-top: 3px solid transparent;border-bottom: 3px solid transparent;"></div>
+                <div class="name_left-l name-l" />
+                <div class="name_right-l name-l" />
               </div>
               <div style="padding:4px 10px">
                 <div class="hotel-info">
                   <div class="info-item flex row-between" @click="$wxMap(hotel)">
-                  <span>
-                    <span class="item-title" style="float: left">地点：</span>
-                    <span class="item-text  ellipsis-1">{{ hotel.address }}</span>
-                  </span>
+                    <span>
+                      <span class="item-title" style="float: left">地点：</span>
+                      <span class="item-text  ellipsis-1">{{ hotel.address }}</span>
+                    </span>
                     <span><img src="./image/right.svg"/></span>
+                    <img class="absolute hotel_right-tag" src="./image/hotel-right-tag.png">
                   </div>
                   <div class="info-item flex row-between" @click="toDetailRoom(hotel.id)">
-                  <span>
-                    <span class="item-title">房间：</span>
-                    <span class="item-text">{{ hotel.roomNo }}</span>
-                  </span>
+                    <span>
+                      <span class="item-title">房间：</span>
+                      <span class="item-text">{{ hotel.roomNo }}</span>
+                    </span>
+                    <img class="absolute hotel_left-tag" src="./image/hotel-left-tag.png">
                   </div>
                   <div class="info-item flex row-between">
                     <a class="tel" :href="'tel:'+hotel.hotelPhone"></a>
@@ -151,8 +153,8 @@
                 <img v-if="index==journeyList.length-1" style="position: absolute;top:54%;left: 5px;width: 10px" src="./image/time_line.png" alt="">
                 <div v-if="index==journeyList.length-1" style="width: 5px;height: 50%;background: #ffffff;position: absolute;bottom: -10px;z-index: 3"></div>
                 <!--箭头 end-->
-                <div style="width: 28px;height: 4px;" :style="item['activeState'] == 2?'background:#b7bacc': 'background:#f95020'"></div>
-                <div class="card-title" style="position: relative">
+               <!-- <div class="time-top-l" style="width: 28px;height: 4px;" :style="item['activeState'] == 2?'background:#b7bacc': 'background:#f95020'"/>-->
+                <div class="card-title relative" :class="item.activeState == 2 ? 'gray-title-l':'red-title-l'">
                   <!--时间标题 start-->
                   <img v-if="item['activeState'] == 1" style="position: absolute;width: 15px;height: 14px;left: -5px;top: 3px;z-index: 3;" src="./image/red_round.png" alt="">
                   <img v-else style="position: absolute;width: 15px;height: 14px;left: -5px;top: 3px;z-index: 3;" src="./image/gray_round.png" alt="">
@@ -178,24 +180,19 @@
                     </div>
                     <div class="inner-title ellipsis-1">{{ item.title }}</div>
                     <div class="inner-item flex row-between">
-					  <span>
-                        <span class="item-title" style="float: left">地点：</span>
-                        <span class="item-text ellipsis-1">{{ item['place'] }}</span>
-					  </span>
+                      <span>
+                          <span class="item-title" style="float: left">地点：</span>
+                          <span class="item-text ellipsis-1">{{ item['place'] }}</span>
+                      </span>
                     </div>
                     <div class="inner-item" v-if="item['tabNo'] || item['seatNo']">
-					  <span>
-
-						<span class="item-title">{{ item.schType == '2' ? "桌号/座位" : "座位" }}：</span>
-						<span class="item-text"
-                  v-if="item.schType == '2'">{{ (item['tabNo'] ? item['tabNo'] + '桌' : '') + (item['seatNo'] ? item['seatNo'] + '座' : '') }} </span>
-              <span class="item-text"
-                    v-else-if="item.schType == '1'">{{ (item['tabNo'] ? item['tabNo'] + '排' : '') + (item['seatNo'] ? item['seatNo'] + '座' : '') }} </span>
-               <span class="item-text"
-                     v-else-if="item.schType == '3'">{{item['tabNo'] ? item['tabNo'] : '' }} </span>
-						<span class="item-text"
-                              v-else>{{ (item['tabNo'] ? item['tabNo'] : '') + (item['seatNo'] ? item['seatNo'] + '座' : '') }} </span>
-					  </span>
+                      <span>
+                         <span class="item-title">{{ item.schType == '2' ? "桌号/座位" : "座位" }}：</span>
+                         <span class="item-text" v-if="item.schType == '2'">{{ (item['tabNo'] ? item['tabNo'] + '桌' : '') + (item['seatNo'] ? item['seatNo'] + '座' : '') }} </span>
+                         <span class="item-text" v-else-if="item.schType == '1'">{{ (item['tabNo'] ? item['tabNo'] + '排' : '') + (item['seatNo'] ? item['seatNo'] + '座' : '') }} </span>
+                         <span class="item-text" v-else-if="item.schType == '3'">{{item['tabNo'] ? item['tabNo'] : '' }} </span>
+                         <span class="item-text" v-else>{{ (item['tabNo'] ? item['tabNo'] : '') + (item['seatNo'] ? item['seatNo'] + '座' : '') }} </span>
+                      </span>
                     </div>
                     <div class="inner-item" style="width: 100%" v-if="item.volunteerPhone">
                       <div style="width: 100%">
