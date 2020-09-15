@@ -21,10 +21,9 @@
                                         <div class="img-content" v-if="item.optionImages.length">
                                             <div class="flex">
                                                 <!--<van-uploader v-model="item.optionImages" multiple :max-count="5" />-->
-                                                <div class="cImg"  v-for="(cImg,cIndex) in item.optionImages" :key="cIndex">
+                                                <div class="cImg"  v-for="(cImg,cIndex) in item.optionImages" :key="cIndex"  @click="checkView(item.optionImages,cIndex)">
                                                     <img :src="cImg" :preview="index" width="54px" height="54px" alt="" fit="cover">
                                                 </div>
-
                                             </div>
                                         </div>
                                     </div>
@@ -55,8 +54,11 @@
 </template>
 
 <script>
+    import Vue from 'vue'
     import Empty from '../../../components/empty'
     import memberAPI from "@/api/member.js";
+    import { ImagePreview } from 'vant';
+    Vue.use(ImagePreview);
     export default {
         name: "list",
         components:{
@@ -83,14 +85,24 @@
                     this.$refs.pull.endSuccess();
                     // console.log(res)
                     res.data.map(item =>{
-                        // console.log(item.optionImgs.join(','))
+                        // console.log(item.optionImgs.split(','))
                         // if(item.optionImgs.lengt)
-                        item.optionImages = item.optionImgs.split(',')
-
+                        if(item.optionImgs&&item.optionImgs!==''){
+                            item.optionImages = item.optionImgs.split(',')
+                        }else{
+                            item.optionImages = []
+                        }
                     })
-                    console.log(res.data)
+                    console.log(this.feedbackList)
                     this.feedbackList = res.data
                 })
+            },
+            checkView(imgList,index){
+                ImagePreview(
+                    {
+                        images: imgList,
+                        startPosition: index
+                    });
             }
         }
     }
@@ -155,17 +167,17 @@
         padding: 10px 15px;
         background-color: #fff;
         button {
-        width: 100%;
-        height: 45px;
-        background: #c7000b;
+            width: 100%;
+            height: 45px;
+            background: #c7000b;
 
-        &.van-button--disabled {
-             background: lightgray !important;
-             color: black !important;
-         }
-        &:not(.van-button--disabled) {
-             color: #fff !important;
-         }
+            &.van-button--disabled {
+                background: lightgray !important;
+                color: black !important;
+            }
+            &:not(.van-button--disabled) {
+                color: #fff !important;
+            }
         }
     }
 </style>

@@ -16,9 +16,17 @@
                     <!--<van-uploader v-model="fileList"  multiple :max-size="500 * 1024" :max-count="5"/>-->
                 <!--</div>-->
                 <div class="upload-img" style="padding:0 0 4px;height: 92px;align-items: flex-end">
-                    <div class="img-box" v-for="(item,index) in fileList" :key="index">
-                        <img class="image" :src="item" :preview="index">
+                    <!--<div class="img-box" v-for="(item,index) in fileList" :key="index">-->
+                        <!--<img class="image" :src="item" :preview="index">-->
+                    <!--</div>-->
+                    <div class="flex flex-wrap">
+                        <div @click="openLightbox(i)" v-for="(item,i) in fileList" class="img-box">
+                            <img class="image" :src="item.src" :preview="index">
+                        </div>
                     </div>
+
+                    <!-- 类似弹出层的调用方式 -->
+                    <ui-lightbox :items="fileList" ref="lightbox"></ui-lightbox>
                     <!-- vant的upload组件 -->
                     <van-uploader :after-read="handleUpload" accept="image/*" style="margin-bottom: 0" v-if="fileList.length<5">
                         <!--　<img src="../card1.png" style="width: 100%;height: 100%;">-->
@@ -50,7 +58,18 @@
                     'http://192.168.1.114:8080/base/uploaders/view/w4/173fd040-aed2-4739-a7e9-4f4a9a46a19b39013234.jpg',
                     'http://192.168.1.114:8080/base/uploaders/view/w4/173fd040-aed2-4739-a7e9-4f4a9a46a19b39013234.jpg'
                 ],
-                user:JSON.parse(localStorage.user)
+                user:JSON.parse(localStorage.user),
+                imgList: [
+                    { src: 'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=4129624088,1274782233&fm=26&gp=0.jpg', },
+                    { src: 'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=927747843,353555255&fm=26&gp=0.jpg', },
+                    { src: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3755841181,3217444165&fm=26&gp=0.jpg', },
+                    { src: 'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2754825801,773274927&fm=26&gp=0.jpg', },
+                    { src: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2761763315,1123663049&fm=26&gp=0.jpg', },
+                    { src: 'http://wx3.sinaimg.cn/large/006NJCErly1g3ofda622gj30j60ssq5x.jpg', },
+                    { src: 'http://wx2.sinaimg.cn/large/006NJCErly1g3ojogk8qnj30j60uugpj.jpg', },
+                    { src: 'http://wx2.sinaimg.cn/large/006WCzeoly1g3odc8iy6jj31400qo445.jpg', },
+                    { src: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1587976714688&di=6d8ec177c35e201ae5d5e0d5199632a1&imgtype=0&src=http%3A%2F%2Fi0.hdslb.com%2Fbfs%2Farticle%2Fb597965516a3068eb3141cfc97010d6dccf985da.jpg', },
+                ]
             }
         },
         methods:{
@@ -66,7 +85,7 @@
                         'Content-Type': 'multipart/form-data;'
                     }
                 }).then(res =>{
-                    this.fileList.push(res.data.basePath.replace('null',''))
+                    this.fileList.push({src:res.data.basePath.replace('null','')})
                 }).catch(()=>{})
 
             },
@@ -74,19 +93,27 @@
                 let imgsUrl = ''
                 if(this.fileList.length){
                     if(this.fileList.length==1){
-                        imgsUrl = this.fileList[0]
+                        imgsUrl = this.fileList[0].src
                     }else{
-                        imgsUrl = this.fileList.join(',')
+                        // imgsUrl = this.fileList.join(',')
+                        this.fileList.map(key =>{
+                            temArr.push(key.src)
+                        })
+                        imgsUrl = temArr.join(',')
                     }
                 }
                 let params={
                     content:this.feedContent,
-                    imgs:imgsUrl,
+                    imgs:imgsUrl==''?null:imgsUrl,
                     userId:this.user.id
                 }
                 memberAPI.submitFeedback(params).then(res =>{
                     if (res.errorCode==="00000"){
-                        this.back()
+                        this.$toast('提交成功');
+                        setTimeout(()=>{
+                            this.back()
+                        },2000)
+
                     }else{
                         this.$toast(res.message);
                     }
@@ -94,6 +121,10 @@
                 }).catch(()=>{
                     this.$toast('提交失败');
                 })
+            },
+            openLightbox(index = 0) {
+                // 画廊组件开启,index可指定初始图片
+                this.$refs.lightbox.open(index)
             }
         }
     }
@@ -151,6 +182,7 @@
     width: 54px !important;
     height: 54px !important;
     border-radius: 8px;
+    margin-bottom: 10px;
 }
 /deep/.van-uploader__preview-delete {
     top: -4px;
@@ -193,12 +225,17 @@
     border-radius: 8px;
     overflow: hidden;
     margin-right: 10px;
+    margin-bottom: 10px;
 }
-
 .image{
     width: 100%;
     height: 100%;
-
 }
-
+.img-item{
+    width: 54px;
+    height: 54px;
+    margin: 0 10px 0 0;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
 </style>
