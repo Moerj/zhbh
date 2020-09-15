@@ -16,17 +16,17 @@
                     <!--<van-uploader v-model="fileList"  multiple :max-size="500 * 1024" :max-count="5"/>-->
                 <!--</div>-->
                 <div class="upload-img" style="padding:0 0 4px;height: 92px;align-items: flex-end">
-                    <!--<div class="img-box" v-for="(item,index) in fileList" :key="index">-->
-                        <!--<img class="image" :src="item" :preview="index">-->
-                    <!--</div>-->
-                    <div class="flex flex-wrap">
-                        <div @click="openLightbox(i)" v-for="(item,i) in fileList" class="img-box">
-                            <img class="image" :src="item.src" :preview="index">
-                        </div>
+                    <div class="img-box" v-for="(item,index) in fileList" :key="index" @click="checkView(fileList,index)">
+                        <img class="image" :src="item" :preview="index">
                     </div>
+                    <!--<div class="flex flex-wrap">-->
+                        <!--<div @click="openLightbox(i)" v-for="(item,i) in fileList" class="img-box">-->
+                            <!--<img class="image" :src="item.src" :preview="index">-->
+                        <!--</div>-->
+                    <!--</div>-->
 
-                    <!-- 类似弹出层的调用方式 -->
-                    <ui-lightbox :items="fileList" ref="lightbox"></ui-lightbox>
+                    <!--&lt;!&ndash; 类似弹出层的调用方式 &ndash;&gt;-->
+                    <!--<ui-lightbox :items="fileList" ref="lightbox"></ui-lightbox>-->
                     <!-- vant的upload组件 -->
                     <van-uploader :after-read="handleUpload" accept="image/*" style="margin-bottom: 0" v-if="fileList.length<5">
                         <!--　<img src="../card1.png" style="width: 100%;height: 100%;">-->
@@ -46,6 +46,9 @@
     import memberAPI from "@/api/member.js";
     import vue from "../../../main";
     import mixin from "../../../mixins/mixin";
+    import Vue from 'vue'
+    import { ImagePreview } from 'vant';
+    Vue.use(ImagePreview);
     export default {
         name: "detail",
         mixins:[mixin],
@@ -85,7 +88,7 @@
                         'Content-Type': 'multipart/form-data;'
                     }
                 }).then(res =>{
-                    this.fileList.push({src:res.data.basePath.replace('null','')})
+                    this.fileList.push(res.data.basePath.replace('null',''))
                 }).catch(()=>{})
 
             },
@@ -93,11 +96,11 @@
                 let imgsUrl = ''
                 if(this.fileList.length){
                     if(this.fileList.length==1){
-                        imgsUrl = this.fileList[0].src
+                        imgsUrl = this.fileList[0]
                     }else{
                         // imgsUrl = this.fileList.join(',')
                         this.fileList.map(key =>{
-                            temArr.push(key.src)
+                            temArr.push(key)
                         })
                         imgsUrl = temArr.join(',')
                     }
@@ -125,6 +128,13 @@
             openLightbox(index = 0) {
                 // 画廊组件开启,index可指定初始图片
                 this.$refs.lightbox.open(index)
+            },
+            checkView(imgList,index){
+                ImagePreview(
+                    {
+                        images: imgList,
+                        startPosition: index
+                    });
             }
         }
     }
