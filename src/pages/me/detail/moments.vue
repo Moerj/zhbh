@@ -6,11 +6,12 @@
             v-model="activeIndex"
             line-width="0"
             line-height="0"
+            :ellipsis=false
             @click="onClick"
         >
           <van-tab v-for="(item, index) in titleList" :key="index">
             <template #title>
-              <div class="item">{{ item }}</div>
+              <div class="item ellipsis-1">{{ item }}</div>
             </template>
           </van-tab>
         </van-tabs>
@@ -32,7 +33,7 @@
         </div>
       </div>
       <div class="wonderful-box">
-        <TimeLine :activity="dataItem['itemObj']"></TimeLine>
+        <TimeLine :activity="dataItem"></TimeLine>
       </div>
       <div class="qr-code-box">
         <img src="./tip.png" alt="tip">
@@ -56,7 +57,7 @@ export default {
       banner: require("./banner.png"),
       dataList: [],
       titleList: [],
-      dataItem: {}
+      width: 0,
     }
   },
   created() {
@@ -64,20 +65,33 @@ export default {
   },
   methods: {
     getMomentList() {
+      this.$loading.open()
       this.$http.get(`/guest/meet/momentlist`).then(res => {
-        console.log(res.data)
         const data = res.data
         if (data) {
           this.dataList = res.data
           data.forEach(item => {
             this.titleList.push(item.title)
           })
+          this.onClick(0)
         }
       })
+      this.$loading.close()
     },
-    onClick(name, title) {
+    onClick(name) {
       this.activeIndex = name
-      this.dataItem = this.dataList[name]
+      let dataItem = JSON.parse( this.dataList[name]['itemObj'] )
+      console.log(dataItem)
+      this.arrayKeySort(dataItem, 'itemSort')
+      this.dataItem = dataItem
+    },
+    arrayKeySort (arr, key) {
+      return arr.sort(function (a,b) {
+        const x = a[key]
+        const y = b[key]
+        console.log(x)
+        return x<y? -1: (x>y ? 1:0)
+      })
     }
   }
 }
@@ -174,5 +188,8 @@ export default {
   font-weight: 500;
   background: url("./yjjx-red.png") no-repeat;
   background-size: 100% 100%;
+}
+/deep/ .van-tab__text {
+  //@include text-clamp(5)
 }
 </style>

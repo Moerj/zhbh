@@ -1,10 +1,10 @@
 <template>
    <div class="container">
       <div v-if="activity" class="time-line-box">
-        <div v-for="(item, index) in JSON.parse(activity)" :key="index" class="time-line-item">
+        <div v-for="(item, index) in activity" :key="index" class="time-line-item">
           <div class="box">
             <div class="top">
-              <img :src="require(`./part${index + 1}.png`)" alt="part1">
+              <img v-if="index<3" :src="require(`./part${index + 1}.png`)" alt="part1">
             </div>
             <div class="dot">{{ item['itemTitle'] }}</div>
             <div class="item">
