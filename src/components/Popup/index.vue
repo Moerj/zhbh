@@ -9,7 +9,9 @@
             <div class="code">
 
                 <div v-if="isShowCode" style="width: 100%;height: 100%">
-                    <img class="puponImg" src="./pupon-50.png" alt="优惠券" @click.stop="openCoupons"/>
+                    <div class="flex row-center">
+                        <img class="puponImg" src="./pupon-50.png" alt="优惠券" @click.stop="openCoupons"/>
+                    </div>
                     <div class="close-icon" v-if="isShowCode" @click.stop="closeCode">
                         <img src="./icon_close.png" alt="关闭" />
                     </div>

@@ -29,23 +29,24 @@
                                         <div class="price">
                                             <div class="flex price-top">
                                                 <div class="type">¥</div>
-                                                <div class="number">10</div>
+                                                <div class="number">{{item.denomination}}</div>
                                             </div>
                                             <div class="price-bottom">
-                                                满100可用
+                                                满{{item.purchase}}可用
                                             </div>
                                         </div>
                                         <div class="content flex col-center row-between">
                                             <div class="c-left flex flex-column col-center row-between">
-                                                <div class="name">特产通用劵</div>
-                                                <div class="time">有效期至2020年8月30日</div>
+                                                <div class="name">{{item.couponTitle}}</div>
+                                                <div class="time">{{item.usePeriod}}</div>
                                             </div>
-                                            <div v-if="index!==1" class="c-right deductionOption flex flex-column">
-                                                <div class="deduction flex col-center"  v-if="index!==1">
+                                            <!--1 未领取 2 已领取 3 已消费-->
+                                            <div v-if="item.userState!==3" class="c-right deductionOption flex flex-column">
+                                                <div class="deduction flex col-center" v-if="item.userState==1">
                                                     <img class="Icon_checked" src="./images/icon_check.png" alt="">
                                                     <div class="desc">自动抵扣</div>
                                                 </div>
-                                                <div v-if="index==1" class="optionBtn flex row-center col-center">领取</div>
+                                                <div v-if="item.userState==1" class="optionBtn flex row-center col-center" @click="handleCoupon(item.stockId)">领取</div>
                                                 <div v-else class="optionBtn active flex row-center col-center">已领取</div>
                                             </div>
                                             <div v-else class="c-right received-box">
@@ -72,6 +73,7 @@
 </template>
 
 <script>
+    import memberApi from '@/api/member.js'
     export default {
         name: "coupons",
         data(){
@@ -80,7 +82,8 @@
                 couponList:[],
                 loading:false,
                 finished:false,
-                reloading:false
+                reloading:false,
+                user:JSON.parse(localStorage.user)
             }
         },
         methods:{
@@ -88,27 +91,42 @@
                 this.$router.push({path:'./coupons/couponRule'})
             },
             onLoad() {//滚动加载
-                setTimeout(() => {
-                    for (let i = 0; i < 3; i++) {
-                        this.couponList.push(this.couponList.length + 1);
-                    }
-                    this.loading = false;
+                // setTimeout(() => {
+                //     for (let i = 0; i < 3; i++) {
+                //         this.couponList.push(this.couponList.length + 1);
+                //     }
+                //     this.loading = false;
+                //
+                //     if (this.couponList.length >=10) {
+                //         this.finished = true;
+                //     }
+                // }, 1000);
+                this.getCouponList()
 
-                    if (this.couponList.length >=10) {
-                        this.finished = true;
-                    }
-                }, 1000);
             },
             onRefresh(){//下拉刷新
-                setTimeout(() => {
-                    let arr=[]
-                    for (let i = 0; i < 3; i++) {
-                        arr.push(arr.length + 1);
-                        this.reloading = false;
+                this.reloading = false;
+                this.getCouponList()
+
+            },
+            getCouponList(){
+                this.couponList =[]
+                memberApi.getCouponList({userId:this.user.id}).then(res =>{
+                    if(res.data&&res.data.length){
+                        this.couponList = res.data
+                        this.loading = false;
+                        this.finished = true;
+                        this.$refs.uiPull.endSuccess()
+                    }else{
+                        this.loading = false;
+                        this.finished = true;
                     }
-                    this.couponList = arr
-                    this.finished = false;
-                }, 500);
+                })
+            },
+            handleCoupon(stockId){
+                memberApi.useCoupon({stockId:stockId,userId:this.user.id}).then(res =>{
+                    this.getCouponList()
+                })
             }
         }
     }
