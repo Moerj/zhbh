@@ -8,7 +8,7 @@
         <div class="user-name">尊敬的{{user.realName}}欢迎您！</div>
       </div>
 
-      <div class="card-cont">
+      <div class="card-cont" @click="toGuide()">
         <div class="card-inner">
           <div class="inner-title">会务指南<img src="./right.png" /></div>
           <div class="inner-subtitle">参会者详细指南</div>

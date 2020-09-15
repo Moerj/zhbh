@@ -25,6 +25,9 @@ export default {
 .content img{
   width:100%;
 }
+.content {
+  margin: 0 10px 0 10px;
+}
 </style>
 <style scoped>
 
