@@ -180,14 +180,7 @@
 }
 
 .journey-card {
-  .card-title::before {
-    content: "";
-    width: 28px;
-    height: 4px;
-    display: block;
-    margin-bottom: 6px;
-    background: rgba(183, 186, 204, 1);
-  }
+
 
   .card-title {
     font-size: 20px;
@@ -197,16 +190,18 @@
     color: #9094A8;
   }
 
-  .card-content::before {
-    content: "";
-    position: absolute;
-    top: 30px;
-    bottom: auto;
-    left: 0;
-    width: 1px;
-    height: 90%;
-    border-left: 3px dashed #EC4831;
-    z-index: 2;
+  .card-content{
+    .card-inner::before {
+      content: "";
+      position: absolute;
+      top: 14px;
+      bottom: auto;
+      left: 0;
+      width: 1px;
+      height: 90%;
+      border-left: 3px dashed #EC4831;
+      z-index: 2;
+    }
   }
 }
 
@@ -454,6 +449,14 @@
 
 // 未开始
 .journey-card.notstarted {
+  .card-title::before {
+    content: "";
+    width: 28px;
+    height: 4px;
+    display: block;
+    margin-bottom: 6px;
+    background: #F95020;
+  }
   .card-title {
     color: #C7000B;
     font-size: 20px;
@@ -461,14 +464,38 @@
     text-align: left;
     line-height: 20px;
   }
-
+  .card-inner::before {
+    content: "";
+    position: absolute;
+    top: 14px;
+    bottom: auto;
+    left: 3px;
+    width: 1px;
+    height: 95%;
+    border-left: 3px dashed #C7000B;
+    z-index: 2;
+  }
   .card-inner {
     background-color: #fff;
-    margin: 10px 5px 0 20px;
+    margin: 10px 5px 0 0;
     border-top-right-radius: 4px;
     border-bottom-right-radius: 4px;
     position: relative;
-
+    .card-inner-content{
+      padding: 20px 12px;margin-left: 20px;border: 0.001rem solid #C7000B;position: relative;
+      .border-bg-h{
+        background: linear-gradient(90deg,#9d0c0c, #cb3434 52%, #850b0b);
+      }
+      .border-bg-v{
+        background: linear-gradient(180deg, #9d0c0c, #cb3434 52%, #8b0a0a);
+      }
+      .top-right-edge{
+        top: -8px;right: -3px;height: 22px;width: 13px;border-left: 1px solid #C7000B;transform:rotate(-45deg);background: #ffffff
+      }
+      .bottom-left-round{
+        border-radius: 4px;width: 4px;height: 4px;background: linear-gradient(137deg,#9d0c0c 18%, #cb3434 50%, #850b0b 79%);
+      }
+    }
     .inner-title {
       color: #292A2C;
     }
@@ -490,6 +517,14 @@
 
 // 进行中
 .journey-card.ongoing {
+  .card-title::before {
+    content: "";
+    width: 28px;
+    height: 4px;
+    display: block;
+    margin-bottom: 6px;
+    background: #F95020;
+  }
   .card-title {
     color: #C7000B;
     font-size: 20px;
@@ -497,13 +532,38 @@
     text-align: left;
     line-height: 20px;
   }
-
+  .card-inner::before {
+    content: "";
+    position: absolute;
+    top: 14px;
+    bottom: auto;
+    left: 3px;
+    width: 1px;
+    height: 95%;
+    border-left: 3px dashed #C7000B;
+    z-index: 2;
+  }
   .card-inner {
     background-color: #fff;
-    margin: 10px 5px 0 20px;
+    margin: 10px 5px 0 0;
     border-top-right-radius: 4px;
     border-bottom-right-radius: 4px;
     position: relative;
+    .card-inner-content{
+      padding: 20px 12px;margin-left: 20px;border: 0.001rem solid #C7000B;position: relative;
+      .border-bg-h{
+        background: linear-gradient(90deg,#9d0c0c, #cb3434 52%, #850b0b);
+      }
+      .border-bg-v{
+        background: linear-gradient(180deg, #9d0c0c, #cb3434 52%, #8b0a0a);
+      }
+      .top-right-edge{
+        top: -8px;right: -3px;height: 22px;width: 13px;border-left: 1px solid #C7000B;transform:rotate(-45deg);background: #ffffff
+      }
+      .bottom-left-round{
+        border-radius: 4px;width: 4px;height: 4px;background: linear-gradient(137deg,#9d0c0c 18%, #cb3434 50%, #850b0b 79%);
+      }
+    }
 
     .inner-title {
       color: #292A2C;
@@ -526,18 +586,50 @@
 
 // 已结束
 .journey-card.finished {
+  .card-title::before {
+    content: "";
+    width: 28px;
+    height: 4px;
+    display: block;
+    margin-bottom: 6px;
+    background: rgba(183, 186, 204, 1);
+  }
   .card-title {
     color: #9094a8;
 
   }
-
+  .card-inner::before {
+    content: "";
+    position: absolute;
+    top: 14px;
+    bottom: auto;
+    left: 3px;
+    width: 1px;
+    height: 95%;
+    border-left: 3px dashed #B7BACC;
+    z-index: 2;
+  }
   .card-inner {
     background-color: #fff;
-    margin: 10px 5px 0 20px;
+    margin: 10px 5px 0 0;
     border-top-right-radius: 4px;
     border-bottom-right-radius: 4px;
     position: relative;
-
+    .card-inner-content{
+      padding: 20px 12px;margin-left: 20px;border: 0.001rem solid #B7BACC;position: relative;
+      .border-bg-h{
+        background: linear-gradient(90deg,#606374, #b7bacc 53%, #666980);;
+      }
+      .border-bg-v{
+        background: linear-gradient(180deg,#606374, #b7bacc 53%, #666980);;
+      }
+      .top-right-edge{
+        top: -8px;right: -3px;height: 22px;width: 13px;border-left: 1px solid #B7BACC;transform:rotate(-45deg);background: #ffffff
+      }
+      .bottom-left-round{
+        border-radius: 4px;width: 4px;height: 4px;background: linear-gradient(128deg,#606374 18%, #b7bacc 54%, #666980 85%);
+      }
+    }
     .inner-title {
       color: #c7cccc;
     }
@@ -556,3 +648,20 @@
     }
   }
 }
+
+.top-2{
+  top: -2px;
+}
+.bottom-2{
+  bottom: -2px;
+}
+.right-2{
+  right: -2px;
+}
+.left-2{
+  left: -2px;
+}
+.height3{
+  height: 3px;
+}
+

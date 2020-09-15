@@ -109,13 +109,13 @@
             </div>
           </div>
           <!--行程列表 image title start-->
-          <div style="width: 100%;line-height: 70px;position: relative;height: 70px;">
-            <img style="width: 100%;position: absolute;z-index: 0;height: 70px;" src="./image/xingchengliebiaobg.png" alt="">
-            <div style="position: absolute;z-index: 1;width: 100%;bottom: 5px">
-              <div style="position: relative;display: flex;justify-content: space-around">
+          <div class="relative" style="width: 100%;line-height: 70px;height: 70px;">
+            <img class="absolute" style="width: 100%;z-index: 0;height: 70px;" src="./image/xingchengliebiaobg.png" alt="">
+            <div class="absolute" style="z-index: 1;width: 100%;bottom: 5px">
+              <div class="relative flex" style="justify-content: space-around">
                 <img style="width: 98px;height: 25px;" src="./image/xingchengliebiao.png" alt="行程列表">
-                <img style="width: 100px;height: 5px;position: relative;top: 17px;" src="./image/xingchengliebiaoline.png" alt="">
-                <img style="width: 115px;height: 33px;position: relative;top: -10px;" src="./image/xingchengliebiaologo.png" alt="">
+                <img class="relative" style="width: 100px;height: 5px;top: 17px;" src="./image/xingchengliebiaoline.png" alt="">
+                <img class="relative" style="width: 115px;height: 33px;top: -10px;" src="./image/xingchengliebiaologo.png" alt="">
               </div>
             </div>
           </div>
@@ -123,59 +123,68 @@
           <div class="subtitle flex row-left col-center" :style="hotel?'':'margin-top:10px'" v-if="togPeople && togPeople.length>0">
             <div class="peers-group">
               <div>
-				  <span
-              :class="journeyActive == user.id ? 'active' : ''"
-              @click='()=>{
-                hotelName = "我"
-                journeyActive = user.id
-                getList()
-              }'
-          >我的行程</span>
+				<span :class="journeyActive == user.id ? 'active' : ''"
+                  @click='()=>{
+                    hotelName = "我"
+                    journeyActive = user.id
+                    getList()
+                  }'>我的行程</span>
                 <span v-for="people in togPeople"
-                      :class="journeyActive == people.id ? 'active' : ''"
-                      @click="()=>{
-                        journeyActive = people.id
-                        hotelName = people.realName
-                        getList()
-                      }"
+                  :class="journeyActive == people.id ? 'active' : ''"
+                  @click="()=>{
+                    journeyActive = people.id
+                    hotelName = people.realName
+                    getList()
+                  }"
                 >{{ people['realName'] }}</span>
-
               </div>
             </div>
           </div>
-
           <div class="journey-container" v-if="journeyList">
             <div class="journey-card" v-for="(item,index) in journeyList"
                  :key="item.id" @click="toDetail(item)"
                  :class="item['activeState'] == 0? 'notstarted': item['activeState'] == 1? 'ongoing': 'finished'">
-              <div class="card-content" style="position: relative">
-                <!--箭头 start-->
-                <img v-if="index==journeyList.length-1" style="position: absolute;top:54%;left: 5px;width: 10px" src="./image/time_line.png" alt=""/>
-                <div v-if="index==journeyList.length-1" style="width: 5px;height: 50%;background: #ffffff;position: absolute;bottom: -10px;z-index: 3"/>
-                <!--箭头 end-->
+              <div class="card-content relative">
                 <div class="card-title relative" :class="item.activeState == 2 ? 'gray-title':'red-title'">
                   <!--时间标题 start-->
-                  <img v-if="item['activeState'] == 1" style="position: absolute;width: 15px;height: 14px;left: -5px;top: 3px;z-index: 3;" src="./image/red_round.png" alt="">
-                  <img v-else style="position: absolute;width: 15px;height: 14px;left: -5px;top: 3px;z-index: 3;" src="./image/gray_round.png" alt="">
                   <span>{{ item.startTime }}到{{ item.endTime }}</span>
-                  <img style="width: 170px;position: absolute;bottom: 0;right: 0;" v-if="item['activeState'] == 0" src="./image/red_line.png" alt="">
-                  <img style="width: 170px;position: absolute;bottom: 0;right: 0;" v-else-if="item['activeState'] == 1" src="./image/red_line_jxz.png" alt="">
-                  <img style="width: 170px;position: absolute;bottom: 0;right: 0;" v-else src="./image/gray_line.png" alt="">
+                  <img class="absolute" style="width: 170px;bottom: 0;right: 0;" v-if="item['activeState'] == 0" src="./image/red_line.png" alt="">
+                  <img class="absolute" style="width: 170px;bottom: 0;right: 0;" v-else-if="item['activeState'] == 1" src="./image/red_line_jxz.png" alt="">
+                  <img class="absolute" style="width: 170px;bottom: 0;right: 0;" v-else src="./image/gray_line.png" alt="">
                   <!--时间标题 end-->
                 </div>
-                <div class="card-inner" style="position: relative">
-                  <div style="width: 100%;height: 100%;position: absolute">
-                    <img style="width: 100%;height: 100%" v-if="item['activeState'] == 1" src="./image/red_border.png" alt="">
-                    <img style="width: 100%;height: 100%" v-else src="./image/gray_border.png" alt="">
+                <div class="card-inner relative">
+                  <!--圆图片 start-->
+                  <div style="width: 20px">
+                    <img v-if="item['activeState'] != 2" class="absolute left-2" style="width: 15px;height: 14px;top: 0;z-index: 3;" src="./image/red_round.png" alt="">
+                    <img v-else class="absolute left-2" style="width: 15px;height: 14px;top: 3px;z-index: 3;" src="./image/gray_round.png" alt="">
                   </div>
-                  <div  style="padding: 20px 12px">
+                  <!--圆图片 end-->
+                  <!--箭头 start-->
+                  <img v-if="index==journeyList.length-1" class="absolute" style="top:54%;left: 7px;width: 10px" src="./image/time_line.png" alt=""/>
+                  <div v-if="index==journeyList.length-1" class="absolute" style="width: 7px;height: 50%;background: #ffffff;bottom: -10px;z-index: 3"/>
+                  <!--箭头 end-->
+                  <div class="card-inner-content">
+                    <!--边框 start-->
+                    <div class="absolute top-2 left-2 height3 border-bg-h" style="width: 30px;"></div>
+                    <div class="absolute left-2 border-bg-v" style="top:1px;width: 3px;height: 20px;"></div>
+                    <div class="absolute flex top-2" style="margin-left: 40%;">
+                      <div class="height3 border-bg-h" style="width: 12px;"></div>
+                      <div class="height3 border-bg-h" style="width: 4px;margin-left: 7px"></div>
+                      <div class="height3 border-bg-h" style="width: 4px;margin-left: 3px"></div>
+                    </div>
+                    <div class="absolute bottom-2 height3 border-bg-h" style="left: 10%;width: 30px;"></div>
+                    <div class="absolute bottom-2 right-2 height3 border-bg-h" style="width: 19px;"></div>
+                    <div class="absolute right-2 border-bg-v" style="bottom:1px;width: 3px;height: 22px;"></div>
+                    <div class="absolute bottom-2 left-2 bottom-left-round"></div>
+                    <div class="absolute top-right-edge"></div>
+                    <!--边框 end-->
                     <div class="signin-cont">
                       <img src="./image/overSign.png" alt="已结束" v-if="item.isSign == 0 && item.activeState == 2"/>
                       <span v-if="item.isSign == 1">
                        <img src="./image/signedin.png" alt="已签到" v-if="item.schState == 1"/>
                        <img src="./image/nosignin.png" alt="未签到" v-else-if="item['activeState'] != 0"/>
                     </span>
-
                     </div>
                     <div class="inner-title ellipsis-1">{{ item.title }}</div>
                     <div class="inner-item flex row-between">
