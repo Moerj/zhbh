@@ -29,9 +29,6 @@
                         确认提交
                     </div>
                 </div>
-                <div class="cImg"  v-for="(cImg,cIndex) in uploadImages" :key="cIndex">
-                    <img :src="cImg" :preview="cIndex" width="54px" height="54px" alt="" fit="cover">
-                </div>
             </div>
         </div>
     </ui-main>
@@ -75,15 +72,11 @@
             },
             onSubmit(){
                 let imgsUrl = ''
-                let temArr = []
                 if(this.fileList.length){
                     if(this.fileList.length==1){
-                        imgsUrl = this.fileList[0].url
+                        imgsUrl = this.fileList[0]
                     }else{
-                        this.fileList.map(key =>{
-                            temArr.push(key.url)
-                        })
-                        imgsUrl = temArr.join(',')
+                        imgsUrl = this.fileList.join(',')
                     }
                 }
                 let params={
@@ -91,10 +84,15 @@
                     imgs:imgsUrl,
                     userId:this.user.id
                 }
-                console.log('submitparams',params)
                 memberAPI.submitFeedback(params).then(res =>{
-                    // this.$router.go(-1)
-                    this.back()
+                    if (res.errorCode==="00000"){
+                        this.back()
+                    }else{
+                        this.$toast(res.message);
+                    }
+
+                }).catch(()=>{
+                    this.$toast('提交失败');
                 })
             }
         }

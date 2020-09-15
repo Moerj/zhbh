@@ -128,9 +128,9 @@
 @import "./index.scss";
 .coupons-rule-container{
     width: 100%;
-    min-height: 936px;
+    min-height: 100vh;
     overflow: hidden;
-    background: papayawhip;
+    background: #ffa436;
 }
 .bg-bottom{
     background: linear-gradient(135deg,#ffc357 13%, #ffa436 59%);

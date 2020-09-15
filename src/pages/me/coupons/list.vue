@@ -136,9 +136,9 @@
     @import "./index.scss";
     .coupons-rule-container{
         width: 100%;
-        min-height: 306px;
+        min-height: 100vh;
         overflow: hidden;
-        background: papayawhip;
+        background: #ffa436;
     }
     .rulesTag{
         top:30px;
