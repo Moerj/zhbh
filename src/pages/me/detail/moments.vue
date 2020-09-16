@@ -12,10 +12,14 @@
             <div class="logo">
               <img :src="logo" alt="logo">
             </div>
-            <div class="banner">
+            <div class="banner relative">
               <img :src="banner" alt="banner">
               <div class="sign-in">
-                <img src="./sign-in.png" alt="signIn">
+                <!--<img src="./sign-in.png" alt="signIn">-->
+              </div>
+              <div class="absolute user-content">
+                <img class="user-img" src="./share-btn.png" alt="">
+                <div class="user-name">晓风残月</div>
               </div>
             </div>
             <div class="wonderful-box" style="margin: 0 10px">
@@ -190,6 +194,16 @@ export default {
       }
     }
   }
+}
+.user-content{
+  top: 2px;left: 50%;margin-left: -80px;line-height: 30px;display: flex;width: 160px;justify-content: center
+}
+.user-img{
+  width: 30px;height: 30px
+}
+.user-name{
+  font-size: 14px;
+  color: #000;
 }
 .img-show-btn{
   bottom: 15%;
