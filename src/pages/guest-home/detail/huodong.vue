@@ -24,17 +24,18 @@
 
           <div class="title-wrapper">
             <p class="title">{{detailInfo.title }}</p>
+            <div class="hblock-5"></div>
             <van-icon :name="weatherIcon"/>
-            <span>{{ temperature }}</span>
+            <span class="temperature-text">{{ temperature }}</span>
           </div>
 
           <div class="info-wrapper">
             <div class="flex row-between" @click="$wxMap(detailInfo)">
-              <span>
+              <span class="margin-right-15">
                 <span class="item-title1" >地点：</span>
                 <span class="black-text1" >{{detailInfo.place}}</span>
               </span>
-              <span><img src="../image/right.svg"/></span>
+              <span class="line-h22"><img src="../image/right.svg"/></span>
             </div>
             <div class="info-item flex row-between" v-if="detailInfo.phone">
               <a class="tel" :href="'tel:'+detailInfo.phone"></a>
@@ -141,6 +142,7 @@ export default {
 }
 </style>
 <style lang="scss" scoped>
+  @import "./index.scss";
 ::v-deep .van-nav-bar {
   background-color: transparent;
 }

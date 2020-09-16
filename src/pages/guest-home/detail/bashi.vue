@@ -16,17 +16,18 @@
 
           <div class="title-wrapper">
             <p class="title">{{detailInfo.title}}</p>
+            <div class="hblock-5"></div>
             <van-icon :name="weatherIcon"/>
-            <span>{{ temperature }}</span>
+            <span class="temperature-text">{{ temperature }}</span>
           </div>
 
           <div class="info-wrapper">
             <div class="info-item flex row-between" @click="$wxMap(detailInfo)">
-              <span>
+              <span class="margin-right-15">
                 <span class="item-title1">起点：</span>
                 <span class="black-text1">{{detailInfo.place}}</span>
               </span>
-              <span><img src="../image/right.svg"/></span>
+              <span class="line-h22"><img src="../image/right.svg"/></span>
             </div>
             <div class="info-item flex row-between" @click="$wxMap(destination)" >
               <span>
@@ -133,6 +134,7 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+  @import "./index.scss";
 ::v-deep .van-nav-bar {
   background-color: transparent;
 }
