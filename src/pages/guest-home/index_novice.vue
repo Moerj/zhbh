@@ -26,81 +26,85 @@
           </van-notice-bar>
         </div>
       </template>
-        <div class="hotel-container">
+        <div class="hotel-container" style="padding-top: 0px">
           <!--新版 我的酒店-->
           <div id="stop2" style="width: 100%">
-            <div style="position: relative;margin: 20px 18px;height: 172px;padding: 5px" v-if="hotel">
-              <!--left top-->
-              <div style="position: absolute;top: 0;left: 0;">
-                <div style="position:relative;width: 22px;height: 32px;border-top: 1px solid #c7000b;border-left: 1px solid #c7000b;">
-                  <div style="width: 5px;height: 5px;background: #c7000b;border-radius: 5px;position: absolute;right: 0;top: -3px;"></div>
-                  <div style="width: 5px;height: 5px;background: #c7000b;border-radius: 5px;position: absolute;left: -3px;bottom: 0;"></div>
-                </div>
-              </div>
-              <!--right top-->
-              <div style="position: absolute;top: 0;right: 0;">
-                <div style="position:relative;width: 22px;height: 32px;border-top: 1px solid #c7000b;border-right: 1px solid #c7000b;">
-                  <div style="width: 5px;height: 5px;background: #c7000b;border-radius: 5px;position: absolute;left: 0;top: -3px;"></div>
-                  <div style="width: 5px;height: 5px;background: #c7000b;border-radius: 5px;position: absolute;right: -3px;bottom: 0;"></div>
-                </div>
-              </div>
-              <!--left bottom-->
-              <div style="position: absolute;bottom: 0;left: 0;">
-                <div style="position:relative;width: 22px;height: 32px;border-bottom: 1px solid #c7000b;border-left: 1px solid #c7000b;">
-                  <div style="width: 5px;height: 5px;background: #c7000b;border-radius: 5px;position: absolute;left: -3px;top: 0;"></div>
-                  <div style="width: 5px;height: 5px;background: #c7000b;border-radius: 5px;position: absolute;right: 0;bottom: -3px;"></div>
-                </div>
-              </div>
-              <!--right bottom-->
-              <div style="position: absolute;bottom: 0;right: 0;">
-                <div style="position:relative;width: 22px;height: 32px;border-bottom: 1px solid #c7000b;border-right: 1px solid #c7000b;">
-                  <div style="width: 5px;height: 5px;background: #c7000b;border-radius: 5px;position: absolute;right: -3px;top: 0;"></div>
-                  <div style="width: 5px;height: 5px;background: #c7000b;border-radius: 5px;position: absolute;left: 0;bottom: -3px;"></div>
-                </div>
-              </div>
-              <!--title 我的酒店img-->
-              <div style="position: absolute;top: -5px;width: 100%">
-                <div style="display: flex;justify-content: center;position: relative">
-                  <div style="width: 262px;height: 0;border-bottom: 10px solid #A4020B;border-right: 10px solid transparent;border-left: 10px solid transparent;"></div>
-                  <div style="position: absolute;top:0;width: 240px;height: 0;border-top: 35px solid #C7000B;border-right: 10px solid transparent;border-left: 10px solid transparent;"></div>
-                  <img style="position: absolute;top:5px;width: 96px;" src="./image/wodejiudiannew.png" alt="">
-                </div>
-              </div>
-              <!--content-->
-              <div style="border: 1px solid #C7000B;height: 100%">
-                <div style="margin-top: 35px;position: relative">
-                  <div style="height: 36px;background: linear-gradient(90deg,rgba(199,0,11,0.11), rgba(199,0,11,0) 53%, rgba(199,0,11,0.1));">
-                    <div style="font-size: 17px;font-weight: 500;text-align: center;color: #292a2c;line-height: 36px;">{{ hotel.title }}</div>
+            <div>
+              <div style="height: 10px;width: 100%"></div>
+              <div style="position: relative;margin: 0px 18px;height: 172px;padding: 5px" v-if="hotel">
+                <!--left top-->
+                <div style="position: absolute;top: 0;left: 0;">
+                  <div style="position:relative;width: 22px;height: 32px;border-top: 1px solid #c7000b;border-left: 1px solid #c7000b;">
+                    <div style="width: 5px;height: 5px;background: #c7000b;border-radius: 5px;position: absolute;right: 0;top: -3px;"></div>
+                    <div style="width: 5px;height: 5px;background: #c7000b;border-radius: 5px;position: absolute;left: -3px;bottom: 0;"></div>
                   </div>
-                  <div style="position: absolute;top: -3px;width: 0;height: 41px;border-left: 5px solid #C7000B;border-top: 3px solid transparent;border-bottom: 3px solid transparent;"></div>
-                  <div style="position: absolute;top: -3px;right:0;width: 0;height: 41px;border-right: 5px solid #C7000B;border-top: 3px solid transparent;border-bottom: 3px solid transparent;"></div>
                 </div>
-                <div style="padding:4px 10px">
-                  <div class="hotel-info">
-                    <div class="info-item flex row-between">
+                <!--right top-->
+                <div style="position: absolute;top: 0;right: 0;">
+                  <div style="position:relative;width: 22px;height: 32px;border-top: 1px solid #c7000b;border-right: 1px solid #c7000b;">
+                    <div style="width: 5px;height: 5px;background: #c7000b;border-radius: 5px;position: absolute;left: 0;top: -3px;"></div>
+                    <div style="width: 5px;height: 5px;background: #c7000b;border-radius: 5px;position: absolute;right: -3px;bottom: 0;"></div>
+                  </div>
+                </div>
+                <!--left bottom-->
+                <div style="position: absolute;bottom: 0;left: 0;">
+                  <div style="position:relative;width: 22px;height: 32px;border-bottom: 1px solid #c7000b;border-left: 1px solid #c7000b;">
+                    <div style="width: 5px;height: 5px;background: #c7000b;border-radius: 5px;position: absolute;left: -3px;top: 0;"></div>
+                    <div style="width: 5px;height: 5px;background: #c7000b;border-radius: 5px;position: absolute;right: 0;bottom: -3px;"></div>
+                  </div>
+                </div>
+                <!--right bottom-->
+                <div style="position: absolute;bottom: 0;right: 0;">
+                  <div style="position:relative;width: 22px;height: 32px;border-bottom: 1px solid #c7000b;border-right: 1px solid #c7000b;">
+                    <div style="width: 5px;height: 5px;background: #c7000b;border-radius: 5px;position: absolute;right: -3px;top: 0;"></div>
+                    <div style="width: 5px;height: 5px;background: #c7000b;border-radius: 5px;position: absolute;left: 0;bottom: -3px;"></div>
+                  </div>
+                </div>
+                <!--title 我的酒店img-->
+                <div style="position: absolute;top: -5px;width: 100%">
+                  <div style="display: flex;justify-content: center;position: relative">
+                    <div style="width: 262px;height: 0;border-bottom: 10px solid #A4020B;border-right: 10px solid transparent;border-left: 10px solid transparent;"></div>
+                    <div style="position: absolute;top:0;width: 240px;height: 0;border-top: 35px solid #C7000B;border-right: 10px solid transparent;border-left: 10px solid transparent;"></div>
+                    <img style="position: absolute;top:5px;width: 96px;" src="./image/wodejiudiannew.png" alt="">
+                  </div>
+                </div>
+                <!--content-->
+                <div style="border: 1px solid #C7000B;height: 100%">
+                  <div style="margin-top: 35px;position: relative">
+                    <div style="height: 36px;background: linear-gradient(90deg,rgba(199,0,11,0.11), rgba(199,0,11,0) 53%, rgba(199,0,11,0.1));">
+                      <div style="font-size: 17px;font-weight: 500;text-align: center;color: #292a2c;line-height: 36px;">{{ hotel.title }}</div>
+                    </div>
+                    <div style="position: absolute;top: -3px;width: 0;height: 41px;border-left: 5px solid #C7000B;border-top: 3px solid transparent;border-bottom: 3px solid transparent;"></div>
+                    <div style="position: absolute;top: -3px;right:0;width: 0;height: 41px;border-right: 5px solid #C7000B;border-top: 3px solid transparent;border-bottom: 3px solid transparent;"></div>
+                  </div>
+                  <div style="padding:4px 10px">
+                    <div class="hotel-info">
+                      <div class="info-item flex row-between">
                   <span>
                     <span class="item-title" style="float: left">地点：</span>
                     <span class="item-text  ellipsis-1">{{ hotel.address }}</span>
                   </span>
-                      <span><img src="./image/right.svg"/></span>
-                    </div>
-                    <div class="info-item flex row-between" >
+                        <span><img src="./image/right.svg"/></span>
+                      </div>
+                      <div class="info-item flex row-between" >
                   <span>
                     <span class="item-title">房间：</span>
                     <span class="item-text">{{ hotel.roomNo }}</span>
                   </span>
-                    </div>
-                    <div class="info-item flex row-between">
-                      <a class="tel" :href="'tel:'+hotel.hotelPhone"></a>
-                      <span>
+                      </div>
+                      <div class="info-item flex row-between">
+                        <a class="tel" :href="'tel:'+hotel.hotelPhone"></a>
+                        <span>
                       <span class="item-title">联系电话：</span>
                       <span class="item-text text-phone">{{ hotel.hotelPhone }}</span>
                     </span>
-                      <span><img src="./image/phone.svg"/></span>
+                        <span><img src="./image/phone.svg"/></span>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
+              <div style="height: 10px;width: 100%"></div>
             </div>
           </div>
 
@@ -129,56 +133,63 @@
             <div class="journey-card" v-for="(item,index) in journeyList"
                  :id="journeyList.length>0 && index==0?'stop3':''" :key="item.id"
                  :class="item['activeState'] == 0? 'notstarted': item['activeState'] == 1? 'ongoing': 'finished'">
-              <div class="card-content" style="position: relative">
-                <!--箭头 start-->
-                <img v-if="index==journeyList.length-1" style="position: absolute;top:54%;left: 5px;width: 10px" src="./image/time_line.png" alt="">
-                <div v-if="index==journeyList.length-1" style="width: 5px;height: 50%;background: #ffffff;position: absolute;bottom: -10px;z-index: 3"></div>
-                <!--箭头 end-->
-                <div style="width: 28px;height: 4px;" :style="item['activeState'] == 2?'background:#b7bacc': 'background:#f95020'"></div>
-                <div class="card-title" style="position: relative">
+              <div class="card-content relative">
+                <div class="card-title relative" :class="item.activeState == 2 ? 'gray-title':'red-title'">
                   <!--时间标题 start-->
-                  <img v-if="item['activeState'] == 1" style="position: absolute;width: 15px;height: 14px;left: -5px;top: 3px;z-index: 3;" src="./image/red_round.png" alt="">
-                  <img v-else style="position: absolute;width: 15px;height: 14px;left: -5px;top: 3px;z-index: 3;" src="./image/gray_round.png" alt="">
                   <span>{{ item.startTime }}到{{ item.endTime }}</span>
-                  <img style="width: 170px;position: absolute;bottom: 0;right: 0;" v-if="item['activeState'] == 0" src="./image/red_line.png" alt="">
-                  <img style="width: 170px;position: absolute;bottom: 0;right: 0;" v-else-if="item['activeState'] == 1" src="./image/red_line_jxz.png" alt="">
-                  <img style="width: 170px;position: absolute;bottom: 0;right: 0;" v-else src="./image/gray_line.png" alt="">
+                  <img class="absolute" style="width: 170px;bottom: 0;right: 0;" v-if="item['activeState'] == 0" src="./image/red_line.png" alt="">
+                  <img class="absolute" style="width: 170px;bottom: 0;right: 0;" v-else-if="item['activeState'] == 1" src="./image/red_line_jxz.png" alt="">
+                  <img class="absolute" style="width: 170px;bottom: 0;right: 0;" v-else src="./image/gray_line.png" alt="">
                   <!--时间标题 end-->
                 </div>
-                <div class="card-inner" style="position: relative">
-                  <div style="width: 100%;height: 100%;position: absolute">
-                    <img style="width: 100%;height: 100%" v-if="item['activeState'] == 1" src="./image/red_border.png" alt="">
-                    <img style="width: 100%;height: 100%" v-else src="./image/gray_border.png" alt="">
+                <div class="card-inner relative">
+                  <!--圆图片 start-->
+                  <div style="width: 20px">
+                    <img v-if="item['activeState'] != 2" class="absolute left-2" style="width: 15px;height: 14px;top: 0;z-index: 1;" src="./image/red_round.png" alt="">
+                    <img v-else class="absolute left-2" style="width: 15px;height: 14px;top: 3px;z-index: 1;" src="./image/gray_round.png" alt="">
                   </div>
-                  <div  style="padding: 20px 12px">
+                  <!--圆图片 end-->
+                  <!--箭头 start-->
+                  <img v-if="index==journeyList.length-1" class="absolute" style="top:54%;left: 7px;width: 10px" src="./image/time_line.png" alt=""/>
+                  <div v-if="index==journeyList.length-1" class="absolute shade" style="width: 7px;height: 50%;background: #ffffff;bottom: -10px;z-index: 3"/>
+                  <!--箭头 end-->
+                  <div class="card-inner-content">
+                    <!--边框 start-->
+                    <div class="absolute height3 border-bg-h" :class="systemIsAndroid?'top-1 left-1':'top-2 left-2'" style="width: 30px;"></div>
+                    <div class="absolute border-bg-v" :class="systemIsAndroid?'left-1':'left-2'" style="top:1px;width: 3px;height: 20px;"></div>
+                    <div class="absolute flex" :class="systemIsAndroid?'top-1':'top-2'" style="margin-left: 40%;">
+                      <div class="height3 border-bg-h" style="width: 12px;"></div>
+                      <div class="height3 border-bg-h" style="width: 4px;margin-left: 7px"></div>
+                      <div class="height3 border-bg-h" style="width: 4px;margin-left: 3px"></div>
+                    </div>
+                    <div class="absolute height3 border-bg-h" :class="systemIsAndroid?'bottom-1':'bottom-2'" style="left: 10%;width: 30px;"></div>
+                    <div class="absolute height3 border-bg-h" :class="systemIsAndroid?'bottom-1 right-1':'bottom-2 right-2'" style="width: 19px;"></div>
+                    <div class="absolute border-bg-v" :class="systemIsAndroid?'right-1':'right-2'" style="bottom:1px;width: 3px;height: 22px;"></div>
+                    <div class="absolute bottom-left-round" :class="systemIsAndroid?'bottom-1 left-1':'bottom-2 left-2'"></div>
+                    <div class="absolute top-right-edge"></div>
+                    <!--边框 end-->
                     <div class="signin-cont">
                       <img src="./image/overSign.png" alt="已结束" v-if="item.isSign == 0 && item.activeState == 2"/>
                       <span v-if="item.isSign == 1">
                        <img src="./image/signedin.png" alt="已签到" v-if="item.schState == 1"/>
                        <img src="./image/nosign.png" alt="未签到" v-else-if="item['activeState'] != 0"/>
-                    </span>
-
+                      </span>
                     </div>
                     <div class="inner-title ellipsis-1">{{ item.title }}</div>
                     <div class="inner-item flex row-between">
-					  <span>
-                        <span class="item-title" style="float: left">地点：</span>
-                        <span class="item-text ellipsis-1">{{ item['place'] }}</span>
-					  </span>
+                      <span>
+                          <span class="item-title" style="float: left">地点：</span>
+                          <span class="item-text ellipsis-1">{{ item['place'] }}</span>
+                      </span>
                     </div>
                     <div class="inner-item" v-if="item['tabNo'] || item['seatNo']">
-					  <span>
-
-						<span class="item-title">{{ item.schType == '2' ? "桌号/座位" : "座位" }}：</span>
-						<span class="item-text"
-                  v-if="item.schType == '2'">{{ (item['tabNo'] ? item['tabNo'] + '桌' : '') + (item['seatNo'] ? item['seatNo'] + '座' : '') }} </span>
-              <span class="item-text"
-                    v-else-if="item.schType == '1'">{{ (item['tabNo'] ? item['tabNo'] + '排' : '') + (item['seatNo'] ? item['seatNo'] + '座' : '') }} </span>
-               <span class="item-text"
-                     v-else-if="item.schType == '3'">{{item['tabNo'] ? item['tabNo'] : '' }} </span>
-						<span class="item-text"
-                  v-else>{{ (item['tabNo'] ? item['tabNo'] : '') + (item['seatNo'] ? item['seatNo'] + '座' : '') }} </span>
-					  </span>
+                      <span>
+                         <span class="item-title">{{ item.schType == '2' ? "桌号/座位" : "座位" }}：</span>
+                         <span class="item-text" v-if="item.schType == '2'">{{ (item['tabNo'] ? item['tabNo'] + '桌' : '') + (item['seatNo'] ? item['seatNo'] + '座' : '') }} </span>
+                         <span class="item-text" v-else-if="item.schType == '1'">{{ (item['tabNo'] ? item['tabNo'] + '排' : '') + (item['seatNo'] ? item['seatNo'] + '座' : '') }} </span>
+                         <span class="item-text" v-else-if="item.schType == '3'">{{item['tabNo'] ? item['tabNo'] : '' }} </span>
+                         <span class="item-text" v-else>{{ (item['tabNo'] ? item['tabNo'] : '') + (item['seatNo'] ? item['seatNo'] + '座' : '') }} </span>
+                      </span>
                     </div>
                     <div class="inner-item" style="width: 100%" v-if="item.volunteerPhone">
                       <div style="width: 100%">
@@ -190,7 +201,14 @@
                   </div>
                 </div>
               </div>
-
+            </div>
+          </div>
+          <div id="stop4" class="call-mini">
+            <div class="code-content">
+              <div style="width: 100%;text-align: center"><img style="width: 2rem;" src="./image/call.png" /></div>
+              <div style="width: 100%;font-size: 0.5rem;text-align: center;">
+                应急电话
+              </div>
             </div>
           </div>
           <div style="height: 60px;"></div>
@@ -198,12 +216,9 @@
           <template #footer>
             <Tabbar/>
           </template>
-
     </ui-main>
     <Qrcode id="stop5"/>
-    <Call id="stop4" @click-z-index="clickCallShow"/>
-    <div v-if="hh>0"
-         :style="'position: relative;top: 0;bottom: 0;left: 0;right: 0;z-index:9999;background: transfer;height:'+hh+'px'"/>
+    <div v-if="hh>0" :style="'position: relative;top: 0;bottom: 0;left: 0;right: 0;z-index:9999;background: transfer;height:'+hh+'px'"/>
   </div>
 </template>
 
@@ -280,8 +295,11 @@ export default {
     },
   },
   created() {
-    this.shepherd()
+    //this.shepherd()
   },
+    mounted(){
+        this.shepherd()
+    },
   methods: {
 
     shepherd() {
@@ -442,5 +460,18 @@ body .shepherd-element {
 #stop11 {
   background: transparent !important;
 }
+
+  .call-mini{
+    position: fixed;
+    right: 2%;
+    bottom: 20%;
+    border-radius: 5px ;
+    background-color: #fff;
+    box-shadow: 0px 2px 9px 0px rgba(199, 0, 11, 0.16);
+    z-index: 4 !important;
+    padding: 0.4rem 0.3rem 0.4rem 0.3rem;
+    width: 3.757rem;
+    height: 3.75rem;
+  }
 
 </style>
