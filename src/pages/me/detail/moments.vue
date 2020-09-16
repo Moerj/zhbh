@@ -32,7 +32,7 @@
     <van-popup style="padding: 20px 5px" v-model="dialogShow"
                closeable round close-icon-position="top-right" close-icon="close"
                :style="{ width: '85%',height: '80%' }" get-container="body" >
-      <div style="height: 7%;text-align: center">图片预览</div>
+      <div style="height: 7%;text-align: center">大会精彩瞬间</div>
       <div style="height: 93%;overflow-y: scroll;">
         <img style="width: 100%" :src="this.imgUrl" alt="">
       </div>
@@ -69,15 +69,15 @@ export default {
 
   },
   methods: {
-      toImage() {
-          html2canvas(document.getElementById('shareImg')).then(canvas => {     //imageWrapper转换图片的dom
-              let dataURL = canvas.toDataURL("image/png");
-              this.imgUrl = dataURL;
-              if (this.imgUrl!=""){
-                  this.dialogShow=true
-              }
-          });
-      },
+    toImage() {
+        html2canvas(document.getElementById('shareImg')).then(canvas => {     //imageWrapper转换图片的dom
+            let dataURL = canvas.toDataURL("image/png");
+            this.imgUrl = dataURL;
+            if (this.imgUrl!=""){
+                this.dialogShow=true
+            }
+        });
+    },
     getMomentList() {
       this.$loading.open()
       this.$http.get(`/guest/meet/momentlist`).then(res => {
@@ -90,7 +90,6 @@ export default {
                 name: item.title,
             })
           });
-          console.log(this.titleList)
           this.onClick({index: 0,})
         }
       });
