@@ -5,7 +5,7 @@
         margin-top: 10px;
     }
     .form-item {
-
+        height: 46px;
         display: flex;
         align-items: center;
         font-size: 1rem;
@@ -130,22 +130,28 @@
         height:120px;
     }
     .btn_box{
-        background: linear-gradient(180deg,#e6edfb, #f9fafd);
-        /*border: 2px solid;*/
-        border-image: linear-gradient(180deg, #dde5f3, #eceffb 2%, #f7f8fc 98%) 2 2;
-        border-radius: 10px;
-        box-shadow: 0px 0px 16px 0px rgba(254,254,255,0.3);
-        overflow: hidden;
-        margin-top:40px;
-    }
-    .login-btn{
-        flex:1;
+        /*background: linear-gradient(180deg,#e6edfb, #f9fafd);*/
+        /*border-image: linear-gradient(180deg, #dde5f3, #eceffb 2%, #f7f8fc 98%) 2 2;*/
+        /*border-radius: 10px;*/
+        /*box-shadow: 0px 0px 16px 0px rgba(254,254,255,0.3);*/
+        /*overflow: hidden;*/
+        /*margin-top:40px;*/
         display: flex;
+        flex: 1;
+        padding: 4px;
+        background: transparent;
         align-items: center;
         justify-content: center;
-        padding: 4px;
-
     }
+    /*.login-btn{*/
+        /*flex:1;*/
+        /*display: flex;*/
+        /*align-items: center;*/
+        /*justify-content: center;*/
+        /*background: transparent;*/
+        /*border-radius: 10px;*/
+        /*overflow: hidden;*/
+    /*}*/
 </style>
 <template>
     <ui-main>
@@ -179,8 +185,9 @@
                         <input v-model="loginForm.joinCode" type="password" placeholder="输入邀请码">
                         <i class="line"></i>
                     </div>
-                    <div class="form-item btn_box">
-                        <div @click="login(loginForm)" class="login-btn">登录 <img :src="loginBtnIcon" style="margin-left: 6px;"/></div>
+                    <div class="form-item flex row-center col-center" style="margin-top:40px;">
+                        <div @click="login(loginForm)" class="flex col-center">登录 <img :src="loginBtnIcon" style=" padding:8px 0;margin-left: 6px;"/></div>
+
                     </div>
 
                 </div>
