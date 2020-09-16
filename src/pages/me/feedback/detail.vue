@@ -32,7 +32,7 @@
                     </van-uploader>
                 </div>
                 <div class="flex optionBar" style="height: 65px;border-top: 1px solid #ccc">
-                    <div class="submitBtn" @click="onSubmit()">
+                    <div class="submitBtn" :style="{background: izCanSubmit?'#c7000b':'#ccc'}"  @click="onSubmit()">
                         确认提交
                     </div>
                 </div>
@@ -56,6 +56,23 @@
                 feedContent:'',
                 fileList:[],
                 user:JSON.parse(localStorage.user),
+                izCanSubmit:false
+            }
+        },
+        watch:{
+            feedContent(newVal){
+                if(newVal===''){
+                    this.izCanSubmit = false
+                }else{
+                    this.izCanSubmit = true
+                }
+            },
+            fileList(newVal){
+                if(newVal.length&&newVal.length>0){
+                    this.izCanSubmit = true
+                }else{
+                    this.izCanSubmit = false
+                }
             }
         },
         methods:{
@@ -93,21 +110,25 @@
                     imgs:imgsUrl==''?null:imgsUrl,
                     userId:this.user.id
                 }
-                memberAPI.submitFeedback(params).then(res =>{
-                    if (res.errorCode==="00000"){
-                        this.$toast('提交成功');
-                        this.navigateEvent.$emit('gobackRersher',1)
-                        setTimeout(()=>{
-                            this.back()
-                        },2000)
+                if(this.izCanSubmit){
+                    memberAPI.submitFeedback(params).then(res =>{
+                        if (res.errorCode==="00000"){
+                            this.$toast('提交成功');
+                            this.navigateEvent.$emit('gobackRersher',1)
+                            setTimeout(()=>{
+                                this.back()
+                            },2000)
 
-                    }else{
-                        this.$toast(res.message);
-                    }
+                        }else{
+                            this.$toast(res.message);
+                        }
 
-                }).catch(()=>{
-                    this.$toast('提交失败');
-                })
+                    }).catch(()=>{
+                        this.$toast('提交失败');
+                    })
+                }else{
+                    this.$toast('请您先填写反馈建议内容或图片后再提交')
+                }
             },
             openLightbox(index = 0) {
                 // 画廊组件开启,index可指定初始图片
@@ -199,7 +220,7 @@
     color: #ffffff;
     width: 84px;
     height: 36px;
-    background: #c7000b;
+    background: #eeeeee;
     border-radius: 6px;
 }
 .optionBar{
