@@ -71,17 +71,12 @@
                 user:JSON.parse(localStorage.user)
             }
         },
-        watch:{
-
-        },
-        created(){
-          // console.log('121212121')
-        },
         mounted(){
-            // console.log('222222222222222')
             this.feedbackList = []
-            // console.log(this.feedbackList.length)
             this.getFeedList();
+            this.navigateEvent.$on('gobackRersher', function(data){
+                this.getFeedList();
+            }.bind(this));
         },
         methods:{
             toFeedback(){
@@ -90,17 +85,13 @@
             getFeedList(){
                 memberAPI.getFeedbackList({userId:this.user.id}).then(res =>{
                     this.$refs.pull.endSuccess();
-                    // console.log(res)
                     res.data.map(item =>{
-                        // console.log(item.optionImgs.split(','))
-                        // if(item.optionImgs.lengt)
                         if(item.optionImgs&&item.optionImgs!==''){
                             item.optionImages = item.optionImgs.split(',')
                         }else{
                             item.optionImages = []
                         }
                     })
-                    console.log(this.feedbackList)
                     this.feedbackList = res.data
                 })
             },

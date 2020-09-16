@@ -28,8 +28,7 @@
                     <!--&lt;!&ndash; 类似弹出层的调用方式 &ndash;&gt;-->
                     <!--<ui-lightbox :items="fileList" ref="lightbox"></ui-lightbox>-->
                     <!-- vant的upload组件 -->
-                    <van-uploader :after-read="handleUpload" accept="image/*" style="margin-bottom: 0" v-if="fileList.length<5">
-                        <!--　<img src="../card1.png" style="width: 100%;height: 100%;">-->
+                    <van-uploader :after-read="handleUpload" accept="image/*" style="margin-bottom: 0" :max-size="10 * 1024 * 1024" @oversize="onOversize" :max-count="5" v-if="fileList.length<5">
                     </van-uploader>
                 </div>
                 <div class="flex optionBar" style="height: 65px;border-top: 1px solid #ccc">
@@ -54,25 +53,9 @@
         mixins:[mixin],
         data(){
             return{
-                // feedContent:'相当麻烦，要排很长时间的队，希望各位领导能增派船源，让景区减少拥堵排队，希望景区发展越来越好，游客也能享受到更好的服务。',
                 feedContent:'',
                 fileList:[],
-                uploadImages:[
-                    'http://192.168.1.114:8080/base/uploaders/view/w4/173fd040-aed2-4739-a7e9-4f4a9a46a19b39013234.jpg',
-                    'http://192.168.1.114:8080/base/uploaders/view/w4/173fd040-aed2-4739-a7e9-4f4a9a46a19b39013234.jpg'
-                ],
                 user:JSON.parse(localStorage.user),
-                imgList: [
-                    { src: 'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=4129624088,1274782233&fm=26&gp=0.jpg', },
-                    { src: 'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=927747843,353555255&fm=26&gp=0.jpg', },
-                    { src: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3755841181,3217444165&fm=26&gp=0.jpg', },
-                    { src: 'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2754825801,773274927&fm=26&gp=0.jpg', },
-                    { src: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2761763315,1123663049&fm=26&gp=0.jpg', },
-                    { src: 'http://wx3.sinaimg.cn/large/006NJCErly1g3ofda622gj30j60ssq5x.jpg', },
-                    { src: 'http://wx2.sinaimg.cn/large/006NJCErly1g3ojogk8qnj30j60uugpj.jpg', },
-                    { src: 'http://wx2.sinaimg.cn/large/006WCzeoly1g3odc8iy6jj31400qo445.jpg', },
-                    { src: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1587976714688&di=6d8ec177c35e201ae5d5e0d5199632a1&imgtype=0&src=http%3A%2F%2Fi0.hdslb.com%2Fbfs%2Farticle%2Fb597965516a3068eb3141cfc97010d6dccf985da.jpg', },
-                ]
             }
         },
         methods:{
@@ -98,7 +81,7 @@
                     if(this.fileList.length==1){
                         imgsUrl = this.fileList[0]
                     }else{
-                        // imgsUrl = this.fileList.join(',')
+                        let temArr=[]
                         this.fileList.map(key =>{
                             temArr.push(key)
                         })
@@ -113,6 +96,7 @@
                 memberAPI.submitFeedback(params).then(res =>{
                     if (res.errorCode==="00000"){
                         this.$toast('提交成功');
+                        this.navigateEvent.$emit('gobackRersher',1)
                         setTimeout(()=>{
                             this.back()
                         },2000)
@@ -135,7 +119,10 @@
                         images: imgList,
                         startPosition: index
                     });
-            }
+            },
+            onOversize(file) {
+                this.$toast('文件大小不能超过10M');
+            },
         }
     }
 </script>
