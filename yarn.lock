@@ -9144,10 +9144,10 @@ punycode@^2.1.0, punycode@^2.1.1:
   resolved "https://registry.npmjs.org/punycode/-/punycode-2.1.1.tgz#b58b010ac40c22c5657616c8d2c2c02c7bf479ec"
   integrity sha512-XRsRjdf+j5ml+y/6GKHPZbrF/8p2Yga0JPtdqTIY2Xe5ohJPD9saDJJLPvp9+NSBprVvevdXZybnj2cv8OEd0A==
 
-q-tabs-bar@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.npm.taobao.org/q-tabs-bar/download/q-tabs-bar-1.0.2.tgz#66ab25884797a1521322567fc2477727e9259040"
-  integrity sha1-ZqsliEeXoVITIlZ/wkd3J+klkEA=
+q-tabs-bar@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.npm.taobao.org/q-tabs-bar/download/q-tabs-bar-1.0.3.tgz#2e46522c2965fe70ce9a30e294a60267aabce403"
+  integrity sha1-LkZSLCll/nDOmjDilKYCZ6q85AM=
   dependencies:
     element-ui "^2.13.2"
     vue "^2.5.11"

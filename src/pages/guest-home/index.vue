@@ -205,7 +205,7 @@
                     <div class="inner-item" style="width: 100%" v-if="item.volunteerPhone">
                       <div style="width: 100%">
                         <span class="item-title">志愿者电话：</span>
-                        <span :class=" item['activeState'] == 1 ? item-text-phone : 'item-text'">{{ item.volunteerPhone }}</span>
+                        <span :class=" item['activeState'] == 1 ? 'item-text-phone' : 'item-text'">{{ item.volunteerPhone }}</span>
                       </div>
                     </div>
                   </div>

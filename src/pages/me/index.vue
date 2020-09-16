@@ -211,6 +211,6 @@ export default {
     line-height: 22px;
     margin-left:8px;
   }
-  margin-bottom: 15px;
+  margin-bottom: 35px;
 }
 </style>
