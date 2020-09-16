@@ -404,7 +404,7 @@
 
   .card-content {
     position: relative;
-    padding-bottom: 10px;
+    padding-bottom: 24px;
   }
 }
 
@@ -415,13 +415,6 @@
   .journey-card:last-child {
     .card-content::before {
       height: calc(100% - 30px);
-    }
-    .shade::before {
-      content: "";
-      width: 36px;
-      height: 18px;
-      display: block;
-      background: linear-gradient(45deg, black, transparent) 0 50%/ 5px 5px no-repeat;
     }
   }
 
@@ -477,7 +470,7 @@
     bottom: auto;
     left: 3px;
     width: 1px;
-    height: 95%;
+    height: 105%;
     border-left: 3px dashed #C7000B;
     z-index: 2;
   }
@@ -545,7 +538,7 @@
     bottom: auto;
     left: 3px;
     width: 1px;
-    height: 95%;
+    height: 105%;
     border-left: 3px dashed #C7000B;
     z-index: 2;
   }
@@ -611,7 +604,7 @@
     bottom: auto;
     left: 3px;
     width: 1px;
-    height: 95%;
+    height: 105%;
     border-left: 3px dashed #B7BACC;
     z-index: 2;
   }

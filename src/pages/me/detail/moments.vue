@@ -98,7 +98,7 @@ export default {
     },
     onClick(name) {
       this.activeIndex = name.index
-      let dataItem = JSON.parse( this.dataList[name]['itemObj'] )
+      let dataItem = JSON.parse( this.dataList[name.index]['itemObj'] )
       this.arrayKeySort(dataItem, 'itemSort')
       this.dataItem = dataItem
     },

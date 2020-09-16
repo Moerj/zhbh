@@ -161,7 +161,7 @@
                   </div>
                   <!--圆图片 end-->
                   <!--箭头 start-->
-                  <!--<img v-if="index==journeyList.length-1" class="absolute" style="top:54%;left: 7px;width: 10px" src="./image/time_line.png" alt=""/>-->
+                  <img v-if="index==journeyList.length-1" class="absolute" style="top:54%;left: 7px;width: 10px" src="./image/time_line.png" alt=""/>
                   <div v-if="index==journeyList.length-1" class="absolute shade" style="width: 7px;height: 50%;background: #ffffff;bottom: -10px;z-index: 3"/>
                   <!--箭头 end-->
                   <div class="card-inner-content">
