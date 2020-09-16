@@ -1,6 +1,6 @@
 <template>
   <ui-main>
-    <div class="content">
+    <div class="content" id="shareImg">
       <div class="title">
         <tabs-bar :tabList="titleList" :tabIndex="activeIndex" @changeTab="onClick">
           <!--<template slot="title" slot-scope="tab">-->
@@ -27,12 +27,24 @@
         </tabs-bar>
       </div>
     </div>
+    <van-popup style="padding: 20px 5px" v-model="dialogShow"
+               closeable round close-icon-position="top-right" close-icon="close"
+               :style="{ width: '85%',height: '80%' }" get-container="body" >
+      <div style="height: 7%;text-align: center">图片预览</div>
+      <div style="height: 93%;overflow-y: scroll;">
+        <img style="width: 100%" :src="this.imgUrl" alt="">
+      </div>
+    </van-popup>
+    <div class="fixed img-show-btn" @click="toImage()">
+      阅览
+    </div>
   </ui-main>
 </template>
 
 <script>
 import TabsBar from '@/components/TabsBar'
 import TimeLine from './timeLine'
+import html2canvas from "html2canvas"
 export default {
   name: "moments",
   components: {
@@ -46,12 +58,25 @@ export default {
       dataList: [],
       titleList: [],
       width: 0,
+        dataItem:[],
+        dialogShow:false,
+        imgUrl:''
     }
   },
   created() {
     this.getMomentList()
+
   },
   methods: {
+      toImage() {
+          html2canvas(document.getElementById('shareImg')).then(canvas => {     //imageWrapper转换图片的dom
+              let dataURL = canvas.toDataURL("image/png");
+              this.imgUrl = dataURL;
+              if (this.imgUrl!=""){
+                  this.dialogShow=true
+              }
+          });
+      },
     getMomentList() {
       this.$loading.open()
       this.$http.get(`/guest/meet/momentlist`).then(res => {
@@ -161,6 +186,19 @@ export default {
     }
   }
 }
+.img-show-btn{
+  bottom: 10%;
+  right: 2%;
+  background: white;
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  text-align: center;
+  line-height: 45px;
+  box-shadow: 0 1px 5px 0px gray;
+  font-size: 12px
+}
+
 /deep/.van-tabs__nav {
   background: transparent;
 }
