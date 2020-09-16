@@ -19,7 +19,7 @@
               </div>
             </div>
             <div class="wonderful-box" style="margin: 0 10px">
-              <TimeLine :activity="dataItem"></TimeLine>
+              <!--<TimeLine :activity="dataItem"></TimeLine>-->
             </div>
             <div class="qr-code-box">
               <img src="./tip.png" alt="tip">
@@ -70,9 +70,11 @@ export default {
   },
   methods: {
     toImage() {
-        console.log(11111,document.getElementById('shareImg'))
+        console.log(11111)
+        let canvas = html2canvas(document.getElementById('shareImg'));
+        console.log(canvas)
         html2canvas(document.getElementById('shareImg')).then(canvas => {     //imageWrapper转换图片的dom
-            console.log(11111)
+            console.log(22222)
             let dataURL = canvas.toDataURL("image/png");
             this.imgUrl = dataURL;
             console.log('-=-=-=',this.imgUrl=="")
