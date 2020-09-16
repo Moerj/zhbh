@@ -176,7 +176,7 @@
 
     }
     .couponItem{
-        z-index: 9999;
+        /*z-index: 9999;*/
         width: 100%;
         max-width: 370px;
         margin: 0 auto;
