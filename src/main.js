@@ -21,6 +21,10 @@ import VueShepherd from 'vue-shepherd'
 import 'shepherd.js/dist/css/shepherd.css'
 Vue.use(VueShepherd)
 
+import QTabsBar from 'q-tabs-bar'
+Vue.use(QTabsBar)
+//https://www.npmjs.com/package/q-tabs-bar
+
 const originalPush = VueRouter.prototype.push
 VueRouter.prototype.push = function push (location) {
   return originalPush.call(this, location).catch(err => err)

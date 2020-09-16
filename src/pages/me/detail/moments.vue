@@ -2,10 +2,12 @@
   <ui-main>
     <div class="content" id="shareImg">
       <div class="title">
-        <tabs-bar :tabList="titleList" :tabIndex="activeIndex" @changeTab="onClick">
-          <!--<template slot="title" slot-scope="tab">-->
-            <!--<div>{{tab.data}}</div>-->
-          <!--</template>-->
+        <q-tabs-bar
+          :bottomLineStyle="'background: transparent;'"
+          :middleLineStyle="'background: transparent;'"
+          :tabList="titleList"
+          :tabIndex="activeIndex"
+          @changeTab="onClick">
           <div slot="content">
             <div class="logo">
               <img :src="logo" alt="logo">
@@ -24,7 +26,7 @@
               <img src="./qr-code.png" alt="QRCode">
             </div>
           </div>
-        </tabs-bar>
+        </q-tabs-bar>
       </div>
     </div>
     <van-popup style="padding: 20px 5px" v-model="dialogShow"
@@ -42,13 +44,12 @@
 </template>
 
 <script>
-import TabsBar from '@/components/TabsBar'
 import TimeLine from './timeLine'
 import html2canvas from "html2canvas"
 export default {
   name: "moments",
   components: {
-    TimeLine,TabsBar
+    TimeLine
   },
   data(){
     return {
