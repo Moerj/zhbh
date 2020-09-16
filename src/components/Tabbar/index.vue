@@ -70,4 +70,14 @@ export default {
 .van-tabbar {
   z-index: 100;
 }
+/deep/.van-tabbar-item__icon img {
+   height: 31px;
+   width: 33px;
+}
+/deep/.van-tabbar-item__icon {
+   margin-bottom:0;
+}
+/deep/.van-tabbar-item {
+  font-size: 12px;
+}
 </style>
