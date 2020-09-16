@@ -2,7 +2,7 @@
     @import '~@/scss/variables.scss';
     $color:#26a2ff;
     .form{
-        margin-top: 10px;
+        margin: 46px auto 0;
     }
     .form-item {
         height: 46px;
@@ -48,7 +48,6 @@
             transform: scale3d(0, 1, 1);
         }
     }
-
     .bg {
         z-index: 1;
         width: 100%;
@@ -114,12 +113,16 @@
         }
     }
     .footer{
-        //position: absolute;
-        //bottom: 20px;
+        position: absolute;
+        bottom: 20px;
+        width: 100%;
         display: flex;
         flex-direction: column;
         align-items: center;
+        justify-content: center;
+        padding: 10px 10px 0;
         .unit{
+            text-align: center;
             font-size: 12px;
             color: #fff;
             line-height: 20px;
@@ -157,23 +160,14 @@
     <ui-main>
         <div class="flex flex-column h-100">
 
-            <div class="flex w-100 row-center flex-column h-100" style="z-index: 999; min-height: 750px; position: relative;">
+            <div class="flex flex-column" style="z-index: 999; min-height: 667px;height: 100%; position: relative;">
                 <div class="header flex row-center w-100">
-                    <!--<div class="logo"></div>-->
-                    <van-image width="160" :src="logo" fit="cover"/>
+                    <van-image width="230" :src="logo" fit="cover" style="margin: 0 auto"/>
                 </div>
-                <div class="desc">
-                    <div class="flex col-center">
-                        <div class="tip-lines"></div>
-                        <div class="tips">旅游新使命  健康新生活</div>
-                        <div class="tip-lines"></div>
-                    </div>
-                </div>
-                <div class="meetting flex flex-column col-center">
-                    <van-image width="120" :src="fifthZC" fit="cover"/>
-                    <van-image width="300" :src="meeting" fit="cover"/>
-                    <van-image width="270" :src="fifth" fit="cover"/>
-                </div>
+                <!--<div class="meetting flex flex-column col-center" style="max-height:146px;max-width: 375px;">-->
+                    <!--<van-image width="375" :src="fifthZC" fit="cover"/>-->
+                <!--</div>-->
+                <ui-img :src="title_15" title="" style="width:100%;height:146px;max-width: 375px;margin: 0 auto;"></ui-img>
                 <div class="form">
                     <div class="form-item">
                         <van-image width="14" :src="phoneIcon" fit="cover"/>
@@ -186,7 +180,7 @@
                         <i class="line"></i>
                     </div>
                     <div class="form-item flex row-center col-center" style="margin-top:40px;">
-                        <div @click="login(loginForm)" class="flex col-center">登录 <img :src="loginBtnIcon" style=" padding:8px 0;margin-left: 6px;"/></div>
+                        <div @click="login(loginForm)" class="flex col-center">登录 <img :src="loginBtnIcon" style="flex:1;width:100%;padding:8px 0;margin-left: 6px;"/></div>
 
                     </div>
 
@@ -207,7 +201,8 @@
     </ui-main>
 </template>
 <script>
-import logo from '../../static/images/ logo-partner.png'
+import logo from '../../static/images/logo.png'
+import title_15 from '../../static/images/title-15th.png'
 import newLife from '../../static/images/newLife.png'
 import meeting from '../../static/images/commity.png'
 import fifth from '../../static/images/Guizhou15th.png'
@@ -223,6 +218,7 @@ import pwdIcon from '../../static/images/ icon-gzzh.png'
           phoneNo: "",
         },
         logo,
+        title_15,
         newLife,
         meeting,
         fifth,
