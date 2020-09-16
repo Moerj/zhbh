@@ -186,7 +186,7 @@
                 </div>
                 <div class="block"></div>
                 <div class="footer">
-                    <div class="unit">主办单位:中共贵州省委、贵州省人民政府</div>
+                    <div class="unit">主办单位：中共贵州省委、贵州省人民政府</div>
                     <div class="unit">承办单位:中共六盘水市委、六盘水市人民政府、贵州省文化旅游厅</div>
                 </div>
             </div>

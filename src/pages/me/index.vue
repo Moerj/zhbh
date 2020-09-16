@@ -131,7 +131,11 @@ export default {
 }
 
 .card-cont {
-  padding: 1rem;
+  padding: 5px 15px 5px 15px;
+}
+
+.card-cont:last-child {
+  margin-bottom: 5px;
 }
 
 .card-inner {

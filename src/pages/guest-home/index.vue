@@ -183,8 +183,8 @@
                       <img src="./image/overSign.png" alt="已结束" v-if="item.isSign == 0 && item.activeState == 2"/>
                       <span v-if="item.isSign == 1">
                        <img src="./image/signedin.png" alt="已签到" v-if="item.schState == 1"/>
-                       <img src="./image/nosignin.png" alt="未签到" v-else-if="item['activeState'] != 0"/>
-                    </span>
+                       <img src="./image/nosign.png" alt="未签到" v-else-if="item['activeState'] != 0"/>
+                      </span>
                     </div>
                     <div class="inner-title ellipsis-1">{{ item.title }}</div>
                     <div class="inner-item flex row-between">
