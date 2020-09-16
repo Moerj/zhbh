@@ -18,8 +18,8 @@
                 <img src="./sign-in.png" alt="signIn">
               </div>
             </div>
-            <div class="wonderful-box">
-              <TimeLine :activity="dataItem"></TimeLine>
+            <div class="wonderful-box" style="margin: 0 10px">
+              <!--<TimeLine :activity="dataItem"></TimeLine>-->
             </div>
             <div class="qr-code-box">
               <img src="./tip.png" alt="tip">
@@ -70,9 +70,12 @@ export default {
   },
   methods: {
     toImage() {
+        console.log(11111,document.getElementById('shareImg'))
         html2canvas(document.getElementById('shareImg')).then(canvas => {     //imageWrapper转换图片的dom
+            console.log(11111)
             let dataURL = canvas.toDataURL("image/png");
             this.imgUrl = dataURL;
+            console.log('-=-=-=',this.imgUrl=="")
             if (this.imgUrl!=""){
                 this.dialogShow=true
             }
@@ -117,11 +120,11 @@ export default {
 .content {
   width: 100%;
   min-height: 100%;
-  padding: 1rem;
+  padding: 1rem 0;
   background: url("./bj.png") no-repeat;
   background-size: 100% 100%;
   .title {
-    margin-top: 40px;
+    margin: 40px 10px 0 10px;
     .item {
       width: 100%;
       text-align: center;
@@ -144,8 +147,8 @@ export default {
     margin-top: 14px;
     position: relative;
     & > img {
-      width: 364px;
-      height: 256px;
+      width: 100%;
+      max-height: 230px;
     }
     .sign-in {
       position: absolute;
@@ -187,16 +190,17 @@ export default {
   }
 }
 .img-show-btn{
-  bottom: 10%;
+  bottom: 15%;
   right: 2%;
-  background: white;
   border-radius: 50%;
   width: 45px;
   height: 45px;
   text-align: center;
   line-height: 45px;
-  box-shadow: 0 1px 5px 0px gray;
-  font-size: 12px
+  font-size: 12px;
+  color: white;
+  background: url("./share-btn.png") no-repeat;
+  background-size: 100% 100%;
 }
 
 /deep/.van-tabs__nav {

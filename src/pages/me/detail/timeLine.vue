@@ -87,21 +87,21 @@ export default {
             }
           }
           .dot{
-            height: 25px;
+            height: 23px;
             padding-left: 43px;
             font-size: 11px;
             color: #ffffff;
-            line-height: 25px;
+            line-height: 23px;
             background: url("part-title-bg.png") no-repeat;
-            background-size: 299px 25px;
+            background-size: 100% 23px;
           }
           .item{
             flex:1;
             transform: translateX(9px);
-            padding-left: 20px;
+            padding-left: 13px;
             padding-top: 10px;
             img {
-              width: 270px;
+              width: 100%;
               height: 162px;
             }
           }
