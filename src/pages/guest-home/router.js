@@ -33,6 +33,10 @@ export default [
         path: 'huodong',
         name: "活动",
         component: () => import('./detail/huodong.vue'),
+      },  {
+        path: 'notice',
+        name: "活动",
+        component: () => import('./detail/notice.vue'),
       },
     ]
   },{

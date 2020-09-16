@@ -363,7 +363,7 @@ export default {
     },
     toNotic() {
       this.$router.push({
-        path: '/notice/',
+        path: '/guest-home/notice/',
       });
     },
     getHotal() {
@@ -482,7 +482,6 @@ export default {
       this.isShowCode = false;
     },
     optionCoupon(){
-        console.log('optionCoupon>>>>>>>11')
         this.$router.push({path:'/me/coupons'})
     },
     showMapHandle() {

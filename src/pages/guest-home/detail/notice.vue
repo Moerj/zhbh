@@ -3,7 +3,7 @@
     <div class="notice-container">
       <van-collapse v-model="activeName" accordion v-if="noticeData">
         <template v-for="(item,index) in noticeData">
-          <van-collapse-item :title="item.title"   :key="index">
+          <van-collapse-item :title="item.title"   :key="notice">
             <p v-html="item.content"></p>
           </van-collapse-item>
         </template>
