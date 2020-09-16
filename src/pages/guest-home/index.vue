@@ -17,7 +17,7 @@
             </div>
             <div class="notic-all" @click="toNotic(tabCurrent)">全部<img src="./image/notice.png" alt=""></div>
           </div>
-          <van-notice-bar background="#FFFFFF"  speed="30" color="#666666" left-icon="volume-o" :scrollable="false">
+          <van-notice-bar background="#FFFFFF" color="#666666" left-icon="volume-o" :scrollable="false">
             <van-swipe vertical class="notice-swipe" :autoplay="3000" :show-indicators="false">
               <van-swipe-item v-for="notic in notices">{{ notic.title }}</van-swipe-item>
             </van-swipe>
