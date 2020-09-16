@@ -1,6 +1,7 @@
 <template>
     <ui-main>
         <div class="coupons-rule-container">
+            <ui-loading v-if="showLoading" title="领取中..." background="rgba(222, 230, 247, 0.8)" style="height: 100vh;width: 100%"></ui-loading>
             <div class="content">
                 <div class="bg-top">
                     <div class="bg-icon rulesTag" @click="toRule">
@@ -63,7 +64,6 @@
 
                     </div>
                     <div class="bg-icon left-bottom-l">
-                        <!--<img class="left-bottom-1" src="./images/bgIcon-bottom-1.png" alt="">-->
                     </div>
                     <div class="bg-icon left-bottom-r"></div>
                 </div>
@@ -83,7 +83,8 @@
                 loading:false,
                 finished:false,
                 reloading:false,
-                user:JSON.parse(localStorage.user)
+                user:JSON.parse(localStorage.user),
+                showLoading:false
             }
         },
         methods:{
@@ -112,13 +113,20 @@
                 })
             },
             handleCoupon(stockId){
+                // this.$loading.open()
+                this.showLoading = true
                 memberApi.useCoupon({stockId:stockId,userId:this.user.id}).then(res =>{
+                    // this.$loading.colse()
+                    this.showLoading = false
                     if (res.errorCode==="00000"){
                         this.getCouponList()
                         this.$toast('领取成功');
                     }else{
                         this.$toast(res.message);
                     }
+                }).catch(()=>{
+                    this.showLoading = false
+                    // this.$loading.colse()
                 })
             }
         }
