@@ -9,7 +9,7 @@
                 <div class="close-icon" v-if="isShowCode" @click.stop="closeCode">
                     <img src="./image/icons_Popup_close@2x.png" alt="关闭" />
                 </div>
-				<div v-if="isShowCode" style="position: relative;width: 100%;height: 32rem;">
+				<div v-if="isShowCode" style="position: relative;width: 100%;height: 33rem;">
 					<img style="position: absolute;z-index: 3;top: 0;left: 0;height: 14.9rem;" v-if="this.index==1" src="./image/codebg1.png" alt=""/>
 					<img style="position: absolute;z-index: 3;top: 0;left: 0;height: 14.9rem;" v-if="this.index==2" src="./image/codebg2.png" alt=""/>
 					<img style="position: absolute;z-index: 3;top: 0;left: 0;height: 14.9rem;" v-if="this.index==3" src="./image/codebg3.png" alt=""/>
