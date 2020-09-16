@@ -75,7 +75,6 @@
                 this.$router.push({path:'/me/feedback/submit'})
             },
             getFeedList(){
-              console.log("ces")
                 memberAPI.getFeedbackList({userId:this.user.id}).then(res =>{
                     console.log(res.data)
                     res.data.map(item =>{
