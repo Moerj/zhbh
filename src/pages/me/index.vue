@@ -190,6 +190,7 @@ export default {
   text-align: center;
   box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.08);
   background: url("./codebg.png");
+  background-color: #fff;
   background-size: cover;
   .big-code {
     position: relative;
@@ -210,5 +211,6 @@ export default {
     line-height: 22px;
     margin-left:8px;
   }
+  margin-bottom: 15px;
 }
 </style>

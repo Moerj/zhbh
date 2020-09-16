@@ -413,14 +413,15 @@
   padding-bottom: 15px;
 
   .journey-card:last-child {
-    .card-content::before {
-      height: calc(100% - 30px);
+    .card-inner::before {
+      height: calc(100% - 50px);
     }
   }
 
   .journey-card:last-child {
     .card-content {
       padding-bottom: 0rem;
+      margin-bottom: 1rem;
     }
   }
 }
