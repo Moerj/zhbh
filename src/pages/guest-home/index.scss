@@ -181,7 +181,6 @@
 
 .journey-card {
 
-
   .card-title {
     font-size: 20px;
     font-weight: 600;
@@ -416,6 +415,13 @@
   .journey-card:last-child {
     .card-content::before {
       height: calc(100% - 30px);
+    }
+    .shade::before {
+      content: "";
+      width: 36px;
+      height: 18px;
+      display: block;
+      background: linear-gradient(45deg, black, transparent) 0 50%/ 5px 5px no-repeat;
     }
   }
 
