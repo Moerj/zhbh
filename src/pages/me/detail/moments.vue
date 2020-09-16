@@ -19,7 +19,7 @@
               </div>
             </div>
             <div class="wonderful-box" style="margin: 0 10px">
-              <!--<TimeLine :activity="dataItem"></TimeLine>-->
+              <TimeLine :activity="dataItem"></TimeLine>
             </div>
             <div class="qr-code-box">
               <img src="./tip.png" alt="tip">
