@@ -2,53 +2,41 @@
   <ui-main>
     <div class="content">
       <div class="title">
-        <van-tabs
-            v-model="activeIndex"
-            line-width="0"
-            line-height="0"
-            :ellipsis=false
-            @click="onClick"
-        >
-          <van-tab v-for="(item, index) in titleList" :key="index">
-            <template #title>
-              <div class="item ellipsis-1">{{ item }}</div>
-            </template>
-          </van-tab>
-        </van-tabs>
-        <!--<div
-            v-for="(item, index) in titleList"
-            :key="index"
-            class="item"
-            :style="[index === activeIndex ? 'background: url(' + require('./yjjx-red.png') + ') no-repeat;' : 'background: url(' + require('./yjjx-white.png') + ') no-repeat;']"
-            @click="onClick(index)"
-        >{{ item }}</div>-->
-      </div>
-      <div class="logo">
-        <img :src="logo" alt="logo">
-      </div>
-      <div class="banner">
-        <img :src="banner" alt="banner">
-        <div class="sign-in">
-          <img src="./sign-in.png" alt="signIn">
-        </div>
-      </div>
-      <div class="wonderful-box">
-        <TimeLine :activity="dataItem"></TimeLine>
-      </div>
-      <div class="qr-code-box">
-        <img src="./tip.png" alt="tip">
-        <img src="./qr-code.png" alt="QRCode">
+        <tabs-bar :tabList="titleList" :tabIndex="activeIndex" @changeTab="onClick">
+          <!--<template slot="title" slot-scope="tab">-->
+            <!--<div>{{tab.data}}</div>-->
+          <!--</template>-->
+          <div slot="content">
+            <div class="logo">
+              <img :src="logo" alt="logo">
+            </div>
+            <div class="banner">
+              <img :src="banner" alt="banner">
+              <div class="sign-in">
+                <img src="./sign-in.png" alt="signIn">
+              </div>
+            </div>
+            <div class="wonderful-box">
+              <TimeLine :activity="dataItem"></TimeLine>
+            </div>
+            <div class="qr-code-box">
+              <img src="./tip.png" alt="tip">
+              <img src="./qr-code.png" alt="QRCode">
+            </div>
+          </div>
+        </tabs-bar>
       </div>
     </div>
   </ui-main>
 </template>
 
 <script>
+import TabsBar from '@/components/TabsBar'
 import TimeLine from './timeLine'
 export default {
   name: "moments",
   components: {
-    TimeLine
+    TimeLine,TabsBar
   },
   data(){
     return {
@@ -70,18 +58,21 @@ export default {
         const data = res.data
         if (data) {
           this.dataList = res.data
-          data.forEach(item => {
-            this.titleList.push(item.title)
-          })
-          this.onClick(0)
+          data.forEach((item,index) => {
+            this.titleList.push({
+                index: index,
+                name: item.title,
+            })
+          });
+          console.log(this.titleList)
+          this.onClick({index: 0,})
         }
-      })
+      });
       this.$loading.close()
     },
     onClick(name) {
-      this.activeIndex = name
+      this.activeIndex = name.index
       let dataItem = JSON.parse( this.dataList[name]['itemObj'] )
-      console.log(dataItem)
       this.arrayKeySort(dataItem, 'itemSort')
       this.dataItem = dataItem
     },
@@ -144,7 +135,7 @@ export default {
   }
   .wonderful-box {
     margin: 18px auto;
-    width: 324px;
+    /*width: 324px;*/
     height: 823px;
     background: url("./jchg-bg.png") no-repeat;
     background-size: 100% 100%;
