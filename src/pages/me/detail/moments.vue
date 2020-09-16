@@ -38,7 +38,7 @@
       </div>
     </van-popup>
     <div class="fixed img-show-btn" @click="toImage()">
-      阅览
+      分享
     </div>
   </ui-main>
 </template>
