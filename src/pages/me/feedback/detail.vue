@@ -17,6 +17,7 @@
                 <!--</div>-->
                 <div class="upload-img" style="padding:0 0 4px;height: 92px;align-items: flex-end">
                     <div class="img-box" v-for="(item,index) in fileList" :key="index" @click="checkView(fileList,index)">
+                        <img class="close-icon" src="./icon_delete.png" @click.stop="deleteImg(index)"/>
                         <img class="image" :src="item">
                     </div>
                     <!--<div class="flex flex-wrap">-->
@@ -144,11 +145,21 @@
             onOversize(file) {
                 this.$toast('文件大小不能超过10M');
             },
+            deleteImg(index){
+                this.fileList.splice(index,1)
+            }
         }
     }
 </script>
 
 <style scoped>
+.close-icon{
+    width:14px;
+    height: 14px;
+    position: absolute;
+    right: -4px;
+    top: -4px;
+}
 .subForm{
     margin-top: 10px;
     padding:10px 15px 0;
@@ -238,10 +249,11 @@
     flex-wrap: wrap;
 }
 .img-box{
+    position: relative;
     width: 54px;
     height: 54px;
     border-radius: 8px;
-    overflow: hidden;
+    /*overflow: hidden;*/
     margin-right: 10px;
     margin-bottom: 10px;
 }
