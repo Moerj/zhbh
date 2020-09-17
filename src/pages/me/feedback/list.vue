@@ -1,46 +1,50 @@
 <template>
-    <ui-main class="feed-container">
+    <ui-main>
 
-        <!--<Empty :textShow="false" :list="feedbackList"/>-->
-        <div class="empty w-100 flex row-center col-center" v-if="feedbackList.length==0" style="padding-top: 101px;">
-            <img :src="emptyIcon" width="173px" height="149px" alt="" fit="cover">
-        </div>
-        <ui-pull @load="getFeedList" v-model="feedbackList" ref="pull">
-            <div class="feed-box" v-if="feedbackList&&feedbackList.length>0">
-                <div class="feedItem" v-for="(item,index) in feedbackList" :key="index">
-                    <div class="f-item flex flex-column">
-                        <div class="f-head flex row-between">
-                            <div>反馈内容</div>
-                            <div>{{item.createTime}}</div>
-                        </div>
-                        <div class="f-content">
-                            <div class="content-me">
-                                <div class="text-content">
-                                    {{item.optionContent}}
-                                    <div class="img-content" v-if="item.optionImages.length">
-                                        <div class="flex">
-                                            <!--<van-uploader v-model="item.optionImages" multiple :max-count="5" />-->
-                                            <div class="cImg"  v-for="(cImg,cIndex) in item.optionImages" :key="cIndex"  @click="checkView(item.optionImages,cIndex)">
-                                                <img :src="cImg" width="54px" height="54px" alt="" fit="cover">
+        <div class="feed-container">
+            <!--<Empty :textShow="false" :list="feedbackList"/>-->
+            <div class="empty w-100 flex flex-column row-center col-center" v-if="feedbackList.length==0" style="padding-top: 101px;">
+                <img :src="emptyIcon" width="173px" height="149px" alt="" fit="cover">
+                <div class="empty-text">这里还没有内容</div>
+            </div>
+            <ui-pull @load="getFeedList" v-model="feedbackList" ref="pull" num.sync="1"
+                     :total="total">
+                <div class="feed-box" v-if="feedbackList&&feedbackList.length>0">
+                    <div class="feedItem" v-for="(item,index) in feedbackList" :key="index">
+                        <div class="f-item flex flex-column">
+                            <div class="f-head flex row-between">
+                                <div>反馈内容</div>
+                                <div>{{item.createTime}}</div>
+                            </div>
+                            <div class="f-content">
+                                <div class="content-me">
+                                    <div class="text-content">
+                                        {{item.optionContent}}
+                                        <div class="img-content" v-if="item.optionImages.length">
+                                            <div class="flex">
+                                                <!--<van-uploader v-model="item.optionImages" multiple :max-count="5" />-->
+                                                <div class="cImg"  v-for="(cImg,cIndex) in item.optionImages" :key="cIndex"  @click="checkView(item.optionImages,cIndex)">
+                                                    <img :src="cImg" width="54px" height="54px" alt="" fit="cover">
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="content-customer" v-if="item.replyName&&item.replyContent">
-                                    <div class="f-head flex row-between">
-                                        <div>{{item.replyName}}</div>
-                                        <div>{{item.replyDate}}</div>
-                                    </div>
-                                    <div class="text-content">
-                                        {{item.replyContent}}
+                                    <div class="content-customer" v-if="item.replyName&&item.replyContent">
+                                        <div class="f-head flex row-between">
+                                            <div>{{item.replyName}}</div>
+                                            <div>{{item.replyDate}}</div>
+                                        </div>
+                                        <div class="text-content">
+                                            {{item.replyContent}}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </ui-pull>
+            </ui-pull>
+        </div>
         <template #footer>
             <div class="feedbackBtn">
                 <van-button round @click="toFeedback">
@@ -67,8 +71,15 @@
                 emptyIcon: require("../empty_feedbak.png"),
                 feedbackList:[],
                 user:JSON.parse(localStorage.user),
-                total:0,
+                total:1
             }
+        },
+        mounted(){
+            this.feedbackList = []
+            this.getFeedList();
+            this.navigateEvent.$on('gobackRersher', function(data){
+                this.getFeedList();
+            }.bind(this));
         },
         methods:{
             toFeedback(){
@@ -76,7 +87,7 @@
             },
             getFeedList(){
                 memberAPI.getFeedbackList({userId:this.user.id}).then(res =>{
-                    console.log(res.data)
+                    this.$refs.pull.endSuccess();
                     res.data.map(item =>{
                         if(item.optionImgs&&item.optionImgs!==''){
                             item.optionImages = item.optionImgs.split(',')
@@ -85,9 +96,7 @@
                         }
                     })
                     this.feedbackList = res.data
-                    this.total = res.data.length
                 })
-              this.$refs.pull.endSuccess()
             },
             checkView(imgList,index){
                 ImagePreview(
@@ -171,5 +180,17 @@
                 color: #fff !important;
             }
         }
+    }
+    /deep/.mescroll-empty {
+        display: none;
+    }
+    .empty-text{
+        margin-top: 12px;
+        font-size: 16px;
+        font-family: PingFangSC, PingFangSC-Regular;
+        font-weight: 400;
+        text-align: left;
+        color: #9094a8;
+        line-height: 22px;
     }
 </style>

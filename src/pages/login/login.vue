@@ -123,7 +123,7 @@
         padding: 10px 10px 0;
         .unit{
             text-align: center;
-            font-size: 12px;
+            font-size: 10px;
             color: #fff;
             line-height: 20px;
             word-break: keep-all;
@@ -181,7 +181,7 @@
                         <i class="line"></i>
                     </div>
                     <div class="form-item flex row-center col-center" style="margin-top:40px;">
-                        <div @click="login(loginForm)" class="flex col-center">登录 <img :src="loginBtnIcon" style="flex:1;width:100%;padding:8px 0;margin-left: 6px;"/></div>
+                        <div @click="login(loginForm)" class="flex col-center">登录 <img :src="loginBtnIcon" style="margin-left: 6px; width: 16px; height: 16px;"/></div>
 
                     </div>
 
