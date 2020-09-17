@@ -429,7 +429,8 @@ export default {
             this.$refs.pull.endSuccess();
             const now = this.$dayjs(this.param.date).format('YYYY-MM-DD');
             const nowDysjs = this.$dayjs(now);
-            if ((!res.list || res.list.length === 0) && this.param.userId === this.user.id && this.schDates.indexOf(now) == -1) {
+            if ((!res.list || res.list.length === 0) && this.param.userId === this.user.id && this.schDates.indexOf(now) == -1 && sessionStorage.journeyHintCount) {
+                sessionStorage.removeItem("journeyHintCount")
               this.$dialog.confirm({
                 title: '行程跳转确认',
                 message: '您当日无行程,是否跳转到最近有行程的日期?',
@@ -440,10 +441,8 @@ export default {
                 let minMill = '';
                 let val = "";
                 for (let i=0; i<this.schDates.length; i++){
-                  console.log('date  '+this.schDates[i])
                   const date = this.$dayjs(this.schDates[i])
                   let diffMill = nowDysjs.diff(date);
-                  console.log(this.schDates[i])
                   if ((!minMill && minMill !== 0) || (minMill>diffMill && minMill>0)){
                     minMill = diffMill;
                     val = this.schDates[i]

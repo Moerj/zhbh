@@ -31,6 +31,7 @@ const actions = {
       sessionStorage.setItem("wxData",wxData)
   },
   checkOpenId({commit}, params) {
+      sessionStorage.setItem("journeyHintCount", 1)
     return authAPI.checkOpenId(params).then(
         (value) => {
           if (value.user && value.user != null) {
