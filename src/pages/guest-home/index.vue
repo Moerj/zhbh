@@ -31,7 +31,7 @@
           :num.sync="query.pageNo"
           :total="total"
           ref="pull">
-        <div class="hotel-container">
+        <div class="hotel-container" :style="hotel?'padding-top:22px':'padding-top:0'">
           <!--新版 我的酒店-->
           <div class="hotel-div" v-if="hotel">
             <!--left top-->
