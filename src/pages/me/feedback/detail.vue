@@ -12,23 +12,11 @@
                         show-word-limit
                 >
                 </van-field>
-                <!--<div class="flex" style="padding:0 0 4px;height: 92px;align-items: flex-end">-->
-                    <!--<van-uploader v-model="fileList"  multiple :max-size="500 * 1024" :max-count="5"/>-->
-                <!--</div>-->
                 <div class="upload-img" style="padding:0 0 4px;height: 92px;align-items: flex-end">
                     <div class="img-box" v-for="(item,index) in fileList" :key="index" @click="checkView(fileList,index)">
                         <img class="close-icon" src="./icon_delete.png" @click.stop="deleteImg(index)"/>
                         <img class="image" :src="item">
                     </div>
-                    <!--<div class="flex flex-wrap">-->
-                        <!--<div @click="openLightbox(i)" v-for="(item,i) in fileList" class="img-box">-->
-                            <!--<img class="image" :src="item.src" :preview="index">-->
-                        <!--</div>-->
-                    <!--</div>-->
-
-                    <!--&lt;!&ndash; 类似弹出层的调用方式 &ndash;&gt;-->
-                    <!--<ui-lightbox :items="fileList" ref="lightbox"></ui-lightbox>-->
-                    <!-- vant的upload组件 -->
                     <van-uploader :after-read="handleUpload" accept="image/*" style="margin-bottom: 0" :max-size="10 * 1024 * 1024" @oversize="onOversize" :max-count="5" v-if="fileList.length<5">
                     </van-uploader>
                 </div>
