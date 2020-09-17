@@ -1,7 +1,8 @@
 <template>
     <nut-drag
         @click.native="click"
-        :attract="true"
+        :attract="false"
+		:direction="'y'"
         class="my-code"
         :class="isShowCode ? 'big' : 'mini'" :style="'z-index:'+zIndex1 +'!important'">
         <div class="code-content">
@@ -123,7 +124,7 @@
 </script>
 <style lang="scss" scoped>
 	.my-code{
-		z-index: 4 !important;
+		z-index: 6 !important;
 	}
     // 二维码部分
     .my-code.mini {

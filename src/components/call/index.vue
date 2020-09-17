@@ -1,6 +1,9 @@
 <template>
     <div>
-        <nut-drag @click.native="click" :attract="true" class="my-call" :class="isShowCode ?'big':'mini'">
+        <nut-drag @click.native="click"
+                  :attract="false"
+                  :direction="'y'"
+         class="my-call" :class="isShowCode ?'big':'mini'">
             <div v-if="!isShowCode" class="code-content">
                 <div style="width: 100%;text-align: center"><img style="width: 2rem;" :src="callImg" /></div>
                 <div style="width: 100%;font-size: 0.5rem;text-align: center;">

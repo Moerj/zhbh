@@ -1,13 +1,12 @@
 <template>
     <nut-drag
             @click.native="click"
-            :attract="true"
+            :attract="false"
+            :direction="'y'"
             class="my-pupon"
             :class="isShowCode ? 'big' : 'mini'">
-
         <div class="code-content" >
             <div class="code">
-
                 <div v-if="isShowCode" style="width: 100%;height: 100%">
                     <div class="flex row-center">
                         <img class="puponImg" src="./pupon-50.png" alt="优惠券" @click.stop="openCoupons"/>

@@ -237,11 +237,9 @@
         </div>
       </van-overlay>
     </ui-main>
-    <Qrcode v-if="zIndex"/>
+    <Qrcode/>
     <Call @click-z-index="clickCallShow"/>
     <Pupon v-if="user.userRole==1" @click-popup="clickPuponShow"/>
-    <div v-if="hh>0"
-         :style="'position: relative;top: 0;bottom: 0;left: 0;right: 0;z-index:9999;background: transfer;height:'+hh+'px'"/>
   </div>
 </template>
 
@@ -293,7 +291,6 @@ export default {
       hotel: "",
       hotelName:"我",
       zIndex: true,
-      hh: 0,
       showPupon:false,
       systemIsAndroid:true
     };
