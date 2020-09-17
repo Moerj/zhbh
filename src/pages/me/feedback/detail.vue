@@ -240,14 +240,14 @@
     position: relative;
     width: 54px;
     height: 54px;
-    border-radius: 8px;
-    /*overflow: hidden;*/
     margin-right: 10px;
     margin-bottom: 10px;
 }
 .image{
     width: 100%;
     height: 100%;
+    border-radius: 8px;
+    overflow: hidden;
 }
 .img-item{
     width: 54px;
