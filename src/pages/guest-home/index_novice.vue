@@ -244,15 +244,15 @@ export default {
             "latitude":"26.548249",
             "activeState":"1",
             "chargerPhone":"",
-            "destination":"贵州省贵阳市白云区艳山红镇云峰大道",
+            "destination":"六盘水市盘州市凤鸣南路",
             "schTypeName":"车辆接送",
-            "title":"去国际会议中心",
+            "title":"去阳光大厦",
             "destinationLongitude":"106.625587",
             "schType":3,
             "scheduleDate":"2020-09-05",
             "startTime":"8:30",
             "endTime":"9:00",
-            "place":"贵州省贵阳市南明区永乐乡尖坡",
+            "place":"六盘水市盘州市盘州市胜境大道530号",
             "seatNo":2,
             "destinationLatitude":"26.667350",
             "longitude":"106.826088"},
@@ -272,12 +272,12 @@ export default {
       togPeople: ["张虎","李雪"],
       notices: ['您报名的卡丁车活动即将开始.','您的会议将在一小时后开始'],
       hotel: {
-        "title":"盘江雅阁大酒店",
+        "title":"盘州国际花园酒店",
         "hotelPhone":"18685199875",
         "roomNo":"506",
         "longitude":"106.545936",
         "latitude":"26.755675",
-        "address":"贵州省贵阳市白云区麦架镇马路河"
+        "address":"六盘水市盘州市凤鸣南路"
       },
       hh: 0,
     };

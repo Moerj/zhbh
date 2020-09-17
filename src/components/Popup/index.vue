@@ -20,7 +20,7 @@
             </div>
         </div>
         <div v-if="!isShowCode" style="font-size: 0.5rem;text-align: center;margin-top: 0.25rem">
-            消费券
+            文旅惠民券
         </div>
     </nut-drag>
 </template>
