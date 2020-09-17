@@ -28,7 +28,7 @@
                                     </div>
                                 </div>
                                 <div class="rContent">
-                                    第十五届贵州旅游产业发展大会所有参会嘉宾以及新闻媒体工作者，不包括志愿者和会务组工作人员。
+                                    第十五届贵州旅游产业发展大会所有参会嘉宾，不包括志愿者、会务组工作人员和新闻媒体工作者。
                                 </div>
                             </div>
                             <div class="ruleItem">
@@ -40,8 +40,12 @@
                                     </div>
                                 </div>
                                 <div class="rContent">
-                                    <div class="text-center time">2020年9月20日00:00-2020年9月22日23:59</div>
-                                    <div class="text-center">活动期间均可领取消费券</div>
+                                    <div class="text-center">惠民券领取时间：</div>
+                                    <div class="text-center time">2020年9月20日00:00至2020年9月22日23:59</div>
+                                    <!--<div class="text-center">活动期间均可领取消费券</div>-->
+                                    <div class="text-center">惠民券使用时间：</div>
+                                    <div class="text-center time">2020年9月20日00:00至2020年10月31日23:59
+                                    </div>
                                 </div>
                             </div>
                             <div class="ruleItem">
@@ -54,19 +58,19 @@
                                 </div>
                                 <div class="rContent">
                                     <div class="rule-use">
-                                        1.消费券为电子代金券，消费券 <p class="noticeText">有效期X天</p>，有效期内消费者可正常使用消费券，逾期自动作废。
+                                        1.有效期使用时间内嘉宾可正常使用惠民券，逾期自动作废。
                                     </div>
                                     <div class="rule-use">
-                                        2.消费券分为X种面值，分别为X元、X元、X元、X元、X元、X元/张。<p class="noticeText">可在指定合作单位实体店使用,也可以在一码游平台使用</p>。
+                                        2.惠民券分为3种面值，分别为10元、20元、20元，共计50元。
                                     </div>
                                     <div class="rule-use">
-                                        3.消费券一经使用，系统即将该券标记为“已使用”状态。<p class="noticeText">消费券不能兑换现金，不得转让</p>。
+                                        3.惠民券一经使用，系统即将该券标记为“已使用”状态。<p class="noticeText">惠民券不能兑换现金，不得转让</p>。
                                     </div>
                                     <div class="rule-use">
-                                        4.消费者若发生退货行为，其消费过程中使用的消费券依然标记为已使用，不能再次使用，退款金额为消费者实际支付金额，不含消费券扣减部分。
+                                        4.嘉宾若发生退货行为，其消费过程中使用的惠民券依然标记为“已使用”，不能再次使用;退款金额为消费者实际支付金额，不含惠民券扣减部分。
                                     </div>
                                     <div class="rule-use">
-                                        5.因系统故障、电力或通讯中断、网络异常等不可抗拒因素导致消费券无法使用时，请立即联系会务组工作人员。
+                                        5.因系统故障、电力或通讯中断、网络异常等不可抗拒因素导致惠民券无法使用时，请立即联系会务组工作人员。
                                     </div>
                                 </div>
                             </div>
@@ -74,28 +78,36 @@
                                 <div class="titleBtn">
                                     <div class="flex col-center">
                                         <img src="./images/Icon-titleLeft.png" alt="">
-                                        <div class="titleText">使用商铺</div>
+                                        <div class="titleText">适用范围</div>
                                         <img src="./images/Icon-titleLeft.png" alt="">
                                     </div>
                                 </div>
-                                <div class="table-box">
-                                    <table class="flex flex-column">
-                                        <tr class="flex header">
-                                            <!--<td><div class="content">-->
-                                                <!--序号-->
-                                            <!--</div><div class="right-line"></div></td>-->
-                                            <td>序号</td>
-                                            <td class="merchant">商户名</td>
-                                            <td>导航</td>
-                                        </tr>
-                                        <tr class="flex tcontent" :class="index%2===0?'deepBg':'lightBg'" v-for="(item,index) in 3" :key="index">
-                                            <td>0{{index+1}}</td>
-                                            <td class="merchant">商户名</td>
-                                            <td>
-                                                <img class="Icon_navigator" src="./images/navbar.png" alt="">
-                                            </td>
-                                        </tr>
-                                    </table>
+                                <!--<div class="table-box">-->
+                                    <!--<table class="flex flex-column">-->
+                                        <!--<tr class="flex header">-->
+                                            <!--&lt;!&ndash;<td><div class="content">&ndash;&gt;-->
+                                                <!--&lt;!&ndash;序号&ndash;&gt;-->
+                                            <!--&lt;!&ndash;</div><div class="right-line"></div></td>&ndash;&gt;-->
+                                            <!--<td>序号</td>-->
+                                            <!--<td class="merchant">商户名</td>-->
+                                            <!--<td>导航</td>-->
+                                        <!--</tr>-->
+                                        <!--<tr class="flex tcontent" :class="index%2===0?'deepBg':'lightBg'" v-for="(item,index) in 3" :key="index">-->
+                                            <!--<td>0{{index+1}}</td>-->
+                                            <!--<td class="merchant">商户名</td>-->
+                                            <!--<td @click="navigateToShop">-->
+                                                <!--<img class="Icon_navigator" src="./images/navbar.png" alt="">-->
+                                            <!--</td>-->
+                                        <!--</tr>-->
+                                    <!--</table>-->
+                                <!--</div>-->
+                                <div class="rContent">
+                                    <div class="rule-use">
+                                        1.一码游贵州平台“旅发专区”所有商品。
+                                    </div>
+                                    <div class="rule-use">
+                                        2.第十五届贵州旅游产业发展大会特色旅游商品博览馆、“多彩贵州”美食汇、盘州全域旅游集散中心参会商家展出的所有商品。
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -119,6 +131,11 @@
                         name:'name'
                     }
                 ]
+            }
+        },
+        methods:{
+            navigateToShop(){
+                window.location.href='http://api.map.baidu.com/geocoder?location=39.990912172420714,116.32715863448607&coord_type=gcj02&output=html&src=webapp.baidu.openAPIdemo'
             }
         }
     }
@@ -189,7 +206,7 @@
                 display: flex;
                 flex-direction: column;
                 min-height: 80px;
-                padding: 20px 25px;
+                padding: 20px 20px;
                 background: #ffffff;
                 border-radius: 11px;
                 box-shadow: 0px 2px 15px 0px #ff8c00, 0px 1px 18px 0px #ffd6a4 inset;
