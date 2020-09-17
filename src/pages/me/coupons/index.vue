@@ -269,8 +269,6 @@
                         /*height: 21px;*/
                         align-items: flex-end;
                         .type{
-                            /*width: 14px;*/
-                            /*height: 14px;*/
                             font-size: 16px;
                             font-family: SourceHanSansCN, SourceHanSansCN-Heavy;
                             font-weight: 800;
@@ -279,8 +277,6 @@
                             line-height: 24px;
                         }
                         .number{
-                            /*width: 31px;*/
-                            /*height: 21px;*/
                             font-size: 25px;
                             font-family: SourceHanSansCN, SourceHanSansCN-Heavy;
                             font-weight: 800;
@@ -290,8 +286,6 @@
                         }
                     }
                     .price-bottom{
-                        /*width: 62px;*/
-                        /*height: 17px;*/
                         font-size: 13px;
                         font-family: PingFangSC, PingFangSC-Regular;
                         font-weight: 400;
@@ -304,14 +298,11 @@
                     flex:1;
                     padding: 0px 10px;
                     align-items: center;
-                    /*background: #26a2ff;*/
-                    /*justify-content: center;*/
                     height: 100%;
                     .c-top{
                         height: 100%;
                         justify-content: space-between;
                         .name{
-                            /*width: 147px;*/
                             height: 31px;
                             font-size: 16px;
                             font-family: SourceHanSansCN, SourceHanSansCN-Heavy;
