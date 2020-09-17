@@ -8,7 +8,7 @@
                 </div>
             </div>
         </nut-drag>
-        <div class="my-call" :class="isShowCode ? 'big' : 'mini'" style="z-index: 111;">
+        <div class="my-call" :class="isShowCode ? 'big' : 'mini hidden'">
             <div class="code-content" >
                 <div class="code" >
                     <div class="close-icon" v-if="isShowCode" @click.stop="closeCode">
@@ -97,9 +97,14 @@
             }
         }
     }
+    .my-call.hidden{
+        z-index: 0 !important;
+        display: none;
+    }
 
     .my-call.big {
         position: relative !important;
+        z-index: 111;
         .code-content {
             position: fixed;
             top: 0;
