@@ -18,8 +18,8 @@
                 <!--<img src="./sign-in.png" alt="signIn">-->
               </div>
               <div class="absolute user-content">
-                <img class="user-img" src="./share-btn.png" alt="">
-                <div class="user-name">晓风残月</div>
+                <img class="user-img" :src="require('../head_default.png')" alt="">
+                <div class="user-name">{{ user.realName }}</div>
               </div>
             </div>
             <div class="wonderful-box" style="margin: 0 10px">
@@ -57,6 +57,7 @@ export default {
   },
   data(){
     return {
+        user: JSON.parse(localStorage.user),
       activeIndex: 0,
       logo: require("./logo.png"),
       banner: require("./banner.png"),

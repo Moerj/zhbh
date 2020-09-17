@@ -126,6 +126,7 @@
             font-size: 12px;
             color: #fff;
             line-height: 20px;
+            word-break: keep-all;
         }
     }
     .block{
@@ -241,7 +242,7 @@ import pwdIcon from '../../static/images/ icon-gzzh.png'
             joinCode: data.joinCode.toUpperCase(),
             phoneNo: data.phoneNo,
             openId: wxData.openId,
-            wxNickName: wxData.nick,
+            nickName: wxData.nick,
           };
           this.$store.dispatch("login", param).then((res) => {
               // userRole 1.参会嘉宾  2 服务志愿者 3 媒体工作者
