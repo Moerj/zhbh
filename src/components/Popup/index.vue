@@ -19,8 +19,9 @@
                 <img v-else style="width: 2rem;" :src="callImg" />
             </div>
         </div>
-        <div v-if="!isShowCode" style="font-size: 0.5rem;text-align: center;margin-top: 0.25rem">
-            文旅惠民券
+        <div v-if="!isShowCode" style="text-align: center;margin-top: 0.1875rem;">
+            <div style="font-size: 0.5rem;line-height: 0.5rem;">文旅</div>
+            <div style="font-size: 0.5rem;">惠民券</div>
         </div>
     </nut-drag>
 </template>
@@ -47,11 +48,11 @@
                 })
             },
             click() {
-                this.$emit('click-z-index',true)
+                this.$emit('click-popup',true)
                 this.isShowCode = true;
             },
             closeCode(ev) {
-                this.$emit('click-z-index',false)
+                this.$emit('click-popup',false)
                 this.isShowCode = false;
             },
             openCoupons(){
@@ -66,6 +67,7 @@
 
 <style lang="scss" scoped>
     .my-pupon.mini {
+        /*position: absolute;*/
         right: 2%;
         bottom: 10%;
         border-radius: 5px ;
@@ -75,6 +77,10 @@
         padding: 0.4rem 0.3rem 0.4rem 0.3rem;
         width: 3.757rem;
         height: 3.75rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
         .code-content {
             display: flex;
             justify-content: center;
